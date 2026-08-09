@@ -88,7 +88,7 @@ namespace InventoryTools.Ui
             }
             else
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Type: ")) + string.Join(", ", bNpc.MobTypes.Select(c => c.ToString())));
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Type: ")) + string.Join(", ", bNpc.MobTypes.Select(c => LocalizationService.Ui(c.ToString()))));
 
                 if (bNpc.NotoriousMonster != null)
                 {

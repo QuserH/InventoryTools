@@ -33,8 +33,7 @@ public class ItemQuickVentureSourceRenderer : ItemInfoRenderer<ItemQuickVentureS
          using (ImRaii.PushIndent())
          {
              ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Venture Cost: {0}"), asSource.RetainerTaskRow.Base.VentureCost));
-             ImGui.Text(
-                 $"Time: {asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString()}");
+             ImGui.Text(LocalizationService.Ui("Time: ") + asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString());
          }
     };
 

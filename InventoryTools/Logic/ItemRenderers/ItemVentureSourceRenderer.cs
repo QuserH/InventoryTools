@@ -131,18 +131,18 @@ public abstract class ItemVentureSourceRenderer<T> : ItemInfoRenderer<T> where T
             if (asSource.RetainerTaskRow.Base.RequiredGathering != 0)
             {
                 ImGui.Text(
-                    $"Required Gathering: {asSource.RetainerTaskRow.Base.RequiredGathering}");
+                    LocalizationService.Ui("Required Gathering: ") + asSource.RetainerTaskRow.Base.RequiredGathering);
             }
 
             if (asSource.RetainerTaskRow.Base.RequiredItemLevel != 0)
             {
                 ImGui.Text(
-                    $"Required Item Level: {asSource.RetainerTaskRow.Base.RequiredItemLevel}");
+                    LocalizationService.Ui("Required Item Level: ") + asSource.RetainerTaskRow.Base.RequiredItemLevel);
             }
 
-            ImGui.Text($"Experience: {asSource.RetainerTaskRow.Base.Experience}");
+            ImGui.Text(LocalizationService.Ui("Experience: ") + asSource.RetainerTaskRow.Base.Experience);
             ImGui.Text(
-                $"Time: {asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString()}");
+                LocalizationService.Ui("Time: ") + asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString());
         }
     };
 

@@ -146,7 +146,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                 },
                 Draw = (ex, contentTypeId) =>
                 {
-                    ImGui.TextUnformatted(String.Join(",", ex.MobTypes.Select(d => d.ToString())));
+                    ImGui.TextUnformatted(String.Join(",", ex.MobTypes.Select(d => LocalizationService.Ui(d.ToString()))));
                 }
             },
             new("Locations", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
