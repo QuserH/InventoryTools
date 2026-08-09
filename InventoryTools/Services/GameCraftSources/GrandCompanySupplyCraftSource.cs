@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CriticalCommonLib.Services.Ui;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services.GameCraftSources
 {
@@ -31,13 +32,13 @@ namespace InventoryTools.Services.GameCraftSources
                 var categories = new List<GameCraftCategory>();
                 if (AgentHasItems(0, FirstProvisioningPosition))
                 {
-                    categories.Add(new GameCraftCategory("Supply Missions",
+                    categories.Add(new GameCraftCategory(LocalizationService.Ui("Supply Missions"),
                         () => GetAgentItems(0, FirstProvisioningPosition)));
                 }
 
                 if (AgentHasItems(FirstProvisioningPosition, FirstExpertDeliveryPosition))
                 {
-                    categories.Add(new GameCraftCategory("Provisioning Missions",
+                    categories.Add(new GameCraftCategory(LocalizationService.Ui("Provisioning Missions"),
                         () => GetAgentItems(FirstProvisioningPosition, FirstExpertDeliveryPosition)));
                 }
 
@@ -53,7 +54,7 @@ namespace InventoryTools.Services.GameCraftSources
                 if (ContentsInfoDetailHasItems(ContentsInfoDetailSupplyFirstItemIdIndex,
                         ContentsInfoDetailSupplyLastItemIdIndex, ContentsInfoDetailSupplyRequestedOffset))
                 {
-                    categories.Add(new GameCraftCategory("Supply Missions",
+                    categories.Add(new GameCraftCategory(LocalizationService.Ui("Supply Missions"),
                         () => GetContentsInfoDetailItems(ContentsInfoDetailSupplyFirstItemIdIndex,
                             ContentsInfoDetailSupplyLastItemIdIndex, ContentsInfoDetailSupplyRequestedOffset)));
                 }
@@ -61,7 +62,7 @@ namespace InventoryTools.Services.GameCraftSources
                 if (ContentsInfoDetailHasItems(ContentsInfoDetailProvisioningFirstItemIdIndex,
                         ContentsInfoDetailProvisioningLastItemIdIndex, ContentsInfoDetailProvisioningRequestedOffset))
                 {
-                    categories.Add(new GameCraftCategory("Provisioning Missions",
+                    categories.Add(new GameCraftCategory(LocalizationService.Ui("Provisioning Missions"),
                         () => GetContentsInfoDetailItems(ContentsInfoDetailProvisioningFirstItemIdIndex,
                             ContentsInfoDetailProvisioningLastItemIdIndex,
                             ContentsInfoDetailProvisioningRequestedOffset)));

@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -18,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "HighlightDestination";
-        public override string Name { get; set; } = "Highlight Destination?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Destination?"));
 
         public override string HelpText { get; set; } =
-            "Should the destination for items be highlighted? This can be overridden in the filter configuration.";
+            LocalizationService.Ui(LocalizationService.Ui("Should the destination for items be highlighted? This can be overridden in the filter configuration."));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

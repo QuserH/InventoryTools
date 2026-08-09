@@ -1,4 +1,5 @@
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
@@ -21,12 +22,12 @@ public class HasBeenGatheredColumn : CheckboxColumn
         return _gameInterface.IsItemGathered(searchResult.Item.RowId);
     }
 
-    public override string Name { get; set; } = "Logged in Gathering Log?";
-    public override string RenderName => "Logged?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Logged in Gathering Log?"));
+    public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Logged?"));
     public override float Width { get; set; } = 80;
 
     public override string HelpText { get; set; } =
-        "Has this gathering item been gathered at least once by the currently logged in character? This only supports mining and botany at present.";
+        LocalizationService.Ui(LocalizationService.Ui("Has this gathering item been gathered at least once by the currently logged in character? This only supports mining and botany at present."));
 
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;

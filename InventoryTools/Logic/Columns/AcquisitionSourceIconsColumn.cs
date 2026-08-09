@@ -23,6 +23,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -46,11 +47,11 @@ namespace InventoryTools.Logic.Columns
             _sourceCategorySelectorSetting = sourceCategorySelectorSetting;
             _itemInfoRenderService = itemInfoRenderService;
             _stringColumnFactory = stringColumnFactory;
-            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", "Search for a source that requires a specific item.",
+            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", LocalizationService.Ui("Search for a source that requires a specific item."),
                 null);
-            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", "Search for a source that rewards a specific item. While this might seem redundant, certain sources provide more than one item.",
+            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", LocalizationService.Ui("Search for a source that rewards a specific item. While this might seem redundant, certain sources provide more than one item."),
                 null);
-            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", "Search for a source in a specific map.",
+            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", LocalizationService.Ui("Search for a source in a specific map."),
                 null);
             _mapSheet = mapSheet;
 
@@ -141,11 +142,11 @@ namespace InventoryTools.Logic.Columns
             return String.Join(", ", itemSources.Select(c => _itemInfoRenderService.GetSourceDescription(c)));
         }
 
-        public override string Name { get; set; } = "Acquisition";
+        public override string Name { get; set; } = LocalizationService.Ui("Acquisition");
         public override float Width { get; set; } = 250;
 
         public override string HelpText { get; set; } =
-            "Shows icons indicating what items can be obtained with(gathering, crafting, currency, etc)";
+            LocalizationService.Ui(LocalizationService.Ui("Shows icons indicating what items can be obtained with(gathering, crafting, currency, etc)"));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override IEnumerable<SearchResult> Filter(ColumnConfiguration columnConfiguration,

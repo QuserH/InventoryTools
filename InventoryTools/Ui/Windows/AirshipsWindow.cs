@@ -16,6 +16,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using ImGuiUtil = OtterGui.ImGuiUtil;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -33,7 +34,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
     }
     public override void Initialize()
     {
-        WindowName = GenericName;
+        WindowName = LocalizationService.Ui(GenericName);
         Key = GenericKey;
         _columns = new List<TableColumn<AirshipExplorationPointRow>>()
         {
@@ -73,7 +74,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted(ex.Base.NameShort.ExtractText().ToString());
                 }
             },
-            new("Unlock Zone", 150, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Unlock Zone"), 150, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -100,7 +101,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     }
                 }
             },
-            new("Rank Required", 100, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Rank Required"), 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -124,7 +125,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.RankReq.ToString() ?? "").ToString());
                 }
             },
-            new("Ceruleum Required", 100, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Ceruleum Required"), 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -148,7 +149,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.CeruleumTankReq.ToString() ?? "").ToString());
                 }
             },
-            new("Survey Duration (minutes)", 100, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Survey Duration (minutes)"), 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -172,7 +173,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.SurveyDurationmin.ToString() ?? "").ToString());
                 }
             },
-            new("Surveillance Required", 100, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Surveillance Required"), 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -269,7 +270,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
     }
 
     public override string GenericKey => "airships";
-    public override string GenericName => "Airships";
+    public override string GenericName => LocalizationService.Ui("Airships");
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

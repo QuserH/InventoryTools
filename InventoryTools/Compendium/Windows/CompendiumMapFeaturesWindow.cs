@@ -16,6 +16,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Windows;
 
@@ -39,7 +40,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
         MediatorService mediator,
         ImGuiService imGuiService,
         InventoryToolsConfiguration configuration)
-        : base(logger, mediator, imGuiService, configuration, "Territory Compendium")
+        : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui(LocalizationService.Ui("Territory Compendium")))
     {
         _compendiumTypes = compendiumTypes;
         _territoryTypeCompendiumType = territoryTypeCompendiumType;
@@ -51,7 +52,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
         base.Initialize(windowId);
 
         var relatedRows = _territoryTypeCompendiumType.GetRow(windowId);
-        _territoryName = relatedRows?.FirstOrDefault()?.Base.PlaceName.ValueNullable?.Name.ToImGuiString() ?? "Unknown Territory";
+        _territoryName = relatedRows?.FirstOrDefault()?.Base.PlaceName.ValueNullable?.Name.ToImGuiString() ?? LocalizationService.Ui("Unknown Territory");
         WindowName = _territoryName + " - " + "POIs";
         var relatedIds = relatedRows?.Select(c => c.RowId).ToHashSet() ?? [];
 
@@ -93,7 +94,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
     {
         if (_results.Count == 0)
         {
-            ImGui.TextUnformatted("No entries found for this territory.");
+            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("No entries found for this territory.")));
             return;
         }
 
@@ -109,7 +110,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
 
         const float sidebarWidth = 220f;
 
-        using (var sidebar = ImRaii.Child("##sidebar", new Vector2(sidebarWidth, 0), true))
+        using (var sidebar = ImRaii.Child(LocalizationService.Ui("##sidebar"), new Vector2(sidebarWidth, 0), true))
         {
             if (sidebar)
             {
@@ -122,7 +123,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
                         var originalX = ImGui.GetCursorScreenPos().X;
                         var isSelected = _selectedType == type;
 
-                        if (ImGui.Selectable("##selectable", isSelected, ImGuiSelectableFlags.None, new Vector2(0, 40)))
+                        if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("##selectable")), isSelected, ImGuiSelectableFlags.None, new Vector2(0, 40)))
                         {
                             _selectedType = type;
                         }
@@ -144,7 +145,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
                             ImGui.SameLine();
                         }
 
-                        ImGui.TextUnformatted($"{type.Plural} ({rows.Count})");
+                        ImGui.TextUnformatted(LocalizationService.Format("{0} ({1})", type.Plural, rows.Count));
 
                         ImGui.SetCursorScreenPos(new Vector2(originalX, max.Y));
                     }
@@ -154,14 +155,14 @@ public class CompendiumMapFeaturesWindow : UintWindow
 
         ImGui.SameLine();
 
-        using (var content = ImRaii.Child("##content", new Vector2(0, 0), false))
+        using (var content = ImRaii.Child(LocalizationService.Ui("##content"), new Vector2(0, 0), false))
         {
             if (!content || _selectedType == null)
                 return;
 
             var rows = _results[_selectedType];
 
-            ImGui.TextUnformatted($"{_selectedType.Plural} ({rows.Count})");
+            ImGui.TextUnformatted(LocalizationService.Format("{0} ({1})", _selectedType.Plural, rows.Count));
             ImGui.Separator();
 
             var clipper = new ImGuiListClipper();
@@ -182,7 +183,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
                     {
                         var originalX = ImGui.GetCursorScreenPos().X;
 
-                        if (ImGui.Selectable("##" + rowId, false, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, 50)))
+                        if (ImGui.Selectable(LocalizationService.Ui("##") + rowId, false, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, 50)))
                         {
                             MediatorService.Publish(new ToggleCompendiumViewMessage(_selectedType, rowId));
                         }
@@ -249,7 +250,7 @@ public class CompendiumMapFeaturesWindow : UintWindow
     public override FilterConfiguration? SelectedConfiguration => null;
 
     public override string GenericKey => "territory_compendium";
-    public override string GenericName => "Territory Compendium";
+    public override string GenericName => LocalizationService.Ui("Territory Compendium");
     public override bool DestroyOnClose => true;
     public override bool SaveState => true;
     public override Vector2? DefaultSize => new Vector2(700, 600);

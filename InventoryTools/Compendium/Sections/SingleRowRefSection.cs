@@ -12,6 +12,7 @@ using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -54,7 +55,7 @@ public class SingleRowRefSection : ViewSection
         }
     }
 
-    public override string SectionName => _options.SectionName ?? "Related " + (_relatedCompendiumType?.Singular ?? "Object");
+    public override string SectionName => _options.SectionName ?? LocalizationService.Ui("Related ") + (_relatedCompendiumType?.Singular ?? "Object");
     public override bool IsEmpty(SectionState sectionState)
     {
         if (_relatedCompendiumType == null)
@@ -79,11 +80,11 @@ public class SingleRowRefSection : ViewSection
         {
             if (_refType == null)
             {
-                ImGui.Text("Unknown related row type.");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown related row type.")));
             }
             else
             {
-                ImGui.Text("No matching compendium type for " + _refType.Name);
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No matching compendium type for ")) + _refType.Name);
             }
         }
         else

@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -10,9 +11,9 @@ namespace InventoryTools.Logic.Filters
     public class HighlightDestinationFilter : BooleanFilter
     {
         public override string Key { get; set; } = "HighlightDestination";
-        public override string Name { get; set; } = "Highlight Destination Duplicates?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Destination Duplicates?"));
         public override string HelpText { get; set; } =
-            "Should any items that match in the destination bag be highlighted?";
+            LocalizationService.Ui(LocalizationService.Ui("Should any items that match in the destination bag be highlighted?"));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
         public override FilterType AvailableIn { get; set; } = FilterType.SortingFilter;
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

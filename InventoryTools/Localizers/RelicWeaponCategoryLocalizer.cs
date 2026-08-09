@@ -1,5 +1,6 @@
 using System;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -10,17 +11,17 @@ public class RelicWeaponCategoryLocalizer : ILocalizer<RelicWeaponCategory>
         switch (instance)
         {
             case RelicWeaponCategory.Zodiac:
-                return  "Zodiac Weapons";
+                return  LocalizationService.Ui("Zodiac Weapons");
             case RelicWeaponCategory.Anima:
-                return  "Anima Weapons";
+                return  LocalizationService.Ui("Anima Weapons");
             case RelicWeaponCategory.Eurekan:
-                return  "Eurekan Weapons";
+                return  LocalizationService.Ui("Eurekan Weapons");
             case RelicWeaponCategory.Resistance:
-                return  "Resistance Weapons";
+                return  LocalizationService.Ui("Resistance Weapons");
             case RelicWeaponCategory.Manderville:
-                return  "Manderville Weapons";
+                return  LocalizationService.Ui("Manderville Weapons");
             case RelicWeaponCategory.Phantom:
-                return  "Phantom Weapons";
+                return  LocalizationService.Ui("Phantom Weapons");
         }
         return instance.ToString();
     }

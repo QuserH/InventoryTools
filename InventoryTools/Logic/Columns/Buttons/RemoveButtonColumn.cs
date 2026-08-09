@@ -6,6 +6,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Buttons;
 
@@ -34,7 +35,7 @@ public class RemoveButtonColumn : ButtonColumn
             ImGui.Dummy(new Vector2(0,0));
             return null;
         }
-        if (ImGui.Button("X##RM" + rowIndex + "_" + columnIndex))
+        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("X##RM")) + rowIndex + "_" + columnIndex))
         {
             if (searchResult.CraftItem != null && searchResult.CraftItem.IsOutputItem)
             {
@@ -45,13 +46,13 @@ public class RemoveButtonColumn : ButtonColumn
                 configuration.RemoveCuratedItem(searchResult.CuratedItem);
             }
         }
-        ImGuiUtil.HoverTooltip("Remove this item");
+        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Remove this item")));
 
         return null;
     }
 
     public override bool HideHeaderLabel => true;
-    public override string Name { get; set; } = "Remove";
+    public override string Name { get; set; } = LocalizationService.Ui("Remove");
     public override float Width { get; set; } = 60;
-    public override string HelpText { get; set; } = "Adds a button for quickly removing items from your list";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Adds a button for quickly removing items from your list"));
 }

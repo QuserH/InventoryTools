@@ -10,6 +10,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -47,8 +48,8 @@ public class UseTypeSelectorSetting : MultiChoiceColumnSetting<(ItemInfoType,str
 
 
     public override string Key { get; set; } = "UseTypes";
-    public override string Name { get; set; } = "Types";
-    public override string HelpText { get; set; } = "Which use types should this display?";
+    public override string Name { get; set; } = LocalizationService.Ui("Types");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which use types should this display?"));
     public override List<(ItemInfoType,string)>? DefaultValue { get; set; } = null;
     public override List<(ItemInfoType,string)> GetChoices(ColumnConfiguration configuration)
     {

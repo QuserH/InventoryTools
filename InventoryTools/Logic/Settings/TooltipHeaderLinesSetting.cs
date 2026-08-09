@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -18,10 +19,10 @@ public class TooltipHeaderLinesSetting : IntegerSetting
     }
 
     public override string Key { get; set; } = "TooltipDisplayHeader";
-    public override string Name { get; set; } = "Header New Lines";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Header New Lines"));
 
     public override string HelpText { get; set; } =
-        "How many new lines should be added above any tooltip modifications made by this plugin?";
+        LocalizationService.Ui(LocalizationService.Ui("How many new lines should be added above any tooltip modifications made by this plugin?"));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Visuals;

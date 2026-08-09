@@ -5,6 +5,7 @@ using AllaganLib.Shared.Extensions;
 using CriticalCommonLib;
 using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
@@ -38,7 +39,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
             }
             else
             {
-                worldName = " (Unknown World)";
+                worldName = LocalizationService.Ui(" (Unknown World)");
             }
             return (worldName, null);
         }
@@ -59,10 +60,10 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
     }
 
     public override string Key { get; set; } = "CraftWorldPricePreference";
-    public override string Name { get; set; } = "World Price Preference";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("World Price Preference"));
 
     public override string HelpText { get; set; } =
-        "Which worlds should prices be sourced from?";
+        LocalizationService.Ui(LocalizationService.Ui("Which worlds should prices be sourced from?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override Dictionary<uint, (string, string?)> DefaultValue { get; set; } = new();
@@ -112,15 +113,15 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
 
         var currentValue = CurrentValue(configuration);
         ImGui.SetNextItemWidth(LabelSize);
-        ImGui.LabelText("##" + Key + "Label", "Add new world: ");
+        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", LocalizationService.Ui("Add new world: "));
         ImGui.SameLine();
         var currentAddItem = "";
-        using (var combo = ImRaii.Combo("##AddWorld" + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo(LocalizationService.Ui("##AddWorld") + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText("##ItemSearch", ref searchString, 50);
+                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
@@ -129,7 +130,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
                 ImGui.Separator();
                 if (_searchString == "")
                 {
-                    ImGui.TextUnformatted("Start typing to search...");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
                 }
                 foreach (var item in SearchWorlds.Where(c => !currentValue.ContainsKey(c.RowId)))
                 {

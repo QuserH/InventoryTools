@@ -29,6 +29,7 @@ using InventoryTools.Logic.Settings;
 using InventoryTools.Mediator;
 using InventoryTools.Ui;
 using Lumina.Data;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -142,40 +143,52 @@ public class ItemInfoRenderService : IDisposable
         switch (renderCategory)
         {
             case ItemInfoRenderCategory.Gathering:
-                return "Gathering";
+                return LocalizationService.Ui("Gathering");
             case ItemInfoRenderCategory.Mining:
-                return "Mining";
+                return LocalizationService.Ui("Mining");
             case ItemInfoRenderCategory.Botany:
-                return "Botany";
+                return LocalizationService.Ui("Botany");
             case ItemInfoRenderCategory.EphemeralGathering:
-                return "Gathering (Ephemeral)";
+                return LocalizationService.Ui("Gathering (Ephemeral)");
             case ItemInfoRenderCategory.TimedGathering:
-                return "Gathering (Timed)";
+                return LocalizationService.Ui("Gathering (Timed)");
             case ItemInfoRenderCategory.HiddenGathering:
-                return "Gathering (Hidden)";
+                return LocalizationService.Ui("Gathering (Hidden)");
             case ItemInfoRenderCategory.Fishing:
-                return "Fishing";
+                return LocalizationService.Ui("Fishing");
             case ItemInfoRenderCategory.Venture:
-                return "Venture";
+                return LocalizationService.Ui("Venture");
             case ItemInfoRenderCategory.ExplorationVenture:
-                return "Venture (Exploration)";
+                return LocalizationService.Ui("Venture (Exploration)");
             case ItemInfoRenderCategory.Crafting:
-                return "Crafting";
+                return LocalizationService.Ui("Crafting");
             case ItemInfoRenderCategory.Leve:
-                return "Leves";
+                return LocalizationService.Ui("Leves");
             case ItemInfoRenderCategory.Duty:
-                return "Duties";
+                return LocalizationService.Ui("Duties");
             case ItemInfoRenderCategory.Shop:
-                return "Shops";
+                return LocalizationService.Ui("Shops");
             case ItemInfoRenderCategory.House:
-                return "Housing";
+                return LocalizationService.Ui("Housing");
             case ItemInfoRenderCategory.RelicWeapon:
-                return "Relic Weapon";
+                return LocalizationService.Ui("Relic Weapon");
             case ItemInfoRenderCategory.RelicTool:
-                return "Relic Tool";
+                return LocalizationService.Ui("Relic Tool");
+            case ItemInfoRenderCategory.FieldOperation:
+                return LocalizationService.Ui("Field Operation");
+            case ItemInfoRenderCategory.OccultCrescent:
+                return LocalizationService.Ui("Occult Crescent");
+            case ItemInfoRenderCategory.Pagos:
+                return LocalizationService.Ui("Pagos");
+            case ItemInfoRenderCategory.Pyros:
+                return LocalizationService.Ui("Pyros");
+            case ItemInfoRenderCategory.Hydatos:
+                return LocalizationService.Ui("Hydatos");
+            case ItemInfoRenderCategory.DeepDungeon:
+                return LocalizationService.Ui("Deep Dungeon");
         }
 
-        return renderCategory.ToString().Titleize();
+        return LocalizationService.Ui(renderCategory.ToString().Titleize());
     }
 
     public string GetRelationshipName(RelationshipType relationshipType)
@@ -183,31 +196,31 @@ public class ItemInfoRenderService : IDisposable
         switch (relationshipType)
         {
             case RelationshipType.None:
-                return "None";
+                return LocalizationService.Ui("None");
             case RelationshipType.CraftedInto:
-                return "Crafted Into";
+                return LocalizationService.Ui("Crafted Into");
             case RelationshipType.CraftedFrom:
-                return "Crafted From";
+                return LocalizationService.Ui("Crafted From");
             case RelationshipType.Rewards:
-                return "Rewards";
+                return LocalizationService.Ui("Rewards");
             case RelationshipType.Required:
-                return "Required For";
+                return LocalizationService.Ui("Required For");
             case RelationshipType.DropsFrom:
-                return "Drops From";
+                return LocalizationService.Ui("Drops From");
             case RelationshipType.Purchaseable:
-                return "Purchaseable";
+                return LocalizationService.Ui("Purchaseable");
             case RelationshipType.RelatedTo:
-                return "Related To";
+                return LocalizationService.Ui("Related To");
             case RelationshipType.PurchasedWith:
-                return "Purchased With";
+                return LocalizationService.Ui("Purchased With");
             case RelationshipType.UsedIn:
-                return "Used In";
+                return LocalizationService.Ui("Used In");
             case RelationshipType.StoredIn:
-                return "Stored In";
+                return LocalizationService.Ui("Stored In");
             case RelationshipType.CollectedFrom:
-                return "Collected From";
+                return LocalizationService.Ui("Collected From");
             case RelationshipType.InSet:
-                return "In Set";
+                return LocalizationService.Ui("In Set");
         }
 
         return relationshipType.Humanize();
@@ -275,7 +288,7 @@ public class ItemInfoRenderService : IDisposable
             return renderer.HelpText;
         }
 
-        return "Can this item be sourced via " + type.ToString();
+        return LocalizationService.Ui("Can this item be sourced via ") + type.ToString();
     }
 
     public (string Singular, string? Plural) GetSourceTypeName(Type type)
@@ -305,7 +318,7 @@ public class ItemInfoRenderService : IDisposable
             return renderer.HelpText;
         }
 
-        return "Can this item be used for " + type.ToString();
+        return LocalizationService.Ui("Can this item be used for ") + type.ToString();
     }
 
 
@@ -530,7 +543,7 @@ public class ItemInfoRenderService : IDisposable
 
                 if (rendererType == RendererType.Source)
                 {
-                    ImGui.Text("Item");
+                    ImGui.Text(LocalizationService.Ui("Item"));
                     ImGui.Separator();
                     foreach (var item in items)
                     {
@@ -550,7 +563,7 @@ public class ItemInfoRenderService : IDisposable
                     if (costItems.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.Text("Related Items:");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Related Items:")));
                         ImGui.Separator();
                         foreach (var item in costItems)
                         {
@@ -572,7 +585,7 @@ public class ItemInfoRenderService : IDisposable
                 {
                     if (costItems.Count > 0)
                     {
-                        ImGui.Text("Items:");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items:")));
                         ImGui.Separator();
                         foreach (var item in costItems)
                         {
@@ -593,7 +606,7 @@ public class ItemInfoRenderService : IDisposable
                     if (items.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.Text("Related Items");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Related Items")));
                         ImGui.Separator();
                         foreach (var item in items)
                         {
@@ -621,14 +634,14 @@ public class ItemInfoRenderService : IDisposable
                 if (popup.Success)
                 {
                     var typeName = (rendererType == RendererType.Source ? this.GetSourceTypeName(firstItem.GetType()) : this.GetUseTypeName(firstItem.GetType()));
-                    ImGui.Text("Pick a " + (typeName.Plural ?? typeName.Singular));
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Pick a ")) + (typeName.Plural ?? typeName.Singular));
                     ImGui.Separator();
                     for (var index = 0; index < itemSources.Count; index++)
                     {
                         var source = itemSources[index];
                         using (ImRaii.PushId(index))
                         {
-                            if (ImGui.Selectable(sourceRenderer?.GetName(source) ?? "No Name"))
+                            if (ImGui.Selectable(sourceRenderer?.GetName(source) ?? LocalizationService.Ui("No Name")))
                             {
                                 var newMessages = sourceRenderer?.OnClick?.Invoke(source);
                                 if (newMessages != null)
@@ -705,7 +718,7 @@ public class ItemInfoRenderService : IDisposable
                             if (costItems.Count > 0)
                             {
                                 ImGui.NewLine();
-                                ImGui.Text("Related Items");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Related Items")));
                                 ImGui.Separator();
                                 foreach (var item in costItems)
                                 {
@@ -755,7 +768,7 @@ public class ItemInfoRenderService : IDisposable
                             {
                                 using (ImRaii.PushId("costItem"))
                                 {
-                                    ImGui.Text("Items:");
+                                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items:")));
                                     ImGui.Separator();
                                     foreach (var item in costItems)
                                     {
@@ -784,7 +797,7 @@ public class ItemInfoRenderService : IDisposable
 
                                 using (ImRaii.PushId("relatedItem"))
                                 {
-                                    ImGui.Text("Related Items");
+                                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Related Items")));
                                     ImGui.Separator();
                                     foreach (var item in items)
                                     {
@@ -844,8 +857,8 @@ public class ItemInfoRenderService : IDisposable
                 {
                     ImGui.Separator();
                     if (ImGui.Selectable(rendererType == RendererType.Source
-                            ? "Copy Source Information"
-                            : "Copy Use Information"))
+                            ? LocalizationService.Ui("Copy Source Information")
+                            : LocalizationService.Ui("Copy Use Information")))
                     {
                         var typeName = rendererType == RendererType.Source
                             ? this.GetSourceTypeName(firstItem.GetType())
@@ -862,7 +875,7 @@ public class ItemInfoRenderService : IDisposable
                 if (relatedTypes.Count > 0)
                 {
                     ImGui.NewLine();
-                    ImGui.Text("Compendium Entries");
+                    ImGui.Text(LocalizationService.Ui("Compendium Entries"));
                     ImGui.Separator();
 
                     foreach (var relatedGroup in relatedTypes)
@@ -1029,9 +1042,9 @@ public class ItemInfoRenderService : IDisposable
             _lastTooltipTime = _framework.LastUpdate;
             using (ImRaii.Tooltip())
             {
-                ImGui.Text("No tooltip configured for " + (rendererType == RendererType.Source
+                ImGui.Text(LocalizationService.Ui("No tooltip configured for ") + (rendererType == RendererType.Source
                     ? this.GetSourceTypeName(firstItem.GetType())
-                    : this.GetUseTypeName(firstItem.GetType())).Singular + ", please report this!");
+                    : this.GetUseTypeName(firstItem.GetType())).Singular + LocalizationService.Ui(", please report this!"));
             }
         }
     }

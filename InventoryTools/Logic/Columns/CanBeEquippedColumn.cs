@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -17,7 +18,7 @@ public class CanBeEquippedColumn : CheckboxColumn
     {
         return searchResult.Item.Base.EquipSlotCategory.RowId != 0;
     }
-    public override string Name { get; set; } = "Can be Equipped?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Equipped?"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "Can this item be equipped?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be equipped?"));
 }

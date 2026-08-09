@@ -1,5 +1,6 @@
 using System;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -48,27 +49,27 @@ public class RelicWeaponTypeLocalizer : ILocalizer<RelicWeaponType>
             case RelicWeaponType.EurekanBase:
                 return "Base";
             case RelicWeaponType.EurekanBase1:
-                return "Base + 1";
+                return LocalizationService.Ui("Base + 1");
             case RelicWeaponType.EurekanBase2:
-                return "Base + 2";
+                return LocalizationService.Ui("Base + 2");
             case RelicWeaponType.EurekanAnemos:
                 return "Anemos";
             case RelicWeaponType.EurekanPagos:
                 return "Pagos";
             case RelicWeaponType.EurekanPagos1:
-                return "Pagos + 1";
+                return LocalizationService.Ui("Pagos + 1");
             case RelicWeaponType.EurekanElemental:
                 return "Elemental";
             case RelicWeaponType.EurekanElemental1:
-                return "Elemental + 1";
+                return LocalizationService.Ui("Elemental + 1");
             case RelicWeaponType.EurekanElemental2:
-                return "Elemental + 2";
+                return LocalizationService.Ui("Elemental + 2");
             case RelicWeaponType.EurekanPyros:
                 return "Pyros";
             case RelicWeaponType.EurekanHydatos:
                 return "Hydatos";
             case RelicWeaponType.EurekanHydatos1:
-                return "Hydatos + 1";
+                return LocalizationService.Ui("Hydatos + 1");
             case RelicWeaponType.EurekanBaseEureka:
                 return "Base";
             case RelicWeaponType.EurekanEureka:
@@ -78,13 +79,13 @@ public class RelicWeaponTypeLocalizer : ILocalizer<RelicWeaponType>
             case RelicWeaponType.ResistanceResistance:
                 return "Resistance";
             case RelicWeaponType.ResistanceAugmentedResistance:
-                return "Augmented Resistance";
+                return LocalizationService.Ui("Augmented Resistance");
             case RelicWeaponType.ResistanceRecollection:
                 return "Recollection";
             case RelicWeaponType.ResistanceLawsOrder:
-                return "Laws Order";
+                return LocalizationService.Ui("Laws Order");
             case RelicWeaponType.ResistanceAugmentedLawsOrder:
-                return "Augmented Laws Order";
+                return LocalizationService.Ui("Augmented Laws Order");
             case RelicWeaponType.ResistanceBlades:
                 return "Blades";
             case RelicWeaponType.MandervilleManderville:

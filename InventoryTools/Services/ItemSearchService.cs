@@ -19,6 +19,7 @@ using InventoryTools.Mediator;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -54,7 +55,7 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
 
 
 
-        stringBuilder.Append("Searching for ");
+        stringBuilder.Append(LocalizationService.Ui("Searching for "));
 
         stringBuilder.AddUiForeground(0x0225)
             .AddUiGlow(0x0226)
@@ -114,9 +115,9 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        _logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+        _logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
         mediatorService.UnsubscribeAll(this);
-        _logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+        _logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
         return Task.CompletedTask;
     }
 

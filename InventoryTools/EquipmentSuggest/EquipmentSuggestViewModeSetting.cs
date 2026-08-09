@@ -4,6 +4,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -16,7 +17,7 @@ public enum EquipmentSuggestViewMode
 
 public class EquipmentSuggestViewModeSetting : GenericEnumChoiceSetting<EquipmentSuggestViewMode>
 {
-    public EquipmentSuggestViewModeSetting(ILogger<EquipmentSuggestViewModeSetting> logger, ImGuiService imGuiService) : base("EquipSuggestViewMode", "View Mode", "Should the equipment recommendation screen be compact or normal?", EquipmentSuggestViewMode.Normal, new(){{EquipmentSuggestViewMode.Normal, "Normal"}, {EquipmentSuggestViewMode.Expanded, "Expanded"}, {EquipmentSuggestViewMode.Compact, "Compact"}}, SettingCategory.EquipmentRecommendation, SettingSubCategory.General, "12.0.10", logger, imGuiService)
+    public EquipmentSuggestViewModeSetting(ILogger<EquipmentSuggestViewModeSetting> logger, ImGuiService imGuiService) : base("EquipSuggestViewMode", LocalizationService.Ui("View Mode"), LocalizationService.Ui("Should the equipment recommendation screen be compact or normal?"), EquipmentSuggestViewMode.Normal, new(){{EquipmentSuggestViewMode.Normal, "Normal"}, {EquipmentSuggestViewMode.Expanded, "Expanded"}, {EquipmentSuggestViewMode.Compact, "Compact"}}, SettingCategory.EquipmentRecommendation, SettingSubCategory.General, "12.0.10", logger, imGuiService)
     {
     }
 

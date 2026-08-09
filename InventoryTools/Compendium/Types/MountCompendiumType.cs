@@ -16,6 +16,7 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Ui;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -88,7 +89,7 @@ public class MountCompendiumType : CompendiumType<Mount>
     {
         return Factory.Invoke(new CompendiumTableOptions<Mount>()
         {
-            Name = "Mounts",
+            Name = LocalizationService.Ui("Mounts"),
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "mounts",
@@ -134,8 +135,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = "##Icon",
-            HelpText = "Mount icon",
+            Name = LocalizationService.Ui("##Icon"),
+            HelpText = LocalizationService.Ui("Mount icon"),
             Version = "14.1.2",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -145,8 +146,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "Name",
-            HelpText = "Mount name",
+            Name = LocalizationService.Ui("Name"),
+            HelpText = LocalizationService.Ui("Mount name"),
             Version = "14.1.2",
             ValueSelector = GetName
         });
@@ -154,8 +155,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddBooleanColumn(new()
         {
             Key = "unlocked",
-            Name = "Unlocked",
-            HelpText = "Is unlocked",
+            Name = LocalizationService.Ui("Unlocked"),
+            HelpText = LocalizationService.Ui("Is unlocked"),
             Version = "14.1.2",
             ValueSelector = r => _unlockState.IsMountUnlocked(r)
         });
@@ -164,8 +165,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddIntegerColumn(new()
         {
             Key = "seats",
-            Name = "Seats",
-            HelpText = "How many people does this mount seat?",
+            Name = LocalizationService.Ui("Seats"),
+            HelpText = LocalizationService.Ui("How many people does this mount seat?"),
             Version = "14.1.2",
             ValueSelector = r => (r.ExtraSeats + 1).ToString()
         });
@@ -173,8 +174,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddItemSourcesColumn(new()
         {
             Key = "sources",
-            Name = "Sources",
-            HelpText = "Mount sources",
+            Name = LocalizationService.Ui("Sources"),
+            HelpText = LocalizationService.Ui("Mount sources"),
             Version = "14.1.2",
             ValueSelector = r =>
             {
@@ -198,11 +199,11 @@ public class MountCompendiumType : CompendiumType<Mount>
             transient.Description.ToImGuiString();
 
         viewBuilder.AddTag(
-            () => _unlockState.IsMountUnlocked(row) ? "Unlocked" : "Not Unlocked",
-            () => "Is unlocked",
+            () => _unlockState.IsMountUnlocked(row) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
+            () => LocalizationService.Ui("Is unlocked"),
             () => _unlockState.IsMountUnlocked(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
 
-        viewBuilder.AddTag(() => "Seats " + (row.ExtraSeats + 1), () => "How many people does this mount seat?");
+        viewBuilder.AddTag(() => LocalizationService.Ui("Seats ") + (row.ExtraSeats + 1), () => LocalizationService.Ui("How many people does this mount seat?"));
 
         var relatedItem = GetRelatedItem(row.RowId);
 
@@ -211,7 +212,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "related_item",
-                SectionName = "Related Item",
+                SectionName = LocalizationService.Ui("Related Item"),
                 RelatedRef = relatedItem.Value.AsUntypedRowRef()
             });
             var sources =
@@ -221,7 +222,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
                 {
                     SectionKey = "sources",
-                    SectionName = "Sources",
+                    SectionName = LocalizationService.Ui("Sources"),
                     Sources = sources ?? [],
                     SourceType = SourceType.Source
                 });
@@ -232,7 +233,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "bgm",
-                SectionName = "BGM",
+                SectionName = LocalizationService.Ui("BGM"),
                 RelatedRef = row.RideBGM.Value.AsUntypedRowRef(),
             });
         }
@@ -251,11 +252,11 @@ public class MountCompendiumType : CompendiumType<Mount>
         return null;
     }
 
-    public override string Singular => "Mount";
-    public override string Plural => "Mounts";
+    public override string Singular => LocalizationService.Ui("Mount");
+    public override string Plural => LocalizationService.Ui("Mounts");
 
     public override string Description =>
-        "Unlockable mounts usable by the player.";
+        LocalizationService.Ui("Unlockable mounts usable by the player.");
 
     public override string Key => "mounts";
 

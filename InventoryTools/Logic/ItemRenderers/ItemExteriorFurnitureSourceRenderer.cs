@@ -7,6 +7,7 @@ using CriticalCommonLib.Models;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -19,8 +20,8 @@ public class ItemExteriorFurnitureSourceRenderer : ItemInfoRenderer<ItemExterior
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.ExteriorFurnitureItem;
-    public override string SingularName => "Exterior Furniture";
-    public override string HelpText => "Can the item be placed outside houses?";
+    public override string SingularName => LocalizationService.Ui("Exterior Furniture");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed outside houses?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory>? Categories => [ItemInfoRenderCategory.House];
 
@@ -37,6 +38,6 @@ public class ItemExteriorFurnitureSourceRenderer : ItemInfoRenderer<ItemExterior
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return "Can be placed outside a house.";
+        return LocalizationService.Ui("Can be placed outside a house.");
     };
 }

@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets;
@@ -34,7 +35,7 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
             }
             else
             {
-                itemName = " (Unknown Item)";
+                itemName = LocalizationService.Ui(" (Unknown Item)");
             }
             return (itemName, null);
         }
@@ -55,10 +56,10 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
     }
 
     public override string Key { get; set; } = "CraftZonePreference";
-    public override string Name { get; set; } = "Default Zone Order";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Zone Order"));
 
     public override string HelpText { get; set; } =
-        "When grouping items by zone, which zones should take preference?";
+        LocalizationService.Ui(LocalizationService.Ui("When grouping items by zone, which zones should take preference?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.ZonePreference;
     public override Dictionary<uint, (string, string?)> DefaultValue { get; set; } = new();
@@ -122,15 +123,15 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
 
         var currentValue = CurrentValue(configuration);
         ImGui.SetNextItemWidth(LabelSize);
-        ImGui.LabelText("##" + Key + "Label", "Add new zone: ");
+        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", LocalizationService.Ui("Add new zone: "));
         ImGui.SameLine();
         var currentAddItem = "";
-        using (var combo = ImRaii.Combo("##AddZone" + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo(LocalizationService.Ui("##AddZone") + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText("##ItemSearch", ref searchString, 50);
+                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
@@ -139,7 +140,7 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
                 ImGui.Separator();
                 if (_searchString == "")
                 {
-                    ImGui.TextUnformatted("Start typing to search...");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
                 }
                 foreach (var item in SearchTerritories.Where(c => !currentValue.ContainsKey(c.RowId)))
                 {

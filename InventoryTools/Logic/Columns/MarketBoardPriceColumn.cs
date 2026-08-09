@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Collections.Generic;
 using System.Numerics;
 using CriticalCommonLib.MarketBoard;
@@ -97,30 +98,30 @@ namespace InventoryTools.Logic.Columns
                             var pricing = _marketCache.GetPricing(searchResult.Item.RowId, selectedWorldId, false);
                             if (pricing is { recentHistory: null, listings: null })
                             {
-                                ImGui.Text("No data available");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No data available")));
                             }
 
                             if (pricing is { listings: not null })
                             {
-                                ImGui.Text("Listings: ");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Listings: ")));
                                 ImGui.Separator();
 
                                 foreach (var price in pricing.listings)
                                 {
-                                    ImGui.Text(price.quantity + " available at " + price.pricePerUnit +
-                                               (price.hq ? " (HQ)" : ""));
+                                    ImGui.Text(price.quantity + LocalizationService.Ui(" available at ") + price.pricePerUnit +
+                                               (price.hq ? LocalizationService.Ui(" (HQ)") : ""));
                                 }
                             }
 
                             if (pricing is { recentHistory: not null })
                             {
-                                ImGui.Text("History: ");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("History: ")));
                                 ImGui.Separator();
 
                                 foreach (var price in pricing.recentHistory)
                                 {
-                                    ImGui.Text(price.quantity + " available at " + price.pricePerUnit +
-                                               (price.hq ? " (HQ)" : ""));
+                                    ImGui.Text(price.quantity + LocalizationService.Ui(" available at ") + price.pricePerUnit +
+                                               (price.hq ? LocalizationService.Ui(" (HQ)") : ""));
                                 }
                             }
                         }
@@ -158,10 +159,10 @@ namespace InventoryTools.Logic.Columns
             return (Loading, Loading);
         }
 
-        public override string Name { get; set; } = "Market Board Average Price NQ/HQ";
-        public override string RenderName => "MB Avg. Price NQ/HQ";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Average Price NQ/HQ"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Avg. Price NQ/HQ"));
         public override string HelpText { get; set; } =
-            "Shows the average price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis.";
+            LocalizationService.Ui(LocalizationService.Ui("Shows the average price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis."));
         public override float Width { get; set; } = 200.0f;
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

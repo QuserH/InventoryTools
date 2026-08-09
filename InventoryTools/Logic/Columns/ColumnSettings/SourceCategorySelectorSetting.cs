@@ -11,6 +11,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -48,8 +49,8 @@ public class SourceCategorySelectorSetting : MultiChoiceColumnSetting<(ItemInfoR
 
 
     public override string Key { get; set; } = "SourceCategories";
-    public override string Name { get; set; } = "Categories";
-    public override string HelpText { get; set; } = "Which source categories should this display?";
+    public override string Name { get; set; } = LocalizationService.Ui("Categories");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which source categories should this display?"));
     public override List<(ItemInfoRenderCategory,string)>? DefaultValue { get; set; } = null;
     public override List<(ItemInfoRenderCategory,string)> GetChoices(ColumnConfiguration configuration)
     {

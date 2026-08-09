@@ -4,6 +4,7 @@ using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.WizardSettings;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -43,10 +44,10 @@ public class CraftNotificationsFeature : Feature
         _configuration = configuration;
     }
 
-    public override string Name => "Craft Notifications";
+    public override string Name => LocalizationService.Ui(LocalizationService.Ui("Craft Notifications"));
 
     public override string Description =>
-        "Configure how Allagan Tools notifies you as you acquire items for your craft lists. The default craft list and any of your existing craft lists will receive these notification settings. Notifications only occur while a craft list is active. This feature can be further configured in craft lists by editing the settings of your individual lists or the default craft list.";
+        LocalizationService.Ui("Configure how Allagan Tools notifies you as you acquire items for your craft lists. The default craft list and any of your existing craft lists will receive these notification settings. Notifications only occur while a craft list is active. This feature can be further configured in craft lists by editing the settings of your individual lists or the default craft list.");
 
     public override void OnFinish()
     {

@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -14,10 +15,10 @@ public class CraftWorldPriceUseDefaultsFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "CraftWorldPriceUseDefaults";
-    public override string Name { get; set; } = "Use Default Worlds?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Use Default Worlds?"));
 
     public override string HelpText { get; set; } =
-        "Should the worlds selected in 'Price Worlds' in the main settings be automatically used for pricing?";
+        LocalizationService.Ui(LocalizationService.Ui("Should the worlds selected in 'Price Worlds' in the main settings be automatically used for pricing?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;

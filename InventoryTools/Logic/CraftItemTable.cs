@@ -19,6 +19,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Localizers;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic
 {
@@ -90,7 +91,7 @@ namespace InventoryTools.Logic
                             using var tabItem = ImRaii.TabItem("No Items");
                             if (!tabItem.Success) return messages;
                             ImGui.TextWrapped(
-                                "No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin.");
+                                LocalizationService.Ui("No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin."));
                         }
                         else
                         {
@@ -215,7 +216,7 @@ namespace InventoryTools.Logic
                                     if (columnIndex == 1)
                                     {
                                         ImGui.TextWrapped(
-                                            "No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin.");
+                                            LocalizationService.Ui("No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin."));
                                     }
                                 }
                             }

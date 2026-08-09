@@ -13,6 +13,7 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Tooltips;
 
@@ -107,7 +108,7 @@ public class CofferLootTooltip : BaseTooltip
                 .DistinctBy(s => s.CostItem!.RowId)
                 .ToList();
 
-            newText += "\nAvailable in:";
+            newText += LocalizationService.Ui("\nAvailable in:");
             foreach (var source in uniqueCoffers)
             {
                 var cofferItem = source.CostItem!;

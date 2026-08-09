@@ -9,6 +9,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -100,16 +101,16 @@ namespace InventoryTools.Logic.Columns
         }
         public override string Name
         {
-            get => "Market Board " + _configuration.MarketSaleHistoryLimit + " Day Sale Count";
+            get => LocalizationService.Ui("Market Board ") + _configuration.MarketSaleHistoryLimit + LocalizationService.Ui(" Day Sale Count");
             set { }
         }
 
-        public override string RenderName => "MB " + _configuration.MarketSaleHistoryLimit + " Day Sales";
+        public override string RenderName => LocalizationService.Ui("MB ") + _configuration.MarketSaleHistoryLimit + LocalizationService.Ui(" Day Sales");
         public override string HelpText
         {
             get =>
-                "Shows the number of sales over a " + +_configuration.MarketSaleHistoryLimit +
-                " day period for the item. If no world is selected, your home world is used. This data is sourced from universalis.";
+                LocalizationService.Ui("Shows the number of sales over a ") + +_configuration.MarketSaleHistoryLimit +
+                LocalizationService.Ui(" day period for the item. If no world is selected, your home world is used. This data is sourced from universalis.");
             set { }
         }
 

@@ -14,6 +14,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -33,10 +34,10 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CraftRecipe;
-    public override string SingularName => "Craft Recipe";
+    public override string SingularName => LocalizationService.Ui("Craft Recipe");
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Crafting];
-    public override string HelpText => "Can the item be crafted via a craft recipe?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be crafted via a craft recipe?"));
     public override Func<ItemSource, List<MessageBase>?>? OnClick => source =>
     {
         var asSource = AsSource(source);
@@ -52,12 +53,12 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text($"Craft Type: {asSource.Recipe.Base.CraftType.Value.Name}");
-        ImGui.Text($"Yield: {asSource.Recipe.Base.AmountResult}");
-        ImGui.Text($"Difficulty: {asSource.Recipe.Base.DifficultyFactor}");
-        ImGui.Text($"Required Craftsmanship: {asSource.Recipe.Base.RequiredCraftsmanship}");
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Craft Type: {0}"), asSource.Recipe.Base.CraftType.Value.Name));
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Yield: {0}"), asSource.Recipe.Base.AmountResult));
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Difficulty: {0}"), asSource.Recipe.Base.DifficultyFactor));
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Required Craftsmanship: {0}"), asSource.Recipe.Base.RequiredCraftsmanship));
 
-        ImGui.Text("Ingredients:");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Ingredients:")));
         using (ImRaii.PushIndent())
         {
             foreach (var ingredient in asSource.Recipe.IngredientCounts)
@@ -65,7 +66,7 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
                 var item = _itemSheet.GetRow(ingredient.Key);
                 ImGui.Image(_textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 ImGui.SameLine();
-                ImGui.Text($"{item.NameString} x {ingredient.Value}");
+                ImGui.Text(LocalizationService.Format("{0} x {1}", item.NameString, ingredient.Value));
             }
         }
     };

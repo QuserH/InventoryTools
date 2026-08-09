@@ -12,6 +12,7 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Tooltips;
 
@@ -107,7 +108,7 @@ public class UseInformationTooltip : BaseTooltip
 
                     if (groupedLine.Count() > 20)
                     {
-                        textLines[^1] += " (" + (groupedLine.Count() - 20) + " more)";
+                        textLines[^1] += " (" + (groupedLine.Count() - 20) + LocalizationService.Ui(" more)");
                     }
                 }
                 else
@@ -119,7 +120,7 @@ public class UseInformationTooltip : BaseTooltip
             var newText = "";
             if (textLines.Count != 0)
             {
-                newText = "\nUses: " + string.Join(", ", textLines.Distinct());
+                newText = LocalizationService.Ui("\nUses: ") + string.Join(", ", textLines.Distinct());
             }
 
             newText = newText.TrimEnd('\n');

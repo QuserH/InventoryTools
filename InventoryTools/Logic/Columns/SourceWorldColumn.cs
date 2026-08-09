@@ -1,4 +1,5 @@
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
@@ -26,11 +27,11 @@ public class SourceWorldColumn : TextColumn
         return "";
     }
 
-    public override string Name { get; set; } = "Source World";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Source World"));
     public override float Width { get; set; } = 120;
 
     public override string HelpText { get; set; } =
-        "The world where the item is stored(be it in a character, retainer, free company)";
+        LocalizationService.Ui(LocalizationService.Ui("The world where the item is stored(be it in a character, retainer, free company)"));
 
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

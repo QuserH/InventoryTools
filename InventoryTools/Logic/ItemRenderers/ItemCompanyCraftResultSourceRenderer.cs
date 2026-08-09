@@ -11,6 +11,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -28,16 +29,16 @@ public class ItemCompanyCraftResultSourceRenderer : ItemInfoRenderer<ItemCompany
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.FreeCompanyCraftRecipe;
-    public override string SingularName => "Company Craft";
+    public override string SingularName => LocalizationService.Ui("Company Craft");
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Crafting];
-    public override string HelpText => "Is the item crafted at the company workshop as a company craft recipe?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is the item crafted at the company workshop as a company craft recipe?"));
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text($"Craft Type: {asSource.CompanyCraftSequence.Base.CompanyCraftType.Value.Name}");
-        ImGui.Text($"Parts: {asSource.CompanyCraftSequence.CompanyCraftParts.Length}");
-        DrawItems("Ingredients: ", asSource.CostItems);
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Craft Type: {0}"), asSource.CompanyCraftSequence.Base.CompanyCraftType.Value.Name));
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Parts: {0}"), asSource.CompanyCraftSequence.CompanyCraftParts.Length));
+        DrawItems(LocalizationService.Ui("Ingredients: "), asSource.CostItems);
     };
 
     public override Func<ItemSource, string> GetName => source =>

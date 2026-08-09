@@ -4,6 +4,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings.Abstract.Generic;
 
@@ -30,11 +31,11 @@ public abstract class GenericColorSetting : Setting<Vector4?>
     {
         var value = CurrentValue(configuration);
 
-        ImGui.LabelText("##" + Key + "Label", customName ?? Name);
+        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
 
         var enabled = value != null;
 
-        if (ImGui.Checkbox("Enable##"+Key+"Boolean", ref enabled))
+        if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("Enable##"))+Key+"Boolean", ref enabled))
         {
             if (value == null)
             {
@@ -62,7 +63,7 @@ public abstract class GenericColorSetting : Setting<Vector4?>
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##" + Key + "Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
             {
                 Reset(configuration);
             }

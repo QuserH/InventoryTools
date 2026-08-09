@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CriticalCommonLib.Services.Ui;
 using InventoryTools.Logic;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Overlays;
 
@@ -32,7 +33,7 @@ public abstract class GameOverlay<T> : IGameOverlay where T : AtkOverlay
 
     private void AtkOverlayOnAtkUpdated()
     {
-        Logger.LogTrace("ATK overlay event received, requesting state refresh.");
+        Logger.LogTrace(LocalizationService.Ui("ATK overlay event received, requesting state refresh."));
         NeedsStateRefresh = true;
     }
 

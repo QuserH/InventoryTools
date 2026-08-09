@@ -20,6 +20,7 @@ using Dalamud.Utility;
 using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -64,7 +65,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
         {
             CompendiumType = this,
             Key = "quests",
-            Name = "Quests",
+            Name = LocalizationService.Ui("Quests"),
             Columns = BuiltColumns
         });
     }
@@ -133,13 +134,13 @@ public class QuestCompendiumType : CompendiumType<Quest>
 
     public override void BuildColumns(CompendiumColumnBuilder<Quest> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the quest", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the quest", Version = "14.0.3", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "category", Name = "Category", HelpText = "The category of the quest", Version = "14.0.3", ValueSelector = row => row.JournalGenre.Value.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "required_class", Name = "Required Class", HelpText = "The required class of the quest", Version = "14.0.3", ValueSelector = row => row.ClassJobRequired.ValueNullable?.Name.ToImGuiString().FirstCharToUpper() ?? ""});
-        builder.AddStringColumn(new (){Key = "level", Name = "Level", HelpText = "The required level of the quest", Version = "14.0.3", ValueSelector = row => row.ClassJobLevel[0].ToString() ?? ""});
-        builder.AddStringColumn(new (){Key = "expansion", Name = "Expansion", HelpText = "The expansion the quest corresponds to.", Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString() ?? ""});
-        builder.AddBooleanColumn(new (){Key = "completed", Name = "Completed", HelpText = "Is the quest completed?.", Version = "14.1.2", ValueSelector = row => _unlockState.IsQuestCompleted(row)});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the quest"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the quest"), Version = "14.0.3", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "category", Name = LocalizationService.Ui("Category"), HelpText = LocalizationService.Ui("The category of the quest"), Version = "14.0.3", ValueSelector = row => row.JournalGenre.Value.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "required_class", Name = LocalizationService.Ui("Required Class"), HelpText = LocalizationService.Ui("The required class of the quest"), Version = "14.0.3", ValueSelector = row => row.ClassJobRequired.ValueNullable?.Name.ToImGuiString().FirstCharToUpper() ?? ""});
+        builder.AddStringColumn(new (){Key = "level", Name = LocalizationService.Ui("Level"), HelpText = LocalizationService.Ui("The required level of the quest"), Version = "14.0.3", ValueSelector = row => row.ClassJobLevel[0].ToString() ?? ""});
+        builder.AddStringColumn(new (){Key = "expansion", Name = LocalizationService.Ui("Expansion"), HelpText = LocalizationService.Ui("The expansion the quest corresponds to."), Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString() ?? ""});
+        builder.AddBooleanColumn(new (){Key = "completed", Name = LocalizationService.Ui("Completed"), HelpText = LocalizationService.Ui("Is the quest completed?."), Version = "14.1.2", ValueSelector = row => _unlockState.IsQuestCompleted(row)});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, Quest row)
@@ -153,40 +154,40 @@ public class QuestCompendiumType : CompendiumType<Quest>
             viewBuilder.Description = dialogue.Value.Value.ToImGuiString();
         }
         viewBuilder.AddTag(
-            () => _unlockState.IsQuestCompleted(row) ? "Completed" : "Not Completed",
-            () => "Is the quest completed?",
+            () => _unlockState.IsQuestCompleted(row) ? "Completed" : LocalizationService.Ui("Not Completed"),
+            () => LocalizationService.Ui("Is the quest completed?"),
             () => _unlockState.IsQuestCompleted(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             RelatedRefs = row.PreviousQuest.Select(c => (RowRef)c).ToList(),
             SectionKey = "previous_quests",
-            SectionName = "Previous Quests",
+            SectionName = LocalizationService.Ui("Previous Quests"),
             HideWhenEmpty = false
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             RelatedRefs = _questSheet.Where(c => c.PreviousQuest.Any(c => c.RowId == row.RowId)).Select(c => (RowRef)new RowRef<Quest>(c.ExcelPage.Module, c.RowId)).ToList(),
             SectionKey = "next_quests",
-            SectionName = "Next Quests",
+            SectionName = LocalizationService.Ui("Next Quests"),
             HideWhenEmpty = false
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = (RowRef)row.ClassJobRequired,
             SectionKey = "required_class",
-            SectionName = "Required Class"
+            SectionName = LocalizationService.Ui("Required Class")
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = (RowRef)row.ClassJobUnlock,
             SectionKey = "class_unlocked",
-            SectionName = "Class Unlocked"
+            SectionName = LocalizationService.Ui("Class Unlocked")
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = (RowRef)row.BeastTribe,
             SectionKey = "allied_society_beast_tribe",
-            SectionName = "Allied Society (Beast Tribe)"
+            SectionName = LocalizationService.Ui("Allied Society (Beast Tribe)")
         });
         //TODO: Add in some sort of automatic level mapping shit
         if (row.IssuerLocation.RowId != 0)
@@ -203,13 +204,13 @@ public class QuestCompendiumType : CompendiumType<Quest>
             }
             else
             {
-                issuerName = "Issuer";
+                issuerName = LocalizationService.Ui("Issuer");
             }
             viewBuilder.AddMapLinkSectionSection(new MapLinkViewSectionOptions()
             {
                 MapLink = new MapLinkEntry(Icons.FlagIcon, issuerName,  issuerLocation.FormattedName, issuerLocation),
                 SectionKey = "issuer_location",
-                SectionName = "Issuer Location"
+                SectionName = LocalizationService.Ui("Issuer Location")
             });
         }
         var relatedNpcs = _eNpcBaseSheet.Where(c => c.Base.ENpcDataRaw.Any(c => c == row.RowId)).DistinctBy(c => c.Name).Select(c => c.Base.AsUntypedRowRef()).DistinctBy(c => c.RowId).ToList();
@@ -218,7 +219,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
         {
             RelatedRefs = relatedNpcs,
             SectionKey = "related_npcs",
-            SectionName = "Related NPCs",
+            SectionName = LocalizationService.Ui("Related NPCs"),
             Filter = typeof(ENpcBase)
         });
 
@@ -245,7 +246,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
         {
             RelatedRefs = relatedInstances,
             SectionKey = "related_instances",
-            SectionName = "Related Instances"
+            SectionName = LocalizationService.Ui("Related Instances")
         });
 
     }
@@ -256,7 +257,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
         [
             new CompendiumGrouping<Quest>()
             {
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 Key = "category",
                 GroupFunc = quest => quest.JournalGenre.RowId,
                 GroupMapping = row =>
@@ -272,7 +273,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
             },
             new CompendiumGrouping<Quest>()
             {
-                Name = "Expansion",
+                Name = LocalizationService.Ui("Expansion"),
                 Key = "expansion",
                 GroupFunc = quest => quest.Expansion.RowId,
                 GroupMapping = row =>
@@ -289,9 +290,9 @@ public class QuestCompendiumType : CompendiumType<Quest>
         ];
     }
 
-    public override string Singular => "Quest";
-    public override string Plural => "Quests";
-    public override string Description => "Quests the character can complete.";
+    public override string Singular => LocalizationService.Ui("Quest");
+    public override string Plural => LocalizationService.Ui("Quests");
+    public override string Description => LocalizationService.Ui("Quests the character can complete.");
     public override string Key => "quest";
     public override (string?, uint?) Icon => (null, Icons.QuestIcon);
 }

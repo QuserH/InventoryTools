@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -9,8 +10,8 @@ public class ContextMenuAddToFavouritesSetting : GenericBooleanSetting
 {
     public ContextMenuAddToFavouritesSetting(ILogger<ContextMenuAddToFavouritesSetting> logger,
         ImGuiService imGuiService) : base("AddToFavouritesContextMenu",
-        "Context Menu - Add/Remove to Favourites",
-        "Add a submenu to add/remove the item to/from your favourites?",
+        LocalizationService.Ui("Context Menu - Add/Remove to Favourites"),
+        LocalizationService.Ui("Add a submenu to add/remove the item to/from your favourites?"),
         false,
         SettingCategory.ContextMenu,
         SettingSubCategory.General,
@@ -20,6 +21,6 @@ public class ContextMenuAddToFavouritesSetting : GenericBooleanSetting
     {
     }
 
-    public override string WizardName { get; } = "Add/Remove to Favourites";
+    public override string WizardName { get; } = LocalizationService.Ui("Add/Remove to Favourites");
 
 }

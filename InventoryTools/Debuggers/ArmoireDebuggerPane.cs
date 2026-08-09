@@ -4,6 +4,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
 using FFXIVClientStructs.FFXIV.Client.UI;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -16,13 +17,13 @@ public class ArmoireDebuggerPane : IDebugPane
         _gameGui = gameGui;
     }
 
-    public string Name => "Armoire";
+    public string Name => LocalizationService.Ui("Armoire");
     public unsafe void Draw()
     {
         var uiState = UIState.Instance();
         if (uiState == null)
         {
-            ImGui.Text("UIState not found.");
+            ImGui.Text(LocalizationService.Ui("UIState not found."));
         }
         else
         {

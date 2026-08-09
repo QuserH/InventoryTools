@@ -5,6 +5,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -36,8 +37,8 @@ public class AttributeColumnSetting : ChoiceColumnSetting<uint?>
     }
 
     public override string Key { get; set; } = "Attribute";
-    public override string Name { get; set; } = "Attribute";
-    public override string HelpText { get; set; } = "The attribute to show";
+    public override string Name { get; set; } = LocalizationService.Ui("Attribute");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The attribute to show"));
     public override uint? DefaultValue { get; set; } = 1;
     public override List<uint?> GetChoices(ColumnConfiguration configuration)
     {

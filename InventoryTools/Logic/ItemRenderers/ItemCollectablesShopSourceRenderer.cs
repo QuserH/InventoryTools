@@ -12,13 +12,14 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
 public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRenderer
 {
     private readonly ItemSheet _itemSheet;
-    public override string HelpText => "Can the item be spent at a collectables exchange shop?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a collectables exchange shop?"));
     public ItemCollectablesShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
     {
@@ -33,7 +34,7 @@ public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRendere
             ? new List<string>()
             : shopSource.MapIds.Select(c => MapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text("Items that can be purchased:");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items that can be purchased:")));
 
         using (ImRaii.PushIndent())
         {
@@ -63,9 +64,9 @@ public class ItemCollectablesShopSourceRenderer : ItemInfoRenderer<ItemCollectab
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CollectablesShop;
-    public override string SingularName => "Collectables Exchange Shop";
-    public override string PluralName => "Collectables Exchange Shops";
-    public override string HelpText => "Can the item be purchased from a collectables exchange shop?";
+    public override string SingularName => LocalizationService.Ui("Collectables Exchange Shop");
+    public override string PluralName => LocalizationService.Ui("Collectables Exchange Shops");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a collectables exchange shop?"));
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 1;
@@ -75,8 +76,8 @@ public class ItemCollectablesShopSourceRenderer : ItemInfoRenderer<ItemCollectab
     {
         var asSource = AsSource(source);
 
-        DrawItems("Costs: ", asSource.CostItems);
-        DrawItems("Rewards: ", asSource.RewardItems);
+        DrawItems(LocalizationService.Ui("Costs: "), asSource.CostItems);
+        DrawItems(LocalizationService.Ui("Rewards: "), asSource.RewardItems);
 
         DrawMaps(source);
     };

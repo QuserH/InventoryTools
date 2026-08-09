@@ -14,6 +14,7 @@ using InventoryTools.Extensions;
 using InventoryTools.Mediator;
 using InventoryTools.Ui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -25,8 +26,8 @@ public class ItemWoodlandExplorationVentureSourceRenderer : ItemVentureSourceRen
     {
     }
 
-    public override string SingularName => "Woodland Exploration Venture (Botany)";
-    public override string HelpText => "Can the item be returned by retainers from botany exploration ventures?";
+    public override string SingularName => LocalizationService.Ui("Woodland Exploration Venture (Botany)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from botany exploration ventures?"));
 }
 public class ItemWatersideExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemWatersideExplorationVentureSource>
 {
@@ -36,8 +37,8 @@ public class ItemWatersideExplorationVentureSourceRenderer : ItemVentureSourceRe
     {
     }
 
-    public override string SingularName => "Waterside Exploration Venture (Fishing)";
-    public override string HelpText => "Can the item be returned by retainers from fishing exploration ventures?";
+    public override string SingularName => LocalizationService.Ui("Waterside Exploration Venture (Fishing)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from fishing exploration ventures?"));
 }
 public class ItemHighlandExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemHighlandExplorationVentureSource>
 {
@@ -47,8 +48,8 @@ public class ItemHighlandExplorationVentureSourceRenderer : ItemVentureSourceRen
     {
     }
 
-    public override string SingularName => "Highland Exploration Venture (Mining)";
-    public override string HelpText => "Can the item be returned by retainers from mining exploration ventures?";
+    public override string SingularName => LocalizationService.Ui("Highland Exploration Venture (Mining)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from mining exploration ventures?"));
 }
 
 public class ItemFieldExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemFieldExplorationVentureSource>
@@ -59,8 +60,8 @@ public class ItemFieldExplorationVentureSourceRenderer : ItemVentureSourceRender
     {
     }
 
-    public override string SingularName => "Field Exploration Venture (Combat)";
-    public override string HelpText => "Can the item be returned by retainers from combat exploration ventures?";
+    public override string SingularName => LocalizationService.Ui("Field Exploration Venture (Combat)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from combat exploration ventures?"));
 }
 
 public class ItemBotanistVentureSourceRenderer : ItemVentureSourceRenderer<ItemBotanistVentureSource>
@@ -70,8 +71,8 @@ public class ItemBotanistVentureSourceRenderer : ItemVentureSourceRenderer<ItemB
     {
     }
 
-    public override string SingularName => "Venture (Botany)";
-    public override string HelpText => "Can the item be returned by retainers from botany ventures?";
+    public override string SingularName => LocalizationService.Ui("Venture (Botany)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from botany ventures?"));
 }
 public class ItemFishingVentureSourceRenderer : ItemVentureSourceRenderer<ItemFishingVentureSource>
 {
@@ -80,8 +81,8 @@ public class ItemFishingVentureSourceRenderer : ItemVentureSourceRenderer<ItemFi
     {
     }
 
-    public override string SingularName => "Venture (Fishing)";
-    public override string HelpText => "Can the item be returned by retainers from fishing ventures?";
+    public override string SingularName => LocalizationService.Ui("Venture (Fishing)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from fishing ventures?"));
 }
 public class ItemMiningVentureSourceRenderer : ItemVentureSourceRenderer<ItemMiningVentureSource>
 {
@@ -90,8 +91,8 @@ public class ItemMiningVentureSourceRenderer : ItemVentureSourceRenderer<ItemMin
     {
     }
 
-    public override string SingularName => "Venture (Mining)";
-    public override string HelpText => "Can the item be returned by retainers from mining ventures?";
+    public override string SingularName => LocalizationService.Ui("Venture (Mining)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from mining ventures?"));
 }
 
 public class ItemHuntingVentureSourceRenderer : ItemVentureSourceRenderer<ItemHuntingVentureSource>
@@ -101,8 +102,8 @@ public class ItemHuntingVentureSourceRenderer : ItemVentureSourceRenderer<ItemHu
     {
     }
 
-    public override string SingularName => "Venture (Combat)";
-    public override string HelpText => "Can the item be returned by retainers from combat ventures?";
+    public override string SingularName => LocalizationService.Ui("Venture (Combat)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from combat ventures?"));
 }
 
 public abstract class ItemVentureSourceRenderer<T> : ItemInfoRenderer<T> where T : ItemVentureSource
@@ -122,11 +123,11 @@ public abstract class ItemVentureSourceRenderer<T> : ItemInfoRenderer<T> where T
     {
         var asSource = AsSource(source);
 
-        ImGui.Text($"{asSource.RetainerTaskRow.FormattedName}");
+        ImGui.Text(LocalizationService.Format("{0}", asSource.RetainerTaskRow.FormattedName));
         using (ImRaii.PushIndent())
         {
-            ImGui.Text($"Venture Cost: {asSource.RetainerTaskRow.Base.VentureCost}");
-            ImGui.Text($"Required Level: {asSource.RetainerTaskRow.Base.RetainerLevel}");
+            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Venture Cost: {0}"), asSource.RetainerTaskRow.Base.VentureCost));
+            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Required Level: {0}"), asSource.RetainerTaskRow.Base.RetainerLevel));
             if (asSource.RetainerTaskRow.Base.RequiredGathering != 0)
             {
                 ImGui.Text(

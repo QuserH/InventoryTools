@@ -17,6 +17,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -53,7 +54,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
     public override string DefaultValue { get; set; } = string.Empty;
     public override string Key { get; set; } = "SelectedItem";
     public override string Name {
-        get => _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Tool ? "Main Hand" : "Selected Item";
+        get => _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Tool ? LocalizationService.Ui("Main Hand") : LocalizationService.Ui("Selected Item");
         set { }
     }
     public string? RenderName { get; set; } = null;
@@ -71,7 +72,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
             var containerSize = _viewModeSetting.GetIconContainerSize(_configuration);
             if (item.SelectedItem == null)
             {
-                ImGui.Text("No item selected");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No item selected")));
             }
             else
             {
@@ -222,7 +223,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
                         c.FilterType == Logic.FilterType.CraftFilter && !c.CraftListDefault).ToArray();
                 if (craftFilters.Length != 0)
                 {
-                    using var menu = ImRaii.Menu("Add to Craft List");
+                    using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
                     if(menu)
                     {
                         foreach (var filter in craftFilters)
@@ -244,7 +245,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
                     }
                 }
 
-                if (ImGui.Selectable("Add to new Craft List"))
+                if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
                 {
                     Task.Run(() =>
                     {
@@ -259,7 +260,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
                         filter.NeedsRefresh = true;
                     });
                 }
-                if (ImGui.Selectable("Add to new Craft List (ephemeral)"))
+                if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
                 {
                     Task.Run(() =>
                     {
@@ -279,7 +280,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
                     _listService.Lists.Where(c => c.FilterType == FilterType.CuratedList).ToArray();
                 if (curatedLists.Length != 0)
                 {
-                    using var menu = ImRaii.Menu("Add to Curated List");
+                    using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Curated List"));
                     if(menu)
                     {
                         foreach (var filter in curatedLists)
@@ -299,7 +300,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
                     }
                 }
 
-                if (ImGui.Selectable("Add to new Curated List"))
+                if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Curated List"))))
                 {
                     Task.Run(() =>
                     {
@@ -339,7 +340,7 @@ public class EquipmentSuggestSelectedItemColumn  : StringFormField<EquipmentSugg
         return "";
     }
 
-    public override string HelpText { get; set; } = "The item you've selected from the list of recommendations";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The item you've selected from the list of recommendations"));
     public override string Version { get; set; } = "1.12.0.10";
 
     public string? CurrentValue(EquipmentSuggestItem item)

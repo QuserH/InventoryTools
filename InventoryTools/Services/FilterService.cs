@@ -9,6 +9,7 @@ using InventoryTools.Logic.ItemRenderers;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using OtterGui.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 

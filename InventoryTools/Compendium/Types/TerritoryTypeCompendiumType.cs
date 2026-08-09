@@ -13,6 +13,7 @@ using InventoryTools.Compendium.Windows;
 using InventoryTools.Mediator;
 using Lumina.Excel.Sheets;
 using Icons = AllaganLib.Shared.Misc.Icons;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -36,7 +37,7 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "territory_types",
-            Name = "Territory Types",
+            Name = LocalizationService.Ui("Territory Types"),
         });
     }
 
@@ -75,8 +76,8 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = "Icon",
-            HelpText = "Territory icon",
+            Name = LocalizationService.Ui("Icon"),
+            HelpText = LocalizationService.Ui("Territory icon"),
             Version = "14.0.3",
             CompendiumType = this,
             RowIdSelector = row => row.First().RowId,
@@ -86,8 +87,8 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "Name",
-            HelpText = "The name of the territory",
+            Name = LocalizationService.Ui("Name"),
+            HelpText = LocalizationService.Ui("The name of the territory"),
             Version = "14.0.3",
             ValueSelector = GetName
         });
@@ -105,9 +106,9 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
 
     public override bool ShowInListing => true;
 
-    public override string Singular => "Territory";
-    public override string Plural => "Territories";
-    public override string Description => "Territories available in the game";
+    public override string Singular => LocalizationService.Ui("Territory");
+    public override string Plural => LocalizationService.Ui("Territories");
+    public override string Description => LocalizationService.Ui("Territories available in the game");
     public override string Key => "territories";
     public override (string?, uint?) Icon => (null, Icons.FlagIcon);
 }

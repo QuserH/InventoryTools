@@ -2,6 +2,7 @@ using System.Linq;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -11,9 +12,9 @@ public class FromCalamitySalvagerColumn : CheckboxColumn
     {
     }
 
-    public override string Name { get; set; } = "Is from Calamity Salvager?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is from Calamity Salvager?"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "Is this item available at a calmity salvager?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item available at a calmity salvager?"));
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Basic;
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;

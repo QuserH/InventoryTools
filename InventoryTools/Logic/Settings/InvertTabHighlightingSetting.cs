@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -19,10 +20,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "InvertTabHighlighting";
-        public override string Name { get; set; } = "Invert Tab Highlighting?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Invert Tab Highlighting?"));
 
         public override string HelpText { get; set; } =
-            "Should all the tabs not matching a list be highlighted instead? This can be overridden in the list configuration.";
+            LocalizationService.Ui(LocalizationService.Ui("Should all the tabs not matching a list be highlighted instead? This can be overridden in the list configuration."));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

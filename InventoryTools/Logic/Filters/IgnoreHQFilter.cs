@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -10,10 +11,10 @@ namespace InventoryTools.Logic.Filters;
 public class IgnoreHQFilter : BooleanFilter
 {
     public override string Key { get; set; } = "IgnoreHQFilter";
-    public override string Name { get; set; } = "Ignore HQ Filter?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Ignore HQ Filter?"));
 
     public override string HelpText { get; set; } =
-        "When sorting should the filter consider HQ and NQ items to be the same when attempting to stack them? This primary use for this filter is to find items that can have their quality lowered.";
+        LocalizationService.Ui(LocalizationService.Ui("When sorting should the filter consider HQ and NQ items to be the same when attempting to stack them? This primary use for this filter is to find items that can have their quality lowered."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Advanced;
     public override FilterType AvailableIn { get; set; } = FilterType.SortingFilter;

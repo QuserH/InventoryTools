@@ -4,6 +4,7 @@ using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Enums;
 using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -30,8 +31,8 @@ namespace InventoryTools.Logic.Filters
 
 
         public override string Key { get; set; } = "EquippableByGender";
-        public override string Name { get; set; } = "Equippable By Gender";
-        public override string HelpText { get; set; } = "Which genders can this equipment be equipped by?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Equippable By Gender"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which genders can this equipment be equipped by?"));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
 

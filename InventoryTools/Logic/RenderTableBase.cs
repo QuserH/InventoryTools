@@ -6,6 +6,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic
 {
@@ -63,7 +64,7 @@ namespace InventoryTools.Logic
         {
             var messages = new List<MessageBase>();
             var hoveredRow = -1;
-            ImGui.Selectable("", false, ImGuiSelectableFlags.SpanAllColumns | ImGuiSelectableFlags.AllowItemOverlap, new Vector2(0, configuration.TableHeight) * ImGui.GetIO().FontGlobalScale);
+            ImGui.Selectable(LocalizationService.Ui(""), false, ImGuiSelectableFlags.SpanAllColumns | ImGuiSelectableFlags.AllowItemOverlap, new Vector2(0, configuration.TableHeight) * ImGui.GetIO().FontGlobalScale);
             if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled & ImGuiHoveredFlags.AllowWhenOverlapped & ImGuiHoveredFlags.AllowWhenBlockedByPopup & ImGuiHoveredFlags.AllowWhenBlockedByActiveItem & ImGuiHoveredFlags.AnyWindow)) {
                 hoveredRow = rowIndex;
             }

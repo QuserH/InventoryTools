@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -19,8 +20,8 @@ namespace InventoryTools.Logic.Filters
         }
 
         public override string Key { get; set; } = "Collectible";
-        public override string Name { get; set; } = "Is Collectible?";
-        public override string HelpText { get; set; } = "Is the item Collectible?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Collectible?"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is the item Collectible?"));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Gathering;
 

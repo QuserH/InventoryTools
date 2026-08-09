@@ -6,6 +6,7 @@ using DalaMock.Host.Mediator;
 using Humanizer;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -26,11 +27,11 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
 
     public override string Name
     {
-        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? "Slot" : "Class/Job"; }
+        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? "Slot" : LocalizationService.Ui("Class/Job"); }
         set { }
     }
 
-    public override string HelpText { get; set; } = "The slot to fill";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The slot to fill"));
     public override string Version { get; set; } = "1.12.0.10";
     public override string? CurrentValue(EquipmentSuggestItem item)
     {
@@ -39,9 +40,9 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
             switch (item.EquipmentSlot)
             {
                 case EquipSlot.MainHand:
-                    return "Main Hand";
+                    return LocalizationService.Ui("Main Hand");
                 case EquipSlot.OffHand:
-                    return "Off Hand";
+                    return LocalizationService.Ui("Off Hand");
                 case EquipSlot.Head:
                     return "Head";
                 case EquipSlot.Body:
@@ -59,11 +60,11 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
                 case EquipSlot.Wrists:
                     return "Wrists";
                 case EquipSlot.FingerR:
-                    return "Right Finger";
+                    return LocalizationService.Ui("Right Finger");
                 case EquipSlot.FingerL:
-                    return "Left Finger";
+                    return LocalizationService.Ui("Left Finger");
                 case EquipSlot.SoulCrystal:
-                    return "Soul Crystal";
+                    return LocalizationService.Ui("Soul Crystal");
             }
 
             return item.EquipmentSlot?.Humanize();

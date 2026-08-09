@@ -8,6 +8,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -20,9 +21,9 @@ public class ItemCustomDeliverySourceRenderer : ItemInfoRenderer<ItemCustomDeliv
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.CustomDelivery;
-    public override string SingularName => "Custom Delivery";
-    public override string PluralName => "Custom Deliveries";
-    public override string HelpText => "Can the item be delivered in a custom delivery quest?";
+    public override string SingularName => LocalizationService.Ui("Custom Delivery");
+    public override string PluralName => LocalizationService.Ui("Custom Deliveries");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be delivered in a custom delivery quest?"));
     public override bool ShouldGroup => false;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
@@ -40,14 +41,14 @@ public class ItemCustomDeliverySourceRenderer : ItemInfoRenderer<ItemCustomDeliv
             var collectabilityLow = asSource.SupplyRow.Base.CollectabilityLow;
             var collectabilityMid = asSource.SupplyRow.Base.CollectabilityMid;
             var collectabilityHigh = asSource.SupplyRow.Base.CollectabilityHigh;
-            ImGui.Text("NPC: " + eNpcResident.Value.Singular.ExtractText());
-            ImGui.Text("Collectability (Low): " + collectabilityLow);
-            ImGui.Text("Collectability (Mid): " + collectabilityMid);
-            ImGui.Text("Collectability (High): " + collectabilityHigh);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("NPC: ")) + eNpcResident.Value.Singular.ExtractText());
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (Low): ")) + collectabilityLow);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (Mid): ")) + collectabilityMid);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (High): ")) + collectabilityHigh);
         }
         else
         {
-            ImGui.Text("Unknown Npc");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown Npc")));
         }
     };
 

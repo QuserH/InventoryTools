@@ -12,6 +12,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -42,13 +43,13 @@ namespace InventoryTools.Ui
             if (RetainerTask != null)
             {
                 Key = "rt_" + retainerTaskId;
-                WindowName = "Allagan Tools - " + RetainerTask.FormattedName + " - Venture";
+                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - ")) + RetainerTask.FormattedName + LocalizationService.Ui(" - Venture");
                 _drops = RetainerTask.Drops;
             }
             else
             {
                 Key = "rt_invalid";
-                WindowName = "Allagan Tools - Invalid Retainer Task";
+                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - Invalid Retainer Task"));
                 _drops = new List<ItemRow>();
             }
         }
@@ -59,27 +60,27 @@ namespace InventoryTools.Ui
 
 
         public override string GenericKey { get; } = "retainertask";
-        public override string GenericName { get; } = "Retainer Task";
+        public override string GenericName { get; } = LocalizationService.Ui("Retainer Task");
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (RetainerTask == null)
             {
-                ImGui.TextUnformatted("Submarine Exploration Point with the ID " + _retainerTaskId + " could not be found.");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Submarine Exploration Point with the ID ")) + _retainerTaskId + LocalizationService.Ui(" could not be found."));
             }
             else
             {
                 ImGui.TextUnformatted(RetainerTask.FormattedName);
-                ImGui.TextUnformatted("Level: " + RetainerTask.Base.RetainerLevel);
-                ImGui.TextUnformatted("Duration: " + RetainerTask.DurationString);
-                ImGui.TextUnformatted("Experience: " + RetainerTask.ExperienceString);
-                ImGui.TextUnformatted("Venture Cost: " + RetainerTask.Base.VentureCost);
-                ImGui.TextUnformatted("Average iLvl: " + RetainerTask.Base.RequiredItemLevel);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Level: ")) + RetainerTask.Base.RetainerLevel);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duration: ")) + RetainerTask.DurationString);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Experience: ")) + RetainerTask.ExperienceString);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Venture Cost: ")) + RetainerTask.Base.VentureCost);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Average iLvl: ")) + RetainerTask.Base.RequiredItemLevel);
                 ;
                 ImGui.Image(ImGuiService.GetIconTexture(65049).Handle, new Vector2(100, 100) * ImGui.GetIO().FontGlobalScale);
 
 
-                if (ImGui.CollapsingHeader("Rewards (" + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Rewards (")) + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -124,9 +125,9 @@ namespace InventoryTools.Ui
                 }
 
                 #if DEBUG
-                if (ImGui.CollapsingHeader("Debug"))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
                 {
-                    ImGui.TextUnformatted("Duty ID: " + _retainerTaskId);
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duty ID: ")) + _retainerTaskId);
                     Utils.PrintOutObject(RetainerTask, 0, new List<string>());
                 }
                 #endif

@@ -15,6 +15,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -63,7 +64,7 @@ namespace InventoryTools.Logic.Columns
                     configuration.CraftList.RemoveCraftItem(searchResult.CraftItem.ItemId);
                     configuration.NeedsRefresh = true;
                 }
-                OtterGui.ImGuiUtil.HoverTooltip("Delete item");
+                OtterGui.ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Delete item")));
 
             }
 
@@ -88,14 +89,14 @@ namespace InventoryTools.Logic.Columns
                                 ImGui.SameLine();
                                 ImGui.Image(ImGuiService.GetIconTexture(Icons.QuestionMarkIcon).Handle, new Vector2(16, 16));
                                 OtterGui.ImGuiUtil.HoverTooltip(
-                                    "The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.");
+                                    LocalizationService.Ui(LocalizationService.Ui("The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.")));
                             }
                         }
                     }
                 }
                 else
                 {
-                    ImGui.Text("N/A");
+                    ImGui.Text(LocalizationService.Ui("N/A"));
                 }
 
                 var craftPrices = searchResult.CraftItem.CraftPrices;
@@ -113,18 +114,18 @@ namespace InventoryTools.Logic.Columns
                                 var world = _worldSheet.GetRowOrDefault(price.WorldId);
                                 if (world != null)
                                 {
-                                    ImGui.Text(price.Left + " available at " + price.UnitPrice +
-                                               (price.IsHq ? " (HQ)" : "") + " (" + world.Value.Name.ExtractText() + ")");
+                                    ImGui.Text(price.Left + LocalizationService.Ui(" available at ") + price.UnitPrice +
+                                               (price.IsHq ? LocalizationService.Ui(" (HQ)") : "") + " (" + world.Value.Name.ExtractText() + ")");
                                 }
 
                                 totalAvailable += price.Left;
                             }
 
-                            ImGui.Text("Available: " + totalAvailable);
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) + totalAvailable);
 
                             if (searchResult.CraftItem.MarketAvailable != searchResult.CraftItem.QuantityNeeded)
                             {
-                                ImGui.Text("Missing: " + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing: ")) + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
                             }
                         }
                     }
@@ -141,7 +142,7 @@ namespace InventoryTools.Logic.Columns
                 if (ImGui.IsItemHovered(ImGuiHoveredFlags.None))
                 {
                     using var tt = ImRaii.Tooltip();
-                    ImGui.Text("Missing Ingredients: ");
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing Ingredients: ")));
                     foreach (var missingIngredient in searchResult.CraftItem.MissingIngredients)
                     {
                         var itemId = missingIngredient.Key.Item1;
@@ -159,14 +160,14 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Next Step in Craft";
-        public override string RenderName => "Next Step";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Next Step in Craft"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Next Step"));
 
         public override float Width { get; set; } = 200;
         public override bool? CraftOnly => true;
 
         public override string HelpText { get; set; } =
-            "Shows a simplified version of what you should do next in your craft";
+            LocalizationService.Ui(LocalizationService.Ui("Shows a simplified version of what you should do next in your craft"));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;

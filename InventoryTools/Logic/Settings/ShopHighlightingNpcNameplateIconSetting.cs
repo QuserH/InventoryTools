@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -10,8 +11,8 @@ public class ShopHighlightingNpcNameplateIconSetting : GenericBooleanSetting
     public ShopHighlightingNpcNameplateIconSetting(ILogger<ShopHighlightingNpcNameplateIconSetting> logger, ImGuiService imGuiService)
         : base(
             "ShopHighlightingNpcNameplateIcon",
-            "Shop Highlighting - Nameplate Icon",
-            "When highlighting shop items, show a small vendor icon on the nameplate of related NPCs in the world.",
+            LocalizationService.Ui("Shop Highlighting - Nameplate Icon"),
+            LocalizationService.Ui("When highlighting shop items, show a small vendor icon on the nameplate of related NPCs in the world."),
             true,
             SettingCategory.Highlighting,
             SettingSubCategory.ShopHighlighting,

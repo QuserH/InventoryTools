@@ -11,6 +11,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.ItemRenderers;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -44,7 +45,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
 
     public override string DefaultValue { get; set; } = string.Empty;
     public override string Key { get; set; } = "SecondarySelectedItem";
-    public override string Name { get; set; } = "Off-hand";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Off-hand"));
     public string? RenderName { get; set; } = null;
     public int Width { get; set; } = 100;
     public bool HideFilter { get; set; } = true;
@@ -63,7 +64,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
             var containerSize = _viewModeSetting.GetIconContainerSize(_configuration);
             if (item.SecondarySelectedItem == null)
             {
-                ImGui.Text("No item selected");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No item selected")));
             }
             else
             {
@@ -211,7 +212,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
         return "";
     }
 
-    public override string HelpText { get; set; } = "The item you've selected from the list of recommendations";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The item you've selected from the list of recommendations"));
     public override string Version { get; set; } = "1.12.0.10";
 
     public string? CurrentValue(EquipmentSuggestItem item)

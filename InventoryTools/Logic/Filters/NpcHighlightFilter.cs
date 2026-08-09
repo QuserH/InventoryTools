@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters
 {
@@ -27,8 +28,8 @@ namespace InventoryTools.Logic.Filters
         public override NpcHighlight DefaultValue { get; set; } = NpcHighlight.UseGlobalConfiguration;
 
         public override string Key { get; set; } = "NpcHighlight";
-        public override string Name { get; set; } = "Highlight NPCs?";
-        public override string HelpText { get; set; } = "Should items required by this list highlight NPCs that sell them?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight NPCs?"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should items required by this list highlight NPCs that sell them?"));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
@@ -51,7 +52,7 @@ namespace InventoryTools.Logic.Filters
             switch (choice)
             {
                 case NpcHighlight.UseGlobalConfiguration:
-                    return "Use Global Configuration";
+                    return LocalizationService.Ui("Use Global Configuration");
                 case NpcHighlight.Yes:
                     return "Yes";
                 case NpcHighlight.No:

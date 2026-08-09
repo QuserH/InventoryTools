@@ -6,6 +6,7 @@ using CriticalCommonLib.Models;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -18,8 +19,8 @@ public class ItemGcSupplyDutySourceRenderer : ItemInfoRenderer<ItemGCSupplyDutyS
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.GCDailySupply;
-    public override string SingularName => "Grand Company Supply & Provisioning";
-    public override string HelpText => "Can the item be handed in for 'Supply & Provisioning' at your grand company?";
+    public override string SingularName => LocalizationService.Ui("Grand Company Supply & Provisioning");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be handed in for 'Supply & Provisioning' at your grand company?"));
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => source =>
@@ -30,13 +31,13 @@ public class ItemGcSupplyDutySourceRenderer : ItemInfoRenderer<ItemGCSupplyDutyS
         {
             var baseReward = rewardRow.Base.ExperienceSupply;
             var sealsSupply = rewardRow.Base.SealsSupply;
-            ImGui.Text("Level: " + asSource.GCSupplyDutyRow.RowId);
-            ImGui.Text("Exp: " + baseReward);
-            ImGui.Text("Seals: " + sealsSupply);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level: ")) + asSource.GCSupplyDutyRow.RowId);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Exp: ")) + baseReward);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Seals: ")) + sealsSupply);
         }
         else
         {
-            ImGui.Text("Unknown rewards");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown rewards")));
         }
     };
 

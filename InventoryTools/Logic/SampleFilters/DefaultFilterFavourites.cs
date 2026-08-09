@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -32,11 +33,11 @@ public class DefaultFilterFavourites : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Favourites";
+    public string Name => LocalizationService.Ui("Favourites");
     public string SampleDefaultName => "Favourites";
 
     public string SampleDescription =>
-        "This will show all the items you have favourited.";
+        LocalizationService.Ui("This will show all the items you have favourited.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

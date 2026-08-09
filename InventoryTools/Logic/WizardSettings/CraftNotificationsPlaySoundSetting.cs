@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.WizardSettings;
 
@@ -11,8 +12,8 @@ public class CraftNotificationsPlaySoundSetting : GenericBooleanSetting
 
     public CraftNotificationsPlaySoundSetting(ILogger<CraftNotificationsPlaySoundSetting> logger,
         ImGuiService imGuiService) : base("CraftNotificationsPlaySound",
-        "Play sound when an item is complete",
-        "Play a sound effect when an item in a craft list reaches its required quantity. The craft list must be active for notifications to occur.",
+        LocalizationService.Ui("Play sound when an item is complete"),
+        LocalizationService.Ui("Play a sound effect when an item in a craft list reaches its required quantity. The craft list must be active for notifications to occur."),
         false,
         SettingCategory.None,
         SettingSubCategory.None,

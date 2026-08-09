@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Filters.Abstract;
@@ -30,8 +31,8 @@ public class DefaultSortColumnDirectionFilter : ChoiceFilter<ImGuiSortDirection?
     }
 
     public override string Key { get; set; } = "DefaultSortColumnOrder";
-    public override string Name { get; set; } = "Default Sort Column Order";
-    public override string HelpText { get; set; } = "The direction to sort the list in by default.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Sort Column Order"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The direction to sort the list in by default."));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Columns;
 
     public override ImGuiSortDirection? DefaultValue { get; set; } = null;

@@ -5,6 +5,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -30,8 +31,8 @@ public class HistoryTrackEventsSetting : MultipleChoiceSetting<InventoryChangeRe
     }
 
     public override string Key { get; set; } = "HistoryTrackEvents";
-    public override string Name { get; set; } = "History Track Events";
-    public override string HelpText { get; set; } = "Which events should be tracked by the history module?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("History Track Events"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which events should be tracked by the history module?"));
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.History;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     private Dictionary<InventoryChangeReason, string>? _changeReasons;

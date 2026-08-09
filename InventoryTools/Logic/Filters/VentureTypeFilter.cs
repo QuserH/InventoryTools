@@ -7,6 +7,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -17,8 +18,8 @@ public class VentureTypeFilter : StringFilter
     }
 
     public override string Key { get; set; } = "VentureTypeFilter";
-    public override string Name { get; set; } = "Venture Type";
-    public override string HelpText { get; set; } = "The type of the venture";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Venture Type"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The type of the venture"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

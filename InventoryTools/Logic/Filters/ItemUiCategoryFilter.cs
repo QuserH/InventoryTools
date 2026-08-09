@@ -7,6 +7,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters
 {
@@ -21,9 +22,9 @@ namespace InventoryTools.Logic.Filters
 
         public override string Key { get; set; } = "UiCategory";
 
-        public override string Name { get; set; } = "Categories";
+        public override string Name { get; set; } = LocalizationService.Ui("Categories");
 
-        public override string HelpText { get; set; } = "Filter by the categories the game gives items when you scroll over them.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter by the categories the game gives items when you scroll over them."));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Searching;
 
         private Dictionary<uint, string> _choices = new();

@@ -3,6 +3,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -32,12 +33,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
             }
 
             ImGui.Indent();
@@ -49,7 +50,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             }
 
             ImGui.SetNextItemWidth(InputSize);
-            if (ImGui.InputText("##"+Key+"Input", ref value, 500))
+            if (ImGui.InputText(LocalizationService.Ui("##")+Key+"Input", ref value, 500))
             {
                 UpdateFilterConfiguration(configuration, value);
             }
@@ -58,20 +59,20 @@ namespace InventoryTools.Logic.Filters.Abstract
                 ImGui.SameLine();
                 ImGuiService.HelpMarker(new List<string>()
                 {
-                    "When searching the following operators can be used to compare: ",
+                    LocalizationService.Ui("When searching the following operators can be used to compare: "),
                     "",
-                    ">, >=, <, <=, =, for numerical comparisons" ,
-                    "=, for exact comparisons",
-                    "!, for inequality comparisons",
-                    "||, search multiple expressions using OR",
-                    "&&, search multiple expressions using AND"
+                    LocalizationService.Ui(">, >=, <, <=, =, for numerical comparisons") ,
+                    LocalizationService.Ui("=, for exact comparisons"),
+                    LocalizationService.Ui("!, for inequality comparisons"),
+                    LocalizationService.Ui("||, search multiple expressions using OR"),
+                    LocalizationService.Ui("&&, search multiple expressions using AND")
                 });
             }
 
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                 }

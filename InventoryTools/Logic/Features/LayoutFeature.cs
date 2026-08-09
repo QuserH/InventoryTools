@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -15,7 +16,7 @@ public class LayoutFeature : Feature
     {
     }
 
-    public override string Name { get; } = "Layout";
+    public override string Name { get; } = LocalizationService.Ui("Layout");
     public override string Description { get; } =
-        "How should the main items window and craft windows be laid out? Should we display your lists as tabs or in a side bar?";
+        LocalizationService.Ui("How should the main items window and craft windows be laid out? Should we display your lists as tabs or in a side bar?");
 }

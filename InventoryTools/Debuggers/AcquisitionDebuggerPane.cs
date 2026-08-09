@@ -4,6 +4,7 @@ using AllaganLib.Monitors.Interfaces;
 using CriticalCommonLib;
 using Dalamud.Bindings.ImGui;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -16,7 +17,7 @@ public class AcquisitionDebuggerPane : DebugLogPane
         _acquisitionMonitorService = acquisitionMonitorService;
     }
 
-    public override string Name => "Item Acquisition Monitor";
+    public override string Name => LocalizationService.Ui("Item Acquisition Monitor");
 
     public override void SubscribeToEvents()
     {
@@ -40,13 +41,13 @@ public class AcquisitionDebuggerPane : DebugLogPane
 
     public override void DrawInfo()
     {
-        if (ImGui.CollapsingHeader("Configuration"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Configuration")))
         {
             var config = _acquisitionMonitorService.Configuration;
 
             if (config == null)
             {
-                ImGui.TextUnformatted("<no configuration>");
+                ImGui.TextUnformatted(LocalizationService.Ui("<no configuration>"));
             }
             else
             {
@@ -55,10 +56,10 @@ public class AcquisitionDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader("Recent Activity"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Recent Activity")))
         {
             ImGui.TextUnformatted(
-                "See the log pane below for a chronological list of acquisition events."
+                LocalizationService.Ui("See the log pane below for a chronological list of acquisition events.")
             );
         }
     }

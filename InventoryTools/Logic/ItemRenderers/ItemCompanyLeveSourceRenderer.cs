@@ -7,6 +7,7 @@ using CriticalCommonLib.Models;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -19,9 +20,9 @@ public class ItemCompanyLeveSourceRenderer : ItemInfoRenderer<ItemCompanyLeveSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CompanyLeve;
-    public override string SingularName => "Company Leve";
-    public override string PluralName => "Company Leves";
-    public override string HelpText => "Is this item obtained from a company leve?";
+    public override string SingularName => LocalizationService.Ui("Company Leve");
+    public override string PluralName => LocalizationService.Ui("Company Leves");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item obtained from a company leve?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -35,11 +36,11 @@ public class ItemCompanyLeveSourceRenderer : ItemInfoRenderer<ItemCompanyLeveSou
     {
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
-        ImGui.TextUnformatted("Leve: " + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted("Class: " + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted("EXP Reward: " + asSource.ExpReward);
-        ImGui.TextUnformatted("Seals Rewarded: " + asSource.SealsRewarded);
-        ImGui.TextUnformatted("Allowance Cost: " + leveRow.AllowanceCost);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Seals Rewarded: ")) + asSource.SealsRewarded);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
     };
 
     public override Func<ItemSource, string> GetName => source =>

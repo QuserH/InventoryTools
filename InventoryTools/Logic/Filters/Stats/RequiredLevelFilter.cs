@@ -1,6 +1,7 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -12,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class RequiredLevelFilter : StringFilter
     {
         public override string Key { get; set; } = "ItemLvl";
-        public override string Name { get; set; } = "Required Level";
-        public override string HelpText { get; set; } = "The required level to equip the item.";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Required Level"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The required level to equip the item."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
 

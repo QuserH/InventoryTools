@@ -3,6 +3,7 @@ using System.Numerics;
 using Dalamud.Interface.Colors;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Widgets;
 
@@ -77,16 +78,16 @@ public class HorizontalSplitter
 
         if (CollapsedTop && !CollapsedBottom)
         {
-            using (var top = ImRaii.Child("Bottom##Bottom"))
+            using (var top = ImRaii.Child(LocalizationService.Ui("Bottom##Bottom")))
             {
                 if (top.Success)
                 {
                     ImGui.SetNextItemOpen(!CollapsedTop);
-                    if (ImGui.CollapsingHeader(headerTextTop + "##headerTextTop",
+                    if (ImGui.CollapsingHeader(headerTextTop + LocalizationService.Ui("##headerTextTop"),
                             ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         CollapsedTop = false;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawTop.Invoke(true);
                         }
@@ -94,18 +95,18 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedTop = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawTop.Invoke(false);
                         }
                     }
 
                     ImGui.SetNextItemOpen(!CollapsedBottom);
-                    if (ImGui.CollapsingHeader(headerTextBottom + "##headerTextBottom",
+                    if (ImGui.CollapsingHeader(headerTextBottom + LocalizationService.Ui("##headerTextBottom"),
                             ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         CollapsedBottom = false;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(true);
                         }
@@ -113,7 +114,7 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedBottom = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(false);
                         }
@@ -124,18 +125,18 @@ public class HorizontalSplitter
         }
         else if (CollapsedBottom && !CollapsedTop)
         {
-            using (var bottom = ImRaii.Child("Top##Top"))
+            using (var bottom = ImRaii.Child(LocalizationService.Ui("Top##Top")))
             {
                 if (bottom.Success)
                 {
                     CollapsedTop = false;
                     ImGui.SetNextItemOpen(!CollapsedTop);
-                    if (ImGui.CollapsingHeader(headerTextTop + "##headerTextTop",
+                    if (ImGui.CollapsingHeader(headerTextTop + LocalizationService.Ui("##headerTextTop"),
                             ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         var framePadding = ImGui.CalcTextSize(headerTextTop).Y + (ImGui.GetStyle().FramePadding.Y * 2) +
                                            (ImGui.GetStyle().CellPadding.Y * 2) * ImGui.GetIO().FontGlobalScale;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, -framePadding)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, -framePadding)))
                         {
                             drawTop.Invoke(true);
                         }
@@ -143,18 +144,18 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedTop = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawTop.Invoke(false);
                         }
                     }
 
                     ImGui.SetNextItemOpen(!CollapsedBottom);
-                    if (ImGui.CollapsingHeader(headerTextBottom + "##headerTextBottom",
+                    if (ImGui.CollapsingHeader(headerTextBottom + LocalizationService.Ui("##headerTextBottom"),
                             ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         CollapsedBottom = false;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(true);
                         }
@@ -162,7 +163,7 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedBottom = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(false);
                         }
@@ -197,7 +198,7 @@ public class HorizontalSplitter
 
         }
 
-        using (var topChild = ImRaii.Child("Top##Top", new Vector2(-1.0f, currentHeight) * ImGui.GetIO().FontGlobalScale, false))
+        using (var topChild = ImRaii.Child(LocalizationService.Ui("Top##Top"), new Vector2(-1.0f, currentHeight) * ImGui.GetIO().FontGlobalScale, false))
         {
             if (topChild.Success)
             {
@@ -207,10 +208,10 @@ public class HorizontalSplitter
                     {
                         ImGui.SetNextItemOpen(true);
                     }
-                    if(ImGui.CollapsingHeader(headerTextTop + "##headerTextTop", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                    if(ImGui.CollapsingHeader(headerTextTop + LocalizationService.Ui("##headerTextTop"), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         CollapsedTop = false;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawTop.Invoke(true);
                         }
@@ -218,7 +219,7 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedTop = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawTop.Invoke(false);
                         }
@@ -226,7 +227,7 @@ public class HorizontalSplitter
                 }
                 else
                 {
-                    using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                    using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                     {
                         drawTop.Invoke(true);
                     }
@@ -247,7 +248,7 @@ public class HorizontalSplitter
                 {
                     if (dragger.Success)
                     {
-                        ImGui.Button("DraggerBtn", new(-1, -1));
+                        ImGui.Button(LocalizationService.Ui("DraggerBtn"), new(-1, -1));
                         if (ImGui.IsItemHovered() || ImGui.IsItemActive())
                         {
                             ImGui.SetMouseCursor(ImGuiMouseCursor.ResizeNs);
@@ -267,7 +268,7 @@ public class HorizontalSplitter
             }
         }
 
-        using (var bottomChild = ImRaii.Child("Bottom##Bottom", new Vector2(-1, -1) * ImGui.GetIO().FontGlobalScale, false))
+        using (var bottomChild = ImRaii.Child(LocalizationService.Ui("Bottom##Bottom"), new Vector2(-1, -1) * ImGui.GetIO().FontGlobalScale, false))
         {
             if (bottomChild.Success)
             {
@@ -278,10 +279,10 @@ public class HorizontalSplitter
                     {
                         ImGui.SetNextItemOpen(true);
                     }
-                    if(ImGui.CollapsingHeader(headerTextBottom + "##headerTextBottom", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                    if(ImGui.CollapsingHeader(headerTextBottom + LocalizationService.Ui("##headerTextBottom"), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         CollapsedBottom = false;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(true);
                         }
@@ -289,7 +290,7 @@ public class HorizontalSplitter
                     else
                     {
                         CollapsedBottom = true;
-                        using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                        using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                         {
                             drawBottom.Invoke(false);
                         }
@@ -297,7 +298,7 @@ public class HorizontalSplitter
                 }
                 else
                 {
-                    using (ImRaii.Child("##Spacer", new Vector2(0, 0)))
+                    using (ImRaii.Child(LocalizationService.Ui("##Spacer"), new Vector2(0, 0)))
                     {
                         drawBottom.Invoke(true);
                     }

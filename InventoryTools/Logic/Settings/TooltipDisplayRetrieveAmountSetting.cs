@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -18,12 +19,12 @@ public partial class TooltipDisplayRetrieveAmountSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "DisplayRetrievalAmount";
-    public override string Name { get; set; } = "Add Amount to Retrieve";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Amount to Retrieve"));
 
-    public override string WizardName { get; } = "Amount to Retrieve";
+    public override string WizardName { get; } = LocalizationService.Ui("Amount to Retrieve");
 
     public override string HelpText { get; set; } =
-        "Should the amount required to be retrieved be shown in the tooltip?";
+        LocalizationService.Ui(LocalizationService.Ui("Should the amount required to be retrieved be shown in the tooltip?"));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AmountToRetrieve;

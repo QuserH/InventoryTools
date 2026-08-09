@@ -3,6 +3,7 @@ using AllaganLib.Shared.Interfaces;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -18,15 +19,15 @@ public class AddonOffsetFinderDebuggerPane : DebugLogPane
         _gameGui = gameGui;
     }
 
-    public override string Name => "Addon Offset Finder";
+    public override string Name => LocalizationService.Ui("Addon Offset Finder");
     public override unsafe void DrawInfo()
     {
-        ImGui.InputText("Addon Name", ref _addonName, 100);
-        ImGui.InputInt("Component ID", ref _componentId);
-        ImGui.InputInt("Max Scan Size", ref _maxScanSize);
+        ImGui.InputText(LocalizationService.Ui("Addon Name"), ref _addonName, 100);
+        ImGui.InputInt(LocalizationService.Ui("Component ID"), ref _componentId);
+        ImGui.InputInt(LocalizationService.Ui("Max Scan Size"), ref _maxScanSize);
 
 
-        if (ImGui.Button("Scan"))
+        if (ImGui.Button(LocalizationService.Ui("Scan")))
         {
 
             var addon = _gameGui.GetAddonByName(_addonName);

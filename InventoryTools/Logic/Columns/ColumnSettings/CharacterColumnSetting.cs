@@ -6,6 +6,7 @@ using CsvHelper;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -64,8 +65,8 @@ public sealed class CharacterColumnSetting : ChoiceColumnSetting<ulong?>
     }
 
     public override string Key { get; set; } = "character";
-    public override string Name { get; set; } = "Character";
-    public override string HelpText { get; set; } = "The character to use";
+    public override string Name { get; set; } = LocalizationService.Ui("Character");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The character to use"));
     public override ulong? DefaultValue { get; set; } = null;
 
 }

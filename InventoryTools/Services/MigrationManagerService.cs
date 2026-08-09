@@ -23,6 +23,7 @@ using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 #pragma warning disable CS0618 // Type or member is obsolete
 
 namespace InventoryTools.Services;
@@ -57,7 +58,7 @@ public class MigrationManagerService : IHostedService
         var config = _configuration;
         if (config.InternalVersion == 0)
         {
-            _logger.LogInformation("Migrating to version 1");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 1"));
             var highlight = config.HighlightColor;
             if (highlight.W == 0.0f)
             {
@@ -89,7 +90,7 @@ public class MigrationManagerService : IHostedService
         }
         if (config.InternalVersion == 1)
         {
-            _logger.LogInformation("Migrating to version 2");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 2"));
             config.InvertTabHighlighting = config.InvertHighlighting;
 
             foreach (var filterConfig in config.FilterConfigurations)
@@ -104,12 +105,12 @@ public class MigrationManagerService : IHostedService
         }
         if (config.InternalVersion == 2)
         {
-            _logger.LogInformation("Migrating to version 3");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 3"));
             config.InternalVersion++;
         }
         if (config.InternalVersion == 3)
         {
-            _logger.LogInformation("Migrating to version 4");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 4"));
 
 
 
@@ -133,14 +134,14 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 4)
         {
-            _logger.LogInformation("Migrating to version 5");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 5"));
             config.RetainerListColor = ImGuiColors.HealerGreen;
             config.InternalVersion++;
         }
 
         if (config.InternalVersion == 5)
         {
-            _logger.LogInformation("Migrating to version 6");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 6"));
             config.TooltipDisplayAmountOwned = true;
             config.TooltipDisplayMarketAveragePrice = true;
             config.InternalVersion++;
@@ -148,7 +149,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 6)
         {
-            _logger.LogInformation("Migrating to version 7");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 7"));
             config.HighlightDestination = true;
             config.DestinationHighlightColor = new Vector4(0.321f, 0.239f, 0.03f, 1f);
             config.InternalVersion++;
@@ -161,7 +162,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 8)
         {
-            _logger.LogInformation("Migrating to version 9");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 9"));
             var order = 0u;
             foreach (var configuration in config.FilterConfigurations)
             {
@@ -185,7 +186,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 9)
         {
-            _logger.LogInformation("Migrating to version 10");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 10"));
             foreach (var configuration in config.FilterConfigurations)
             {
 #pragma warning disable CS0612
@@ -204,13 +205,13 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 10)
         {
-            _logger.LogInformation("Migrating to version 11");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 11"));
             config.InternalVersion++;
         }
 
         if (config.InternalVersion == 11)
         {
-            _logger.LogInformation("Migrating to version 12");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 12"));
             config.TooltipLocationLimit = 10;
             config.TooltipLocationDisplayMode =
                 TooltipLocationDisplayMode.CharacterCategoryQuantityQuality;
@@ -219,7 +220,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 12)
         {
-            _logger.LogInformation("Migrating to version 13");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 13"));
             config.FiltersLayout = WindowLayout.Tabs;
             config.CraftWindowLayout = WindowLayout.Tabs;
             config.InternalVersion++;
@@ -227,7 +228,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 13)
         {
-            _logger.LogInformation("Migrating to version 14");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 14"));
             var toReset = _filterService.AvailableFilters.Where(c =>
                 c is CraftCrystalGroupFilter or CraftCurrencyGroupFilter or CraftPrecraftGroupFilter
                     or CraftRetrieveGroupFilter or CraftEverythingElseGroupFilter or CraftIngredientPreferenceFilter
@@ -255,7 +256,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 14)
         {
-            _logger.LogInformation("Migrating to version 15");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 15"));
             config.HistoryTrackReasons = new()
             {
                 InventoryChangeReason.Added,
@@ -270,7 +271,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 15)
         {
-            _logger.LogInformation("Migrating to version 16");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 16"));
             var hasExistingHistoryList = config.HasList("History");
             if (!hasExistingHistoryList && !config.FirstRun)
             {
@@ -289,7 +290,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 16)
         {
-            _logger.LogInformation("Migrating to version 17");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 17"));
             foreach (var filterConfig in config.FilterConfigurations)
             {
                 if (filterConfig.FilterType == FilterType.CraftFilter)
@@ -304,7 +305,7 @@ public class MigrationManagerService : IHostedService
         }
         if (config.InternalVersion == 17)
         {
-            _logger.LogInformation("Migrating to version 18");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 18"));
             AddStain2ToInventories();
 
             config.InternalVersion++;
@@ -312,7 +313,7 @@ public class MigrationManagerService : IHostedService
 
         if (config.InternalVersion == 18)
         {
-            _logger.LogInformation("Migrating to version 19");
+            _logger.LogInformation(LocalizationService.Ui("Migrating to version 19"));
 
             foreach (var filterConfig in config.FilterConfigurations)
             {
@@ -450,7 +451,7 @@ public class MigrationManagerService : IHostedService
                 {
                     filterConfig.HighlightWhenEnum = HighlightWhen.Always;
                 }
-                else if (filterConfig.HighlightWhen == "When Searching")
+                else if (filterConfig.HighlightWhen == LocalizationService.Ui("When Searching"))
                 {
                     filterConfig.HighlightWhenEnum = HighlightWhen.WhenSearching;
                 }
@@ -464,7 +465,7 @@ public class MigrationManagerService : IHostedService
             {
                 config.HighlightWhenEnum = HighlightWhen.Always;
             }
-            else if (config.HighlightWhen == "When Searching")
+            else if (config.HighlightWhen == LocalizationService.Ui("When Searching"))
             {
                 config.HighlightWhenEnum = HighlightWhen.WhenSearching;
             }

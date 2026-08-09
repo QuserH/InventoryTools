@@ -9,6 +9,7 @@ using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using InventoryTools.Compendium.Types.Extra;
 using InventoryTools.Localizers;
+using InventoryTools.Localization;
 
 public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
 {
@@ -40,9 +41,9 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         });
     }
 
-    public override string Singular => "Chocobo Item";
-    public override string Plural => "Chocobo Items";
-    public override string Description => "Items consumed or equipped by chocobo companions.";
+    public override string Singular => LocalizationService.Ui("Chocobo Item");
+    public override string Plural => LocalizationService.Ui("Chocobo Items");
+    public override string Description => LocalizationService.Ui("Items consumed or equipped by chocobo companions.");
     public override string Key => "chocoboItems";
 
     public override (string?, uint?) Icon => (null, 74);
@@ -88,8 +89,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddItemColumn(new()
         {
             Key = "icon",
-            Name = "##Icon",
-            HelpText = "The icon of the chocobo item.",
+            Name = LocalizationService.Ui("##Icon"),
+            HelpText = LocalizationService.Ui("The icon of the chocobo item."),
             Version = "1",
             ValueSelector = row => row.Item.RowId,
         });
@@ -97,8 +98,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "Name",
-            HelpText = "The name of the chocobo item.",
+            Name = LocalizationService.Ui("Name"),
+            HelpText = LocalizationService.Ui("The name of the chocobo item."),
             Version = "1",
             ValueSelector = r => r.Item.NameString
         });
@@ -106,8 +107,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddStringColumn(new()
         {
             Key = "source",
-            Name = "Source",
-            HelpText = "The source of the chocobo item.",
+            Name = LocalizationService.Ui("Source"),
+            HelpText = LocalizationService.Ui("The source of the chocobo item."),
             Version = "1",
             ValueSelector = r => _itemSourceTypeLocalizer.Format(r.SourceType)
         });
@@ -115,8 +116,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddBooleanColumn(new()
         {
             Key = "training_item",
-            Name = "Training Item?",
-            HelpText = "Is this item used for training?",
+            Name = LocalizationService.Ui("Training Item?"),
+            HelpText = LocalizationService.Ui("Is this item used for training?"),
             Version = "1",
             ValueSelector = r => r.BuddyItem?.Value.UseTraining
         });
@@ -124,8 +125,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddBooleanColumn(new()
         {
             Key = "field_item",
-            Name = "Field Item?",
-            HelpText = "Is this item used in the field?",
+            Name = LocalizationService.Ui("Field Item?"),
+            HelpText = LocalizationService.Ui("Is this item used in the field?"),
             Version = "1",
             ValueSelector = r => r.BuddyItem?.Value.UseField
         });
@@ -133,8 +134,8 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         builder.AddBooleanColumn(new()
         {
             Key = "recolor_item",
-            Name = "Dye Item?",
-            HelpText = "Is this item used to alter a chocobos colour?",
+            Name = LocalizationService.Ui("Dye Item?"),
+            HelpText = LocalizationService.Ui("Is this item used to alter a chocobos colour?"),
             Version = "1",
             ValueSelector = r => r.BuddyItem?.Value.Unknown0
         });
@@ -154,13 +155,13 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
         viewBuilder.AddInfoTableSection(new()
         {
             SectionKey = "info",
-            SectionName = "Info",
+            SectionName = LocalizationService.Ui("Info"),
             Items =
             [
                 ("Source", _itemSourceTypeLocalizer.Format(row.SourceType), true),
-                ("Training Item?", TriStateFormatted(useTraining), row.BuddyItem != null),
-                ("Field Item?", TriStateFormatted(useField), row.BuddyItem != null),
-                ("Dye Item?", TriStateFormatted(dyeField), row.BuddyItem != null),
+                (LocalizationService.Ui("Training Item?"), TriStateFormatted(useTraining), row.BuddyItem != null),
+                (LocalizationService.Ui("Field Item?"), TriStateFormatted(useField), row.BuddyItem != null),
+                (LocalizationService.Ui("Dye Item?"), TriStateFormatted(dyeField), row.BuddyItem != null),
             ]
         });
     }
@@ -177,7 +178,7 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
             new CompendiumGrouping<ChocoboItem>()
             {
                 Key = "source",
-                Name = "Source",
+                Name = LocalizationService.Ui("Source"),
                 GroupFunc = r => r.SourceType,
                 GroupMapping = o =>
                 {

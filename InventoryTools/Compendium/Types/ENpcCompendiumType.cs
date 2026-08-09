@@ -16,6 +16,7 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Localizers;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -40,7 +41,7 @@ public class ENpcCompendiumType : CompendiumType<IGrouping<string, ENpcBaseRow>>
             Key = "npcs",
             Columns = BuiltColumns,
             CompendiumType = this,
-            Name = "NPCs",
+            Name = LocalizationService.Ui("NPCs"),
         });
     }
 
@@ -76,12 +77,12 @@ public class ENpcCompendiumType : CompendiumType<IGrouping<string, ENpcBaseRow>>
 
     public override void BuildColumns(CompendiumColumnBuilder<IGrouping<string, ENpcBaseRow>> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = "##Icon", HelpText = "The icon of the npc", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.FirstOrDefault()!.RowId });
-        builder.AddStringColumn(new() { Key = "name", Name = "Name", HelpText = "The name of the npc", Version = "14.0.3", ValueSelector = GetName });
-        builder.AddBooleanColumn(new() { Key = "is_vendor", Name = "Is Vendor?", HelpText = "Is the NPC a vendor?", Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsVendor) });
-        builder.AddBooleanColumn(new() { Key = "is_calamity_salvager", Name = "Is Calamity Salvager?", HelpText = "Is the NPC a calamity salvager?", Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsCalamitySalvager) });
-        builder.AddBooleanColumn(new() { Key = "is_house_vendor", Name = "Is Housing Vendor?", HelpText = "Is the NPC a housing vendor?", Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsHouseVendor) });
-        builder.AddItemsColumn(new() { Key = "vendor_items", Name = "Vendor Items", HelpText = "The items this vendor sells?", Version = "14.0.3", ValueSelector = row => GetShopItems(row.FirstOrDefault()!.ENpcResidentRow) ?? [] });
+        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the npc"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.FirstOrDefault()!.RowId });
+        builder.AddStringColumn(new() { Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the npc"), Version = "14.0.3", ValueSelector = GetName });
+        builder.AddBooleanColumn(new() { Key = "is_vendor", Name = LocalizationService.Ui("Is Vendor?"), HelpText = LocalizationService.Ui("Is the NPC a vendor?"), Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsVendor) });
+        builder.AddBooleanColumn(new() { Key = "is_calamity_salvager", Name = LocalizationService.Ui("Is Calamity Salvager?"), HelpText = LocalizationService.Ui("Is the NPC a calamity salvager?"), Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsCalamitySalvager) });
+        builder.AddBooleanColumn(new() { Key = "is_house_vendor", Name = LocalizationService.Ui("Is Housing Vendor?"), HelpText = LocalizationService.Ui("Is the NPC a housing vendor?"), Version = "14.0.3", ValueSelector = row => row.Any(c => c.IsHouseVendor) });
+        builder.AddItemsColumn(new() { Key = "vendor_items", Name = LocalizationService.Ui("Vendor Items"), HelpText = LocalizationService.Ui("The items this vendor sells?"), Version = "14.0.3", ValueSelector = row => GetShopItems(row.FirstOrDefault()!.ENpcResidentRow) ?? [] });
     }
 
     private List<ItemRow>? GetShopItems(ENpcResidentRow npc)
@@ -109,14 +110,14 @@ public class ENpcCompendiumType : CompendiumType<IGrouping<string, ENpcBaseRow>>
             RelatedRefs = row.SelectMany(c => c.Base.ENpcData).DistinctBy(c => c.RowId).ToList(),
             Filter = typeof(Quest),
             SectionKey = "related_quests",
-            SectionName = "Related Quests"
+            SectionName = LocalizationService.Ui("Related Quests")
         });
         var mapLinks = row.SelectMany(c => c.Locations).Select(c => new MapLinkEntry(Icons.FlagIcon, c.FormattedName, "", c)).ToList();
         viewBuilder.AddMapLinksSectionSection(new MapLinksViewSectionOptions()
         {
             MapLinks = mapLinks,
             SectionKey = "known_locations",
-            SectionName = "Known Locations"
+            SectionName = LocalizationService.Ui("Known Locations")
         });
 
     }
@@ -159,9 +160,9 @@ public class ENpcCompendiumType : CompendiumType<IGrouping<string, ENpcBaseRow>>
 
     public override List<Type>? RelatedTypes => [typeof(ENpcResidentRow), typeof(ENpcResident), typeof(ENpcBase)];
 
-    public override string Singular => "NPC";
-    public override string Plural => "NPCs";
-    public override string Description => "A list of all the NPCs in the game";
+    public override string Singular => LocalizationService.Ui("NPC");
+    public override string Plural => LocalizationService.Ui("NPCs");
+    public override string Description => LocalizationService.Ui("A list of all the NPCs in the game");
     public override string Key => "npcs";
     public override (string?, uint?) Icon => (null, Icons.ThreePeople);
 }

@@ -20,6 +20,7 @@ using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -57,7 +58,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
     }
     public override void Initialize()
     {
-        WindowName = "Mobs";
+        WindowName = LocalizationService.Ui("Mobs");
         Key = "mobs";
         var mobSpawns = _mobSpawnPositions;
         var availableTerritories = mobSpawns.Select(c => c.TerritoryTypeId).ToHashSet();
@@ -345,7 +346,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
     public override string TableName => _tableName;
 
     public override string GenericKey => "mobs";
-    public override string GenericName => "Mobs";
+    public override string GenericName => LocalizationService.Ui("Mobs");
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

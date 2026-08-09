@@ -10,6 +10,7 @@ using Dalamud.Plugin.Services;
 using InventoryTools.Logic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Overlays
 {
@@ -38,13 +39,13 @@ namespace InventoryTools.Overlays
         {
             if (!HasState || !AtkOverlay.HasAddon)
             {
-                Logger.LogTrace("no state and no addon");
+                Logger.LogTrace(LocalizationService.Ui("no state and no addon"));
                 return false;
             }
             var atkUnitBase = AtkOverlay.AtkUnitBase;
             if (atkUnitBase != null)
             {
-                Logger.LogTrace("has atk base, setting colors");
+                Logger.LogTrace(LocalizationService.Ui("has atk base, setting colors"));
                 this.AtkOverlay.SetColors(SelectItems);
                 return true;
             }
@@ -74,7 +75,7 @@ namespace InventoryTools.Overlays
                 var filterResult = newState.FilterResult;
                 if (filterResult != null)
                 {
-                    Logger.LogTrace("Attempting to update state for SelectIconString");
+                    Logger.LogTrace(LocalizationService.Ui("Attempting to update state for SelectIconString"));
                     var currentShopTypes = _shopMonitorService.GetCurrentShopType();
                     if (currentShopTypes != null)
                     {
@@ -92,7 +93,7 @@ namespace InventoryTools.Overlays
 
             if (HasState)
             {
-                Logger.LogTrace("Clearing select items");
+                Logger.LogTrace(LocalizationService.Ui("Clearing select items"));
                 SelectItems = new List<Vector4?>();
                 Clear();
             }

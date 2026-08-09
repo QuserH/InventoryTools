@@ -10,6 +10,7 @@ using Dalamud.Interface.Textures;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -28,24 +29,24 @@ public abstract class ItemFieldOpCofferSourceRenderer<T> : ItemInfoRenderer<T> w
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text("Drops from " + asSource.CofferType + " coffer");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Drops from ")) + asSource.CofferType + LocalizationService.Ui(" coffer"));
         if (asSource.Min != null && asSource.Max != null)
         {
             ImGui.SameLine();
             if (asSource.Min == asSource.Max)
             {
-                ImGui.Text("(Drops 1)");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops 1)")));
             }
             else
             {
-                ImGui.Text("(Drops " + asSource.Min.Value + " - " + asSource.Max.Value + ")");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops ")) + asSource.Min.Value + " - " + asSource.Max.Value + ")");
             }
         }
 
         if (asSource.Probability != null)
         {
             ImGui.SameLine();
-            ImGui.TextUnformatted($"{asSource.Probability.Value}%");
+            ImGui.TextUnformatted(LocalizationService.Format("{0}%", asSource.Probability.Value));
         }
     };
 
@@ -56,7 +57,7 @@ public abstract class ItemFieldOpCofferSourceRenderer<T> : ItemInfoRenderer<T> w
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return asSource.CofferType + " coffer";
+        return asSource.CofferType + LocalizationService.Ui(" coffer");
     };
 }
 
@@ -69,8 +70,8 @@ public class ItemPagosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<I
     {
     }
 
-    public override string SingularName => "Eureka Pagos (Treasure Coffer)";
-    public override string HelpText => "Does this item drop from a pagos treasure coffer?";
+    public override string SingularName => LocalizationService.Ui("Eureka Pagos (Treasure Coffer)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a pagos treasure coffer?"));
 }
 
 public class ItemPyrosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemPyrosTreasureCofferSource>
@@ -82,8 +83,8 @@ public class ItemPyrosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<I
     {
     }
 
-    public override string SingularName => "Eureka Pyros (Treasure Coffer)";
-    public override string HelpText => "Does this item drop from a pyros treasure coffer?";
+    public override string SingularName => LocalizationService.Ui("Eureka Pyros (Treasure Coffer)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a pyros treasure coffer?"));
 }
 
 public class ItemHydatosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemHydatosTreasureCofferSource>
@@ -95,8 +96,8 @@ public class ItemHydatosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer
     {
     }
 
-    public override string SingularName => "Eureka Hydatos (Treasure Coffer)";
-    public override string HelpText => "Does this item drop from a hydatos treasure coffer?";
+    public override string SingularName => LocalizationService.Ui("Eureka Hydatos (Treasure Coffer)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a hydatos treasure coffer?"));
 }
 
 public class ItemOccultTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultTreasureCofferSource>
@@ -108,8 +109,8 @@ public class ItemOccultTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<
     {
     }
 
-    public override string SingularName => "Occult Crescent (Treasure Coffer)";
-    public override string HelpText => "Does this item drop from a occult crescent treasure coffer?";
+    public override string SingularName => LocalizationService.Ui("Occult Crescent (Treasure Coffer)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent treasure coffer?"));
 }
 
 public class ItemOccultPotSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultPotSource>
@@ -121,8 +122,8 @@ public class ItemOccultPotSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemO
     {
     }
 
-    public override string SingularName => "Occult Crescent (Pot)";
-    public override string HelpText => "Does this item drop from a occult crescent pot?";
+    public override string SingularName => LocalizationService.Ui("Occult Crescent (Pot)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent pot?"));
 }
 
 public class ItemOccultGoldenCofferSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultGoldenCofferSource>
@@ -134,6 +135,6 @@ public class ItemOccultGoldenCofferSourceRenderer : ItemFieldOpCofferSourceRende
     {
     }
 
-    public override string SingularName => "Occult Crescent (Golden Coffer)";
-    public override string HelpText => "Does this item drop from a occult crescent golden coffer?";
+    public override string SingularName => LocalizationService.Ui("Occult Crescent (Golden Coffer)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent golden coffer?"));
 }

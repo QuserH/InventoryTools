@@ -15,6 +15,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -37,9 +38,9 @@ public class ItemGatheringLeveSourceRenderer : ItemInfoRenderer<ItemGatheringLev
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.GatheringLeve;
-    public override string SingularName => "Gathering Leve";
-    public override string PluralName => "Gathering Leves";
-    public override string HelpText => "Is this item obtained from a gathering leve?";
+    public override string SingularName => LocalizationService.Ui("Gathering Leve");
+    public override string PluralName => LocalizationService.Ui("Gathering Leves");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item obtained from a gathering leve?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -54,13 +55,13 @@ public class ItemGatheringLeveSourceRenderer : ItemInfoRenderer<ItemGatheringLev
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
 
-        ImGui.TextUnformatted("Leve: " + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted("Class: " + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted("EXP Reward: " + asSource.ExpReward);
-        ImGui.TextUnformatted("Allowance Cost: " + leveRow.AllowanceCost);
-        ImGui.TextUnformatted("Loot Chance: " + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Loot Chance: ")) + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
 
-        ImGui.TextUnformatted("Reward Items: ");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Reward Items: ")));
         using (ImRaii.PushIndent())
         {
             for (var itemGroupIndex = 0; itemGroupIndex < asSource.Leve.Value.LeveRewardItem.Value.LeveRewardItemGroup.Count; itemGroupIndex++)
@@ -70,7 +71,7 @@ public class ItemGatheringLeveSourceRenderer : ItemInfoRenderer<ItemGatheringLev
                 {
                     continue;
                 }
-                ImGui.TextUnformatted("Loot Chance: " + asSource.Leve.Value.LeveRewardItem.Value.ProbabilityPercent[itemGroupIndex] + "%");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Loot Chance: ")) + asSource.Leve.Value.LeveRewardItem.Value.ProbabilityPercent[itemGroupIndex] + "%");
                 for (var index = 0; index < itemGroup.Value.Item.Count; index++)
                 {
                     var itemId = itemGroup.Value.Item[index].RowId;
@@ -87,7 +88,7 @@ public class ItemGatheringLeveSourceRenderer : ItemInfoRenderer<ItemGatheringLev
                         _textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty().Handle,
                         new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                     ImGui.SameLine();
-                    ImGui.TextUnformatted($"{item.NameString} x {count}");
+                    ImGui.TextUnformatted(LocalizationService.Format("{0} x {1}", item.NameString, count));
                     if (isHQ)
                     {
                         ImGui.SameLine();

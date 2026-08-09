@@ -8,6 +8,7 @@ using InventoryTools.Logic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using SemVersion;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -17,7 +18,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
     private SemanticVersion? scrollTo;
     private SemanticVersion? viewingVersion;
 
-    public ChangelogWindow(ILogger<ChangelogWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ChangelogService changelogService) : base(logger, mediator, imGuiService, configuration, "Changelog")
+    public ChangelogWindow(ILogger<ChangelogWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ChangelogService changelogService) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui("Changelog"))
     {
         _changelogService = changelogService;
     }
@@ -25,7 +26,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
     public override void DrawWindow()
     {
         ImGui.SetNextWindowSize(new Vector2(600, 400), ImGuiCond.FirstUseEver);
-        ImGui.Begin("Changelog");
+        ImGui.Begin(LocalizationService.Ui("Changelog"));
 
         // Sidebar and Main Panel
         var sidebarWidth = 150f;
@@ -44,7 +45,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
                         if (currentGroup != null)
                             ImGui.Separator();
 
-                        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), $"1.{minorGroup}.x");
+                        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), LocalizationService.Format("1.{0}.x", minorGroup));
                         currentGroup = minorGroup;
                     }
 
@@ -52,7 +53,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
                     using var color = ImRaii.PushColor(ImGuiCol.Text, new Vector4(1f, 0.8f, 0.3f, 1f), isSelected);
 
-                    if (ImGui.Selectable("  1." + changelog, isSelected))
+                    if (ImGui.Selectable(LocalizationService.Ui("  1.") + changelog, isSelected))
                     {
                         scrollTo = changelog;
                     }
@@ -69,7 +70,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
                 bool currentVersionSet = false;
                 foreach (var changelog in _changelogService.ChangeLogs)
                 {
-                    if (ImGui.CollapsingHeader("1." + changelog.Item1.ToString(), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen))
+                    if (ImGui.CollapsingHeader(LocalizationService.Ui("1.") + changelog.Item1.ToString(), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen))
                     {
                         if (ImGui.IsItemVisible() && !currentVersionSet)
                         {
@@ -99,7 +100,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
             return;
 
         ImGui.Spacing();
-        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), $"{title}:");
+        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), LocalizationService.Format("{0}:", title));
 
         using var indent = ImRaii.PushIndent();
 
@@ -109,7 +110,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
             if (trimmed.StartsWith("- "))
             {
-                ImGui.Text("-");
+                ImGui.Text(LocalizationService.Ui("-"));
                 ImGui.SameLine();
                 ImGui.PushTextWrapPos();
                 ImGui.TextUnformatted(trimmed.Substring(2).Trim());
@@ -132,7 +133,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
     public override FilterConfiguration? SelectedConfiguration { get; } = null;
     public override string GenericKey { get; } = "changelog";
-    public override string GenericName { get; } = "Changelog";
+    public override string GenericName { get; } = LocalizationService.Ui("Changelog");
     public override bool DestroyOnClose { get; } = true;
     public override bool SaveState { get; } = true;
     public override Vector2? DefaultSize { get; } = new Vector2(500, 500);

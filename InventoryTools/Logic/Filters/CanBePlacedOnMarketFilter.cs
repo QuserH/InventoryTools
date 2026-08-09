@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -10,8 +11,8 @@ namespace InventoryTools.Logic.Filters
     public class CanBePlacedOnMarketFilter : BooleanFilter
     {
         public override string Key { get; set; } = "CanBePlacedOnMarket";
-        public override string Name { get; set; } = "Can be Placed on Market?";
-        public override string HelpText { get; set; } = "Can this item be placed on the market?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Placed on Market?"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be placed on the market?"));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
 

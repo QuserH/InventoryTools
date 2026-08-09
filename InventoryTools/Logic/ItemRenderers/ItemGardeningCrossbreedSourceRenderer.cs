@@ -11,6 +11,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -19,8 +20,8 @@ public class ItemGardeningCrossbreedSourceRenderer : ItemInfoRenderer<ItemGarden
     private readonly ITextureProvider _textureProvider;
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.GardeningCrossbreed;
-    public override string SingularName => "Gardening Crossbreed";
-    public override string HelpText => "Is this item created by crossbreeding 2 seeds?";
+    public override string SingularName => LocalizationService.Ui("Gardening Crossbreed");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item created by crossbreeding 2 seeds?"));
     public override bool ShouldGroup => true;
 
     public ItemGardeningCrossbreedSourceRenderer(ItemSheet itemSheet, MapSheet mapSheet,
@@ -32,8 +33,8 @@ public class ItemGardeningCrossbreedSourceRenderer : ItemInfoRenderer<ItemGarden
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text($"Result: {asSource.SeedResult.NameString}");
-        ImGui.Text($"{asSource.Seed1.NameString} + {asSource.Seed2.NameString}");
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Result: {0}"), asSource.SeedResult.NameString));
+        ImGui.Text(LocalizationService.Format("{0} + {1}", asSource.Seed1.NameString, asSource.Seed2.NameString));
     };
     public override Func<ItemSource, string> GetName => source =>
     {
@@ -44,7 +45,7 @@ public class ItemGardeningCrossbreedSourceRenderer : ItemInfoRenderer<ItemGarden
     public override Action<List<ItemSource>>? DrawTooltipGrouped => sources =>
     {
         var actualSources = AsSource(sources);
-        ImGui.Text("Crossbreeds:");
+        ImGui.Text(LocalizationService.Ui("Crossbreeds:"));
         var chunkedSources = actualSources.OrderBy(c =>c.Seed1.NameString).Chunk(actualSources.Count / MaxColumns);
         using (var table = ImRaii.Table("CrossbreedTable", this.MaxColumns, ImGuiTableFlags.SizingStretchProp))
         {
@@ -58,13 +59,13 @@ public class ItemGardeningCrossbreedSourceRenderer : ItemInfoRenderer<ItemGarden
                     {
                         ImGui.Image(_textureProvider.GetFromGameIcon(new GameIconLookup(source.Seed1.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                         ImGui.SameLine();
-                        ImGui.Text($"{source.Seed1.NameString}");
+                        ImGui.Text(LocalizationService.Format("{0}", source.Seed1.NameString));
                         ImGui.SameLine();
-                        ImGui.Text(" x ");
+                        ImGui.Text(LocalizationService.Ui(" x "));
                         ImGui.SameLine();
                         ImGui.Image(_textureProvider.GetFromGameIcon(new GameIconLookup(source.Seed2.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                         ImGui.SameLine();
-                        ImGui.Text($"{source.Seed2.NameString}");
+                        ImGui.Text(LocalizationService.Format("{0}", source.Seed2.NameString));
                     }
                 }
             }
@@ -82,7 +83,7 @@ public class ItemGardeningCrossbreedSourceRenderer : ItemInfoRenderer<ItemGarden
         //             ImGui.TableNextColumn();
         //             foreach (var source in groupedSource)
         //             {
-        //                 ImGui.Text($"{source.Seed1.NameString} + {source.Seed2.NameString}");
+        //                 ImGui.Text(LocalizationService.Format("{0} + {1}", source.Seed1.NameString, source.Seed2.NameString));
         //             }
         //             count++;
         //             if (count == this.MaxColumns)
@@ -112,8 +113,8 @@ public class ItemGardeningCrossbreedSourceUseRenderer : ItemGardeningCrossbreedS
     }
 
     public override RendererType RendererType => RendererType.Use;
-    public override string SingularName => "Gardening Crossbreed Seed";
-    public override string HelpText => "Is this item part of a crossbreed when gardening?";
+    public override string SingularName => LocalizationService.Ui("Gardening Crossbreed Seed");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item part of a crossbreed when gardening?"));
 
     public override Func<ItemSource, string> GetDescription => source =>
     {

@@ -1,6 +1,7 @@
 using System.Numerics;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -13,10 +14,10 @@ namespace InventoryTools.Logic.Filters
         public override FilterType AvailableIn { get; set; } =
             FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
         public override string Key { get; set; } = "HighlightColor";
-        public override string Name { get; set; } = "Highlight Color";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Color"));
 
         public override string HelpText { get; set; } =
-            "The color to set the highlighted items to for this specific filter. If not overridden the global highlighting color will be used.";
+            LocalizationService.Ui(LocalizationService.Ui("The color to set the highlighted items to for this specific filter. If not overridden the global highlighting color will be used."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 

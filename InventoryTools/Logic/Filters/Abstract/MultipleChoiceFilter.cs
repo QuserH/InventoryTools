@@ -9,6 +9,7 @@ using InventoryTools.Extensions;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -83,12 +84,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
             }
 
             ImGui.Indent();
@@ -108,14 +109,14 @@ namespace InventoryTools.Logic.Filters.Abstract
                 if (combo.Success)
                 {
                     var searchString = SearchString;
-                    ImGui.InputText("Start typing to search..##ItemSearch", ref searchString, 50);
+                    ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("Start typing to search..##ItemSearch")), ref searchString, 50);
                     if (_searchString != searchString)
                     {
                         SearchString = searchString;
                     }
                     var activeChoices = GetActiveChoices(configuration);
                     ImGui.SameLine();
-                    if (ImGui.Button("Add All"))
+                    if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add All"))))
                     {
                         foreach (var item in activeChoices)
                         {
@@ -154,7 +155,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                     _cachedChoices = null;

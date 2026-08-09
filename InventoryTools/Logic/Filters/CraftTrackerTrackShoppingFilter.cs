@@ -3,6 +3,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -17,10 +18,10 @@ public class CraftTrackerTrackShoppingFilter : BooleanFilter
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     
     public override string Key { get; set; } = "CraftTrackerTrackShopping";
-    public override string Name { get; set; } = "Track Shopping?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Track Shopping?"));
     
     public override string HelpText { get; set; } =
-        "When an item is purchased from a shop and it matches one of the output items in this craft list, should it reduce the quantity of that item? The craft list must be active for this to count.";
+        LocalizationService.Ui(LocalizationService.Ui("When an item is purchased from a shop and it matches one of the output items in this craft list, should it reduce the quantity of that item? The craft list must be active for this to count."));
     
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.CompletionTracking;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

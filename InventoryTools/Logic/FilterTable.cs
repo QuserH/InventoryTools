@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -61,7 +62,7 @@ namespace InventoryTools.Logic
             {
                 var filter = columnConfiguration.FilterText;
                 ImGui.SetNextItemWidth(inputWidth);
-                ImGui.InputText("##" + tableKey + "FilterI" + columnConfiguration.Column.Name, ref filter, columnConfiguration.Column.MaxFilterLength);
+                ImGui.InputText(LocalizationService.Ui("##") + tableKey + "FilterI" + columnConfiguration.Column.Name, ref filter, columnConfiguration.Column.MaxFilterLength);
                 if (filter != columnConfiguration.FilterText)
                 {
                     columnConfiguration.FilterText = filter;
@@ -78,7 +79,7 @@ namespace InventoryTools.Logic
                     {
                         if (columnConfiguration.Column.FilterChoices != null)
                         {
-                            if (ImGui.Selectable("", false))
+                            if (ImGui.Selectable(LocalizationService.Ui(""), false))
                             {
                                 columnConfiguration.FilterText = "";
                                 hasChanged = true;
@@ -113,7 +114,7 @@ namespace InventoryTools.Logic
                 {
                     if (combo.Success)
                     {
-                        if (ImGui.Selectable("", false))
+                        if (ImGui.Selectable(LocalizationService.Ui(""), false))
                         {
                             columnConfiguration.FilterText = "";
                             hasChanged = true;
@@ -121,13 +122,13 @@ namespace InventoryTools.Logic
 
 
 
-                        if (ImGui.Selectable("Yes", currentItem == "Yes"))
+                        if (ImGui.Selectable(LocalizationService.Ui("Yes"), currentItem == "Yes"))
                         {
                             columnConfiguration.FilterText = "true";
                             hasChanged = true;
                         }
 
-                        if (ImGui.Selectable("No", currentItem == "No"))
+                        if (ImGui.Selectable(LocalizationService.Ui("No"), currentItem == "No"))
                         {
                             columnConfiguration.FilterText = "false";
                             hasChanged = true;
@@ -180,8 +181,8 @@ namespace InventoryTools.Logic
                             color.Pop();
                             using (ImRaii.Tooltip())
                             {
-                                ImGui.Text("Extra Filters");
-                                ImGui.Text("Right Click: Clear All");
+                                ImGui.Text(LocalizationService.Ui("Extra Filters"));
+                                ImGui.Text(LocalizationService.Ui("Right Click: Clear All"));
                             }
                         }
                     }

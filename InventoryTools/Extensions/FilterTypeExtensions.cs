@@ -1,4 +1,5 @@
 using InventoryTools.Logic;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Extensions;
 
@@ -8,14 +9,14 @@ public static class FilterTypeExtensions
     {
         return filterType switch
         {
-            FilterType.None => "None",
-            FilterType.SearchFilter => "Search List",
-            FilterType.SortingFilter => "Sort List",
-            FilterType.GameItemFilter => "Game Item List",
-            FilterType.CraftFilter => "Craft List",
-            FilterType.HistoryFilter => "History List",
-            FilterType.CuratedList => "Curated List",
-            _ => "Unknown"
+            FilterType.None => LocalizationService.Ui("None"),
+            FilterType.SearchFilter => LocalizationService.Ui("Search List"),
+            FilterType.SortingFilter => LocalizationService.Ui("Sort List"),
+            FilterType.GameItemFilter => LocalizationService.Ui("Game Item List"),
+            FilterType.CraftFilter => LocalizationService.Ui("Craft List"),
+            FilterType.HistoryFilter => LocalizationService.Ui("History List"),
+            FilterType.CuratedList => LocalizationService.Ui("Curated List"),
+            _ => LocalizationService.Ui("Unknown")
         };
     }
 }

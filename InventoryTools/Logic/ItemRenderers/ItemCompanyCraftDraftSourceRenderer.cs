@@ -10,6 +10,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -26,16 +27,16 @@ public class ItemCompanyCraftDraftSourceRenderer : ItemInfoRenderer<ItemCompanyC
     }
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.CompanyCraftDraft;
-    public override string SingularName => "Company Craft Prototype";
-    public override string HelpText => "Is this item used in the creation of a company craft prototype?";
+    public override string SingularName => LocalizationService.Ui("Company Craft Prototype");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item used in the creation of a company craft prototype?"));
     public override bool ShouldGroup => true;
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text($"Name: {asSource.CompanyCraftDraft.Value.Name.ExtractText()}");
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Name: {0}"), asSource.CompanyCraftDraft.Value.Name.ExtractText()));
 
-        DrawItems("Possible Reward Items: ", asSource.RewardItems);
-        DrawItems("Ingredients: ", asSource.CostItems);
+        DrawItems(LocalizationService.Ui("Possible Reward Items: "), asSource.RewardItems);
+        DrawItems(LocalizationService.Ui("Ingredients: "), asSource.CostItems);
     };
 
     public override Func<ItemSource, string> GetName => source =>

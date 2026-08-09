@@ -22,6 +22,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Icons = AllaganLib.Shared.Misc.Icons;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -52,7 +53,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         {
             CompendiumType = this,
             Key = "instance_content",
-            Name = "Instance Content",
+            Name = LocalizationService.Ui("Instance Content"),
             Columns = BuiltColumns
         });
     }
@@ -99,7 +100,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
             new CompendiumGrouping<InstanceContent>()
             {
                 Key = "content_type",
-                Name = "Content Type",
+                Name = LocalizationService.Ui("Content Type"),
                 GroupFunc = row => row.ContentFinderCondition.Value.ContentType.RowId,
                 GroupMapping = id => _contentTypeLocalizer.Format(_contentTypeSheet.GetRow((uint)id))
             }
@@ -113,8 +114,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = "Icon",
-            HelpText = "Duty icon",
+            Name = LocalizationService.Ui("Icon"),
+            HelpText = LocalizationService.Ui("Duty icon"),
             Version = "14.0.3",
             CompendiumType = this,
             RowIdSelector = row => row.RowId,
@@ -124,8 +125,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "Name",
-            HelpText = "The name of the duty",
+            Name = LocalizationService.Ui("Name"),
+            HelpText = LocalizationService.Ui("The name of the duty"),
             Version = "14.0.3",
             ValueSelector = GetName
         });
@@ -133,8 +134,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "level",
-            Name = "Level",
-            HelpText = "Required class/job level",
+            Name = LocalizationService.Ui("Level"),
+            HelpText = LocalizationService.Ui("Required class/job level"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ClassJobLevelRequired.ToString()
@@ -143,8 +144,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new BooleanColumnOptions<InstanceContent>()
         {
             Key = "unlocked",
-            Name = "Unlocked?",
-            HelpText = "Is the instance unlocked?",
+            Name = LocalizationService.Ui("Unlocked?"),
+            HelpText = LocalizationService.Ui("Is the instance unlocked?"),
             Version = "14.1.3",
             ValueSelector = row => _unlockState.IsInstanceContentUnlocked(row)
         });
@@ -152,8 +153,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new BooleanColumnOptions<InstanceContent>()
         {
             Key = "completed",
-            Name = "Completed?",
-            HelpText = "Is the instance completed?",
+            Name = LocalizationService.Ui("Completed?"),
+            HelpText = LocalizationService.Ui("Is the instance completed?"),
             Version = "14.1.3",
             ValueSelector = row => _uiStateService.IsInstanceContentCompleted(row)
         });
@@ -161,8 +162,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "sync_level",
-            Name = "Sync Level",
-            HelpText = "Level sync applied in the duty",
+            Name = LocalizationService.Ui("Sync Level"),
+            HelpText = LocalizationService.Ui("Level sync applied in the duty"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ClassJobLevelSync.ToString()
@@ -171,8 +172,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "item_level",
-            Name = "Item Level",
-            HelpText = "Minimum item level required",
+            Name = LocalizationService.Ui("Item Level"),
+            HelpText = LocalizationService.Ui("Minimum item level required"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ItemLevelRequired.ToString()
@@ -181,8 +182,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "item_level_sync",
-            Name = "Item Level Sync",
-            HelpText = "Maximum synced item level",
+            Name = LocalizationService.Ui("Item Level Sync"),
+            HelpText = LocalizationService.Ui("Maximum synced item level"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ItemLevelSync.ToString()
@@ -191,8 +192,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "allows_undersized",
-            Name = "Allows Undersized",
-            HelpText = "Whether the duty allows undersized party mode",
+            Name = LocalizationService.Ui("Allows Undersized"),
+            HelpText = LocalizationService.Ui("Whether the duty allows undersized party mode"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.AllowUndersized
@@ -201,8 +202,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "allows_explorer_mode",
-            Name = "Allows Explorer Mode",
-            HelpText = "Whether the duty supports explorer mode",
+            Name = LocalizationService.Ui("Allows Explorer Mode"),
+            HelpText = LocalizationService.Ui("Whether the duty supports explorer mode"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.AllowExplorerMode
@@ -211,8 +212,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "pvp",
-            Name = "PVP",
-            HelpText = "Whether this duty is PvP",
+            Name = LocalizationService.Ui("PVP"),
+            HelpText = LocalizationService.Ui("Whether this duty is PvP"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.PvP
@@ -221,8 +222,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddStringColumn(new()
         {
             Key = "accepted_classes",
-            Name = "Accepted Classes",
-            HelpText = "Class/job categories allowed to enter",
+            Name = LocalizationService.Ui("Accepted Classes"),
+            HelpText = LocalizationService.Ui("Class/job categories allowed to enter"),
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.AcceptClassJobCategory.ValueNullable?.Name.ToImGuiString() ?? "Unknown"
@@ -234,12 +235,12 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.SetupDefaults(this, row);
 
         viewBuilder.AddTag(
-            () => _unlockState.IsInstanceContentUnlocked(row) ? "Unlocked" : "Not Unlocked",
-            () => "Is the instance unlocked?",
+            () => _unlockState.IsInstanceContentUnlocked(row) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
+            () => LocalizationService.Ui("Is the instance unlocked?"),
             () => _unlockState.IsInstanceContentUnlocked(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
         viewBuilder.AddTag(
-            () => _uiStateService.IsInstanceContentCompleted(row) ? "Completed" : "Not Completed",
-            () => "Is the instance completed?",
+            () => _uiStateService.IsInstanceContentCompleted(row) ? "Completed" : LocalizationService.Ui("Not Completed"),
+            () => LocalizationService.Ui("Is the instance completed?"),
             () => _uiStateService.IsInstanceContentCompleted(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
 
         var relatedQuests = _questSheet.Where(c => c.InstanceContent.Any(c => c.RowId == row.RowId) || c.QuestParams.Any(c => c.ScriptArg == row.RowId && c.ScriptInstruction.ToString().StartsWith("INSTANCEDUNGEON")))
@@ -251,13 +252,13 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
             RelatedRefs = relatedQuests,
             HideWhenEmpty = true,
             SectionKey = "related_quests",
-            SectionName = "Related Quests"
+            SectionName = LocalizationService.Ui("Related Quests")
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = row.ContentFinderCondition.Value.TerritoryType.Value.AsUntypedRowRef(),
             SectionKey = "related_map",
-            SectionName = "Related Map"
+            SectionName = LocalizationService.Ui("Related Map")
         });
 
         var cfcId = row.ContentFinderCondition.RowId;
@@ -314,7 +315,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddNestedSection(new NestedSectionOptions
         {
             SectionKey = "boss_loot",
-            SectionName = "Instance Bosses",
+            SectionName = LocalizationService.Ui("Instance Bosses"),
             HideWhenEmpty = true,
             Sections = bossChildSections
         });
@@ -341,7 +342,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddNestedSection(new NestedSectionOptions
         {
             SectionKey = "other_chests",
-            SectionName = "Other Chests",
+            SectionName = LocalizationService.Ui("Other Chests"),
             HideWhenEmpty = true,
             Sections = chestChildSections
         });
@@ -349,7 +350,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddItemListSection(new ItemListSectionOptions
         {
             SectionKey = "rewards",
-            SectionName = "Rewards",
+            SectionName = LocalizationService.Ui("Rewards"),
             HideWhenEmpty = true,
             Items = _itemInfoCache
                 .GetItemSourcesByType<ItemDungeonDropSource>(ItemInfoType.DungeonDrop)
@@ -371,9 +372,9 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         return new TerritoryLocation(territoryType.Value.Value);
     }
 
-    public override string Singular => "Instance";
-    public override string Plural => "Instances";
-    public override string Description => "Instances including duties, trials, etc";
+    public override string Singular => LocalizationService.Ui("Instance");
+    public override string Plural => LocalizationService.Ui("Instances");
+    public override string Description => LocalizationService.Ui("Instances including duties, trials, etc");
     public override string Key => "instance";
     public override (string?, uint?) Icon => (null, Icons.DutyIcon);
 }

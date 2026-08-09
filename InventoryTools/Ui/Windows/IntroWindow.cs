@@ -7,6 +7,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -17,7 +18,7 @@ namespace InventoryTools.Ui
         }
         public override void Initialize()
         {
-            WindowName = "Allagan Tools";
+            WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools"));
             Flags =
                 ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar;
             Key = "intro";
@@ -30,7 +31,7 @@ namespace InventoryTools.Ui
 
         public override FilterConfiguration? SelectedConfiguration => null;
         public override string GenericKey { get; } = "intro";
-        public override string GenericName { get; } = "Intro";
+        public override string GenericName { get; } = LocalizationService.Ui("Intro");
         public override bool DestroyOnClose => true;
 
         public override void DrawWindow()
@@ -40,7 +41,7 @@ namespace InventoryTools.Ui
                 if (leftChild.Success)
                 {
                     ImGui.SetCursorPosY(40);
-                    ImGui.Image(ImGuiService.GetImageTexture("icon-hor").Handle, new Vector2(200, 200) * ImGui.GetIO().FontGlobalScale);
+                    ImGui.Image(ImGuiService.GetImageTexture(LocalizationService.Ui("icon-hor")).Handle, new Vector2(200, 200) * ImGui.GetIO().FontGlobalScale);
                 }
             }
             ImGui.SameLine();
@@ -52,25 +53,25 @@ namespace InventoryTools.Ui
                     {
                         if (textChild.Success)
                         {
-                            ImGui.TextWrapped("Welcome to Allagan Tools.");
+                            ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("Welcome to Allagan Tools.")));
                             ImGui.TextWrapped(
-                                "Allagan Tools is a plugin for Final Fantasy XIV that provides the following features:");
+                                LocalizationService.Ui(LocalizationService.Ui("Allagan Tools is a plugin for Final Fantasy XIV that provides the following features:")));
                             using (ImRaii.PushIndent())
                             {
                                 ImGui.Bullet();
-                                ImGui.Text("Track your inventories");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Track your inventories")));
                                 ImGui.Bullet();
-                                ImGui.Text("Plan your crafts");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Plan your crafts")));
                                 ImGui.Bullet();
-                                ImGui.Text("Provide information about items, monsters, duties and much more");
+                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Provide information about items, monsters, duties and much more")));
                             }
 
                             ImGui.TextWrapped(
-                                "You can open various new windows using command shortcuts(the main filter  or from the main window.");
+                                LocalizationService.Ui(LocalizationService.Ui("You can open various new windows using command shortcuts(the main filter  or from the main window.")));
                             ImGui.TextWrapped(
-                                "If you're unsure, right-click on an item or a table row for more options!");
+                                LocalizationService.Ui(LocalizationService.Ui("If you're unsure, right-click on an item or a table row for more options!")));
                             ImGui.TextWrapped(
-                                "To learn about the different features, I recommend going to the settings section and reading the information provided by the ? icons.");
+                                LocalizationService.Ui(LocalizationService.Ui("To learn about the different features, I recommend going to the settings section and reading the information provided by the ? icons.")));
                         }
                     }
 
@@ -78,13 +79,13 @@ namespace InventoryTools.Ui
                     {
                         if (buttonsChild.Success)
                         {
-                            if (ImGui.Button("Close"))
+                            if (ImGui.Button(LocalizationService.Ui("Close")))
                             {
                                 Close();
                             }
 
                             ImGui.SameLine(0, 4);
-                            if (ImGui.Button("Close & Open Main Window"))
+                            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Close & Open Main Window"))))
                             {
                                 Close();
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(FiltersWindow)));

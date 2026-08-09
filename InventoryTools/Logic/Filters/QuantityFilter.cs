@@ -2,6 +2,7 @@ using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -20,8 +21,8 @@ namespace InventoryTools.Logic.Filters
             ShowOperatorTooltip = true;
         }
         public override string Key { get; set; } = "Qty";
-        public override string Name { get; set; } = "Quantity";
-        public override string HelpText { get; set; } = "The quantity of the item.";
+        public override string Name { get; set; } = LocalizationService.Ui("Quantity");
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The quantity of the item."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 

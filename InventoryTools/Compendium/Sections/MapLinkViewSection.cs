@@ -10,6 +10,7 @@ using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Compendium.Models;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -97,8 +98,8 @@ public sealed class MapLinkViewSection : ViewSection
                 {
                     ImGui.TextUnformatted(loc.FormattedName);
                     ImGui.Separator();
-                    ImGui.Text($"X: {loc.MapX:0.0}");
-                    ImGui.Text($"Y: {loc.MapY:0.0}");
+                    ImGui.Text(LocalizationService.Format("X: {0:0.0}", loc.MapX));
+                    ImGui.Text(LocalizationService.Format("Y: {0:0.0}", loc.MapY));
                 }
             }
         }

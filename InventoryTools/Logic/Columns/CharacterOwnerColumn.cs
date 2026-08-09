@@ -4,6 +4,7 @@ using CriticalCommonLib.Services;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -24,11 +25,11 @@ public class CharacterOwnerColumn : TextColumn
         _characterOwners = new();
     }
 
-    public override string Name { get; set; } = "Character Owner";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Character Owner"));
     public override float Width { get; set; } = 100;
 
     public override string HelpText { get; set; } =
-        "Display's the name of the owner of the character this item is on if applicable(retainers, free companies, etc)";
+        LocalizationService.Ui(LocalizationService.Ui("Display's the name of the owner of the character this item is on if applicable(retainers, free companies, etc)"));
 
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Inventory;
     public override bool HasFilter { get; set; } = true;

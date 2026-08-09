@@ -15,6 +15,7 @@ using InventoryTools.Logic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.IPC;
 
@@ -96,7 +97,7 @@ public class Chat2Ipc : IChat2Ipc
 
         if (payload is ItemPayload itemPayload)
         {
-            using(var menu = ImRaii.Menu("Allagan Tools"))
+            using(var menu = ImRaii.Menu(LocalizationService.Ui("Allagan Tools")))
             {
                 if (menu)
                 {

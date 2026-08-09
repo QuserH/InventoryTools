@@ -12,6 +12,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -32,9 +33,9 @@ public class ItemCraftLeveUseRenderer : ItemInfoRenderer<ItemCraftLeveUse>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.CraftLeve;
-    public override string SingularName => "Craft Leve";
-    public override string PluralName => "Craft Leves";
-    public override string HelpText => "Is this item required for a craft leve?";
+    public override string SingularName => LocalizationService.Ui("Craft Leve");
+    public override string PluralName => LocalizationService.Ui("Craft Leves");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item required for a craft leve?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -49,13 +50,13 @@ public class ItemCraftLeveUseRenderer : ItemInfoRenderer<ItemCraftLeveUse>
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
 
-        ImGui.TextUnformatted("Leve: " + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted("Class: " + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted("EXP Reward: " + asSource.ExpReward);
-        ImGui.TextUnformatted("Allowance Cost: " + leveRow.AllowanceCost);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
         ImGui.Separator();
 
-        ImGui.TextUnformatted("Required Items: ");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Required Items: ")));
         using (ImRaii.PushIndent())
         {
             for (var index = 0; index < asSource.CraftLeve.Value.Item.Count; index++)
@@ -73,11 +74,11 @@ public class ItemCraftLeveUseRenderer : ItemInfoRenderer<ItemCraftLeveUse>
                     _textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty().Handle,
                     new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 ImGui.SameLine();
-                ImGui.TextUnformatted($"{item.NameString} x {count}");
+                ImGui.TextUnformatted(LocalizationService.Format("{0} x {1}", item.NameString, count));
             }
         }
 
-        ImGui.TextUnformatted("Reward Items: ");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Reward Items: ")));
         using (ImRaii.PushIndent())
         {
             for (var itemGroupIndex = 0; itemGroupIndex < asSource.Leve.Value.LeveRewardItem.Value.LeveRewardItemGroup.Count; itemGroupIndex++)
@@ -87,7 +88,7 @@ public class ItemCraftLeveUseRenderer : ItemInfoRenderer<ItemCraftLeveUse>
                 {
                     continue;
                 }
-                ImGui.TextUnformatted("Loot Chance: " + asSource.Leve.Value.LeveRewardItem.Value.ProbabilityPercent[itemGroupIndex] + "%");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Loot Chance: ")) + asSource.Leve.Value.LeveRewardItem.Value.ProbabilityPercent[itemGroupIndex] + "%");
                 for (var index = 0; index < itemGroup.Value.Item.Count; index++)
                 {
                     var itemId = itemGroup.Value.Item[index].RowId;
@@ -104,7 +105,7 @@ public class ItemCraftLeveUseRenderer : ItemInfoRenderer<ItemCraftLeveUse>
                         _textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty().Handle,
                         new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                     ImGui.SameLine();
-                    ImGui.TextUnformatted($"{item.NameString} x {count}");
+                    ImGui.TextUnformatted(LocalizationService.Format("{0} x {1}", item.NameString, count));
                     if (isHQ)
                     {
                         ImGui.SameLine();

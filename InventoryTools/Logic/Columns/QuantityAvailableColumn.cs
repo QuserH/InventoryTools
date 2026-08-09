@@ -5,6 +5,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -47,12 +48,12 @@ namespace InventoryTools.Logic.Columns
             }
             return qty;
         }
-        public override string Name { get; set; } = "Total Quantity Available";
-        public override string RenderName => "Available";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Total Quantity Available"));
+        public override string RenderName => LocalizationService.Ui("Available");
         public override float Width { get; set; } = 100;
 
         public override string HelpText { get; set; } =
-            "The number of items available across all inventories of this item.";
+            LocalizationService.Ui(LocalizationService.Ui("The number of items available across all inventories of this item."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

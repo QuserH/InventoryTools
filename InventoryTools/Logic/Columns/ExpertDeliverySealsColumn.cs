@@ -4,6 +4,7 @@ using AllaganLib.GameSheets.ItemSources;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -27,9 +28,9 @@ public class ExpertDeliverySealsColumn : IntegerColumn
         return null;
     }
 
-    public override string Name { get; set; } = "Expert Delivery Reward Seal Count";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Expert Delivery Reward Seal Count"));
     public override float Width { get; set; } = 90;
 
     public override string HelpText { get; set; } =
-        "The number of seals that are rewarded when handing this item in as an expert delivery.";
+        LocalizationService.Ui(LocalizationService.Ui("The number of seals that are rewarded when handing this item in as an expert delivery."));
 }

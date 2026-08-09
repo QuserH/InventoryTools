@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -31,11 +32,11 @@ public class DefaultFilterAllGameItems : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Full Item Catalog";
-    public string SampleDefaultName => "Full Item Catalog";
+    public string Name => LocalizationService.Ui(LocalizationService.Ui("Full Item Catalog"));
+    public string SampleDefaultName => LocalizationService.Ui("Full Item Catalog");
 
     public string SampleDescription =>
-        "This will add a list that will be preconfigured to show all of the game's items.";
+        LocalizationService.Ui("This will add a list that will be preconfigured to show all of the game's items.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using CriticalCommonLib.MarketBoard;
 using CriticalCommonLib.Services;
 
@@ -21,7 +22,7 @@ namespace InventoryTools.Logic.Columns
         public override ColumnCategory ColumnCategory => ColumnCategory.Market;
 
         public override string HelpText { get; set; } =
-            "Shows the minimum price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis.";
+            LocalizationService.Ui(LocalizationService.Ui("Shows the minimum price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis."));
 
         public override (int, int)? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
@@ -68,8 +69,8 @@ namespace InventoryTools.Logic.Columns
 
             return (Loading, Loading);
         }
-        public override string Name { get; set; } = "Market Board Minimum Price NQ/HQ";
-        public override string RenderName => "MB Min. Price NQ/HQ";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Minimum Price NQ/HQ"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Min. Price NQ/HQ"));
 
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     }

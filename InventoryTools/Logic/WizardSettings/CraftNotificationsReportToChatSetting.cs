@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.WizardSettings;
 
@@ -11,8 +12,8 @@ public class CraftNotificationsReportToChatSetting : GenericBooleanSetting
 
     public CraftNotificationsReportToChatSetting(ILogger<CraftNotificationsReportToChatSetting> logger,
         ImGuiService imGuiService) : base("CraftNotificationsReportToChat",
-        "Report acquisition to chat",
-        "When acquiring items that are part of a craft list, print progress to chat. The craft list must be active for notifications to occur.",
+        LocalizationService.Ui("Report acquisition to chat"),
+        LocalizationService.Ui("When acquiring items that are part of a craft list, print progress to chat. The craft list must be active for notifications to occur."),
         true,
         SettingCategory.None,
         SettingSubCategory.None,

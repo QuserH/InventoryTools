@@ -14,6 +14,7 @@ using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
 using OtterGui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -45,7 +46,7 @@ public class CraftMarketPriceColumn : GilColumn
         if (!searchResult.CraftItem.Item.CanBePlacedOnMarket) return new List<MessageBase>();
         if (searchResult.CraftItem.MarketTotalPrice != null && searchResult.CraftItem.MarketUnitPrice != null)
         {
-            ImGui.Text($"{searchResult.CraftItem.MarketUnitPrice.Value:n0}" + SeIconChar.Gil.ToIconString() + " (" + $"{searchResult.CraftItem.MarketTotalPrice.Value:n0}" + SeIconChar.Gil.ToIconString() + ")");
+            ImGui.Text(LocalizationService.Format("{0:n0}", searchResult.CraftItem.MarketUnitPrice.Value) + SeIconChar.Gil.ToIconString() + " (" + LocalizationService.Format("{0:n0}", searchResult.CraftItem.MarketTotalPrice.Value) + SeIconChar.Gil.ToIconString() + ")");
 
             if (searchResult.Item.HasSourcesByType(ItemInfoType.GilShop, ItemInfoType.CalamitySalvagerShop))
             {
@@ -64,14 +65,14 @@ public class CraftMarketPriceColumn : GilColumn
                         ImGui.SameLine();
                         ImGui.Image(ImGuiService.GetIconTexture(Icons.QuestionMarkIcon).Handle, new Vector2(16, 16));
                         ImGuiUtil.HoverTooltip(
-                            "The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.");
+                            LocalizationService.Ui(LocalizationService.Ui("The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.")));
                     }
                 }
             }
         }
         else
         {
-            ImGui.Text("N/A");
+            ImGui.Text(LocalizationService.Ui("N/A"));
         }
 
         var craftPrices = searchResult.CraftItem.CraftPrices;
@@ -91,18 +92,18 @@ public class CraftMarketPriceColumn : GilColumn
                             var world = _worldSheet.GetRowOrDefault(price.WorldId);
                             if (world != null)
                             {
-                                ImGui.Text(price.Left + " available at " + price.UnitPrice +
-                                           (price.IsHq ? " (HQ)" : "") + " (" + world.Value.Name.ExtractText() + ")");
+                                ImGui.Text(price.Left + LocalizationService.Ui(" available at ") + price.UnitPrice +
+                                           (price.IsHq ? LocalizationService.Ui(" (HQ)") : "") + " (" + world.Value.Name.ExtractText() + ")");
                             }
 
                             totalAvailable += price.Left;
                         }
 
-                        ImGui.Text("Available: " + totalAvailable);
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) + totalAvailable);
 
                         if (searchResult.CraftItem.MarketAvailable != searchResult.CraftItem.QuantityNeeded)
                         {
-                            ImGui.Text("Missing: " + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing: ")) + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
                         }
                     }
                 }
@@ -112,9 +113,9 @@ public class CraftMarketPriceColumn : GilColumn
         return new List<MessageBase>();
     }
 
-    public override string Name { get; set; } = "Market Pricing";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Pricing"));
     public override float Width { get; set; } = 150;
-    public override string HelpText { get; set; } = "The current market pricing for the given item. ";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The current market pricing for the given item. "));
 
     public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     public override FilterType AvailableIn => Logic.FilterType.CraftFilter;

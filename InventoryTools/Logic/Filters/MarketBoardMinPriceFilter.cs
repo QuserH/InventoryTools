@@ -3,6 +3,7 @@ using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.MarketBoard;
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Services;
@@ -18,8 +19,8 @@ namespace InventoryTools.Logic.Filters
             ShowOperatorTooltip = true;
         }
         public override string Key { get; set; } = "MBMinPrice";
-        public override string Name { get; set; } = "Marketboard Minimum Price";
-        public override string HelpText { get; set; } = "The market board minimum price of the item. For this to work you need to have automatic pricing enabled and also note that any background price updates will not be evaluated until an event that refreshes the inventory occurs(this happens fairly often).";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Marketboard Minimum Price"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The market board minimum price of the item. For this to work you need to have automatic pricing enabled and also note that any background price updates will not be evaluated until an event that refreshes the inventory occurs(this happens fairly often)."));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Market;
 
 

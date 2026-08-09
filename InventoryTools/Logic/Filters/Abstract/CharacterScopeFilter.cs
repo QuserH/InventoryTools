@@ -10,6 +10,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract;
 
@@ -52,7 +53,7 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
     public override void Draw(FilterConfiguration configuration)
     {
         var characterSearchScopes = CurrentValue(configuration) ?? new();
-        if (_scopePicker.Draw("##ScopePicker" + configuration.Key, characterSearchScopes))
+        if (_scopePicker.Draw(LocalizationService.Ui("##ScopePicker") + configuration.Key, characterSearchScopes))
         {
             this.UpdateFilterConfiguration(configuration, characterSearchScopes);
         }
@@ -62,14 +63,14 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
             ImGui.SameLine();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudWhite))
             {
-                ImGui.Text("?");
+                ImGui.Text(LocalizationService.Ui("?"));
             }
             ImGuiUtil.HoverTooltip(GetHelpText(configuration));
         }
 
         var currentValue = CurrentValue(configuration);
         using var disabled = ImRaii.Disabled(currentValue == null);
-        if (ImGui.Button("Test Scopes"))
+        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Test Scopes"))))
         {
             if (currentValue != null)
             {
@@ -81,7 +82,7 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
         if (_characters is not null && currentValue is not null)
         {
             ImGui.Separator();
-            ImGui.Text("The following characters will be searched in: ");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("The following characters will be searched in: ")));
             foreach (var s in _characters)
             {
                 ImGui.TextUnformatted(s.Name);

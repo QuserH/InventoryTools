@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -39,11 +40,11 @@ public class DefaultFilterRetainers : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Retainers";
+    public string Name => LocalizationService.Ui("Retainers");
     public string SampleDefaultName => "Retainers";
 
     public string SampleDescription =>
-        "This will add a list that will be preconfigured to show items across all retainer inventories.";
+        LocalizationService.Ui("This will add a list that will be preconfigured to show items across all retainer inventories.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

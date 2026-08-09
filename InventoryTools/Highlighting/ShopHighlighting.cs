@@ -11,6 +11,7 @@ using InventoryTools.Logic.Settings;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Dalamud.Bindings.ImGui;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Highlighting;
 
@@ -147,7 +148,7 @@ public class ShopHighlighting : IDisposable
             {
                 var listNode = (AtkComponentList*)atkComponentBase;
                 var listItemIndex = listNode->ItemRendererList->AtkComponentListItemRenderer->ListItemIndex;
-                ImGui.TextUnformatted($"List Item Index: {listItemIndex}");
+                ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("List Item Index: {0}"), listItemIndex));
                 if (_itemIndexMap != null)
                 {
                     foreach (var item in _itemIndexMap)
@@ -156,7 +157,7 @@ public class ShopHighlighting : IDisposable
                     }
                 }
 
-                if (ImGui.InputText("Item", ref itemIdString, 128))
+                if (ImGui.InputText(LocalizationService.Ui("Item"), ref itemIdString, 128))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {
@@ -164,14 +165,14 @@ public class ShopHighlighting : IDisposable
                     }
                     itemIdString = itemId.ToString();
                 }
-                if (ImGui.Button("Add Item"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add Item"))))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {
                         _highlightedItems.Add(itemId);
                     }
                 }
-                if (ImGui.Button("Remove Item"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Remove Item"))))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {

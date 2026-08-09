@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -27,10 +28,10 @@ public class CraftCraftCompletionModeFilter : ChoiceFilter<CraftCompletionMode>
     }
 
     public override string Key { get; set; } = "HideCompletedMode";
-    public override string Name { get; set; } = "Craft Completion Mode";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Completion Mode"));
 
     public override string HelpText { get; set; } =
-        "When an output reaches 0, should it be deleted or just be hidden(when Hide Completed is checked).";
+        LocalizationService.Ui(LocalizationService.Ui("When an output reaches 0, should it be deleted or just be hidden(when Hide Completed is checked)."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CraftCompletionMode DefaultValue { get; set; } = CraftCompletionMode.Delete;
@@ -61,7 +62,7 @@ public class CraftCraftCompletionModeFilter : ChoiceFilter<CraftCompletionMode>
             case(CraftCompletionMode.Delete):
                 return "Delete";
             case(CraftCompletionMode.DoNothing):
-                return "Do Nothing";
+                return LocalizationService.Ui("Do Nothing");
         }
 
         return choice.ToString();

@@ -7,6 +7,7 @@ using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Logic.ItemRenderers;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -43,7 +44,7 @@ public class GenericHasSourceCategoryFilter : BooleanFilter, IGenericFilter
         }
     }
     public override string HelpText {
-        get => "Can the item be sourced via " +  _infoRenderService.GetCategoryName(_renderCategory).ToLower() + "?\n\nIt includes these sources: " + string.Join(",", _infoRenderService.GetSourcesByCategory(_renderCategory).Select(c => c.SingularName));
+        get => LocalizationService.Ui("Can the item be sourced via ") + _infoRenderService.GetCategoryName(_renderCategory) + LocalizationService.Ui("?\n\nIt includes these sources: ") + string.Join(",", _infoRenderService.GetSourcesByCategory(_renderCategory).Select(c => c.SingularName));
         set
         {
 
