@@ -449,13 +449,23 @@ public class ImGuiTooltipService
                                 continue;
                             }
 
-                            // 角色名（始终显示角色；雇员时显示所属角色）
-                            var characterName = _characterMonitor.GetCharacterNameById(oGroup.Key.RetainerId, true);
+                            // 判断是角色背包还是雇员背包
                             var isRetainer = oGroup.Key.RetainerId.ToString().StartsWith("3");
+                            var characterName = "";
                             var retainerName = "";
+
                             if (isRetainer)
                             {
-                                retainerName = _characterMonitor.GetCharacterNameById(oGroup.Key.RetainerId);
+                                // 雇员库存：角色名 = 所属角色，雇员名 = 雇员本身
+                                var retainer = _characterMonitor.GetCharacterById(oGroup.Key.RetainerId);
+                                retainerName = retainer?.FormattedName ?? "";
+                                characterName = _characterMonitor.GetCharacterNameById(oGroup.Key.RetainerId, true);
+                            }
+                            else
+                            {
+                                // 角色背包：角色名 = 该角色
+                                var character = _characterMonitor.GetCharacterById(oGroup.Key.RetainerId);
+                                characterName = character?.FormattedName ?? "";
                             }
 
                             var typeIcon = "";
