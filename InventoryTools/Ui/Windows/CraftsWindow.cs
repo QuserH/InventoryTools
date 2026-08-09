@@ -278,11 +278,11 @@ namespace InventoryTools.Ui
                 _popupMenus[configuration] = new Widgets.PopupMenu("fm" + configuration.Key, Widgets.PopupMenu.PopupMenuButtons.Right,
                     new List<Widgets.PopupMenu.IPopupMenuItem>()
                     {
-                        new Widgets.PopupMenu.PopupMenuItemSelectable("Edit", "ef_" + configuration.Key, EditFilter, LocalizationService.Ui("Edit the craft list.")),
-                        new Widgets.PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the craft list.")),
+                        new Widgets.PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Edit"), "ef_" + configuration.Key, EditFilter, LocalizationService.Ui("Edit the craft list.")),
+                        new Widgets.PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Duplicate"), "df_" + configuration.Key, configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the craft list.")),
                         new Widgets.PopupMenu.PopupMenuItemSelectable(layout == WindowLayout.Tabs ? LocalizationService.Ui("Move Left") : LocalizationService.Ui("Move Up"), "mu_" + configuration.Key, MoveFilterUp, layout == WindowLayout.Tabs ? LocalizationService.Ui("Move the craft list left.") : LocalizationService.Ui("Move the craft list up.")),
                         new Widgets.PopupMenu.PopupMenuItemSelectable(layout == WindowLayout.Tabs ? LocalizationService.Ui("Move Right") : LocalizationService.Ui("Move Down"), "md_" + configuration.Key, MoveFilterDown, layout == WindowLayout.Tabs ? LocalizationService.Ui("Move the craft list right.") : LocalizationService.Ui("Move the craft list down.")),
-                        new Widgets.PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this craft list?"), RemoveFilter, LocalizationService.Ui("Remove the craft list.")),
+                        new Widgets.PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Remove"), "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this craft list?"), RemoveFilter, LocalizationService.Ui("Remove the craft list.")),
                     }
                 );
             }

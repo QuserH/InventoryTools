@@ -296,9 +296,9 @@ namespace InventoryTools.Ui
                 _popupMenus[configuration] = new PopupMenu("fm" + configuration.Key, PopupMenu.PopupMenuButtons.Right,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectable("Edit", "ef_" + configuration.Key, EditFilter,
+                        new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Edit"), "ef_" + configuration.Key, EditFilter,
                             LocalizationService.Ui("Edit the filter.")),
-                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key,
+                        new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Duplicate"), "df_" + configuration.Key,
                             configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the filter.")),
                         new PopupMenu.PopupMenuItemSelectable(layout == WindowLayout.Tabs ? LocalizationService.Ui("Move Left") : LocalizationService.Ui("Move Up"),
                             "mu_" + configuration.Key, MoveFilterUp,
@@ -306,7 +306,7 @@ namespace InventoryTools.Ui
                         new PopupMenu.PopupMenuItemSelectable(layout == WindowLayout.Tabs ? LocalizationService.Ui("Move Right") : LocalizationService.Ui("Move Down"),
                             "md_" + configuration.Key, MoveFilterDown,
                             layout == WindowLayout.Tabs ? LocalizationService.Ui("Move the filter right.") : LocalizationService.Ui("Move the filter down.")),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key,
+                        new PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Remove"), "rf_" + configuration.Key,
                             LocalizationService.Ui("Are you sure you want to remove this filter?"), RemoveFilter, LocalizationService.Ui("Remove the filter.")),
                     }
                 );
