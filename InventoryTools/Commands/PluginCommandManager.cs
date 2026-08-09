@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace InventoryTools.Commands
 
             var commandInfo = new CommandInfo(handlerDelegate)
             {
-                HelpMessage = helpMessage?.HelpMessage ?? string.Empty,
+                HelpMessage = LocalizationService.Ui(helpMessage?.HelpMessage ?? string.Empty),
                 ShowInHelp = doNotShowInHelp == null,
             };
 
@@ -85,7 +86,7 @@ namespace InventoryTools.Commands
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Starting service {type} ({this})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
 
             this._pluginCommands = _host.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public |
                                                              BindingFlags.Static | BindingFlags.Instance)
@@ -99,9 +100,9 @@ namespace InventoryTools.Commands
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
             RemoveCommandHandlers();
-            Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
             return Task.CompletedTask;
         }
     }

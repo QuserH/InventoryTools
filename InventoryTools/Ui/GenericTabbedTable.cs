@@ -7,6 +7,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -38,7 +39,7 @@ public abstract class GenericTabbedTable<T> : GenericWindow, IGenericTabbedTable
     }
     public void DrawTabs()
     {
-        using (var tabBar = ImRaii.TabBar("###Tab" + TableName, ImGuiTabBarFlags.FittingPolicyScroll | ImGuiTabBarFlags.ListPopupButton))
+        using (var tabBar = ImRaii.TabBar(LocalizationService.Ui("###Tab") + TableName, ImGuiTabBarFlags.FittingPolicyScroll | ImGuiTabBarFlags.ListPopupButton))
         {
             if (tabBar.Success)
             {
@@ -96,7 +97,7 @@ public abstract class GenericTabbedTable<T> : GenericWindow, IGenericTabbedTable
             {
                 continue;
             }
-            ImGui.TableSetupColumn(tableColumn.Name, tableColumn.ColumnFlags, tableColumn.Width, (uint)tableColumnIndex + 1);
+            ImGui.TableSetupColumn(LocalizationService.Ui(tableColumn.Name), tableColumn.ColumnFlags, tableColumn.Width, (uint)tableColumnIndex + 1);
             index++;
         }
 
@@ -151,7 +152,7 @@ public abstract class GenericTabbedTable<T> : GenericWindow, IGenericTabbedTable
                 ImGui.PushItemWidth(-20.000000f);
                 ImGui.PushID(column.Name);
                 ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, new Vector2(0, 0));
-                ImGui.InputText("##SearchFilter" + column.Name, ref filter, 200);
+                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##SearchFilter")) + column.Name, ref filter, 200);
                 ImGui.PopStyleVar();
                 ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
                 ImGui.TableHeader("");
