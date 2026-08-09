@@ -20,9 +20,14 @@ namespace InventoryTools.Logic.Columns
         {
             if (searchResult.InventoryItem != null)
             {
-                return _characterMonitor.Characters.TryGetValue(searchResult.InventoryItem.RetainerId, out var character)
-                    ? character.FormattedName
-                    : LocalizationService.Ui("Unknown (") + searchResult.InventoryItem.RetainerId + ")";
+                // 来源只显示雇员库存；角色背包显示为空
+                if (searchResult.InventoryItem.InRetainer)
+                {
+                    return _characterMonitor.Characters.TryGetValue(searchResult.InventoryItem.RetainerId, out var character)
+                        ? character.FormattedName
+                        : LocalizationService.Ui("Unknown (") + searchResult.InventoryItem.RetainerId + ")";
+                }
+                return string.Empty;
             }
 
             return null;

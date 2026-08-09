@@ -42,69 +42,40 @@ public class CharacterOwnerColumn : TextColumn
         {
             return null;
         }
+
         var characterOwners = _characterOwners;
-
-        if (characterOwners.TryGetValue(item.RetainerId, out var value))
+        if (characterOwners.TryGetValue(item.RetainerId, out var cached))
         {
-            return value;
+            return cached;
         }
-        Character? character = _characterMonitor.GetCharacterById(item.RetainerId);
 
+        Character? character = _characterMonitor.GetCharacterById(item.RetainerId);
         if (character == null)
         {
             characterOwners[item.RetainerId] = "Unknown";
             return null;
         }
 
-        if (character is { OwnerId: 0, Owners.Count: 0, CharacterType: not CharacterType.FreeCompanyChest })
+        string ownerName;
+        if (character.CharacterType == CharacterType.Character)
         {
-            characterOwners[item.RetainerId] = "";
-            return characterOwners[item.RetainerId];
+            // 物品在角色背包：角色持有者 = 该角色本身
+            ownerName = character.FormattedName;
         }
-        var mainOwner = _characterMonitor.GetCharacterById(character.OwnerId);
-        if (mainOwner != null)
+        else if (character.CharacterType == CharacterType.FreeCompanyChest)
         {
-            characterOwners[item.RetainerId] = mainOwner.FormattedName;
+            // 物品在部队储物柜：角色持有者 = 部队名（加尖括号）
+            ownerName = "<" + character.FormattedName + ">";
         }
-
-        if (character.CharacterType == CharacterType.FreeCompanyChest)
+        else
         {
-            var freeCompanyCharacters = _characterMonitor.GetFreeCompanyCharacters(character.CharacterId);
-            foreach (var freeCompanyCharacter in freeCompanyCharacters)
-            {
-                if (!characterOwners.ContainsKey(item.RetainerId))
-                {
-                    characterOwners[item.RetainerId] = freeCompanyCharacter.Value.FormattedName;
-                }
-                else
-                {
-                    characterOwners[item.RetainerId] += ", " + freeCompanyCharacter.Value.FormattedName;
-                }
-            }
+            // 物品在雇员/部队等库存：角色持有者 = 所属角色
+            var mainOwner = _characterMonitor.GetCharacterById(character.OwnerId);
+            ownerName = mainOwner?.FormattedName ?? character.FormattedName;
         }
 
-        foreach (var subOwnerId in character.Owners)
-        {
-            var subOwner = _characterMonitor.GetCharacterById(subOwnerId);
-            if (subOwner != null)
-            {
-                if (!characterOwners.ContainsKey(item.RetainerId))
-                {
-                    characterOwners[item.RetainerId] = subOwner.FormattedName;
-                }
-                else
-                {
-                    characterOwners[item.RetainerId] += ", " + subOwner.FormattedName;
-                }
-            }
-        }
-
-        if (characterOwners.TryGetValue(item.RetainerId, out var currentValue))
-        {
-            return currentValue;
-        }
-
-        return string.Empty;
+        characterOwners[item.RetainerId] = ownerName;
+        return ownerName;
     }
 
     public override void Dispose()
