@@ -284,7 +284,7 @@ public class ImGuiTooltipService
                         }
                         if (ownedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + " other locations.");
+                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
                     if (_configuration.TooltipLocationDisplayMode ==
@@ -310,7 +310,7 @@ public class ImGuiTooltipService
                         }
                         if (ownedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + " other locations.");
+                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterCategoryQuantityQuality)
@@ -347,7 +347,7 @@ public class ImGuiTooltipService
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " other locations.");
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality)
@@ -396,7 +396,7 @@ public class ImGuiTooltipService
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " other locations.");
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterQuantityQuality)
@@ -433,15 +433,64 @@ public class ImGuiTooltipService
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " other locations.");
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                        }
+                    }
+                    else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality)
+                    {
+                        var groupedItems = ownedItems.GroupBy(c => (c.RetainerId, c.SortedCategory, c.Flags)).ToList();
+                        foreach (var oGroup in groupedItems)
+                        {
+                            var quantity = oGroup.Sum(c => c.Quantity);
+                            storageCount += (uint)quantity;
+
+                            if (locations.Count >= _configuration.TooltipLocationLimit)
+                            {
+                                continue;
+                            }
+
+                            // 角色名（始终显示角色；雇员时显示所属角色）
+                            var characterName = _characterMonitor.GetCharacterNameById(oGroup.Key.RetainerId, true);
+                            var isRetainer = oGroup.Key.RetainerId.ToString().StartsWith("3");
+                            var retainerName = "";
+                            if (isRetainer)
+                            {
+                                retainerName = _characterMonitor.GetCharacterNameById(oGroup.Key.RetainerId);
+                            }
+
+                            var typeIcon = "";
+                            if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.HighQuality) != 0)
+                            {
+                                typeIcon = "";
+                            }
+                            else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
+                            {
+                                typeIcon = LocalizationService.Ui("\\uE03d");
+                            }
+
+                            // 角色背包：角色-分类-数量-品质；雇员背包：角色-雇员-分类-数量-品质
+                            string line;
+                            if (isRetainer)
+                            {
+                                line = $"{characterName} - {retainerName} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon;
+                            }
+                            else
+                            {
+                                line = $"{characterName} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon;
+                            }
+                            locations.Add(line);
+                        }
+                        if (groupedItems.Count > _configuration.TooltipLocationLimit)
+                        {
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
 
                     if (storageCount > 0)
                     {
                         ImGui.Separator();
-                        ImGui.TextUnformatted($"Owned: {storageCount}");
-                        ImGui.TextUnformatted($"Locations:");
+                        ImGui.TextUnformatted(LocalizationService.Ui("持有数量: ") + storageCount);
+                        ImGui.TextUnformatted(LocalizationService.Ui("位置:"));
                         using (Dalamud.Interface.Utility.Raii.ImRaii.PushIndent())
                         {
                             for (var index = 0; index < locations.Count; index++)

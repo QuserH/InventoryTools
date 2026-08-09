@@ -6,5 +6,6 @@ public enum TooltipLocationDisplayMode
     CharacterCategoryQuantityQuality,
     CharacterQuantityQuality,
     CharacterBagSlotQuantity,
-    CharacterWorldCategoryQuantityQuality
+    CharacterWorldCategoryQuantityQuality,
+    CharacterRetainerCategoryQuantityQuality
 }

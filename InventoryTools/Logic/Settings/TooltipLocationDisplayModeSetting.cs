@@ -48,6 +48,10 @@ public class TooltipLocationDisplayModeSetting : ChoiceSetting<TooltipLocationDi
                     TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality,
                     LocalizationService.Ui("Character/Retainer - World - Category - Quantity - Quality")
                 },
+                {
+                    TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality,
+                    LocalizationService.Ui("Character - Retainer - Category - Quantity - Quality")
+                },
             };
         }
     }

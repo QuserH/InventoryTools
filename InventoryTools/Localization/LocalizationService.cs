@@ -3668,6 +3668,13 @@ public static partial class LocalizationService
             ["Required Item Level: "] = "所需品级：",
             ["Time: "] = "耗时：",
             ["Monster"] = "怪物",
+            ["Character - Retainer - Category - Quantity - Quality"] = "角色 - 雇员 - 分类 - 数量 - 品质",
+            [" 个其他位置."] = " 个其他位置.",
+            ["持有数量: "] = "持有数量: ",
+            ["位置:"] = "位置:",
+            ["Gained"] = "获得",
+            ["Lost"] = "失去",
+            ["Market Price Updated"] = "市场价已更新",
         };
 
     public static string CurrentLanguage { get; set; } = "zh-CN";
