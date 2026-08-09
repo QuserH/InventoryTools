@@ -11,6 +11,7 @@ using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
 using OtterGui;
 using OtterGui.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Stats;
 
@@ -59,7 +60,7 @@ public class AttributeColumn : IntegerColumn
         List<MessageBase>? results = new List<MessageBase>();
         ImGui.NewLine();
         ImGui.Separator();
-        if (_attributeColumnSetting.Draw(columnConfiguration, "The attribute to show in the column"))
+        if (_attributeColumnSetting.Draw(columnConfiguration, LocalizationService.Ui("The attribute to show in the column")))
         {
             var newValue = _attributeColumnSetting.CurrentValue(columnConfiguration);
             if (newValue != null)
@@ -76,7 +77,7 @@ public class AttributeColumn : IntegerColumn
     }
 
 
-    public override string Name { get; set; } = "Attribute";
+    public override string Name { get; set; } = LocalizationService.Ui("Attribute");
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = "An bonus attributes of the item(Strength, HP, Perception, etc)";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("An bonus attributes of the item(Strength, HP, Perception, etc)"));
 }

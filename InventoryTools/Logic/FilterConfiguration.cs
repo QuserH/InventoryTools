@@ -14,6 +14,7 @@ using InventoryTools.Attributes;
 using InventoryTools.Converters;
 using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
+using InventoryTools.Localization;
 using Newtonsoft.Json;
 
 namespace InventoryTools.Logic
@@ -1081,27 +1082,27 @@ namespace InventoryTools.Logic
             {
                 if (FilterType.HasFlag(FilterType.SearchFilter))
                 {
-                    return "Search Filter";
+                    return LocalizationService.Ui("Search Filter");
                 }
                 else if (FilterType.HasFlag(FilterType.SortingFilter))
                 {
-                    return "Sort Filter";
+                    return LocalizationService.Ui("Sort Filter");
                 }
                 else if (FilterType.HasFlag(FilterType.GameItemFilter))
                 {
-                    return "Game Item Filter";
+                    return LocalizationService.Ui("Game Item Filter");
                 }
                 else if (FilterType.HasFlag(FilterType.CraftFilter))
                 {
-                    return "Craft List";
+                    return LocalizationService.Ui("Craft List");
                 }
                 else if (FilterType.HasFlag(FilterType.HistoryFilter))
                 {
-                    return "History List";
+                    return LocalizationService.Ui("History List");
                 }
                 else if (FilterType.HasFlag(FilterType.CuratedList))
                 {
-                    return "Curated List";
+                    return LocalizationService.Ui("Curated List");
                 }
                 return "";
             }

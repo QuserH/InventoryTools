@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -31,8 +32,8 @@ namespace InventoryTools.Logic.Filters
 
 
         public override string Key { get; set; } = "HighlightWhen";
-        public override string Name { get; set; } = "Highlight When?";
-        public override string HelpText { get; set; } = "When should the highlighting apply?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight When?"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When should the highlighting apply?"));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
@@ -55,9 +56,9 @@ namespace InventoryTools.Logic.Filters
             switch (choice)
             {
                 case HighlightWhen.UseGlobalConfiguration:
-                    return "Use Global Configuration";
+                    return LocalizationService.Ui("Use Global Configuration");
                 case HighlightWhen.WhenSearching:
-                    return "When Searching";
+                    return LocalizationService.Ui("When Searching");
                 case HighlightWhen.Always:
                     return "Always";
             }

@@ -17,6 +17,7 @@ using InventoryTools.Localizers;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -49,7 +50,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "relic_tools",
-            Name = "Relic Tools",
+            Name = LocalizationService.Ui("Relic Tools"),
         });
     }
 
@@ -85,16 +86,16 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
 
     public override void BuildColumns(CompendiumColumnBuilder<RelicToolGroup> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the BGM", Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the BGM"), Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
         var grouping = builder.CompendiumGrouping?.Key;
         if (grouping != "category")
         {
             builder.AddStringColumn(new ()
             {
                 ValueSelector = row => _toolCategoryLocalizer.Format(row.ToolCategory),
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 Key = "Category",
-                HelpText = "The category of the item",
+                HelpText = LocalizationService.Ui("The category of the item"),
                 Version = "14.1.3"
             });
         }
@@ -103,9 +104,9 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
             builder.AddStringColumn(new ()
             {
                 ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? "Unknown",
-                Name = "Class/Job",
+                Name = LocalizationService.Ui("Class/Job"),
                 Key = "class_job",
-                HelpText = "The class/job of the item",
+                HelpText = LocalizationService.Ui("The class/job of the item"),
                 Version = "14.1.3"
             });
         }
@@ -144,7 +145,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
                         builder.AddItemsColumn(new()
                         {
                             Key = "item_" + i,
-                            Name = _toolTypeLocalizer.Format(relicToolType), HelpText = "Form " + (i + 1) + " of this tool.",
+                            Name = _toolTypeLocalizer.Format(relicToolType), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this tool."),
                             Version = "14.1.3",
                             ValueSelector = relicTool => toolCategory == relicTool.ToolCategory ? [_itemSheet.GetRow(relicTool.RelicTools[i1].ItemId)] : []
                         });
@@ -162,7 +163,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
             builder.AddItemColumn(new()
             {
                 Key = "item_" + i,
-                Name = "Form " + (i + 1), HelpText = "Form " + (i + 1) + " of this tool.",
+                Name = LocalizationService.Ui("Form ") + (i + 1), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this tool."),
                 Version = "14.1.3",
                 ValueSelector = relicTool =>
                     i1 >= 0 && i1 < relicTool.RelicTools.Count ? relicTool.RelicTools[i1].ItemId : null
@@ -189,19 +190,19 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = "Class/Job",
+            SectionName = LocalizationService.Ui("Class/Job"),
             RelatedRef = (RowRef)row.ClassJob
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "related_quests",
-            SectionName = "Related Quests",
+            SectionName = LocalizationService.Ui("Related Quests"),
             RelatedRefs = row.Quests.Where(c => c.RowId != 0).Select(c => (RowRef)c).ToList(),
         });
         viewBuilder.AddItemFlowSection(new ItemFlowSectionOptions()
         {
             SectionKey = "tools",
-            SectionName = "Tools",
+            SectionName = LocalizationService.Ui("Tools"),
             Items = itemFlowEntries,
             ItemsPerColumn = Math.Max(3, (int)Math.Ceiling((double)itemFlowEntries.Count / 3))
         });
@@ -219,7 +220,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
             new CompendiumGrouping<RelicToolGroup>()
             {
                 Key = "class_job",
-                Name = "Class/Job",
+                Name = LocalizationService.Ui("Class/Job"),
                 GroupFunc = row => row.ClassJob.RowId,
                 GroupMapping = row =>
                 {
@@ -237,7 +238,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
             new CompendiumGrouping<RelicToolGroup>()
             {
                 Key = "category",
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 GroupFunc = row => row.ToolCategory,
                 GroupMapping = row =>
                 {
@@ -265,9 +266,9 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
         return "category";
     }
 
-    public override string Singular => "Relic Tool";
-    public override string Plural => "Relic Tools";
-    public override string Description => "Relic Tools";
+    public override string Singular => LocalizationService.Ui("Relic Tool");
+    public override string Plural => LocalizationService.Ui("Relic Tools");
+    public override string Description => LocalizationService.Ui("Relic Tools");
     public override string Key => "relic_tools";
     public override (string?, uint?) Icon => (null, Icons.ToolIcon);
 }

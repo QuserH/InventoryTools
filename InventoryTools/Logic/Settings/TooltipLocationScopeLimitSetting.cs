@@ -5,6 +5,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -35,16 +36,16 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText("##" + Key + "Label", Name);
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText("##" + Key + "Label", Name);
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw("##tooltipScope", currentScopes))
+        if (_scopePicker.Draw(LocalizationService.Ui("##tooltipScope"), currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -54,7 +55,7 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##" + Key + "Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
             {
                 Reset(configuration);
             }
@@ -67,8 +68,8 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
     }
 
     public override string Key { get; set; } = "TooltipLocationScopeLimit";
-    public override string Name { get; set; } = "Add Item Locations (Search Locations)";
-    public override string HelpText { get; set; } = "When showing the locations of the items you own in the tooltip, which inventories should be included in the search?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Search Locations)"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When showing the locations of the items you own in the tooltip, which inventories should be included in the search?"));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;

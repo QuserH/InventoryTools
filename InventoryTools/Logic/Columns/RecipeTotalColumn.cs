@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@ public class RecipeTotalColumn : IntegerColumn
         return searchResult.Item.RecipesAsRequirement.Count;
     }
 
-    public override string Name { get; set; } = "Recipe Total Count";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Recipe Total Count"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "The number of recipes the item is a component of.";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The number of recipes the item is a component of."));
 }

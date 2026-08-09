@@ -5,6 +5,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -27,19 +28,19 @@ public class EquipmentSuggestToolModeCategorySetting : EnumFormField<EquipmentSu
 
     public override Enum DefaultValue { get; set; } = EquipmentSuggestToolModeCategory.Crafting;
     public override string Key { get; set; } = "ToolModeCategory";
-    public override string Name { get; set; } = "Category";
-    public override string HelpText { get; set; } = "The category to use when in tool mode";
+    public override string Name { get; set; } = LocalizationService.Ui("Category");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The category to use when in tool mode"));
     public override string Version { get; set; } = "12.0.10";
 
     public override Dictionary<Enum, string> Choices { get; } = new()
     {
-        { EquipmentSuggestToolModeCategory.Crafting, "Crafting" },
-        { EquipmentSuggestToolModeCategory.Gathering, "Gathering" },
-        { EquipmentSuggestToolModeCategory.Combat, "Combat" },
-        { EquipmentSuggestToolModeCategory.CombatTank, "Combat (Tank)" },
-        { EquipmentSuggestToolModeCategory.CombatHealer, "Combat (Healer)" },
-        { EquipmentSuggestToolModeCategory.CombatMelee, "Combat (Melee)" },
-        { EquipmentSuggestToolModeCategory.CombatRanged, "Combat (Ranged)" },
+        { EquipmentSuggestToolModeCategory.Crafting, LocalizationService.Ui("Crafting") },
+        { EquipmentSuggestToolModeCategory.Gathering, LocalizationService.Ui("Gathering") },
+        { EquipmentSuggestToolModeCategory.Combat, LocalizationService.Ui("Combat") },
+        { EquipmentSuggestToolModeCategory.CombatTank, LocalizationService.Ui("Combat (Tank)") },
+        { EquipmentSuggestToolModeCategory.CombatHealer, LocalizationService.Ui("Combat (Healer)") },
+        { EquipmentSuggestToolModeCategory.CombatMelee, LocalizationService.Ui("Combat (Melee)") },
+        { EquipmentSuggestToolModeCategory.CombatRanged, LocalizationService.Ui("Combat (Ranged)") },
 
     };
 

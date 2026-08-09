@@ -13,6 +13,7 @@ using InventoryTools.Extensions;
 using InventoryTools.Services;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -41,7 +42,7 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
                 }
                 else
                 {
-                    itemName = " (Unknown Item)";
+                    itemName = LocalizationService.Ui(" (Unknown Item)");
                 }
             }
             return (c.Item1.FormattedName() + itemName, null);
@@ -63,10 +64,10 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
     }
 
     public override string Key { get; set; } = "CraftIngredientPreference";
-    public override string Name { get; set; } = "Default Ingredient Sourcing";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Ingredient Sourcing"));
 
     public override string HelpText { get; set; } =
-        "When generating the materials for a craft, the 'Ingredient Sourcing' setting determines the preferred method of acquisition. The craft list will refer to this sorted list to determine the appropriate method. Please note that this assumes the item in the craft list can be obtained through this method. If not, the next item in the ingredient sourcing list will be considered.";
+        LocalizationService.Ui(LocalizationService.Ui("When generating the materials for a craft, the 'Ingredient Sourcing' setting determines the preferred method of acquisition. The craft list will refer to this sorted list to determine the appropriate method. Please note that this assumes the item in the craft list can be obtained through this method. If not, the next item in the ingredient sourcing list will be considered."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.IngredientSourcing;
     public override Dictionary<(IngredientPreferenceType, uint?), (string, string?)> DefaultValue { get; set; } = new();
@@ -137,9 +138,9 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             ImGuiTableFlags.RowBg | ImGuiTableFlags.BordersOuter | ImGuiTableFlags.SizingStretchSame);
         if (!table.Success) return;
 
-        ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 20);
-        ImGui.TableSetupColumn("Preference", ImGuiTableColumnFlags.WidthStretch);
-        ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 24);
+        ImGui.TableSetupColumn(LocalizationService.Ui(""), ImGuiTableColumnFlags.WidthFixed, 20);
+        ImGui.TableSetupColumn(LocalizationService.Ui("Preference"), ImGuiTableColumnFlags.WidthStretch);
+        ImGui.TableSetupColumn(LocalizationService.Ui(""), ImGuiTableColumnFlags.WidthFixed, 24);
 
         (IngredientPreferenceType, uint?)? toRemove = null;
 
@@ -151,12 +152,12 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             ImGui.TableNextRow();
 
             ImGui.TableNextColumn();
-            ImGui.Button("=##DragHandle" + i);
+            ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("=##DragHandle")) + i);
             if (ImGui.IsItemHovered())
             {
                 using (ImRaii.Tooltip())
                 {
-                    ImGui.Text("Click and drag to reorder");
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Click and drag to reorder")));
                 }
             }
 
@@ -165,8 +166,8 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
                 if (source)
                 {
                     _draggedItem = itemKey;
-                    ImGui.SetDragDropPayload("##IngredientPrefReorder", []);
-                    ImGui.TextUnformatted("Moving: " +entry.Value.Item1);
+                    ImGui.SetDragDropPayload(LocalizationService.Ui("##IngredientPrefReorder"), []);
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Moving: ")) +entry.Value.Item1);
                 }
             }
 
@@ -174,7 +175,7 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             {
                 if (target)
                 {
-                    if (OtterGui.ImGuiUtil.IsDropping("##IngredientPrefReorder") &&
+                    if (OtterGui.ImGuiUtil.IsDropping(LocalizationService.Ui("##IngredientPrefReorder")) &&
                         _draggedItem != null && !_draggedItem.Value.Equals(itemKey))
                     {
                         var sourceIdx = entries.FindIndex(c => c.Key.Equals(_draggedItem!.Value));
@@ -205,7 +206,7 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             ImGui.TextUnformatted(entry.Value.Item1);
 
             ImGui.TableNextColumn();
-            if (ImGui.SmallButton("X##Remove" + i))
+            if (ImGui.SmallButton(LocalizationService.Ui(LocalizationService.Ui("X##Remove")) + i))
             {
                 toRemove = itemKey;
             }
@@ -226,10 +227,10 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
 
         var currentValue = CurrentValue(configuration);
 
-        ImGui.TextUnformatted("Add Preference:");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Add Preference:")));
         ImGui.SameLine();
         ImGui.SetNextItemWidth(LabelSize);
-        using (var combo = ImRaii.Combo("##Add" + Key, "", ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo(LocalizationService.Ui("##Add") + Key, "", ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
@@ -243,15 +244,15 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             }
         }
         ImGui.SameLine();
-        ImGui.TextUnformatted("Add Item Preference:");
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Add Item Preference:")));
         ImGui.SameLine();
         ImGui.SetNextItemWidth(LabelSize);
-        using (var combo = ImRaii.Combo("##AddItem" + Key, "", ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo(LocalizationService.Ui("##AddItem") + Key, "", ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText("##ItemSearch", ref searchString, 50);
+                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
@@ -260,7 +261,7 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
                 ImGui.Separator();
                 if (_searchString == "")
                 {
-                    ImGui.TextUnformatted("Start typing to search...");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
                 }
 
                 foreach (var item in SearchItems.Where(c => !currentValue.ContainsKey((IngredientPreferenceType.Item, c.RowId))))
@@ -273,12 +274,12 @@ public class CraftIngredientPreferenceFilter : SortedListFilter<(IngredientPrefe
             }
         }
 
-        var resetWidth = ImGui.CalcTextSize("Reset to Default").X + ImGui.GetStyle().FramePadding.X * 2;
+        var resetWidth = ImGui.CalcTextSize(LocalizationService.Ui("Reset to Default")).X + ImGui.GetStyle().FramePadding.X * 2;
         ImGui.SameLine(ImGui.GetContentRegionMax().X - resetWidth);
-        if (ImGui.Button("Reset to Default##IngredientPref"))
+        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset to Default##IngredientPref"))))
         {
             _popupService.AddPopup(new ConfirmPopup(typeof(CraftsWindow), "resetIngredientPref",
-                "Are you sure you want to reset the ingredient sourcing order to default?",
+                LocalizationService.Ui("Are you sure you want to reset the ingredient sourcing order to default?"),
                 confirmed =>
                 {
                     if (confirmed)

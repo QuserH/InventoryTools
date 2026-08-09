@@ -1,5 +1,6 @@
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
@@ -26,12 +27,12 @@ namespace InventoryTools.Logic.Columns
             return _unlockTrackerService.IsUnlocked(searchResult.Item);
         }
 
-        public override string Name { get; set; } = "Has Been Acquired?";
-        public override string RenderName => "Acquired?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has Been Acquired?"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Acquired?"));
         public override float Width { get; set; } = 125.0f;
 
         public override string HelpText { get; set; } =
-            "If a item can be acquired(mounts, minions, etc) this shows whether or not it has been acquired on the currently logged in character.";
+            LocalizationService.Ui(LocalizationService.Ui("If a item can be acquired(mounts, minions, etc) this shows whether or not it has been acquired on the currently logged in character."));
 
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;

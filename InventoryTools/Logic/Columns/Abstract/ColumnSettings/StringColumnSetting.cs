@@ -1,6 +1,7 @@
 using Dalamud.Interface.Colors;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Abstract.ColumnSettings;
 
@@ -56,17 +57,17 @@ public sealed class StringColumnSetting : ColumnSetting<string?>
         if (HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText("##" + Key + "Label", Name + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name + ":");
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText("##" + Key + "Label", Name + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name + ":");
         }
 
         ImGui.SameLine();
         ImGui.SetNextItemWidth(InputSize);
-        if (_placeHolder != null ? ImGui.InputTextWithHint("##"+Key+"Input", _placeHolder, ref value, 500) : ImGui.InputText("##"+Key+"Input", ref value, 500))
+        if (_placeHolder != null ? ImGui.InputTextWithHint(LocalizationService.Ui("##")+Key+"Input", _placeHolder, ref value, 500) : ImGui.InputText(LocalizationService.Ui("##")+Key+"Input", ref value, 500))
         {
             UpdateColumnConfiguration(configuration, value);
             success = true;
@@ -77,7 +78,7 @@ public sealed class StringColumnSetting : ColumnSetting<string?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##" + Key + "Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
             {
                 ResetFilter(configuration);
                 success = true;
@@ -92,7 +93,7 @@ public sealed class StringColumnSetting : ColumnSetting<string?>
         var value = CurrentValue(configuration) ?? "";
 
         ImGui.SetNextItemWidth(InputSize);
-        if (ImGui.InputTextWithHint("##"+Key+"Input", Name, ref value, 500))
+        if (ImGui.InputTextWithHint(LocalizationService.Ui("##")+Key+"Input", Name, ref value, 500))
         {
             UpdateColumnConfiguration(configuration, value);
             success = true;
@@ -103,7 +104,7 @@ public sealed class StringColumnSetting : ColumnSetting<string?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##" + Key + "Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
             {
                 ResetFilter(configuration);
                 success = true;

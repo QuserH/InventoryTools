@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using Dalamud.Plugin;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services
 {
@@ -29,7 +30,7 @@ namespace InventoryTools.Services
             {
                 ("InventoryTools.json", _configurationManagerService.ConfigurationFile),
                 ("inventories.csv", _configurationManagerService.InventoryCsv),
-                ("dalamud.log", ResolveDalamudLogPath()),
+                (LocalizationService.Ui("dalamud.log"), ResolveDalamudLogPath()),
             };
 
             var includedFiles = new List<string>();
@@ -43,7 +44,7 @@ namespace InventoryTools.Services
                 {
                     if (path == null || !File.Exists(path))
                     {
-                        _logger.LogWarning("Support dump could not find {EntryName} at {Path}.", entryName, path ?? "<unresolved>");
+                        _logger.LogWarning(LocalizationService.Ui("Support dump could not find {EntryName} at {Path}."), entryName, path ?? LocalizationService.Ui("<unresolved>"));
                         missingFiles.Add(entryName);
                         continue;
                     }
@@ -60,14 +61,14 @@ namespace InventoryTools.Services
                     }
                     catch (Exception e)
                     {
-                        _logger.LogWarning(e, "Failed to add {EntryName} to the support dump: {Message}", entryName, e.Message);
+                        _logger.LogWarning(e, LocalizationService.Ui("Failed to add {EntryName} to the support dump: {Message}"), entryName, e.Message);
                         missingFiles.Add(entryName);
                     }
                 }
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to create the support dump zip.");
+                _logger.LogError(e, LocalizationService.Ui("Failed to create the support dump zip."));
                 return new SupportDumpResult(false, zipPath, includedFiles, missingFiles);
             }
 
@@ -84,8 +85,8 @@ namespace InventoryTools.Services
 
             var candidates = new[]
             {
-                Path.Combine(root.FullName, "logs", "dalamud.log"),
-                Path.Combine(root.FullName, "dalamud.log"),
+                Path.Combine(root.FullName, "logs", LocalizationService.Ui("dalamud.log")),
+                Path.Combine(root.FullName, LocalizationService.Ui("dalamud.log")),
             };
 
             foreach (var candidate in candidates)

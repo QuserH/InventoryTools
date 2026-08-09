@@ -7,6 +7,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using InventoryTools.Ui.Widgets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -61,12 +62,12 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Amount can Craft";
-        public override string RenderName => "Craftable";
+        public override string Name { get; set; } = LocalizationService.Ui("Amount can Craft");
+        public override string RenderName => LocalizationService.Ui("Craftable");
         public override float Width { get; set; } = 60;
         public override bool? CraftOnly => true;
         public override string HelpText { get; set; } =
-            "This is the amount that you could craft given the items in your inventory";
+            LocalizationService.Ui(LocalizationService.Ui("This is the amount that you could craft given the items in your inventory"));
         public override bool HasFilter { get; set; } = false;
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

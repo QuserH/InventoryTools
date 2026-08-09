@@ -4,6 +4,7 @@ using System.Linq;
 using AllaganLib.GameSheets.Caches;
 using AllaganLib.Interface.FormFields;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -23,8 +24,8 @@ public sealed class EquipmentSuggestExcludeSourceTypeField : MultipleChoiceFormF
         ItemInfoType.CashShop,
     };
     public override string Key { get; set; } = "ExcludeSourceType";
-    public override string Name { get; set; } = "Exclude Sources";
-    public override string HelpText { get; set; } = "When recommending an item, what sources should be excluded?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Exclude Sources"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When recommending an item, what sources should be excluded?"));
     public override string Version { get; set; } = "1.12.0.10";
 
     public override Dictionary<ItemInfoType, string> GetChoices(EquipmentSuggestConfig configuration)

@@ -9,6 +9,7 @@ using Humanizer;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -21,17 +22,17 @@ public class ItemQuickVentureSourceRenderer : ItemInfoRenderer<ItemQuickVentureS
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.QuickVenture;
-    public override string SingularName => "Quick Venture";
+    public override string SingularName => LocalizationService.Ui("Quick Venture");
     public override bool ShouldGroup => true;
-    public override string HelpText => "Can the item be returned by retainers from quick ventures?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from quick ventures?"));
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
 
-         ImGui.Text($"{asSource.RetainerTaskRow.FormattedName}");
+         ImGui.Text(LocalizationService.Format("{0}", asSource.RetainerTaskRow.FormattedName));
          using (ImRaii.PushIndent())
          {
-             ImGui.Text($"Venture Cost: {asSource.RetainerTaskRow.Base.VentureCost}");
+             ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Venture Cost: {0}"), asSource.RetainerTaskRow.Base.VentureCost));
              ImGui.Text(
                  $"Time: {asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString()}");
          }

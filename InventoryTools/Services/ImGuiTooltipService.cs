@@ -16,6 +16,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings;
 using OtterGui.Extensions;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -122,8 +123,8 @@ public class ImGuiTooltipService
                         {
                             if (table)
                             {
-                                ImGui.TableSetupColumn("BaseAttributes");
-                                ImGui.TableSetupColumn("Attributes");
+                                ImGui.TableSetupColumn(LocalizationService.Ui("BaseAttributes"));
+                                ImGui.TableSetupColumn(LocalizationService.Ui("Attributes"));
                                 ImGui.TableNextRow();
                                 ImGui.TableNextColumn();
                                 DrawBaseAttributes(item);
@@ -152,7 +153,7 @@ public class ImGuiTooltipService
                                     {
                                         ImGui.NewLine();
                                         ImGui.Separator();
-                                        ImGui.Text("When HQ:");
+                                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("When HQ:")));
                                         for (var index = 0; index < item.Base.BaseParamSpecial.Count; index++)
                                         {
                                             var baseParamSpecial = item.Base.BaseParamSpecial[index];
@@ -191,7 +192,7 @@ public class ImGuiTooltipService
                     if (item.Sources.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.TextUnformatted("Available From: ");
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Available From: ")));
                         ImGui.Separator();
                         ImGui.PushTextWrapPos();
                         var sources = item.Sources.Select(c => c.Type).Distinct().Select(
@@ -204,7 +205,7 @@ public class ImGuiTooltipService
                     if (item.Uses.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.TextUnformatted("Used In: ");
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Used In: ")));
                         ImGui.Separator();
                         ImGui.PushTextWrapPos();
                         var uses = item.Uses.Select(c => c.Type).Distinct().Select(
@@ -276,7 +277,7 @@ public class ImGuiTooltipService
                             }
                             else if (oItem.IsCollectible)
                             {
-                                typeIcon = "\uE03d";
+                                typeIcon = LocalizationService.Ui("\\uE03d");
                             }
 
                             locations.Add($"{name} - {_itemLocalizer.FormattedBagLocation(oItem)} " + typeIcon);
@@ -339,7 +340,7 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = "\uE03d";
+                                typeIcon = LocalizationService.Ui("\\uE03d");
                             }
 
                             locations.Add($"{name} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon);
@@ -385,7 +386,7 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = "\uE03d";
+                                typeIcon = LocalizationService.Ui("\\uE03d");
                             }
 
                             var locationLine = string.IsNullOrEmpty(worldName)
@@ -425,7 +426,7 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = "\uE03d";
+                                typeIcon = LocalizationService.Ui("\\uE03d");
                             }
 
                             locations.Add($"{name} - " + quantity + " " + typeIcon);
@@ -446,7 +447,7 @@ public class ImGuiTooltipService
                             for (var index = 0; index < locations.Count; index++)
                             {
                                 var location = locations[index];
-                                ImGui.TextUnformatted($"{location}\n");
+                                ImGui.TextUnformatted(LocalizationService.Format("{0}\n", location));
                             }
                         }
                     }
@@ -454,10 +455,10 @@ public class ImGuiTooltipService
                     ImGui.Separator();
                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
                     {
-                        ImGui.TextUnformatted("Ctrl: Link");
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Ctrl: Link")));
                         if (item.CanTryOn)
                         {
-                            ImGui.TextUnformatted("Shift: Try on");
+                            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Shift: Try on")));
                         }
                     }
                 }
@@ -467,37 +468,37 @@ public class ImGuiTooltipService
 
     private static void DrawBaseAttributes(ItemRow item)
     {
-        ImGui.TextUnformatted($"Item Level {item.Base.LevelItem.RowId}");
+        ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Item Level {0}"), item.Base.LevelItem.RowId));
         if (item.ClassJobCategory != null)
         {
-            ImGui.TextUnformatted($"Equip Level {item.Base.LevelEquip}");
+            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Equip Level {0}"), item.Base.LevelEquip));
         }
 
         ImGui.TextUnformatted(item.FormattedRarity);
 
         if (item.EquipRace != CharacterRace.Any && item.EquipRace != CharacterRace.None)
         {
-            ImGui.TextUnformatted($"Only equippable by {item.EquipRace}");
+            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Only equippable by {0}"), item.EquipRace.FormattedName()));
         }
 
         if (item.EquippableByGender != CharacterSex.Both && item.EquippableByGender != CharacterSex.NotApplicable)
         {
-            ImGui.TextUnformatted($"Only equippable by {item.EquippableByGender.ToString()}");
+            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Only equippable by {0}"), item.EquippableByGender.FormattedName()));
         }
 
         if (item.Base.CanBeHq)
         {
-            ImGui.TextUnformatted("Can be HQ");
+            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Can be HQ")));
         }
 
         if (item.Base.IsUnique)
         {
-            ImGui.TextUnformatted("Unique");
+            ImGui.TextUnformatted(LocalizationService.Ui("Unique"));
         }
 
         if (item.Base.IsUntradable)
         {
-            ImGui.TextUnformatted("Untradable");
+            ImGui.TextUnformatted(LocalizationService.Ui("Untradable"));
         }
     }
 }

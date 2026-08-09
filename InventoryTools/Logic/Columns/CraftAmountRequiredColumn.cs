@@ -12,6 +12,7 @@ using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Raii;
 using ImGuiUtil = InventoryTools.Ui.Widgets.ImGuiUtil;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -54,7 +55,7 @@ namespace InventoryTools.Logic.Columns
                 if (configuration.CraftList.CraftListMode == CraftListMode.Normal)
                 {
                     var value = CurrentValue(columnConfiguration, searchResult)?.Item2.ToString() ?? "";
-                    if (ImGui.InputText("##" + searchResult.CraftItem.ItemId + "RequiredInput" + columnIndex, ref value,
+                    if (ImGui.InputText(LocalizationService.Ui("##") + searchResult.CraftItem.ItemId + "RequiredInput" + columnIndex, ref value,
                             4, ImGuiInputTextFlags.CharsDecimal))
                     {
                         if (value != (CurrentValue(columnConfiguration, searchResult)?.Item2.ToString() ?? ""))
@@ -96,7 +97,7 @@ namespace InventoryTools.Logic.Columns
                     {
                         if (disabled)
                         {
-                            if (ImGui.InputText("##" + searchResult.CraftItem.ItemId + "RequiredInput" + columnIndex,
+                            if (ImGui.InputText(LocalizationService.Ui("##") + searchResult.CraftItem.ItemId + "RequiredInput" + columnIndex,
                                     ref value,
                                     4, ImGuiInputTextFlags.CharsDecimal))
                             {
@@ -113,7 +114,7 @@ namespace InventoryTools.Logic.Columns
                     var toStock = searchResult.CraftItem.QuantityToStock.ToString();
                     ImGui.SameLine();
                     ImGui.SetNextItemWidth(widthAvailable);
-                    if (ImGui.InputText("##" + searchResult.CraftItem.ItemId + "StockInput" + columnIndex, ref toStock,
+                    if (ImGui.InputText(LocalizationService.Ui("##") + searchResult.CraftItem.ItemId + "StockInput" + columnIndex, ref toStock,
                             4, ImGuiInputTextFlags.CharsDecimal))
                     {
                         if (toStock != (searchResult.CraftItem.QuantityToStock.ToString() ?? ""))
@@ -153,22 +154,22 @@ namespace InventoryTools.Logic.Columns
             if (itemHovered || ImGui.IsItemHovered(ImGuiHoveredFlags.None))
             {
                 using var tt = ImRaii.Tooltip();
-                ImGui.Text("Ingredient Breakdown:");
-                ImGui.TextUnformatted("Amount Originally Required: " + searchResult.CraftItem.QuantityRequired);
-                ImGui.TextUnformatted("Amount Required: " + searchResult.CraftItem.QuantityNeededPreUpdate);
-                ImGui.TextUnformatted("Amount in Inventory: " + searchResult.CraftItem.QuantityReady);
-                ImGui.TextUnformatted("Amount to Retrieve: " + searchResult.CraftItem.QuantityAvailable);
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Ingredient Breakdown:")));
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount Originally Required: ")) + searchResult.CraftItem.QuantityRequired);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount Required: ")) + searchResult.CraftItem.QuantityNeededPreUpdate);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount in Inventory: ")) + searchResult.CraftItem.QuantityReady);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve: ")) + searchResult.CraftItem.QuantityAvailable);
                 ImGui.Separator();
-                ImGui.TextUnformatted("Amount Missing: " + searchResult.CraftItem.QuantityMissingOverall);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount Missing: ")) + searchResult.CraftItem.QuantityMissingOverall);
                 if (searchResult.Item.CanBeCrafted)
                 {
-                    ImGui.TextUnformatted("Amount Craftable: " + searchResult.CraftItem.QuantityCanCraft);
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Amount Craftable: ")) + searchResult.CraftItem.QuantityCanCraft);
                     if (searchResult.CraftItem.Yield != 1)
                     {
                         ImGui.Separator();
-                        ImGui.TextUnformatted("Craft Operations Required: " +
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Craft Operations Required: ")) +
                                               searchResult.CraftItem.QuantityNeeded / searchResult.CraftItem.Yield);
-                        ImGui.TextUnformatted("Recipe Yield: " + searchResult.CraftItem.Yield);
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Recipe Yield: ")) + searchResult.CraftItem.Yield);
                     }
                 }
 
@@ -176,7 +177,7 @@ namespace InventoryTools.Logic.Columns
                 if (searchResult.CraftItem.Recipe != null)
                 {
                     ImGui.Separator();
-                    ImGui.TextUnformatted("Ingredients: ");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Ingredients: ")));
                     using (ImRaii.PushIndent())
                     {
                         foreach (var ingredient in searchResult.CraftItem.Recipe.IngredientCounts)
@@ -192,11 +193,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
-        public override string Name { get; set; } = "Amount Required";
-        public override string RenderName => "Required";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount Required"));
+        public override string RenderName => LocalizationService.Ui("Required");
         public override float Width { get; set; } = 60;
         public override bool? CraftOnly => true;
-        public override string HelpText { get; set; } = "The amount required with inventory and external sources factored in/The amount required without inventory and external sources factored in.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The amount required with inventory and external sources factored in/The amount required without inventory and external sources factored in."));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

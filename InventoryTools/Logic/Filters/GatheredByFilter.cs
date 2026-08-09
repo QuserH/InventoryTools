@@ -7,6 +7,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -20,8 +21,8 @@ public class GatheredByFilter : UintMultipleChoiceFilter
     }
 
     public override string Key { get; set; } = "GatheredByFilter";
-    public override string Name { get; set; } = "Gathered By?";
-    public override string HelpText { get; set; } = "How is this item gathered?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gathered By?"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How is this item gathered?"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Gathering;
 
     public override List<uint> DefaultValue { get; set; } = new();

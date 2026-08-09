@@ -17,6 +17,7 @@ using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
 using ImGuiUtil = OtterGui.ImGuiUtil;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -35,7 +36,7 @@ public class SubmarinesWindow : GenericTabbedTable<SubmarineExplorationRow>, IMe
     public override void Initialize()
     {
         Key = "submarines";
-        WindowName = "Submarines";
+        WindowName = LocalizationService.Ui("Submarines");
         _columns = new List<TableColumn<SubmarineExplorationRow>>()
         {
             new("Icon", 32, ImGuiTableColumnFlags.WidthFixed)
@@ -74,7 +75,7 @@ public class SubmarinesWindow : GenericTabbedTable<SubmarineExplorationRow>, IMe
                     ImGui.TextUnformatted(ex.Base.Destination.ExtractText());
                 }
             },
-            new("Unlock Zone", 200, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Unlock Zone"), 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -101,7 +102,7 @@ public class SubmarinesWindow : GenericTabbedTable<SubmarineExplorationRow>, IMe
                     }
                 }
             },
-            new("Rank Required", 100, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Rank Required"), 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -201,7 +202,7 @@ public class SubmarinesWindow : GenericTabbedTable<SubmarineExplorationRow>, IMe
     }
 
     public override string GenericKey { get; } = "submarines";
-    public override string GenericName { get; } = "Submarines";
+    public override string GenericName { get; } = LocalizationService.Ui("Submarines");
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

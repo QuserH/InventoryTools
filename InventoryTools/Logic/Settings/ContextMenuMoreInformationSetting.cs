@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -18,12 +19,12 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "moreInfoContextMenu";
-        public override string Name { get; set; } = "Context Menu - More Information (Items)";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - More Information (Items)"));
 
-        public override string WizardName { get; } = "More Information";
+        public override string WizardName { get; } = LocalizationService.Ui("More Information");
 
         public override string HelpText { get; set; } =
-            "Add the more information menu item to the right click/context menu for items?";
+            LocalizationService.Ui(LocalizationService.Ui("Add the more information menu item to the right click/context menu for items?"));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

@@ -9,6 +9,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Tooltips;
 
@@ -74,7 +75,7 @@ public class HeaderTextTooltip : BaseTooltip
                 }
                 if (Configuration.TooltipDisplayHeader)
                 {
-                    newText += "\n[Allagan Tools]";
+                    newText += LocalizationService.Ui("\n[Allagan Tools]");
                 }
 
                 if (newText != "")

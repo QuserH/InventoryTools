@@ -3,6 +3,7 @@ using CriticalCommonLib.Enums;
 using CriticalCommonLib.Models;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -27,7 +28,7 @@ public class ItemLocalizer
         var cabinetCategory = inventoryItem.Item.CabinetCategory;
         if (cabinetCategory == null)
         {
-            return "Unknown Cabinet";
+            return LocalizationService.Ui("Unknown Cabinet");
         }
 
         if (_cabinetNames.TryGetValue(cabinetCategory.Base.Category.RowId, out string? cabinetName))
@@ -36,7 +37,7 @@ public class ItemLocalizer
         }
 
         cabinetName = _addonSheet.GetRowOrDefault(cabinetCategory.Base.Category.RowId)?.Text.ExtractText() ??
-                      "Addon Text Not Found";
+                      LocalizationService.Ui("Addon Text Not Found");
 
         _cabinetNames[cabinetCategory.Base.Category.RowId] = cabinetName;
 
@@ -53,15 +54,15 @@ public class ItemLocalizer
         var _item = inventoryItem.Item.NameString.ToString();
         if (inventoryItem.IsHQ)
         {
-            _item += " (HQ)";
+            _item += LocalizationService.Ui(" (HQ)");
         }
         else if (inventoryItem.IsCollectible)
         {
-            _item += " (Collectible)";
+            _item += LocalizationService.Ui(" (Collectible)");
         }
         else
         {
-            _item += " (NQ)";
+            _item += LocalizationService.Ui(" (NQ)");
         }
 
         if (inventoryItem.SortedCategory == InventoryCategory.Currency)
@@ -90,205 +91,205 @@ public class ItemLocalizer
     {
         if(inventoryItem.SortedContainer is InventoryType.Bag0 or InventoryType.RetainerBag0)
         {
-            return "Bag 1";
+            return LocalizationService.Ui("Bag 1");
         }
         if(inventoryItem.SortedContainer is InventoryType.Bag1 or InventoryType.RetainerBag1)
         {
-            return "Bag 2";
+            return LocalizationService.Ui("Bag 2");
         }
         if(inventoryItem.SortedContainer is InventoryType.Bag2 or InventoryType.RetainerBag2)
         {
-            return "Bag 3";
+            return LocalizationService.Ui("Bag 3");
         }
         if(inventoryItem.SortedContainer is InventoryType.Bag3 or InventoryType.RetainerBag3)
         {
-            return "Bag 4";
+            return LocalizationService.Ui("Bag 4");
         }
         if(inventoryItem.SortedContainer is InventoryType.RetainerBag4)
         {
-            return "Bag 5";
+            return LocalizationService.Ui("Bag 5");
         }
         if(inventoryItem.SortedContainer is InventoryType.SaddleBag0)
         {
-            return "Saddlebag Left";
+            return LocalizationService.Ui("Saddlebag Left");
         }
         if(inventoryItem.SortedContainer is InventoryType.SaddleBag1)
         {
-            return "Saddlebag Right";
+            return LocalizationService.Ui("Saddlebag Right");
         }
         if(inventoryItem.SortedContainer is InventoryType.PremiumSaddleBag0)
         {
-            return "Premium Saddlebag Left";
+            return LocalizationService.Ui("Premium Saddlebag Left");
         }
         if(inventoryItem.SortedContainer is InventoryType.PremiumSaddleBag1)
         {
-            return "Premium Saddlebag Right";
+            return LocalizationService.Ui("Premium Saddlebag Right");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryBody)
         {
-            return "Armory - Body";
+            return LocalizationService.Ui("Armory - Body");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryEar)
         {
-            return "Armory - Ear";
+            return LocalizationService.Ui("Armory - Ear");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryFeet)
         {
-            return "Armory - Feet";
+            return LocalizationService.Ui("Armory - Feet");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryHand)
         {
-            return "Armory - Hand";
+            return LocalizationService.Ui("Armory - Hand");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryHead)
         {
-            return "Armory - Head";
+            return LocalizationService.Ui("Armory - Head");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryLegs)
         {
-            return "Armory - Legs";
+            return LocalizationService.Ui("Armory - Legs");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryMain)
         {
-            return "Armory - Main";
+            return LocalizationService.Ui("Armory - Main");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryNeck)
         {
-            return "Armory - Neck";
+            return LocalizationService.Ui("Armory - Neck");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryOff)
         {
-            return "Armory - Offhand";
+            return LocalizationService.Ui("Armory - Offhand");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryRing)
         {
-            return "Armory - Ring";
+            return LocalizationService.Ui("Armory - Ring");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryWaist)
         {
-            return "Armory - Waist";
+            return LocalizationService.Ui("Armory - Waist");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmoryWrist)
         {
-            return "Armory - Wrist";
+            return LocalizationService.Ui("Armory - Wrist");
         }
         if(inventoryItem.SortedContainer is InventoryType.ArmorySoulCrystal)
         {
-            return "Armory - Soul Crystal";
+            return LocalizationService.Ui("Armory - Soul Crystal");
         }
         if(inventoryItem.SortedContainer is InventoryType.GearSet0)
         {
-            return "Equipped Gear";
+            return LocalizationService.Ui("Equipped Gear");
         }
         if(inventoryItem.SortedContainer is InventoryType.RetainerEquippedGear)
         {
-            return "Equipped Gear";
+            return LocalizationService.Ui("Equipped Gear");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag0)
         {
-            return "Free Company Chest - 1";
+            return LocalizationService.Ui("Free Company Chest - 1");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag1)
         {
-            return "Free Company Chest - 2";
+            return LocalizationService.Ui("Free Company Chest - 2");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag2)
         {
-            return "Free Company Chest - 3";
+            return LocalizationService.Ui("Free Company Chest - 3");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag3)
         {
-            return "Free Company Chest - 4";
+            return LocalizationService.Ui("Free Company Chest - 4");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag4)
         {
-            return "Free Company Chest - 5";
+            return LocalizationService.Ui("Free Company Chest - 5");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag5)
         {
-            return "Free Company Chest - 6";
+            return LocalizationService.Ui("Free Company Chest - 6");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag6)
         {
-            return "Free Company Chest - 7";
+            return LocalizationService.Ui("Free Company Chest - 7");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag7)
         {
-            return "Free Company Chest - 8";
+            return LocalizationService.Ui("Free Company Chest - 8");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag8)
         {
-            return "Free Company Chest - 9";
+            return LocalizationService.Ui("Free Company Chest - 9");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag9)
         {
-            return "Free Company Chest - 10";
+            return LocalizationService.Ui("Free Company Chest - 10");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyBag10)
         {
-            return "Free Company Chest - 11";
+            return LocalizationService.Ui("Free Company Chest - 11");
         }
         if(inventoryItem.SortedContainer is InventoryType.RetainerMarket)
         {
-            return "Market";
+            return LocalizationService.Ui("Market");
         }
         if(inventoryItem.SortedContainer is InventoryType.GlamourChest)
         {
-            return "Glamour Chest";
+            return LocalizationService.Ui("Glamour Chest");
         }
         if(inventoryItem.SortedContainer is InventoryType.Armoire)
         {
-            return "Armoire - " + CabinetName(inventoryItem);
+            return LocalizationService.Ui("Armoire - ") + CabinetName(inventoryItem);
         }
         if(inventoryItem.SortedContainer is InventoryType.Currency)
         {
-            return "Currency";
+            return LocalizationService.Ui("Currency");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyGil)
         {
-            return "Free Company - Gil";
+            return LocalizationService.Ui("Free Company - Gil");
         }
         if(inventoryItem.SortedContainer is InventoryType.RetainerGil)
         {
-            return "Currency";
+            return LocalizationService.Ui("Currency");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyCrystal)
         {
-            return "Free Company - Crystals";
+            return LocalizationService.Ui("Free Company - Crystals");
         }
         if(inventoryItem.SortedContainer is InventoryType.FreeCompanyCurrency)
         {
-            return "Free Company - Currency";
+            return LocalizationService.Ui("Free Company - Currency");
         }
         if(inventoryItem.SortedContainer is InventoryType.Crystal or InventoryType.RetainerCrystal)
         {
-            return "Crystals";
+            return LocalizationService.Ui("Crystals");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingExteriorAppearance)
         {
-            return "Housing Exterior Appearance";
+            return LocalizationService.Ui("Housing Exterior Appearance");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingInteriorAppearance)
         {
-            return "Housing Interior Appearance";
+            return LocalizationService.Ui("Housing Interior Appearance");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingExteriorStoreroom or InventoryType.HousingExteriorStoreroom2)
         {
-            return "Housing Exterior Storeroom";
+            return LocalizationService.Ui("Housing Exterior Storeroom");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingInteriorStoreroom1 or InventoryType.HousingInteriorStoreroom2 or InventoryType.HousingInteriorStoreroom3 or InventoryType.HousingInteriorStoreroom4 or InventoryType.HousingInteriorStoreroom5 or InventoryType.HousingInteriorStoreroom6 or InventoryType.HousingInteriorStoreroom7 or InventoryType.HousingInteriorStoreroom8 or InventoryType.HousingInteriorStoreroom9 or InventoryType.HousingInteriorStoreroom10 or InventoryType.HousingInteriorStoreroom11)
         {
-            return "Housing Interior Storeroom";
+            return LocalizationService.Ui("Housing Interior Storeroom");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingInteriorPlacedItems1 or InventoryType.HousingInteriorPlacedItems2 or InventoryType.HousingInteriorPlacedItems3 or InventoryType.HousingInteriorPlacedItems4 or InventoryType.HousingInteriorPlacedItems5 or InventoryType.HousingInteriorPlacedItems6 or InventoryType.HousingInteriorPlacedItems7 or InventoryType.HousingInteriorPlacedItems8 or InventoryType.HousingInteriorPlacedItems9 or InventoryType.HousingInteriorPlacedItems10 or InventoryType.HousingInteriorPlacedItems11 or InventoryType.HousingInteriorPlacedItems12)
         {
-            return "Housing Interior Placed Items";
+            return LocalizationService.Ui("Housing Interior Placed Items");
         }
         if(inventoryItem.SortedContainer is InventoryType.HousingExteriorPlacedItems or InventoryType.HousingExteriorPlacedItems2)
         {
-            return "Housing Exterior Placed Items";
+            return LocalizationService.Ui("Housing Exterior Placed Items");
         }
 
-        return inventoryItem.SortedContainer.ToString();
+        return CriticalCommonLib.Localization.SharedLocalization.Get(inventoryItem.SortedContainer.ToString());
     }
 }

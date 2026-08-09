@@ -9,6 +9,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Textures;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -21,10 +22,10 @@ public class ItemAchievementSourceRenderer : ItemInfoRenderer<ItemAchievementSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Achievement;
-    public override string SingularName => "Achievement";
+    public override string SingularName => LocalizationService.Ui("Achievement");
 
-    public override string? PluralName => "Achievements";
-    public override string HelpText => "Can the item be earned via an achievement?";
+    public override string? PluralName => LocalizationService.Ui("Achievements");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be earned via an achievement?"));
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CriticalCommonLib.Addons;
 using CriticalCommonLib.Services;
 using CriticalCommonLib.Services.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services.GameCraftSources
 {
@@ -21,7 +22,7 @@ namespace InventoryTools.Services.GameCraftSources
                 return [];
             }
 
-            return [new GameCraftCategory("Submarine Parts", GetItems)];
+            return [new GameCraftCategory(LocalizationService.Ui("Submarine Parts"), GetItems)];
         }
 
         private unsafe IReadOnlyList<GameCraftItem> GetItems()

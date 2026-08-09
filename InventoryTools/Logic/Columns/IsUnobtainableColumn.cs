@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -16,9 +17,9 @@ namespace InventoryTools.Logic.Columns
             return searchResult.Item.IsUnobtainable;
         }
 
-        public override string Name { get; set; } = "Is Unobtainable?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Unobtainable?"));
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = "Has the item been made unobtainable?";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has the item been made unobtainable?"));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

@@ -9,6 +9,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Services;
 

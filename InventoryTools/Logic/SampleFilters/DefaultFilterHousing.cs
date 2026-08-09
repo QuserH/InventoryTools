@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -39,11 +40,11 @@ public class DefaultFilterHousing : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Housing";
+    public string Name => LocalizationService.Ui("Housing");
     public string SampleDefaultName => "Housing";
 
     public string SampleDescription =>
-        "This will add a list that will be preconfigured to show all items stored in the houses your character owns.";
+        LocalizationService.Ui("This will add a list that will be preconfigured to show all items stored in the houses your character owns.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

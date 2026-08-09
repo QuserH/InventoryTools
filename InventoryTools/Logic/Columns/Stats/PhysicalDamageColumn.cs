@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Stats;
 
@@ -23,7 +24,7 @@ public class PhysicalDamageColumn : IntegerColumn
         return searchResult.Item.Base.DamagePhys;
     }
 
-    public override string Name { get; set; } = "Physical Damage";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Physical Damage"));
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = "The physical damage of the item";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The physical damage of the item"));
 }

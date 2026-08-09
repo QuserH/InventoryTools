@@ -1,5 +1,6 @@
 using System;
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Extensions
 {
@@ -10,65 +11,65 @@ namespace InventoryTools.Extensions
             switch (settingSubCategory)
             {
                 case SettingSubCategory.Experimental:
-                    return "Experimental";
+                    return LocalizationService.Ui("Experimental");
                 case SettingSubCategory.Fun:
-                    return "Fun";
+                    return LocalizationService.Ui("Fun");
                 case SettingSubCategory.Highlighting:
-                    return "Highlighting";
+                    return LocalizationService.Ui("Highlighting");
                 case SettingSubCategory.DestinationHighlighting:
-                    return "Destination Highlighting";
+                    return LocalizationService.Ui("Destination Highlighting");
                 case SettingSubCategory.RetainerHighlighting:
-                    return "Retainer Highlighting";
+                    return LocalizationService.Ui("Retainer Highlighting");
                 case SettingSubCategory.Market:
-                    return "Market";
+                    return LocalizationService.Ui("Market");
                 case SettingSubCategory.General:
-                    return "General";
+                    return LocalizationService.Ui("General");
                 case SettingSubCategory.Subsetting:
-                    return "Settings";
+                    return LocalizationService.Ui("Settings");
                 case SettingSubCategory.Visuals:
-                    return "Visuals";
+                    return LocalizationService.Ui("Visuals");
                 case SettingSubCategory.WindowLayout:
-                    return "Window Layout";
+                    return LocalizationService.Ui("Window Layout");
                 case SettingSubCategory.AutoSave:
-                    return "Auto Save";
+                    return LocalizationService.Ui("Auto Save");
                 case SettingSubCategory.FilterSettings:
-                    return "List Settings";
+                    return LocalizationService.Ui("List Settings");
                 case SettingSubCategory.ActiveLists:
-                    return "Active Lists";
+                    return LocalizationService.Ui("Active Lists");
                 case SettingSubCategory.ContextMenus:
-                    return "Context/Right Click Menu";
+                    return LocalizationService.Ui("Context/Right Click Menu");
                 case SettingSubCategory.Hotkeys:
-                    return "Hotkeys";
+                    return LocalizationService.Ui("Hotkeys");
                 case SettingSubCategory.IgnoreEscape:
-                    return "Ignore Escape Key";
+                    return LocalizationService.Ui("Ignore Escape Key");
                 case SettingSubCategory.SourceGrouping:
-                    return "Source Grouping";
+                    return LocalizationService.Ui("Source Grouping");
                 case SettingSubCategory.UseGrouping:
-                    return "Use Grouping";
+                    return LocalizationService.Ui("Use Grouping");
                 case SettingSubCategory.Colours:
-                    return "Colours";
+                    return LocalizationService.Ui("Colours");
                 case SettingSubCategory.AddItemLocations:
-                    return "Add Item Locations";
+                    return LocalizationService.Ui("Add Item Locations");
                 case SettingSubCategory.MarketPricing:
-                    return "Market Pricing";
+                    return LocalizationService.Ui("Market Pricing");
                 case SettingSubCategory.AmountToRetrieve:
-                    return "Amount To Retrieve";
+                    return LocalizationService.Ui("Amount To Retrieve");
                 case SettingSubCategory.ItemUnlockStatus:
-                    return "Item Unlock Status";
+                    return LocalizationService.Ui("Item Unlock Status");
                 case SettingSubCategory.SourceInformation:
-                    return "Source Information";
+                    return LocalizationService.Ui("Source Information");
                 case SettingSubCategory.UseInformation:
-                    return "Use Information";
+                    return LocalizationService.Ui("Use Information");
                 case SettingSubCategory.AcquisitionTracker:
-                    return "Acquisition Tracker";
+                    return LocalizationService.Ui("Acquisition Tracker");
                 case SettingSubCategory.IngredientPatch:
-                    return "Ingredient Patch";
+                    return LocalizationService.Ui("Ingredient Patch");
                 case SettingSubCategory.GlamourReadySet:
-                    return "Outfit Glamours";
+                    return LocalizationService.Ui("Outfit Glamours");
                 case SettingSubCategory.CofferLoot:
-                    return "Coffer Loot";
+                    return LocalizationService.Ui("Coffer Loot");
                 case SettingSubCategory.ShopHighlighting:
-                    return "Shop Highlighting";
+                    return LocalizationService.Ui("Shop Highlighting");
             }
             return settingSubCategory.ToString();
         }

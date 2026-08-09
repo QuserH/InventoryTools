@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CharacterTools.Logic.Editors;
@@ -93,11 +94,11 @@ namespace InventoryTools.Logic.Columns
                 ImGui.NewLine();
                 ImGui.Separator();
                 ImGui.SetNextItemWidth(220);
-                ImGui.LabelText("##" + configuration.Key + "Search", "Characters to search in:");
+                ImGui.LabelText(LocalizationService.Ui("##") + configuration.Key + "Search", LocalizationService.Ui("Characters to search in:"));
                 ImGui.SetNextItemWidth(250);
                 ImGui.SameLine();
                 _scopePickerColumnSetting.Draw(columnConfiguration,
-                    "This lets you set which characters you want to generate a total based off.");
+                    LocalizationService.Ui("This lets you set which characters you want to generate a total based off."));
                 base.DrawEditor(columnConfiguration, configuration);
             }
             return null;
@@ -112,7 +113,7 @@ namespace InventoryTools.Logic.Columns
                 if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled)) return null;
                 var value = CurrentValue(columnConfiguration, searchResult)?.ToString() ?? "";
                 ImGuiUtil.VerticalAlignButton(configuration.TableHeight);
-                if (ImGui.InputText("##"+rowIndex+"QtyInput" + columnIndex, ref value, 4, ImGuiInputTextFlags.CharsDecimal))
+                if (ImGui.InputText(LocalizationService.Ui("##")+rowIndex+"QtyInput" + columnIndex, ref value, 4, ImGuiInputTextFlags.CharsDecimal))
                 {
                     if (value != (CurrentValue(columnConfiguration, searchResult)?.ToString() ?? ""))
                     {
@@ -138,13 +139,13 @@ namespace InventoryTools.Logic.Columns
             return base.Draw(configuration, columnConfiguration, searchResult, rowIndex, columnIndex);
         }
 
-        public override string Name { get; set; } = "Quantity/Total Quantity Available";
-        public override string RenderName => "Quantity";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Quantity/Total Quantity Available"));
+        public override string RenderName => LocalizationService.Ui("Quantity");
 
         public override float Width { get; set; } = 70.0f;
 
         public override string HelpText { get; set; } =
-            "The quantity of the item. If viewing from a game items or craft filter, this will show the total number of items available in all inventories.";
+            LocalizationService.Ui(LocalizationService.Ui("The quantity of the item. If viewing from a game items or craft filter, this will show the total number of items available in all inventories."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

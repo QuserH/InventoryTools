@@ -14,6 +14,7 @@ using InventoryTools.Compendium.Models;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -39,9 +40,9 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         _staticIcon = new Lazy<(string?, uint?)>(BuildStaticIcon, LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
-    public override string Singular => "Job Soul Crystal";
-    public override string Plural => "Job Soul Crystals";
-    public override string Description => "Soul crystals that enable or convert a class into a job.";
+    public override string Singular => LocalizationService.Ui("Job Soul Crystal");
+    public override string Plural => LocalizationService.Ui("Job Soul Crystals");
+    public override string Description => LocalizationService.Ui("Soul crystals that enable or convert a class into a job.");
     public override string Key => "job_soul_crystals";
     public override (string?, uint?) Icon => _staticIcon.Value;
 
@@ -70,8 +71,8 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = "##Icon",
-            HelpText = "The icon of the soul crystal",
+            Name = LocalizationService.Ui("##Icon"),
+            HelpText = LocalizationService.Ui("The icon of the soul crystal"),
             Version = "15.0.6",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -80,24 +81,24 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "Name",
-            HelpText = "The name of the soul crystal",
+            Name = LocalizationService.Ui("Name"),
+            HelpText = LocalizationService.Ui("The name of the soul crystal"),
             Version = "15.0.6",
             ValueSelector = row => row.Item.NameString,
         });
         builder.AddStringColumn(new()
         {
             Key = "job",
-            Name = "Job",
-            HelpText = "The job this soul crystal enables",
+            Name = LocalizationService.Ui("Job"),
+            HelpText = LocalizationService.Ui("The job this soul crystal enables"),
             Version = "15.0.6",
             ValueSelector = row => row.ClassJob.Base.Name.ToImGuiString().FirstCharToUpper(),
         });
         builder.AddStringColumn(new()
         {
             Key = "parent_class",
-            Name = "Parent Class",
-            HelpText = "The base class this soul crystal converts, if any",
+            Name = LocalizationService.Ui("Parent Class"),
+            HelpText = LocalizationService.Ui("The base class this soul crystal converts, if any"),
             Version = "15.0.6",
             ValueSelector = row => row.ParentClassJob?.Base.Name.ToImGuiString().FirstCharToUpper() ?? "",
         });
@@ -110,25 +111,25 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "info",
-            SectionName = "Info",
+            SectionName = LocalizationService.Ui("Info"),
             Items =
             [
                 ("Job", row.ClassJob.Base.Name.ToImGuiString(), true),
-                ("Converts From", row.ParentClassJob?.Base.Name.ToImGuiString() ?? "", row.ParentClassJob != null),
+                (LocalizationService.Ui("Converts From"), row.ParentClassJob?.Base.Name.ToImGuiString() ?? "", row.ParentClassJob != null),
             ],
         });
 
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = "Job",
+            SectionName = LocalizationService.Ui("Job"),
             RelatedRef = (RowRef)row.ClassJob.RowRef,
         });
 
         viewBuilder.AddItemListSection(new ItemListSectionOptions()
         {
             SectionKey = "soul_crystal_item",
-            SectionName = "Soul Crystal",
+            SectionName = LocalizationService.Ui("Soul Crystal"),
             Items = [new ItemInfo(row.Item)],
         });
 
@@ -136,7 +137,7 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
         {
             SectionKey = "soul_crystal_sources",
-            SectionName = "Obtain",
+            SectionName = LocalizationService.Ui("Obtain"),
             Sources = itemSources ?? [],
             SourceType = SourceType.Source,
         });

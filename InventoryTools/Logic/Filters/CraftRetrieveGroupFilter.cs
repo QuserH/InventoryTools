@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -40,10 +41,10 @@ public class CraftRetrieveGroupFilter : ChoiceFilter<RetrieveGroupSetting>
     }
 
     public override string Key { get; set; } = "CraftRetrieveGroupFilter";
-    public override string Name { get; set; } = "Group Retrieval Items By";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Group Retrieval Items By"));
 
     public override string HelpText { get; set; } =
-        "Should the items you need to retrieve be grouped?";
+        LocalizationService.Ui(LocalizationService.Ui("Should the items you need to retrieve be grouped?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override RetrieveGroupSetting DefaultValue { get; set; } = RetrieveGroupSetting.None;

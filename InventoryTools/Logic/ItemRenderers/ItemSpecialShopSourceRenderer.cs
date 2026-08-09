@@ -14,6 +14,7 @@ using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -25,7 +26,7 @@ public class ItemSpecialShopUseRenderer : ItemSpecialShopSourceRenderer
 
     public override RendererType RendererType => RendererType.Use;
 
-    public override string HelpText => "Can the item be spent at a special currency shop?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a special currency shop?"));
 
     public override Func<ItemSource, int> GetIcon => source =>
     {
@@ -49,9 +50,9 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.SpecialShop;
-    public override string SingularName => "Special Shop";
-    public override string PluralName => "Special Shops";
-    public override string HelpText => "Can the item be purchased from a special currency shop?";
+    public override string SingularName => LocalizationService.Ui("Special Shop");
+    public override string PluralName => LocalizationService.Ui("Special Shops");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a special currency shop?"));
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 3;
@@ -66,9 +67,9 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
     {
         var asSource = AsSource(source);
 
-        ImGui.Text($"Shop: {asSource.Shop.Name}");
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Shop: {0}"), asSource.Shop.Name));
 
-        ImGui.Text("Rewards:");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Rewards:")));
         using (ImRaii.PushIndent())
         {
             foreach (var reward in asSource.ShopListing.Rewards)
@@ -87,7 +88,7 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
                 }
             }
         }
-        ImGui.Text("Costs:");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Costs:")));
         using (ImRaii.PushIndent())
         {
             foreach (var cost in asSource.ShopListing.Costs)

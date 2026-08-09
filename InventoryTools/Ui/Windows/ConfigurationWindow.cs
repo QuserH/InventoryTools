@@ -28,6 +28,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog.Events;
 using ImGuiUtil = OtterGui.ImGuiUtil;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -71,7 +72,7 @@ namespace InventoryTools.Ui
             mediator,
             imGuiService,
             configuration,
-            "Configuration Window")
+            LocalizationService.Ui("Configuration Window"))
         {
             _pluginLog = pluginLog;
             _configurationWizardService = configurationWizardService;
@@ -93,7 +94,7 @@ namespace InventoryTools.Ui
 
         public override void Initialize()
         {
-            WindowName = "Configuration";
+            WindowName = LocalizationService.Ui("Configuration");
             Key = "configuration";
             _configPages = new List<IConfigPage>();
             _configPages.Add(new SeparatorPageItem("Settings"));
@@ -122,10 +123,10 @@ namespace InventoryTools.Ui
             _addFilterMenu = new PopupMenu("addFilter", PopupMenu.PopupMenuButtons.LeftRight,
                 new List<PopupMenu.IPopupMenuItem>()
                 {
-                    new PopupMenu.PopupMenuItemSelectableAskName("Search List", "adf1", "New Search List", AddSearchFilter, "This will create a new list that let's you search for specific items within your characters and retainers inventories."),
-                    new PopupMenu.PopupMenuItemSelectableAskName("Sort List", "af2", "New Sort Filter", AddSortFilter, "This will create a new list that let's you search for specific items within your characters and retainers inventories then determine where they should be moved to."),
-                    new PopupMenu.PopupMenuItemSelectableAskName("Game Item List", "af3", "New Game Item List", AddGameItemFilter, "This will create a list that lets you search for all items in the game."),
-                    new PopupMenu.PopupMenuItemSelectableAskName("History List", "af4", "New History Item List", AddHistoryFilter, "This will create a list that lets you view historical data of how your inventory has changed."),
+                    new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Search List"), "adf1", LocalizationService.Ui("New Search List"), AddSearchFilter, LocalizationService.Ui("This will create a new list that let's you search for specific items within your characters and retainers inventories.")),
+                    new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Sort List"), "af2", LocalizationService.Ui("New Sort Filter"), AddSortFilter, LocalizationService.Ui("This will create a new list that let's you search for specific items within your characters and retainers inventories then determine where they should be moved to.")),
+                    new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Game Item List"), "af3", LocalizationService.Ui("New Game Item List"), AddGameItemFilter, LocalizationService.Ui("This will create a list that lets you search for all items in the game.")),
+                    new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("History List"), "af4", LocalizationService.Ui("New History Item List"), AddHistoryFilter, LocalizationService.Ui("This will create a list that lets you view historical data of how your inventory has changed.")),
                 });
 
             _addSampleMenu = new PopupMenu("addSampleFilter", PopupMenu.PopupMenuButtons.LeftRight, []);
@@ -164,24 +165,24 @@ namespace InventoryTools.Ui
             _settingsMenu = new PopupMenu("configMenu", PopupMenu.PopupMenuButtons.All,
                 new List<PopupMenu.IPopupMenuItem>()
                 {
-                    new PopupMenu.PopupMenuItemSelectable("Items Window", "filters", OpenFiltersWindow,"Open the items window."),
-                    new PopupMenu.PopupMenuItemSelectable("Craft Window", "crafts", OpenCraftsWindow,"Open the crafts window."),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Items Window"), "filters", OpenFiltersWindow,LocalizationService.Ui("Open the items window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Craft Window"), "crafts", OpenCraftsWindow,LocalizationService.Ui("Open the crafts window.")),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable("Mob Window", "mobs", OpenMobsWindow,"Open the mobs window."),
-                    new PopupMenu.PopupMenuItemSelectable("Npcs Window", "npcs", OpenNpcsWindow,"Open the npcs window."),
-                    new PopupMenu.PopupMenuItemSelectable("Duties Window", "duties", OpenDutiesWindow,"Open the duties window."),
-                    new PopupMenu.PopupMenuItemSelectable("Airships Window", "airships", OpenAirshipsWindow,"Open the airships window."),
-                    new PopupMenu.PopupMenuItemSelectable("Submarines Window", "submarines", OpenSubmarinesWindow,"Open the submarines window."),
-                    new PopupMenu.PopupMenuItemSelectable("Retainer Ventures Window", "ventures", OpenRetainerVenturesWindow,"Open the retainer ventures window."),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Mob Window"), "mobs", OpenMobsWindow,LocalizationService.Ui("Open the mobs window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Npcs Window"), "npcs", OpenNpcsWindow,LocalizationService.Ui("Open the npcs window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Duties Window"), "duties", OpenDutiesWindow,LocalizationService.Ui("Open the duties window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Airships Window"), "airships", OpenAirshipsWindow,LocalizationService.Ui("Open the airships window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Submarines Window"), "submarines", OpenSubmarinesWindow,LocalizationService.Ui("Open the submarines window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Retainer Ventures Window"), "ventures", OpenRetainerVenturesWindow,LocalizationService.Ui("Open the retainer ventures window.")),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable("Help", "help", OpenHelpWindow,"Open the help window."),
+                    new PopupMenu.PopupMenuItemSelectable("Help", "help", OpenHelpWindow,LocalizationService.Ui("Open the help window.")),
                 });
 
             _wizardMenu = new PopupMenu("wizardMenu", PopupMenu.PopupMenuButtons.All,
                 new List<PopupMenu.IPopupMenuItem>()
                 {
-                    new PopupMenu.PopupMenuItemSelectable("Configure new settings", "configureNew", ConfigureNewSettings,"Configure new settings."),
-                    new PopupMenu.PopupMenuItemSelectable("Configure all settings", "configureAll", ConfigureAllSettings,"Configure all settings."),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Configure new settings"), "configureNew", ConfigureNewSettings,LocalizationService.Ui("Configure new settings.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Configure all settings"), "configureAll", ConfigureAllSettings,LocalizationService.Ui("Configure all settings.")),
                 });
             _menuWindows = _context.Resolve<IEnumerable<IMenuWindow>>().OrderBy(c => c.GenericName).Where(c => c.GetType() != this.GetType());
 
@@ -224,7 +225,7 @@ namespace InventoryTools.Ui
             }
             else
             {
-                _chatUtilities.Print("There are no new settings available to configure.");
+                _chatUtilities.Print(LocalizationService.Ui("There are no new settings available to configure."));
             }
         }
 
@@ -285,10 +286,10 @@ namespace InventoryTools.Ui
                 _popupMenus[configuration] = new PopupMenu("fm" + configuration.Key, PopupMenu.PopupMenuButtons.Right,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateFilter, "Duplicate the filter."),
-                        new PopupMenu.PopupMenuItemSelectable("Move Up", "mu_" + configuration.Key, MoveFilterUp, "Move the filter up."),
-                        new PopupMenu.PopupMenuItemSelectable("Move Down", "md_" + configuration.Key, MoveFilterDown, "Move the filter down."),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, "Are you sure you want to remove this filter?", RemoveFilter, "Remove the filter."),
+                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the filter.")),
+                        new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Move Up"), "mu_" + configuration.Key, MoveFilterUp, LocalizationService.Ui("Move the filter up.")),
+                        new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Move Down"), "md_" + configuration.Key, MoveFilterDown, LocalizationService.Ui("Move the filter down.")),
+                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this filter?"), RemoveFilter, LocalizationService.Ui("Remove the filter.")),
                     }
                 );
             }
@@ -416,7 +417,7 @@ namespace InventoryTools.Ui
         public override Vector2? MaxSize { get; } = new(2000, 2000);
         public override Vector2? MinSize { get; } = new(200, 200);
         public override string GenericKey => "configuration";
-        public override string GenericName => "Configuration";
+        public override string GenericName => LocalizationService.Ui("Configuration");
         public override bool DestroyOnClose => true;
         private List<IConfigPage> _configPages = null!;
         public Dictionary<string, IConfigPage> _filterPages = new Dictionary<string,IConfigPage>();
@@ -433,26 +434,26 @@ namespace InventoryTools.Ui
             {
                 if (menuBar)
                 {
-                    using (var menu = ImRaii.Menu("File"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("File")))
                     {
                         if (menu)
                         {
-                            if (ImGui.MenuItem("Report a Issue"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Report a Issue"))))
                             {
                                 "https://github.com/Critical-Impact/AllaganMarket".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem("Changelog"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Changelog")))
                             {
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(ChangelogWindow)));
                             }
 
-                            if (ImGui.MenuItem("Help"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Help")))
                             {
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow)));
                             }
 
-                            if (ImGui.MenuItem("Enable Verbose Logging", "",
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Enable Verbose Logging")), "",
                                     this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose))
                             {
                                 if (this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose)
@@ -465,37 +466,37 @@ namespace InventoryTools.Ui
                                 }
                             }
 
-                            if (ImGui.MenuItem("Generate Support Dump"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"))))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(SupportDumpWindow)));
                             }
 
-                            if (ImGui.MenuItem("Ko-Fi"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Ko-Fi"))))
                             {
                                 "https://ko-fi.com/critical_impact".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem("Close"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Close")))
                             {
                                 this.IsOpen = false;
                             }
                         }
                     }
 
-                    using (var menu = ImRaii.Menu("Wizard"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Wizard")))
                     {
                         if (menu)
                         {
                             var hasNewFeatures = this._configurationWizardService.HasNewFeatures;
                             using var disabled = ImRaii.Disabled(!hasNewFeatures);
-                            if (ImGui.MenuItem("Configure New Features"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Configure New Features"))))
                             {
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(ConfigurationWizard)));
                             }
 
                             disabled.Dispose();
 
-                            if (ImGui.MenuItem("Reconfigure All Features"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Reconfigure All Features"))))
                             {
                                 this._configurationWizardService.ClearFeaturesSeen();
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(ConfigurationWizard)));
@@ -503,7 +504,7 @@ namespace InventoryTools.Ui
                         }
                     }
 
-                    using (var menu = ImRaii.Menu("Windows"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Windows")))
                     {
                         if (menu)
                         {
@@ -668,7 +669,7 @@ namespace InventoryTools.Ui
                     }
 
                     ImGui.NewLine();
-                    ImGui.TextUnformatted("Item Lists");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Item Lists")));
                     ImGui.Separator();
 
                     var filterIndex = count;
@@ -717,7 +718,7 @@ namespace InventoryTools.Ui
                     }
 
                     _addFilterMenu.Draw();
-                    ImGuiUtil.HoverTooltip("Add a new list");
+                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Add a new list")));
 
                     ImGui.SetCursorPosY(height - 24 * ImGui.GetIO().FontGlobalScale);
                     ImGui.SetCursorPosX(26 * ImGui.GetIO().FontGlobalScale);
@@ -728,7 +729,7 @@ namespace InventoryTools.Ui
                     }
 
                     _addSampleMenu.Draw();
-                    ImGuiUtil.HoverTooltip("Add a sample filter");
+                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Add a sample filter")));
 
                     var width = ImGui.GetCursorPosX();
                     width -= 24 * ImGui.GetIO().FontGlobalScale;
@@ -752,7 +753,7 @@ namespace InventoryTools.Ui
                     _wizardMenu.Draw();
 
 
-                    ImGuiUtil.HoverTooltip("Start configuration wizard.");
+                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Start configuration wizard.")));
                 }
             }
         }

@@ -15,6 +15,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Overlays;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services
 {

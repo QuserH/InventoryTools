@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using CriticalCommonLib.Services;
 
 using InventoryTools.Logic.Columns.Abstract;
@@ -21,14 +22,14 @@ namespace InventoryTools.Logic.Columns
             {
                 return _characterMonitor.Characters.TryGetValue(searchResult.InventoryItem.RetainerId, out var character)
                     ? character.FormattedName
-                    : "Unknown (" + searchResult.InventoryItem.RetainerId + ")";
+                    : LocalizationService.Ui("Unknown (") + searchResult.InventoryItem.RetainerId + ")";
             }
 
             return null;
         }
-        public override string Name { get; set; } = "Source";
+        public override string Name { get; set; } = LocalizationService.Ui("Source");
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = "Shows the character/retainer an item is located in.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the character/retainer an item is located in."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter | Logic.FilterType.CraftFilter | Logic.FilterType.HistoryFilter;

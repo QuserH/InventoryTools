@@ -4,6 +4,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -34,10 +35,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "BackgroundFilter";
-        public override string Name { get; set; } = "Background List Highlighting";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Background List Highlighting"));
 
         public override string HelpText { get; set; } =
-            "This is the list that is currently being highlighted when the allagan tools window is not visible. This list can be toggled with the associated slash commands.";
+            LocalizationService.Ui(LocalizationService.Ui("This is the list that is currently being highlighted when the allagan tools window is not visible. This list can be toggled with the associated slash commands."));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ActiveLists;

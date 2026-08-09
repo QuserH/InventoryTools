@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -14,9 +15,9 @@ namespace InventoryTools.Logic.Columns
         {
             return searchResult.Item.Base.CanBeHq;
         }
-        public override string Name { get; set; } = "Can be High Quality?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be High Quality?"));
         public override float Width { get; set; } = 90.0f;
-        public override string HelpText { get; set; } = "Can the item be high quality?";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can the item be high quality?"));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

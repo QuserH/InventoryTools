@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Stats;
 
@@ -15,8 +16,8 @@ public class MagicalDamageFilter : StringFilter
     }
 
     public override string Key { get; set; } = "MagicalDamageFilter";
-    public override string Name { get; set; } = "Magical Damage";
-    public override string HelpText { get; set; } = "The magical damage of the item";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Magical Damage"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The magical damage of the item"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

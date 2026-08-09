@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -14,10 +15,10 @@ public class CraftDestinationInventoriesFilter : InventoryScopeFilter
     }
 
     public override string Key { get; set; } = "CraftDestinationInventories";
-    public override string Name { get; set; } = "Inventories to Retrieve To";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Inventories to Retrieve To"));
 
     public override string HelpText { get; set; } =
-        "Which inventories should the crafting list attempt to sort the items found in 'Inventories to Retrieve From' to? ";
+        LocalizationService.Ui(LocalizationService.Ui("Which inventories should the crafting list attempt to sort the items found in 'Inventories to Retrieve From' to? "));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 

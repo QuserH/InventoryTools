@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Services;
 using InventoryTools.Localizers;
@@ -35,7 +36,7 @@ namespace InventoryTools.Logic.Columns
             {
                 if (!searchResult.SortingResult.IsSortable)
                 {
-                    return "No room";
+                    return LocalizationService.Ui("No room");
                 }
 
                 var destination = searchResult.SortingResult.DestinationRetainerId.HasValue
@@ -52,9 +53,9 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Destination";
+        public override string Name { get; set; } = LocalizationService.Ui("Destination");
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = "Shows where the item should be moved to or where the item was moved to in the case of a history filter.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows where the item should be moved to or where the item was moved to in the case of a history filter."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType AvailableIn => Logic.FilterType.SortingFilter | Logic.FilterType.CraftFilter | Logic.FilterType.HistoryFilter;

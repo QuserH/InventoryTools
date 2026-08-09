@@ -6,6 +6,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using ImGuiUtil = InventoryTools.Ui.Widgets.ImGuiUtil;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Abstract
 {

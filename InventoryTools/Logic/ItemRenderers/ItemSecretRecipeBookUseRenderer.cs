@@ -7,6 +7,7 @@ using AllaganLib.GameSheets.Sheets;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -20,9 +21,9 @@ public class ItemSecretRecipeBookUseRenderer : ItemInfoRenderer<ItemSecretRecipe
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.SecretRecipeBook;
-    public override string SingularName => "Master Recipe Book";
-    public override string? PluralName => "Master Recipe Books";
-    public override string HelpText => "Is this item used to unlock master recipes?";
+    public override string SingularName => LocalizationService.Ui("Master Recipe Book");
+    public override string? PluralName => LocalizationService.Ui("Master Recipe Books");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item used to unlock master recipes?"));
     public override bool ShouldGroup => false;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Crafting];
 
@@ -32,12 +33,12 @@ public class ItemSecretRecipeBookUseRenderer : ItemInfoRenderer<ItemSecretRecipe
         var bookName = asSource.SecretRecipeBook.ValueNullable?.Name.ExtractText();
         if (!string.IsNullOrEmpty(bookName))
         {
-            ImGui.Text("Unlocks: " + bookName);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unlocks: ")) + bookName);
         }
 
         if (asSource.RelatedItems.Count > 0)
         {
-            this.DrawItems("Recipes Unlocked:", asSource.RelatedItems.First().Value);
+            this.DrawItems(LocalizationService.Ui("Recipes Unlocked:"), asSource.RelatedItems.First().Value);
         }
     };
 

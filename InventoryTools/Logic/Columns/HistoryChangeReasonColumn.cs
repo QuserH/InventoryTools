@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -19,10 +20,10 @@ public class HistoryChangeReasonColumn : TextColumn
 
         return null;
     }
-    public override string Name { get; set; } = "History Event Reason";
-    public override string RenderName => "Event";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("History Event Reason"));
+    public override string RenderName => LocalizationService.Ui("Event");
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "The reason the change occurred";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The reason the change occurred"));
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     public override FilterType AvailableIn { get; } = Logic.FilterType.HistoryFilter;

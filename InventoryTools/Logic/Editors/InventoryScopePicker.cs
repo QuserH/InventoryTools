@@ -11,6 +11,7 @@ using InventoryTools.Services;
 using InventoryTools.Ui.Widgets;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Editors;
 
@@ -34,22 +35,22 @@ public class InventoryScopePicker
         var scopeName = "";
         if (scope.Mode == InventorySearchScopeMode.Invert)
         {
-            scopeName += "Exclude ";
+            scopeName += LocalizationService.Ui("Exclude ");
         }
         if (scope.CharacterId != null && scope.CharacterId != 0)
         {
             var character = _characterMonitor.GetCharacterById(scope.CharacterId.Value);
-            scopeName += character?.FormattedName ?? "Unknown Character";
+            scopeName += character?.FormattedName ?? LocalizationService.Ui("Unknown Character");
         }
         if (scope.ActiveCharacter != null)
         {
-            scopeName += "Active Character";
+            scopeName += LocalizationService.Ui("Active Character");
         }
 
         if (scope.WorldId != null && scope.WorldId != 0)
         {
             var world = _worldSheet.GetRowOrDefault(scope.WorldId.Value);
-            scopeName += world?.Name.ExtractText() ?? "Unknown World";
+            scopeName += world?.Name.ExtractText() ?? LocalizationService.Ui("Unknown World");
         }
 
         if (scopeName == "")
@@ -59,7 +60,7 @@ public class InventoryScopePicker
 
         if (scope.Invert)
         {
-            scopeName += " (Invert)";
+            scopeName += LocalizationService.Ui(" (Invert)");
         }
 
         return scopeName;
@@ -97,7 +98,7 @@ public class InventoryScopePicker
     {
 
         var changed = false;
-        var fakeRef = searchScopes.Count + " scopes defined.";
+        var fakeRef = searchScopes.Count + LocalizationService.Ui(" scopes defined.");
         using (ImRaii.Disabled())
         {
             ImGui.InputText(label, ref fakeRef, 200);
@@ -126,7 +127,7 @@ public class InventoryScopePicker
                     {
                         foreach (var characterType in searchScope.CharacterTypes)
                         {
-                            ImGui.Text(characterType.FormattedName() + " (All Inventories)");
+                            ImGui.Text(characterType.FormattedName() + LocalizationService.Ui(" (All Inventories)"));
                         }
                     }
                 }
@@ -146,7 +147,7 @@ public class InventoryScopePicker
         {
             if (combo)
             {
-                ImGui.Text("Inventory Scope Editor");
+                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Inventory Scope Editor")));
                 using(var child = ImRaii.Child("selected", new Vector2(200, 0) * ImGui.GetIO().FontGlobalScale , true, ImGuiWindowFlags.NoScrollbar))
                 {
                     if (child)
@@ -157,7 +158,7 @@ public class InventoryScopePicker
                             {
                                 if (searchScopes.Count == 0)
                                 {
-                                    ImGui.TextWrapped("No scopes defined yet. Press add to start.");
+                                    ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("No scopes defined yet. Press add to start.")));
                                 }
 
                                 for (var index = 0; index < searchScopes.Count; index++)
@@ -199,14 +200,14 @@ public class InventoryScopePicker
                         {
                             if (commandBar)
                             {
-                                if (ImGui.Button("Add"))
+                                if (ImGui.Button(LocalizationService.Ui("Add")))
                                 {
                                     _selectedScope = new InventorySearchScope();
                                     searchScopes.Add(_selectedScope);
                                     changed = true;
                                 }
                                 ImGui.SameLine();
-                                if (ImGui.Button("Save"))
+                                if (ImGui.Button(LocalizationService.Ui("Save")))
                                 {
                                     ImGui.CloseCurrentPopup();
                                 }
@@ -220,9 +221,9 @@ public class InventoryScopePicker
                 {
                     if (_selectedScope == null)
                     {
-                        ImGui.TextWrapped("The inventory scope editor allows you define which inventories you want to search across.");
-                        ImGui.TextWrapped("By default, every inventory Allagan Tools knows about is searched.");
-                        ImGui.TextWrapped("By providing a set of scopes, you are narrowing down which inventories are displayed.");
+                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("The inventory scope editor allows you define which inventories you want to search across.")));
+                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("By default, every inventory Allagan Tools knows about is searched.")));
+                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("By providing a set of scopes, you are narrowing down which inventories are displayed.")));
                     }
                     else
                     {
@@ -235,29 +236,29 @@ public class InventoryScopePicker
                                     var isCharacter = _selectedScope.CharacterId != null;
                                     var isWorld = _selectedScope.WorldId != null;
                                     var isActiveCharacter = _selectedScope.ActiveCharacter != null;
-                                    ImGui.Text("Search Scope:");
+                                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Search Scope:")));
                                     ImGui.Separator();
-                                    if (ImGui.RadioButton("All",!isCharacter && !isWorld && !isActiveCharacter))
+                                    if (ImGui.RadioButton(LocalizationService.Ui("All"),!isCharacter && !isWorld && !isActiveCharacter))
                                     {
                                         _selectedScope.Reset();
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("Match against all inventories");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against all inventories"));
                                     ImGui.NewLine();
 
-                                    if (ImGui.RadioButton("Character",isCharacter))
+                                    if (ImGui.RadioButton(LocalizationService.Ui("Character"),isCharacter))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.CharacterId = 0;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("Match against a specific character(player character, retainer, free company, etc)");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against a specific character(player character, retainer, free company, etc)"));
 
                                     if (_selectedScope.CharacterId != null)
                                     {
                                         var selectedCharacter = _characterMonitor.GetCharacterById(_selectedScope.CharacterId.Value);
-                                        using (var characterSelector = ImRaii.Combo("##character",
-                                                   selectedCharacter?.FormattedName ?? "Select Character"))
+                                        using (var characterSelector = ImRaii.Combo(LocalizationService.Ui("##character"),
+                                                   selectedCharacter?.FormattedName ?? LocalizationService.Ui("Select Character")))
                                         {
                                             if (characterSelector)
                                             {
@@ -280,27 +281,27 @@ public class InventoryScopePicker
                                         }
                                     }
                                     ImGui.NewLine();
-                                    if (ImGui.RadioButton("Active Character",isActiveCharacter))
+                                    if (ImGui.RadioButton(LocalizationService.Ui(LocalizationService.Ui("Active Character")),isActiveCharacter))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.ActiveCharacter = true;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("Match against the currently logged in character. This includes all retainers/free companies/etc owned by the character. Use categories or character types to filter down further.");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against the currently logged in character. This includes all retainers/free companies/etc owned by the character. Use categories or character types to filter down further."));
                                     ImGui.NewLine();
 
-                                    if (ImGui.RadioButton("World",isWorld))
+                                    if (ImGui.RadioButton(LocalizationService.Ui("World"),isWorld))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.WorldId = 0;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("Match against a specific world");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against a specific world"));
                                     if (_selectedScope.WorldId != null)
                                     {
                                         var selectedWorld = _selectedScope.WorldId == 0 ? null : _worldSheet.GetRowOrDefault(_selectedScope.WorldId.Value);
-                                        using (var worldSelector = ImRaii.Combo("##world",
-                                                   selectedWorld?.Name.ExtractText() ?? "Select World"))
+                                        using (var worldSelector = ImRaii.Combo(LocalizationService.Ui("##world"),
+                                                   selectedWorld?.Name.ExtractText() ?? LocalizationService.Ui("Select World")))
                                         {
                                             if (worldSelector)
                                             {
@@ -324,11 +325,11 @@ public class InventoryScopePicker
                                     }
                                     else
                                     {
-                                        categoryPreview = "Select categories";
+                                        categoryPreview = LocalizationService.Ui("Select categories");
                                     }
 
-                                    ImGui.LabelText("##categories", "Inventory Categories: ");
-                                    using (var categorySelector = ImRaii.Combo("##categories",categoryPreview))
+                                    ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##categories")), LocalizationService.Ui("Inventory Categories: "));
+                                    using (var categorySelector = ImRaii.Combo(LocalizationService.Ui("##categories"),categoryPreview))
                                     {
                                         if (categorySelector)
                                         {
@@ -371,7 +372,7 @@ public class InventoryScopePicker
                                     }
 
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("When a category is selected, only items from this category will be shown. Select an item again to unselect it.");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("When a category is selected, only items from this category will be shown. Select an item again to unselect it."));
 
                                     if (_selectedScope.CharacterId == null)
                                     {
@@ -383,12 +384,12 @@ public class InventoryScopePicker
                                         }
                                         else
                                         {
-                                            characterTypesPreview = "Select character types";
+                                            characterTypesPreview = LocalizationService.Ui("Select character types");
                                         }
 
-                                        ImGui.LabelText("##characterTypesLabel", "Character Types: ");
+                                        ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##characterTypesLabel")), LocalizationService.Ui("Character Types: "));
                                         using (var characterTypeSelector =
-                                               ImRaii.Combo("##characterTypes", characterTypesPreview))
+                                               ImRaii.Combo(LocalizationService.Ui("##characterTypes"), characterTypesPreview))
                                         {
                                             if (characterTypeSelector)
                                             {
@@ -423,20 +424,20 @@ public class InventoryScopePicker
                                             }
                                         }
                                         ImGui.SameLine();
-                                        _imGuiService.HelpMarker("When 'All' or 'World' is selected, choose the types of characters you want to filter against. Select an item again to unselect it.");
+                                        _imGuiService.HelpMarker(LocalizationService.Ui("When 'All' or 'World' is selected, choose the types of characters you want to filter against. Select an item again to unselect it."));
                                     }
 
                                     ImGui.Separator();
                                     ImGui.NewLine();
                                     var invert = _selectedScope.Invert;
-                                    if (ImGui.Checkbox("Invert", ref invert))
+                                    if (ImGui.Checkbox(LocalizationService.Ui("Invert"), ref invert))
                                     {
                                         _selectedScope.Invert = invert;
                                         changed = true;
                                     }
 
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker("When checked, match against the opposite of what is selected.");
+                                    _imGuiService.HelpMarker(LocalizationService.Ui("When checked, match against the opposite of what is selected."));
                                 }
                             }
 
@@ -444,13 +445,13 @@ public class InventoryScopePicker
                             {
                                 if (commandBar)
                                 {
-                                    if (ImGui.Button("Save"))
+                                    if (ImGui.Button(LocalizationService.Ui("Save")))
                                     {
                                         _selectedScope = null;
                                         changed = true;
                                     }
                                     ImGui.SameLine();
-                                    if (ImGui.Button("Delete"))
+                                    if (ImGui.Button(LocalizationService.Ui("Delete")))
                                     {
                                         searchScopes.Remove(_selectedScope);
                                         _selectedScope = null;

@@ -2,6 +2,7 @@ using System;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -19,9 +20,9 @@ namespace InventoryTools.Logic.Columns
             }
             return (int)(searchResult.Item.Base.PriceLow * searchResult.Quantity);
         }
-        public override string Name { get; set; } = "Sell to Vendor Price (Total)";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Sell to Vendor Price (Total)"));
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = "The total amount this item can be sold to a vendor for in gil(price * quantity).";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The total amount this item can be sold to a vendor for in gil(price * quantity)."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

@@ -2,6 +2,7 @@ using System.Linq;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -33,7 +34,7 @@ public class IsRecipeCompletedColumn : CheckboxColumn
         return searchResult.Item.Recipes.All(c => _questManagerService.IsRecipeComplete(c.RowId));
     }
 
-    public override string Name { get; set; } = "Are Recipes Completed?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Are Recipes Completed?"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "Have the recipes that make this item been completed?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Have the recipes that make this item been completed?"));
 }

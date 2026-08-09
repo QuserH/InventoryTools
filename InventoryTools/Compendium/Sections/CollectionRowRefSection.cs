@@ -15,6 +15,7 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Lumina.Excel;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -87,11 +88,11 @@ public class CollectionRowRefSection : ViewSection
             {
                 if (item.RefType == null)
                 {
-                    ImGui.Text("Unknown related row type.");
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown related row type.")));
                 }
                 else
                 {
-                    ImGui.Text("No matching compendium type for " + item.RefType.Name);
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No matching compendium type for ")) + item.RefType.Name);
                 }
                 hasDrawnAny = true;
             }
@@ -113,7 +114,7 @@ public class CollectionRowRefSection : ViewSection
 
         if (!hasDrawnAny && !_options.HideWhenEmpty)
         {
-            ImGui.Text("No related items found.");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No related items found.")));
         }
     }
 

@@ -5,6 +5,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -27,19 +28,19 @@ namespace InventoryTools.Logic.Columns
 
             ImGui.TableNextColumn();
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled)) return null;
-            ImGui.Text("Required: " +  searchResult.CraftItem.QuantityRequired);
-            ImGui.Text("Needed: " +  searchResult.CraftItem.QuantityNeeded);
-            ImGui.Text("Needed Pre Update: " +  searchResult.CraftItem.QuantityNeededPreUpdate);
-            ImGui.Text("Available: " +  searchResult.CraftItem.QuantityAvailable);
-            ImGui.Text("Ready: " +  searchResult.CraftItem.QuantityReady);
-            ImGui.Text("Can Craft: " +  searchResult.CraftItem.QuantityCanCraft);
-            ImGui.Text("Will Retrieve: " + searchResult.CraftItem.QuantityWillRetrieve);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Required: ")) +  searchResult.CraftItem.QuantityRequired);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Needed: ")) +  searchResult.CraftItem.QuantityNeeded);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Needed Pre Update: ")) +  searchResult.CraftItem.QuantityNeededPreUpdate);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) +  searchResult.CraftItem.QuantityAvailable);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Ready: ")) +  searchResult.CraftItem.QuantityReady);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Can Craft: ")) +  searchResult.CraftItem.QuantityCanCraft);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Will Retrieve: ")) + searchResult.CraftItem.QuantityWillRetrieve);
             return null;
         }
 
-        public override string Name { get; set; } = "Debug - Craft";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Debug - Craft"));
         public override float Width { get; set; } = 200;
-        public override string HelpText { get; set; } = "Shows craft debug information";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows craft debug information"));
         public override bool HasFilter { get; set; } = true;
         public override bool IsDebug { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

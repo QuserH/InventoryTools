@@ -1,6 +1,7 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -12,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class SpiritBondFilter : StringFilter
     {
         public override string Key { get; set; } = "SB";
-        public override string Name { get; set; } = "Spirit Bond";
-        public override string HelpText { get; set; } = "The spirit bond of the item.";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Spirit Bond"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The spirit bond of the item."));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
         public override bool? FilterItem(FilterConfiguration configuration,InventoryItem item)

@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.WizardSettings;
 
@@ -11,8 +12,8 @@ public class CraftNotificationsCompletionOnlySetting : GenericBooleanSetting
 
     public CraftNotificationsCompletionOnlySetting(ILogger<CraftNotificationsCompletionOnlySetting> logger,
         ImGuiService imGuiService) : base("CraftNotificationsCompletionOnly",
-        "Only report when an item is complete?",
-        "Instead of reporting every acquisition, only print a message when an item reaches its required quantity. The craft list must be active for notifications to occur.",
+        LocalizationService.Ui("Only report when an item is complete?"),
+        LocalizationService.Ui("Instead of reporting every acquisition, only print a message when an item reaches its required quantity. The craft list must be active for notifications to occur."),
         false,
         SettingCategory.None,
         SettingSubCategory.None,

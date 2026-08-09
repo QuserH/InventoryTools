@@ -2,6 +2,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -9,8 +10,8 @@ public class ContextMenuCopyNameSetting : GenericBooleanSetting
 {
     public ContextMenuCopyNameSetting(ILogger<ContextMenuCopyNameSetting> logger,
         ImGuiService imGuiService) : base("CopyNameContextMenu",
-        "Context Menu - Copy Name",
-        "Copies the item's name to the clipboard.",
+        LocalizationService.Ui("Context Menu - Copy Name"),
+        LocalizationService.Ui("Copies the item's name to the clipboard."),
         false,
         SettingCategory.ContextMenu,
         SettingSubCategory.General,
@@ -20,5 +21,5 @@ public class ContextMenuCopyNameSetting : GenericBooleanSetting
     {
     }
 
-    public override string WizardName => "Copy Name";
+    public override string WizardName => LocalizationService.Ui("Copy Name");
 }

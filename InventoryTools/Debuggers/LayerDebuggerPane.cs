@@ -1,12 +1,13 @@
 using AllaganLib.Shared.Interfaces;
 using Dalamud.Bindings.ImGui;
 using FFXIVClientStructs.FFXIV.Client.LayoutEngine;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
 public class LayerDebuggerPane : IDebugPane
 {
-    public string Name => "Layer Debugger";
+    public string Name => LocalizationService.Ui("Layer Debugger");
     public unsafe void Draw()
     {
         var activeLayout = LayoutWorld.Instance()->ActiveLayout;
@@ -26,7 +27,7 @@ public class LayerDebuggerPane : IDebugPane
             ImGui.TextUnformatted($"Layers:");
             foreach (var layer in activeLayout->Layers)
             {
-                ImGui.TextUnformatted($"{layer.Item1}");
+                ImGui.TextUnformatted(LocalizationService.Format("{0}", layer.Item1));
                 var pointer = layer.Item2.Value;
                 if (pointer != null)
                 {

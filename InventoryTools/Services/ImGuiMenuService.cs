@@ -27,6 +27,7 @@ using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
 using InventoryItem = FFXIVClientStructs.FFXIV.Client.Game.InventoryItem;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -96,9 +97,9 @@ public class ImGuiMenuService
 
     public List<MessageBase> DrawRightClickPopup(List<SearchResult> searchResults, List<MessageBase> messages)
     {
-        ImGui.Text(searchResults.Count + (searchResults.Count == 1 ? " item" : " items"));
+        ImGui.Text(searchResults.Count + (searchResults.Count == 1 ? LocalizationService.Ui(" item") : LocalizationService.Ui(" items")));
         ImGui.Separator();
-        if (searchResults.Any(c => c.Item.CanTryOn) && ImGui.MenuItem("Try on"))
+        if (searchResults.Any(c => c.Item.CanTryOn) && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Try on"))))
         {
             if (_tryOn.CanUseTryOn)
             {
@@ -108,7 +109,7 @@ public class ImGuiMenuService
 
         ImGui.Separator();
 
-        if (ImGui.MenuItem("Mark as favourite"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Mark as favourite"))))
         {
             foreach (var item in searchResults)
             {
@@ -116,7 +117,7 @@ public class ImGuiMenuService
             }
         }
 
-        if (ImGui.MenuItem("Unmark as favourite"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Unmark as favourite"))))
         {
             foreach (var item in searchResults)
             {
@@ -129,7 +130,7 @@ public class ImGuiMenuService
             _listService.Lists.Where(c => c.FilterType == FilterType.CuratedList).ToArray();
         if (curatedLists.Length != 0)
         {
-            using var menu = ImRaii.Menu("Add to Curated List");
+            using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Curated List"));
             if(menu)
             {
                 foreach (var filter in curatedLists)
@@ -146,7 +147,7 @@ public class ImGuiMenuService
             }
         }
 
-        if (ImGui.MenuItem("Add to new Curated List"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Curated List"))))
         {
             var filter = _listService.AddNewCuratedList();
             foreach (var item in searchResults)
@@ -164,7 +165,7 @@ public class ImGuiMenuService
                 c.FilterType == Logic.FilterType.CraftFilter && !c.CraftListDefault).ToArray();
         if (craftFilters.Length != 0)
         {
-            using var menu = ImRaii.Menu("Add to Craft List");
+            using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
             if(menu)
             {
                 foreach (var filter in craftFilters)
@@ -182,7 +183,7 @@ public class ImGuiMenuService
             }
         }
 
-        if (ImGui.MenuItem("Add to new Craft List"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
         {
              var filter = _listService.AddNewCraftList();
              foreach (var item in searchResults)
@@ -194,7 +195,7 @@ public class ImGuiMenuService
              messages.Add(new FocusListMessage(typeof(CraftsWindow), filter));
              filter.NeedsRefresh = true;
         }
-        if (ImGui.MenuItem("Add to new Craft List (ephemeral)"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
         {
              var filter = _listService.AddNewCraftList(null,true);
              foreach (var item in searchResults)
@@ -220,7 +221,7 @@ public class ImGuiMenuService
             _listService.Lists.Where(c => c.FilterType == FilterType.CuratedList).ToArray();
         if (curatedLists.Length != 0)
         {
-            using var menu = ImRaii.Menu("Add to Curated List");
+            using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Curated List"));
             if(menu)
             {
                 foreach (var filter in curatedLists)
@@ -233,7 +234,7 @@ public class ImGuiMenuService
             }
         }
 
-        if (ImGui.MenuItem("Add to new Curated List"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Curated List"))))
         {
             var filter = _listService.AddNewCuratedList();
             filter.AddCuratedItem(new CuratedItem(searchResult.Item.RowId));
@@ -241,7 +242,7 @@ public class ImGuiMenuService
             filter.NeedsRefresh = true;
         }
 
-        if (filterConfiguration != null && searchResult.CuratedItem != null && ImGui.MenuItem("Remove from Curated List"))
+        if (filterConfiguration != null && searchResult.CuratedItem != null && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Remove from Curated List"))))
         {
             filterConfiguration.RemoveCuratedItem(searchResult.CuratedItem);
             filterConfiguration.NeedsRefresh = true;
@@ -253,7 +254,7 @@ public class ImGuiMenuService
                 c.FilterType == Logic.FilterType.CraftFilter && !c.CraftListDefault).ToArray();
         if (craftFilters.Length != 0)
         {
-            using var menu = ImRaii.Menu("Add to Craft List");
+            using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
             if(menu)
             {
                 foreach (var filter in craftFilters)
@@ -267,7 +268,7 @@ public class ImGuiMenuService
             }
         }
 
-        if (ImGui.MenuItem("Add to new Craft List"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
         {
              var filter = _listService.AddNewCraftList();
              filter.CraftList.AddCraftItem(searchResult.Item.RowId);
@@ -275,7 +276,7 @@ public class ImGuiMenuService
              messages.Add(new FocusListMessage(typeof(CraftsWindow), filter));
              filter.NeedsRefresh = true;
         }
-        if (ImGui.MenuItem("Add to new Craft List (ephemeral)"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
         {
              var filter = _listService.AddNewCraftList(null,true);
              filter.CraftList.AddCraftItem(searchResult.Item.RowId);
@@ -289,7 +290,7 @@ public class ImGuiMenuService
         {
             if (searchResult.CraftItem.IsOutputItem)
             {
-                if (ImGui.MenuItem("Remove from Craft List"))
+                if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Remove from Craft List"))))
                 {
                     filterConfiguration.CraftList.RemoveCraftItem(searchResult.Item.RowId, searchResult.CraftItem.Flags);
                     filterConfiguration.NeedsRefresh = true;
@@ -301,7 +302,7 @@ public class ImGuiMenuService
                 ImGui.Separator();
                 if (searchResult.Item.CompanyCraftSequence != null && searchResult.Item.CompanyCraftSequence.CompanyCraftParts.Length > 1)
                 {
-                    if (searchResult.CraftItem.Phase != null && ImGui.MenuItem("Switch to All Phases"))
+                    if (searchResult.CraftItem.Phase != null && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Switch to All Phases"))))
                     {
                         filterConfiguration.CraftList.SetCraftPhase(searchResult.Item.RowId, null, searchResult.CraftItem.Phase);
                         filterConfiguration.NeedsRefresh = true;
@@ -317,7 +318,7 @@ public class ImGuiMenuService
                         if (part.RowId == 0) continue;
                         if (searchResult.CraftItem.Phase != index)
                         {
-                            if (ImGui.MenuItem("Switch to " + ((part.Base.CompanyCraftType.ValueNullable?.Name.ExtractText() ?? "") + " (Phase " + (index + 1) + ")")))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Switch to ")) + ((part.Base.CompanyCraftType.ValueNullable?.Name.ExtractText() ?? "") + LocalizationService.Ui(" (Phase ") + (index + 1) + ")")))
                             {
                                 filterConfiguration.CraftList.SetCraftPhase(searchResult.Item.RowId, index,
                                     searchResult.CraftItem.Phase);
@@ -333,8 +334,8 @@ public class ImGuiMenuService
                 if (searchResult.Item.CanBeCrafted && !searchResult.Item.HasSourcesByType(ItemInfoType.FreeCompanyCraftRecipe))
                 {
                     ImGui.Separator();
-                    using (var menu = ImRaii.Menu("Add " + searchResult.CraftItem.QuantityNeeded + " " +
-                                                  searchResult.Item.NameString + " to craft list"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Add ") + searchResult.CraftItem.QuantityNeeded + " " +
+                                                  searchResult.Item.NameString + LocalizationService.Ui(" to craft list")))
                     {
                         if (menu)
                         {
@@ -351,7 +352,7 @@ public class ImGuiMenuService
                         }
                     }
 
-                    if (ImGui.MenuItem("Add " + searchResult.CraftItem.QuantityNeeded + " item to new craft list"))
+                    if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add ")) + searchResult.CraftItem.QuantityNeeded + LocalizationService.Ui(" item to new craft list")))
                     {
                         var filter = _listService.AddNewCraftList();
                         filter.CraftList.AddCraftItem(searchResult.Item.RowId,
@@ -362,8 +363,8 @@ public class ImGuiMenuService
                         filterConfiguration.NeedsRefresh = true;
                     }
 
-                    if (ImGui.MenuItem("Add " + searchResult.CraftItem.QuantityNeeded +
-                                         " item to new craft list (ephemeral)"))
+                    if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add ")) + searchResult.CraftItem.QuantityNeeded +
+                                         LocalizationService.Ui(" item to new craft list (ephemeral)")))
                     {
                         var filter = _listService.AddNewCraftList(null, true);
                         filter.CraftList.AddCraftItem(searchResult.Item.RowId,
@@ -382,53 +383,53 @@ public class ImGuiMenuService
     {
         ImGui.Text(searchResult.Item.NameString);
         ImGui.Separator();
-        if (ImGui.MenuItem("Open in Garland Tools"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Garland Tools"))))
         {
             $"https://www.garlandtools.org/db/#item/{searchResult.Item.GarlandToolsId}".OpenBrowser();
         }
-        if (ImGui.MenuItem("Open in Teamcraft"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Open in Teamcraft")))
         {
             $"https://ffxivteamcraft.com/db/en/item/{searchResult.Item.RowId}".OpenBrowser();
         }
-        if (ImGui.MenuItem("Open in Universalis"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Open in Universalis")))
         {
             $"https://universalis.app/market/{searchResult.Item.RowId}".OpenBrowser();
         }
-        if (ImGui.MenuItem("Open in Gamer Escape"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Open in Gamer Escape")))
         {
             var name = searchResult.Item.NameString.Replace(' ', '_');
             name = name.Replace('–', '-');
 
-            if (name.StartsWith("_")) // "level sync" icon
+            if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
                 name = name.Substring(2);
             $"https://ffxiv.gamerescape.com/wiki/{HttpUtility.UrlEncode(name)}?useskin=Vector".OpenBrowser();
         }
-        if (ImGui.MenuItem("Open in Console Games Wiki"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Console Games Wiki"))))
         {
             var name = searchResult.Item.NameString.Replace("#"," ").Replace("  ", " ").Replace(' ', '_');
             name = name.Replace('–', '-');
 
-            if (name.StartsWith("_")) // "level sync" icon
+            if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
                 name = name.Substring(2);
             $"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(name)}".OpenBrowser();
         }
         ImGui.Separator();
-        if (ImGui.MenuItem("Copy Name"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Copy Name")))
         {
             _clipboardService.CopyToClipboard(searchResult.Item.NameString);
         }
-        if (ImGui.MenuItem("Link"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Link")))
         {
             _chatUtilities.LinkItem(searchResult.Item);
         }
-        if (searchResult.Item.CanTryOn && ImGui.MenuItem("Try On"))
+        if (searchResult.Item.CanTryOn && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Try On"))))
         {
             if (_tryOn.CanUseTryOn)
             {
                 _tryOn.TryOnItem(searchResult.Item);
             }
         }
-        if (ImGui.MenuItem("Search"))
+        if (ImGui.MenuItem(LocalizationService.Ui("Search")))
         {
             messages.Add(new ItemSearchRequestedMessage(searchResult.Item.RowId, InventoryItem.ItemFlags.None));
         }
@@ -442,13 +443,13 @@ public class ImGuiMenuService
         ImGui.Separator();
 
         if (ImGui.MenuItem(_configuration.IsFavouriteItem(searchResult.Item.RowId)
-                ? "Unmark Favourite"
-                : "Mark Favourite"))
+                ? LocalizationService.Ui("Unmark Favourite")
+                : LocalizationService.Ui("Mark Favourite")))
         {
             _configuration.ToggleFavouriteItem(searchResult.Item.RowId);
         }
 
-        if (ImGui.MenuItem("More Information"))
+        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("More Information"))))
         {
             messages.Add(new OpenUintWindowMessage(typeof(ItemWindow), searchResult.Item.RowId));
         }
@@ -466,7 +467,7 @@ public class ImGuiMenuService
             hasActions = true;
             if (searchResult.Item.Recipes.Count == 1 || searchResult.CraftItem != null && searchResult.CraftItem.Recipe != null)
             {
-                if (ImGui.MenuItem("Open Crafting Log"))
+                if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open Crafting Log"))))
                 {
                     if (searchResult.CraftItem?.Recipe != null)
                     {
@@ -481,7 +482,7 @@ public class ImGuiMenuService
 
             if (searchResult.Item.Recipes.Count > 1)
             {
-                using (var menu = ImRaii.Menu("Open Crafting Log(Recipes)"))
+                using (var menu = ImRaii.Menu(LocalizationService.Ui("Open Crafting Log(Recipes)")))
                 {
                     if(menu)
                     {
@@ -497,19 +498,19 @@ public class ImGuiMenuService
             }
         }
 
-        if (searchResult.Item.HasSourcesByCategory(ItemInfoCategory.Gathering) && ImGui.MenuItem("Open Gathering Log"))
+        if (searchResult.Item.HasSourcesByCategory(ItemInfoCategory.Gathering) && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open Gathering Log"))))
         {
             _gameInterface.OpenGatheringLog(searchResult.Item.RowId);
         }
 
-        if (searchResult.Item.ObtainedFishing && ImGui.MenuItem("Open Fishing Log"))
+        if (searchResult.Item.ObtainedFishing && ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open Fishing Log"))))
         {
             _gameInterface.OpenFishingLog(searchResult.Item.RowId, searchResult.Item.ObtainedSpearFishing);
         }
 
         if (searchResult.Item.HasSourcesByCategory(ItemInfoCategory.Gathering))
         {
-            if (ImGui.MenuItem("Gather (Gatherbuddy)"))
+            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Gather (Gatherbuddy)"))))
             {
                 _commandManager.ProcessCommand("/gather " + searchResult.Item.Base.Name.ExtractText());
             }
@@ -519,7 +520,7 @@ public class ImGuiMenuService
 
             var groupedGatheringSources = gatheringSources.SelectMany(c => c.GatheringItem.GatheringPoints).DistinctBy(c => c.RowId).GroupBy(c => c.Map.RowId).ToDictionary(c => c.Key, c => c);
 
-            using (var menu = ImRaii.Menu("Gather (Advanced)"))
+            using (var menu = ImRaii.Menu(LocalizationService.Ui("Gather (Advanced)")))
             {
                 if(menu)
                 {
@@ -547,7 +548,7 @@ public class ImGuiMenuService
                 }
             }
 
-            using(var menu = ImRaii.Menu("Open Map"))
+            using(var menu = ImRaii.Menu(LocalizationService.Ui("Open Map")))
             {
                 if (menu)
                 {
@@ -578,11 +579,11 @@ public class ImGuiMenuService
         if (searchResult.Item.HasSourcesByType(ItemInfoType.Fishing))
         {
             hasActions = true;
-            if (ImGui.MenuItem("Gather (Gatherbuddy)"))
+            if (ImGui.MenuItem(LocalizationService.Ui("Gather (Gatherbuddy)")))
             {
                 _commandManager.ProcessCommand("/gatherfish " + searchResult.Item.Base.Name.ExtractText());
             }
-            using(var menu = ImRaii.Menu("Gather (Advanced)"))
+            using(var menu = ImRaii.Menu(LocalizationService.Ui("Gather (Advanced)")))
             {
                 if (menu)
                 {
@@ -621,7 +622,7 @@ public class ImGuiMenuService
                     }
                 }
             }
-            using(var menu = ImRaii.Menu("Open Map"))
+            using(var menu = ImRaii.Menu(LocalizationService.Ui("Open Map")))
             {
                 if (menu)
                 {
@@ -665,12 +666,12 @@ public class ImGuiMenuService
         if (searchResult.Item.HasSourcesByType(ItemInfoType.Spearfishing))
         {
             hasActions = true;
-            if (ImGui.MenuItem("Gather (Gatherbuddy)"))
+            if (ImGui.MenuItem(LocalizationService.Ui("Gather (Gatherbuddy)")))
             {
                 _commandManager.ProcessCommand("/gatherfish " + searchResult.Item.Base.Name.ExtractText());
             }
 
-            using (var gatherMenu = ImRaii.Menu("Gather (Advanced)"))
+            using (var gatherMenu = ImRaii.Menu(LocalizationService.Ui("Gather (Advanced)")))
             {
                 if(gatherMenu)
                 {
@@ -712,7 +713,7 @@ public class ImGuiMenuService
                 }
             }
 
-            using var openMapMenu = ImRaii.Menu("Open Map");
+            using var openMapMenu = ImRaii.Menu(LocalizationService.Ui("Open Map"));
             if(openMapMenu)
             {
                 var gatheringSources = searchResult.Item
@@ -763,7 +764,7 @@ public class ImGuiMenuService
 
             if (hasShopSources)
             {
-                using (var menu = ImRaii.Menu("Buy"))
+                using (var menu = ImRaii.Menu(LocalizationService.Ui("Buy")))
                 {
                     if (menu)
                     {
@@ -790,7 +791,7 @@ public class ImGuiMenuService
                                 {
                                     foreach (var shopSource in groupedShop.Value)
                                     {
-                                        if (ImGui.MenuItem(shopSource.Shop.Name + " - Teleport"))
+                                        if (ImGui.MenuItem(shopSource.Shop.Name + LocalizationService.Ui(" - Teleport")))
                                         {
                                             var eNpcBaseRow = shopSource.Shop.ENpcs.FirstOrDefault(c =>
                                                 c.Locations.Any(d => d.Map.RowId == groupedShop.Key));
@@ -816,7 +817,7 @@ public class ImGuiMenuService
 
         if (searchResult.Item.HasSourcesByType(ItemInfoType.Monster))
         {
-            using (var menu = ImRaii.Menu("Hunt"))
+            using (var menu = ImRaii.Menu(LocalizationService.Ui("Hunt")))
             {
                 if (menu)
                 {
@@ -842,7 +843,7 @@ public class ImGuiMenuService
                             {
                                 foreach (var spawn in groupedSpawn.Value)
                                 {
-                                    if (ImGui.MenuItem(spawn.BNpcName.Value.Singular.ToImGuiString().ToTitleCase() + $" - Teleport ({spawn.Position.X},{spawn.Position.Y})"))
+                                    if (ImGui.MenuItem(spawn.BNpcName.Value.Singular.ToImGuiString().ToTitleCase() + LocalizationService.Format(LocalizationService.Ui(" - Teleport ({0},{1})"), spawn.Position.X, spawn.Position.Y)))
                                     {
                                         messages.Add(
                                             new RequestTeleportToMapMessage(groupedSpawn.Key,

@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -39,11 +40,11 @@ public class DefaultFilterCharacter : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Character";
+    public string Name => LocalizationService.Ui("Character");
     public string SampleDefaultName => "Character";
 
     public string SampleDescription =>
-        "This will add a list that will be preconfigured to show the items in your character's bags.";
+        LocalizationService.Ui("This will add a list that will be preconfigured to show the items in your character's bags.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

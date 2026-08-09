@@ -2,6 +2,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Misc;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -15,10 +16,10 @@ namespace InventoryTools.Logic.Columns
         {
             return Helpers.HousingCategoryIds.Contains(searchResult.Item.Base.ItemUICategory.RowId);
         }
-        public override string Name { get; set; } = "Is Housing Item?";
-        public override string RenderName => "Is Housing?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Housing Item?"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Is Housing?"));
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = "Is this item a housing item? This might be slightly inaccurate for the time being.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item a housing item? This might be slightly inaccurate for the time being."));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

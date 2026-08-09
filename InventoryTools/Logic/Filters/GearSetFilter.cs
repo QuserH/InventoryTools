@@ -2,6 +2,7 @@ using System;
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -13,8 +14,8 @@ namespace InventoryTools.Logic.Filters
     public class GearSetFilter : StringFilter
     {
         public override string Key { get; set; } = "GearSet";
-        public override string Name { get; set; } = "Gear Sets";
-        public override string HelpText { get; set; } = "Filter by the gear sets that a item is in.";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gear Sets"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter by the gear sets that a item is in."));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

@@ -9,6 +9,7 @@ using DalaMock.Host.Mediator;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -21,23 +22,23 @@ public class ItemAquariumUseRenderer : ItemInfoRenderer<ItemAquariumSource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.Aquarium;
-    public override string SingularName => "Aquarium";
-    public override string PluralName => "Aquariums";
-    public override string HelpText => "Can the item be placed in aquariums?";
+    public override string SingularName => LocalizationService.Ui("Aquarium");
+    public override string PluralName => LocalizationService.Ui("Aquariums");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in aquariums?"));
     public override bool ShouldGroup => false;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var aquariumSource = AsSource(source);
-        ImGui.Text("Size: " + aquariumSource.AquariumFish.Size);
-        ImGui.Text("Water Type: " + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText());
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Size: ")) + aquariumSource.AquariumFish.Size);
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Water Type: ")) + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText());
     };
 
     public override Func<ItemSource, string> GetName => source =>
     {
         var aquariumSource = AsSource(source);
 
-        return "Aquarium: " + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText() + " (" +
+        return LocalizationService.Ui("Aquarium: ") + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText() + " (" +
                aquariumSource.AquariumFish.Size + " )";
     };
 

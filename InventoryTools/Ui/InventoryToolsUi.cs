@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CriticalCommonLib.Services;
@@ -72,7 +73,7 @@ namespace InventoryTools.Ui
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Starting service {type} ({this})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
             _pluginInterfaceService.UiBuilder.Draw += Draw;
             _pluginInterfaceService.UiBuilder.OpenConfigUi += UiBuilderOnOpenConfigUi;
             _pluginInterfaceService.UiBuilder.OpenMainUi += InterfaceOnOpenMainUi;
@@ -81,11 +82,11 @@ namespace InventoryTools.Ui
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
             _pluginInterfaceService.UiBuilder.Draw -= Draw;
             _pluginInterfaceService.UiBuilder.OpenConfigUi -= UiBuilderOnOpenConfigUi;
             _pluginInterfaceService.UiBuilder.OpenMainUi -= InterfaceOnOpenMainUi;
-            Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
             return Task.CompletedTask;
         }
     }

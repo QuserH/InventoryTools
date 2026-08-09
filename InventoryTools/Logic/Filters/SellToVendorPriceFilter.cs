@@ -1,6 +1,7 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -12,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class SellToVendorPriceFilter : StringFilter
     {
         public override string Key { get; set; } = "GSSalePrice";
-        public override string Name { get; set; } = "Sell to Shop Price";
-        public override string HelpText { get; set; } = "The price when bought from shops.";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Sell to Shop Price"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The price when bought from shops."));
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
 

@@ -16,6 +16,7 @@ using InventoryTools.Localizers;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Lumina.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -51,7 +52,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         {
             CompendiumType = this,
             Key = "classes",
-            Name = "Classes",
+            Name = LocalizationService.Ui("Classes"),
             Columns = BuiltColumns
         });
     }
@@ -101,11 +102,11 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<ClassJobRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the class", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the class", Version = "14.0.3", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "type", Name = "Type", HelpText = "The type of the class", Version = "14.0.3", ValueSelector = row => row.Base.ClassJobCategory.Value.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "role", Name = "Role", HelpText = "The role of the class", Version = "14.0.3", ValueSelector = row => _roleLocalizer.Format(row.Role)});
-        builder.AddIntegerColumn(new (){Key = "start_level", Name = "Start Level", HelpText = "The level the class starts at", Version = "14.0.3", ValueSelector = row => row.Base.StartingLevel.ToString()});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the class"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the class"), Version = "14.0.3", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the class"), Version = "14.0.3", ValueSelector = row => row.Base.ClassJobCategory.Value.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "role", Name = LocalizationService.Ui("Role"), HelpText = LocalizationService.Ui("The role of the class"), Version = "14.0.3", ValueSelector = row => _roleLocalizer.Format(row.Role)});
+        builder.AddIntegerColumn(new (){Key = "start_level", Name = LocalizationService.Ui("Start Level"), HelpText = LocalizationService.Ui("The level the class starts at"), Version = "14.0.3", ValueSelector = row => row.Base.StartingLevel.ToString()});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, ClassJobRow row)
@@ -114,7 +115,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "base_class",
-            SectionName = "Base Class",
+            SectionName = LocalizationService.Ui("Base Class"),
             RelatedRef = (RowRef)row.Base.ClassJobParent
         });
 
@@ -129,7 +130,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "soul_crystal",
-                SectionName = "Soul Crystal",
+                SectionName = LocalizationService.Ui("Soul Crystal"),
                 RelatedRef = (RowRef)row.Base.ItemSoulCrystal,
                 OverrideCompendiumType = soulCrystalCompendiumType,
             });
@@ -141,7 +142,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlock_quest",
-                SectionName = "Unlock Quest",
+                SectionName = LocalizationService.Ui("Unlock Quest"),
                 RelatedRef = (RowRef)firstQuest.Value.Quest
             });
         }
@@ -151,7 +152,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlock_quest",
-                SectionName = "Unlock Quest",
+                SectionName = LocalizationService.Ui("Unlock Quest"),
                 RelatedRef = (RowRef)row.Base.UnlockQuest
             });
         }
@@ -159,13 +160,13 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "relic_quest",
-            SectionName = "Relic Quest",
+            SectionName = LocalizationService.Ui("Relic Quest"),
             RelatedRef = (RowRef)row.Base.RelicQuest
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "prerequisite_quest",
-            SectionName = "Prerequisite Quest",
+            SectionName = LocalizationService.Ui("Prerequisite Quest"),
             RelatedRef = (RowRef)row.Base.Prerequisite
         });
     }
@@ -177,7 +178,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             new CompendiumGrouping<ClassJobRow>()
             {
                 Key = "role",
-                Name = "Role",
+                Name = LocalizationService.Ui("Role"),
                 GroupFunc = row => row.Role,
                 GroupMapping = o =>
                 {
@@ -190,9 +191,9 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
 
     public override List<Type>? RelatedTypes => [typeof(ClassJob)];
 
-    public override string Singular => "Class";
-    public override string Plural => "Classes";
-    public override string Description => "The classes/jobs your character can learn.";
+    public override string Singular => LocalizationService.Ui("Class");
+    public override string Plural => LocalizationService.Ui("Classes");
+    public override string Description => LocalizationService.Ui("The classes/jobs your character can learn.");
     public override string Key => "classes";
     public override (string?, uint?) Icon => (null, Icons.ManSwordIcon);
 }

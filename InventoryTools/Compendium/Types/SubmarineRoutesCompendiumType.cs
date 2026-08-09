@@ -16,6 +16,7 @@ using InventoryTools.Compendium.Sections;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -65,12 +66,12 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
 
     public override void BuildColumns(CompendiumColumnBuilder<SubmarineExplorationRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "Icon", HelpText = "The icon of the route", Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the route", Version = "14.0.3", ValueSelector = row => row.Base.Destination.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "unlock", Name = "Unlock Route", HelpText = "The name of the route that unlocks this", Version = "14.0.3", ValueSelector = row => row.Unlock?.Base.Destination.ToImGuiString() ?? ""});
-        builder.AddIntegerColumn(new(){Key = "rankrequired", Name = "Rank Required", HelpText = "The rank required for the route", Version = "14.0.3", ValueSelector =row => row.Base.RankReq.ToString()});
-        builder.AddIntegerColumn(new(){Key = "cerelumrequired", Name = "Ceruleum Required", HelpText = "The ceruleum required for the route", Version = "14.0.3", ValueSelector =row => row.Base.CeruleumTankReq.ToString()});
-        builder.AddItemsColumn(new(){Key = "drops", Name = "Drops", HelpText = "The drops for this submarine route", Version = "14.0.3", ValueSelector = row => row.DropItems, ColumnFlags = ImGuiTableColumnFlags.WidthFixed});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("Icon"), HelpText = LocalizationService.Ui("The icon of the route"), Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the route"), Version = "14.0.3", ValueSelector = row => row.Base.Destination.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "unlock", Name = LocalizationService.Ui("Unlock Route"), HelpText = LocalizationService.Ui("The name of the route that unlocks this"), Version = "14.0.3", ValueSelector = row => row.Unlock?.Base.Destination.ToImGuiString() ?? ""});
+        builder.AddIntegerColumn(new(){Key = "rankrequired", Name = LocalizationService.Ui("Rank Required"), HelpText = LocalizationService.Ui("The rank required for the route"), Version = "14.0.3", ValueSelector =row => row.Base.RankReq.ToString()});
+        builder.AddIntegerColumn(new(){Key = "cerelumrequired", Name = LocalizationService.Ui("Ceruleum Required"), HelpText = LocalizationService.Ui("The ceruleum required for the route"), Version = "14.0.3", ValueSelector =row => row.Base.CeruleumTankReq.ToString()});
+        builder.AddItemsColumn(new(){Key = "drops", Name = LocalizationService.Ui("Drops"), HelpText = LocalizationService.Ui("The drops for this submarine route"), Version = "14.0.3", ValueSelector = row => row.DropItems, ColumnFlags = ImGuiTableColumnFlags.WidthFixed});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, SubmarineExplorationRow row)
@@ -78,13 +79,13 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
         viewBuilder.SetupDefaults(this, row);
         var information = new List<(string Header, string Value, bool IsVisible)>
         {
-            ("Rank Req.", row.Base.RankReq.ToString(), true),
-            ("Ceruleum Req.", row.Base.CeruleumTankReq.ToString(), true),
+            (LocalizationService.Ui("Rank Req."), row.Base.RankReq.ToString(), true),
+            (LocalizationService.Ui("Ceruleum Req."), row.Base.CeruleumTankReq.ToString(), true),
         };
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "information",
-            SectionName = "Information",
+            SectionName = LocalizationService.Ui("Information"),
             Items = information.AsReadOnly()
         });
         if (row.Unlock != null)
@@ -92,7 +93,7 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlocked_via",
-                SectionName = "Unlocked Via",
+                SectionName = LocalizationService.Ui("Unlocked Via"),
                 RelatedRef = row.Unlock.Base.AsUntypedRowRef()
             });
         }
@@ -100,7 +101,7 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
         {
             RelatedRefs = _submarineExplorationSheet.Where(c => c.UnlockId != null && c.UnlockId == row.RowId).Select(c => c.Base.AsUntypedRowRef()).ToList(),
             SectionKey = "unlocks",
-            SectionName = "Unlocks",
+            SectionName = LocalizationService.Ui("Unlocks"),
             HideWhenEmpty = true
         });
 
@@ -108,7 +109,7 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
         {
             Items = row.DropItems.Select(c => new ItemInfo(c)).ToList(),
             SectionKey = "potential_drops",
-            SectionName = "Potential Drops"
+            SectionName = LocalizationService.Ui("Potential Drops")
         });
     }
 
@@ -125,9 +126,9 @@ public class SubmarineRoutesCompendiumType : CompendiumType<SubmarineExploration
 
     public override List<Type>? RelatedTypes => [typeof(SubmarineExploration)];
 
-    public override string Singular => "Submarine Route";
-    public override string Plural => "Submarine Routes";
-    public override string Description => "Routes traversed by company submarines";
+    public override string Singular => LocalizationService.Ui("Submarine Route");
+    public override string Plural => LocalizationService.Ui("Submarine Routes");
+    public override string Description => LocalizationService.Ui("Routes traversed by company submarines");
     public override string Key => "submarines";
     public override (string?, uint?) Icon => (null, Icons.SubmarineIcon);
 }

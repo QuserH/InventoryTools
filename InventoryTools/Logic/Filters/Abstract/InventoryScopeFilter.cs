@@ -10,6 +10,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract;
 
@@ -62,12 +63,12 @@ public abstract class InventoryScopeFilter : Filter<List<InventorySearchScope>?>
         if (HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-            ImGui.LabelText("##Label", GetName(configuration) + ":");
+            ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), GetName(configuration) + ":");
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText("##Label", GetName(configuration) + ":");
+            ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), GetName(configuration) + ":");
         }
         ImGui.Indent();
         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -84,7 +85,7 @@ public abstract class InventoryScopeFilter : Filter<List<InventorySearchScope>?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##Reset"))))
             {
                 ResetFilter(configuration);
             }

@@ -14,6 +14,7 @@ using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -52,11 +53,11 @@ public class ItemListSection : ViewSection
 
     public override Action<SectionState>? DrawOptions => (sectionState) =>
     {
-        if (ImGui.Selectable("Compact View"))
+        if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Compact View"))))
         {
             sectionState.Set(sectionModeId, ItemListSectionMode.Grid);
         }
-        if (ImGui.Selectable("List View"))
+        if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("List View"))))
         {
             sectionState.Set(sectionModeId, ItemListSectionMode.List);
         }

@@ -1,6 +1,7 @@
 using AllaganLib.GameSheets.Sheets;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -19,7 +20,7 @@ public class CraftGroupingLocalizer
         var name = craftGrouping.CraftGroupType.FormattedName();
         if (craftGrouping.Depth != null)
         {
-            name = craftGrouping.Depth.Value.ConvertToOrdinal() + " Tier " + name;
+            name = craftGrouping.Depth.Value.ConvertToOrdinal() + LocalizationService.Ui(" Tier ") + name;
         }
 
         if (craftGrouping.CraftTypeId != null)

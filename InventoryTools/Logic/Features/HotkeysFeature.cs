@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -27,8 +28,8 @@ public class HotkeysFeature : Feature
     }
 
     public string Version { get; } = "1.0.0.0";
-    public override string Name { get; } = "Hotkeys";
+    public override string Name { get; } = LocalizationService.Ui("Hotkeys");
 
     public override string Description { get; } =
-        "Set hotkeys for opening the various Allagan Tools windows. A hotkey to open the 'More Information' window for items is also available.";
+        LocalizationService.Ui("Set hotkeys for opening the various Allagan Tools windows. A hotkey to open the 'More Information' window for items is also available.");
 }

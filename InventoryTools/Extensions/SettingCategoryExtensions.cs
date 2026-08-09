@@ -1,4 +1,5 @@
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Extensions
 {
@@ -9,39 +10,45 @@ namespace InventoryTools.Extensions
             switch (settingCategory)
             {
                 case SettingCategory.General:
-                    return "General";
+                    return LocalizationService.Ui("General");
                 case SettingCategory.Visuals:
-                    return "Visuals";
+                    return LocalizationService.Ui("Visuals");
                 case SettingCategory.MarketBoard:
-                    return "Marketboard";
+                    return LocalizationService.Ui("Marketboard");
                 case SettingCategory.CraftOverlay:
-                    return "Craft Overlay";
+                    return LocalizationService.Ui("Craft Overlay");
                 case SettingCategory.CraftTracker:
-                    return "Craft Tracker (Legacy)";
+                    return LocalizationService.Ui("Craft Tracker (Legacy)");
                 case SettingCategory.ToolTips:
-                    return "Tooltips";
+                    return LocalizationService.Ui("Tooltips");
                 case SettingCategory.Hotkeys:
-                    return "Hotkeys";
+                    return LocalizationService.Ui("Hotkeys");
                 case SettingCategory.History:
-                    return "History";
+                    return LocalizationService.Ui("History");
                 case SettingCategory.Windows:
-                    return "Windows";
+                    return LocalizationService.Ui("Windows");
                 case SettingCategory.Lists:
-                    return "Lists";
+                    return LocalizationService.Ui("Lists");
                 case SettingCategory.ContextMenu:
-                    return "Context Menu";
+                    return LocalizationService.Ui("Context Menu");
                 case SettingCategory.MobSpawnTracker:
-                    return "Mob Spawn Tracker";
+                    return LocalizationService.Ui("Mob Spawn Tracker");
                 case SettingCategory.TitleMenuButtons:
-                    return "Title Menu Button";
+                    return LocalizationService.Ui("Title Menu Button");
                 case SettingCategory.AutoSave:
-                    return "Auto Save";
+                    return LocalizationService.Ui("Auto Save");
                 case SettingCategory.Items:
-                    return "Items";
+                    return LocalizationService.Ui("Items");
                 case SettingCategory.Highlighting:
-                    return "Highlighting";
+                    return LocalizationService.Ui("Highlighting");
                 case SettingCategory.EquipmentRecommendation:
-                    return "Equipment Recommendations";
+                    return LocalizationService.Ui("Equipment Recommendations");
+                case SettingCategory.Misc:
+                    return LocalizationService.Ui("Misc");
+                case SettingCategory.Troubleshooting:
+                    return LocalizationService.Ui("Troubleshooting");
+                case SettingCategory.Compendium:
+                    return LocalizationService.Ui("Compendium");
             }
             return settingCategory.ToString();
         }

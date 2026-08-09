@@ -5,6 +5,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Mediator;
 using InventoryTools.Services.Interfaces;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.DebugWindows;
 
@@ -21,7 +22,7 @@ public class ListServiceDebuggerPane : IDebugPane
         _mediatorService = mediatorService;
     }
 
-    public string Name => "List Service";
+    public string Name => LocalizationService.Ui("List Service");
 
     public void Draw()
     {
@@ -33,10 +34,10 @@ public class ListServiceDebuggerPane : IDebugPane
         foreach (var list in lists)
         {
             using var id = ImRaii.PushId(list.Key);
-            ImGui.Text($"{list.Name}:");
+            ImGui.Text(LocalizationService.Format("{0}:", list.Name));
             ImGui.Text($"{(list.Active ? "Active" : "Not Active")}");
             ImGui.SameLine();
-            if (ImGui.Button("Request Refresh"))
+            if (ImGui.Button(LocalizationService.Ui("Request Refresh")))
             {
                 _mediatorService.Publish(new RequestListUpdateMessage(list));
             }

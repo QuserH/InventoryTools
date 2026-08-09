@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -10,8 +11,8 @@ namespace InventoryTools.Logic.Filters
     public class CanBeEquippedFilter : BooleanFilter
     {
         public override string Key { get; set; } = "CanBeEquipped";
-        public override string Name { get; set; } = "Can be Equipped?";
-        public override string HelpText { get; set; } = "Can the item be equipped?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Equipped?"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can the item be equipped?"));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 

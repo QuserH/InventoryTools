@@ -2,6 +2,7 @@ using AllaganLib.GameSheets.Sheets;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -32,19 +33,19 @@ public class IngredientPreferenceLocalizer
                         {
                             itemName3 =
                                 (_itemSheet.GetRow(ingredientPreference.LinkedItem3Id.Value)
-                                    ?.NameString ?? "Unknown Item") + " - " +
+                                    ?.NameString ?? LocalizationService.Ui("Unknown Item")) + " - " +
                                 ingredientPreference.LinkedItem3Quantity.Value;
                         }
 
                         itemName2 =
                             (_itemSheet.GetRow(ingredientPreference.LinkedItem2Id.Value)
-                                ?.NameString ?? "Unknown Item") + " - " +
+                                ?.NameString ?? LocalizationService.Ui("Unknown Item")) + " - " +
                             ingredientPreference.LinkedItem2Quantity.Value;
                     }
 
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        "Unknown Item";
+                        LocalizationService.Ui("Unknown Item");
                     if (itemName3 != null)
                     {
                         itemName = itemName + "," + itemName2 + "," + itemName3;
@@ -57,27 +58,27 @@ public class IngredientPreferenceLocalizer
                     return itemName + " - " + ingredientPreference.LinkedItemQuantity.Value;
                 }
 
-                return "No item selected";
+                return LocalizationService.Ui("No item selected");
             case IngredientPreferenceType.Reduction:
                 if (ingredientPreference.LinkedItemId != null && ingredientPreference.LinkedItemQuantity != null)
                 {
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        "Unknown Item";
-                    return "Reduction (" + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
+                        LocalizationService.Ui("Unknown Item");
+                    return LocalizationService.Ui("Reduction (") + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
                 }
 
-                return "No item selected";
+                return LocalizationService.Ui("No item selected");
             case IngredientPreferenceType.Desynthesis:
                 if (ingredientPreference.LinkedItemId != null && ingredientPreference.LinkedItemQuantity != null)
                 {
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        "Unknown Item";
-                    return "Desynthesis (" + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
+                        LocalizationService.Ui("Unknown Item");
+                    return LocalizationService.Ui("Desynthesis (") + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
                 }
 
-                return "No item selected";
+                return LocalizationService.Ui("No item selected");
         }
 
         return ingredientPreference.Type.FormattedName();

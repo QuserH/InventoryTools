@@ -8,6 +8,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -20,18 +21,18 @@ public class ItemGlamourReadySetItemSourceRenderer : ItemInfoRenderer<ItemGlamou
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.GlamourReadySetItem;
-    public override string SingularName => "Outfit Glamour Item";
-    public override string HelpText => "Is the item part of a 'Outfit Glamour' set?";
+    public override string SingularName => LocalizationService.Ui("Outfit Glamour Item");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is the item part of a 'Outfit Glamour' set?"));
 
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text("Transforms into: " + asSource.ConvertedItem.NameString);
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Transforms into: ")) + asSource.ConvertedItem.NameString);
         if (asSource.SetItems.Count > 1)
         {
-            ImGui.Text("Set Items:");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Set Items:")));
             using (ImRaii.PushIndent())
             {
                 foreach (var item in asSource.SetItems)

@@ -3,6 +3,7 @@ using Dalamud.Interface.Colors;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -20,10 +21,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "RetainerListColour";
-        public override string Name { get; set; } = "Retainer List Colour";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer List Colour"));
 
         public override string HelpText { get; set; } =
-            "The color to set the retainer(when the retainer contains filtered items) list to.";
+            LocalizationService.Ui(LocalizationService.Ui("The color to set the retainer(when the retainer contains filtered items) list to."));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Colours;

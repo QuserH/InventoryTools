@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -39,10 +40,10 @@ public class CraftEverythingElseGroupFilter : ChoiceFilter<EverythingElseGroupSe
     }
 
     public override string Key { get; set; } = "CraftEverythingElseGroupFilter";
-    public override string Name { get; set; } = "Group Everything Else By";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Group Everything Else By"));
 
     public override string HelpText { get; set; } =
-        "How should everything else not in it's own group be grouped?";
+        LocalizationService.Ui(LocalizationService.Ui("How should everything else not in it's own group be grouped?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override EverythingElseGroupSetting DefaultValue { get; set; } = EverythingElseGroupSetting.ByClosestZone;

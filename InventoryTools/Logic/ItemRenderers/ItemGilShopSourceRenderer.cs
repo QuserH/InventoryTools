@@ -13,6 +13,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -20,7 +21,7 @@ public class ItemGilShopUseRenderer : ItemGilShopSourceRenderer
 {
     private readonly MapSheet _mapSheet;
     private readonly ItemSheet _itemSheet;
-    public override string HelpText => "Can the item be spent at a gil shop?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a gil shop?"));
 
     public ItemGilShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
@@ -37,7 +38,7 @@ public class ItemGilShopUseRenderer : ItemGilShopSourceRenderer
             ? new List<string>()
             : shopSource.MapIds.Select(c => _mapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text($"{allGilShops.Count} items available for purchase with gil in {maps.Count} zones");
+        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("{0} items available for purchase with gil in {1} zones"), allGilShops.Count, maps.Count));
     };
 
     public override RendererType RendererType => RendererType.Use;
@@ -59,9 +60,9 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.GilShop;
-    public override string SingularName => "Gil Shop";
-    public override string PluralName => "Gil Shops";
-    public override string HelpText => "Can the item be purchased at a gil shop?";
+    public override string SingularName => LocalizationService.Ui("Gil Shop");
+    public override string PluralName => LocalizationService.Ui("Gil Shops");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased at a gil shop?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
 
@@ -72,7 +73,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
         var asSources = AsSource(sources);
         var firstItem = asSources[0];
 
-        ImGui.Text("Costs:");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Costs:")));
 
         using (ImRaii.PushIndent())
         {
@@ -107,7 +108,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
         var asSource = AsSource(source);
         var maps = source.MapIds?.Select(c => _mapSheet.GetRow(c).FormattedName).ToList() ?? new List<string>();
 
-        ImGui.Text("Costs:");
+        ImGui.Text(LocalizationService.Ui("Costs:"));
 
         using (ImRaii.PushIndent())
         {

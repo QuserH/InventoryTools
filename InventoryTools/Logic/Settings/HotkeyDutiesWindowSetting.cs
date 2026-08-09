@@ -3,6 +3,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Classes;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -11,10 +12,10 @@ namespace InventoryTools.Logic.Settings
         public override ModifiableHotkey DefaultValue { get; set; } = new(VirtualKey.NO_KEY);
         public static string AsKey => "HotkeyDutiesWindow";
         public override string Key { get; set; } = AsKey;
-        public override string Name { get; set; } = "Toggle Duties Window";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Toggle Duties Window"));
 
         public override string HelpText { get; set; } =
-            "The hotkey to toggle the duties window.";
+            LocalizationService.Ui(LocalizationService.Ui("The hotkey to toggle the duties window."));
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

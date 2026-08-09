@@ -4,14 +4,15 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Stats
 {
     public class ItemLevelFilter : StringFilter
     {
         public override string Key { get; set; } = "ILvl";
-        public override string Name { get; set; } = "iLevel";
-        public override string HelpText { get; set; } = "The iLevel of the item.";
+        public override string Name { get; set; } = LocalizationService.Ui("iLevel");
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The iLevel of the item."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
 

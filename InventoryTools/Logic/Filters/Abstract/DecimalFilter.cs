@@ -3,6 +3,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -26,12 +27,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
             }
             ImGui.Indent();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -41,7 +42,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                 ImGui.PopTextWrapPos();
             }
             ImGui.SetNextItemWidth(InputSize);
-            if (ImGui.InputText("##"+Key+"Input", ref value, 100, ImGuiInputTextFlags.CharsDecimal))
+            if (ImGui.InputText(LocalizationService.Ui("##")+Key+"Input", ref value, 100, ImGuiInputTextFlags.CharsDecimal))
             {
                 int parsedNumber;
                 if(int.TryParse(value, out parsedNumber))
@@ -56,7 +57,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                 }

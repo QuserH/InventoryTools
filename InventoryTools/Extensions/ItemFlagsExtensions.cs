@@ -1,4 +1,5 @@
 using FFXIVClientStructs.FFXIV.Client.Game;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Extensions;
 
@@ -8,12 +9,12 @@ public static class ItemFlagsExtensions
     {
         return flags switch
         {
-            InventoryItem.ItemFlags.None => "Normal Quality",
-            InventoryItem.ItemFlags.HighQuality => "High Quality",
-            InventoryItem.ItemFlags.CompanyCrestApplied => "Company Crest Applied",
-            InventoryItem.ItemFlags.Relic => "Relic",
-            InventoryItem.ItemFlags.Collectable => "Collectable",
-            _ => "None"
+            InventoryItem.ItemFlags.None => LocalizationService.Ui("Normal Quality"),
+            InventoryItem.ItemFlags.HighQuality => LocalizationService.Ui("High Quality"),
+            InventoryItem.ItemFlags.CompanyCrestApplied => LocalizationService.Ui("Company Crest Applied"),
+            InventoryItem.ItemFlags.Relic => LocalizationService.Ui("Relic"),
+            InventoryItem.ItemFlags.Collectable => LocalizationService.Ui("Collectable"),
+            _ => LocalizationService.Ui("None")
         };
     }
 }

@@ -8,6 +8,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -26,7 +27,7 @@ namespace InventoryTools.Ui
 
         public override void Initialize()
         {
-            WindowName = "Generate Support Dump";
+            WindowName = LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"));
             Key = "supportdump";
         }
 
@@ -35,20 +36,20 @@ namespace InventoryTools.Ui
         public override Vector2? MaxSize { get; } = new Vector2(800, 400);
         public override Vector2? MinSize { get; } = new Vector2(300, 150);
         public override string GenericKey { get; } = "supportdump";
-        public override string GenericName { get; } = "Generate Support Dump";
+        public override string GenericName { get; } = LocalizationService.Ui("Generate Support Dump");
         public override bool DestroyOnClose => true;
 
         public override void DrawWindow()
         {
             ImGui.PushTextWrapPos();
             ImGui.TextWrapped(
-                "Only press this if you have been instructed to, it will generate a zip file containing your inventory, the allagan tools configuration, and your logs. If you are attempting to provide this information to help fix a bug, turn on Verbose Logging in File, replicate the bug and then generate this dump. Proceed?");
+                LocalizationService.Ui(LocalizationService.Ui("Only press this if you have been instructed to, it will generate a zip file containing your inventory, the allagan tools configuration, and your logs. If you are attempting to provide this information to help fix a bug, turn on Verbose Logging in File, replicate the bug and then generate this dump. Proceed?")));
             ImGui.PopTextWrapPos();
             ImGui.NewLine();
 
-            if (ImGui.Button("Proceed"))
+            if (ImGui.Button(LocalizationService.Ui("Proceed")))
             {
-                _fileDialogManager.SaveFileDialog("Save support dump", "*.zip", "support_dump.zip", ".zip",
+                _fileDialogManager.SaveFileDialog(LocalizationService.Ui("Save support dump"), "*.zip", "support_dump.zip", ".zip",
                     (success, path) =>
                     {
                         if (success)
@@ -60,7 +61,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            if (ImGui.Button("Cancel"))
+            if (ImGui.Button(LocalizationService.Ui("Cancel")))
             {
                 this.IsOpen = false;
             }
@@ -71,7 +72,7 @@ namespace InventoryTools.Ui
             var result = _supportDumpService.GenerateDump(path);
             if (result.Success)
             {
-                var included = result.IncludedFiles.Any() ? string.Join(", ", result.IncludedFiles) : "no files";
+                var included = result.IncludedFiles.Any() ? string.Join(", ", result.IncludedFiles) : LocalizationService.Ui("no files");
                 _chatUtilities.Print($"Support dump saved to {result.ZipPath} ({included}).");
                 if (result.MissingFiles.Any())
                 {

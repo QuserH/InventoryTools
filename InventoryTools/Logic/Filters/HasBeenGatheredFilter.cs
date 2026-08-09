@@ -1,6 +1,7 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -17,8 +18,8 @@ public class HasBeenGatheredFilter : BooleanFilter
         _gameInterface = gameInterface;
     }
     public override string Key { get; set; } = "HasBeenGathered";
-    public override string Name { get; set; } = "Has been gathered before?";
-    public override string HelpText { get; set; } = "Has this gathering item been gathered at least once by the currently logged in character? This only supports mining and botany at present.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has been gathered before?"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has this gathering item been gathered at least once by the currently logged in character? This only supports mining and botany at present."));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Gathering;
 
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

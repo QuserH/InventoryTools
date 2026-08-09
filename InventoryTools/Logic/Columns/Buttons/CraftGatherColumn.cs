@@ -26,6 +26,7 @@ using Lumina.Extensions;
 using Microsoft.Extensions.Logging;
 using OtterGui;
 using ImGuiTable = OtterGui.ImGuiTable;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Buttons
 {
@@ -121,7 +122,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                 ImGui.TableNextColumn();
                 if (ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
                 {
-                    if (ImGui.Button("Teleport##" + tuple.shop.RowId + "_" + tuple.npc.RowId + "_" +
+                    if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Teleport##")) + tuple.shop.RowId + "_" + tuple.npc.RowId + "_" +
                                      tuple.location.Map.RowId))
                     {
                         var nearestAetheryte = _teleporterService.GetNearestAetheryte(tuple.location);
@@ -189,7 +190,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                     {
                         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudRed))
                         {
-                            ImGui.Text(" (Up in " +
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui(" (Up in ")) +
                                        TimeInterval.DurationString(firstUptime.Value.Start, TimeStamp.UtcNow,
                                            true) + ")");
                         }
@@ -198,7 +199,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                     {
                         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen))
                         {
-                            ImGui.Text(" (Up for " +
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui(" (Up for ")) +
                                        TimeInterval.DurationString(firstUptime.Value.End, TimeStamp.UtcNow,
                                            true) + ")");
                         }
@@ -222,7 +223,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                                 {
                                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudRed))
                                     {
-                                        ImGui.Text( " (Up in " +
+                                        ImGui.Text( LocalizationService.Ui(LocalizationService.Ui(" (Up in ")) +
                                                     TimeInterval.DurationString(nextUptime.Item2.Start, TimeStamp.UtcNow,
                                                         true) + ")");
                                     }
@@ -231,7 +232,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                                 {
                                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen))
                                     {
-                                        ImGui.Text(" (Up for " +
+                                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui(" (Up for ")) +
                                                    TimeInterval.DurationString(nextUptime.Item2.End, TimeStamp.UtcNow,
                                                        true) + ")");
                                     }
@@ -252,7 +253,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                 {
                     ImGui.SameLine();
                 }
-                if (ImGui.Button("Gather##Gather" + rowIndex))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Gather##Gather")) + rowIndex))
                 {
                     _commandManager.ProcessCommand("/gather " + searchResult.Item.Base.Name.ExtractText());
                 }
@@ -265,7 +266,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                 {
                     ImGui.SameLine();
                 }
-                if (ImGui.Button("Gather##Gather" + rowIndex))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Gather##Gather")) + rowIndex))
                 {
                     _commandManager.ProcessCommand("/gatherfish " + searchResult.Item.Base.Name.ExtractText());
                 }
@@ -286,7 +287,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                     ImGui.SameLine();
                 }
                 ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 0.0f);
-                if (ImGui.Button("Buy##Buy" + rowIndex))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Buy##Buy")) + rowIndex))
                 {
                     uint? umapId = item.CraftItem?.MapId ?? null;
                     int mapId = umapId == null ? -1 : (int)umapId;
@@ -303,7 +304,7 @@ namespace InventoryTools.Logic.Columns.Buttons
 
                         List<string?> stringParts = new()
                         {
-                            vendor.location + " - Buy ",
+                            vendor.location + LocalizationService.Ui(" - Buy "),
                             item.CraftItem?.QuantityMissingOverall.ToString() ?? null,
                             item.Item.NameString,
                             npcName != null ? $" from {npcName}" : null
@@ -338,7 +339,7 @@ namespace InventoryTools.Logic.Columns.Buttons
                                     {
                                         DrawSupplierRow(item.Item, tuple, messages);
                                     }, ImGuiTableFlags.None,
-                                    new[] { "Shop Name", "NPC", "Location", "" });
+                                    new[] { LocalizationService.Ui("Shop Name"), "NPC", "Location", "" });
                             }
                         }
                     }
@@ -351,10 +352,10 @@ namespace InventoryTools.Logic.Columns.Buttons
             return false;
         }
 
-        public override string RenderName { get; } = "Gather/Purchase";
-        public override string Name { get; set; } = "Gather/Purchase/Buy";
+        public override string RenderName { get; } = LocalizationService.Ui(LocalizationService.Ui("Gather/Purchase"));
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gather/Purchase/Buy"));
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = "Shows a button that links to gatherbuddy's /gather function.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows a button that links to gatherbuddy's /gather function."));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;

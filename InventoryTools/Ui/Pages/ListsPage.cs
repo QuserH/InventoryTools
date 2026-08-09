@@ -12,6 +12,7 @@ using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using InventoryTools.Ui.Widgets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Pages
 {
@@ -38,7 +39,7 @@ namespace InventoryTools.Ui.Pages
 
         public override void Initialize() { }
 
-        public override string Name { get; } = "Lists";
+        public override string Name { get; } = LocalizationService.Ui("Lists");
 
         public PopupMenu GetListMenu(FilterConfiguration configuration)
         {
@@ -47,9 +48,9 @@ namespace InventoryTools.Ui.Pages
                 _popupMenus[configuration] = new PopupMenu("fm" + configuration.Key, PopupMenu.PopupMenuButtons.LeftRight,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateList, "Duplicate the list."),
-                        new PopupMenu.PopupMenuItemSelectable("Export Configuration", "ef_" + configuration.Key, ExportList, "Copies the list export string to clipboard."),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, "Are you sure you want to remove this list?", RemoveList, "Remove the list."),
+                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateList, LocalizationService.Ui("Duplicate the list.")),
+                        new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Export Configuration"), "ef_" + configuration.Key, ExportList, LocalizationService.Ui("Copies the list export string to clipboard.")),
+                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this list?"), RemoveList, LocalizationService.Ui("Remove the list.")),
                     }
                 );
             }
@@ -77,7 +78,7 @@ namespace InventoryTools.Ui.Pages
             {
                 var base64 = _importExportService.ToBase64(existingFilter);
                 _clipboardService.CopyToClipboard(base64);
-                _chatUtilities.PrintClipboardMessage("[Export] ", "Filter Configuration");
+                _chatUtilities.PrintClipboardMessage(LocalizationService.Ui("[Export] "), LocalizationService.Ui("Filter Configuration"));
             }
         }
 
@@ -108,7 +109,7 @@ namespace InventoryTools.Ui.Pages
             }
             else
             {
-                var error = "Invalid or incompatible list data in clipboard.";
+                var error = LocalizationService.Ui("Invalid or incompatible list data in clipboard.");
                 if (isCraftList)
                 {
                     _craftListImportError = error;
@@ -127,7 +128,7 @@ namespace InventoryTools.Ui.Pages
 
             using (ImRaii.PushId("ListRow" + key))
             {
-                ImGui.Button("=");
+                ImGui.Button(LocalizationService.Ui("="));
 
                 using (var source = ImRaii.DragDropSource())
                 {
@@ -136,7 +137,7 @@ namespace InventoryTools.Ui.Pages
                         _draggedItemKey = key;
                         _draggedSection = payloadId;
                         ImGui.SetDragDropPayload(payloadId, []);
-                        ImGui.TextUnformatted("Moving: " + (config.Name != "" ? config.Name : "Untitled"));
+                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Moving: ")) + (config.Name != "" ? config.Name : "Untitled"));
                     }
                 }
 
@@ -182,7 +183,7 @@ namespace InventoryTools.Ui.Pages
                     ImGui.SameLine();
                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
                     {
-                        ImGui.TextUnformatted("[" + config.FormattedFilterType + "]");
+                        ImGui.TextUnformatted(LocalizationService.Ui("[") + config.FormattedFilterType + "]");
                     }
                 }
 
@@ -208,9 +209,9 @@ namespace InventoryTools.Ui.Pages
                 .Where(c => c.FilterType == FilterType.CraftFilter && !c.CraftListDefault)
                 .ToList();
 
-            if (ImGui.CollapsingHeader("Item Lists", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+            if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Item Lists")), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
             {
-                if (ImGui.Button("Import from Clipboard##itemlist"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Import from Clipboard##itemlist"))))
                 {
                     ImportFromClipboard(false);
                 }
@@ -228,22 +229,22 @@ namespace InventoryTools.Ui.Pages
 
                 if (itemLists.Count == 0)
                 {
-                    ImGui.TextUnformatted("No item lists created yet!");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("No item lists created yet!")));
                 }
                 else
                 {
                     for (var i = 0; i < itemLists.Count; i++)
                     {
-                        DrawListRow(itemLists, i, "##ItemListReorder", true);
+                        DrawListRow(itemLists, i, LocalizationService.Ui("##ItemListReorder"), true);
                     }
                 }
             }
 
             ImGui.Spacing();
 
-            if (ImGui.CollapsingHeader("Craft Lists", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+            if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Craft Lists")), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
             {
-                if (ImGui.Button("Import from Clipboard##craftlist"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Import from Clipboard##craftlist"))))
                 {
                     ImportFromClipboard(true);
                 }
@@ -261,13 +262,13 @@ namespace InventoryTools.Ui.Pages
 
                 if (craftLists.Count == 0)
                 {
-                    ImGui.TextUnformatted("No craft lists created yet!");
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("No craft lists created yet!")));
                 }
                 else
                 {
                     for (var i = 0; i < craftLists.Count; i++)
                     {
-                        DrawListRow(craftLists, i, "##CraftListReorder", false);
+                        DrawListRow(craftLists, i, LocalizationService.Ui("##CraftListReorder"), false);
                     }
                 }
             }

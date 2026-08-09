@@ -3,6 +3,7 @@ using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -29,10 +30,10 @@ public class CraftDefaultRetrieveFromRetainerFilter : ChoiceFilter<CraftRetainer
     }
 
     public override string Key { get; set; } = "CraftDefaultRetrieveFromRetainerOutput";
-    public override string Name { get; set; } = "Retainer Retrieval";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer Retrieval"));
 
     public override string HelpText { get; set; } =
-        "What should the default 'Retrieve from Retainer' setting be for 'Non-output' items?";
+        LocalizationService.Ui(LocalizationService.Ui("What should the default 'Retrieve from Retainer' setting be for 'Non-output' items?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CraftRetainerRetrieval DefaultValue { get; set; } = CraftRetainerRetrieval.Yes;

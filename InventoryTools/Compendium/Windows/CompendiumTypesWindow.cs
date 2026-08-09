@@ -14,6 +14,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Windows;
 
@@ -24,7 +25,7 @@ public class CompendiumTypesWindow : GenericWindow
     private readonly IFramework _framework;
     private string _search = string.Empty;
 
-    public CompendiumTypesWindow(IEnumerable<ICompendiumType> compendiumTypes, ITextureProvider textureProvider, IFramework framework, ILogger<CompendiumTypesWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration) : base(logger, mediator, imGuiService, configuration, "Compendium")
+    public CompendiumTypesWindow(IEnumerable<ICompendiumType> compendiumTypes, ITextureProvider textureProvider, IFramework framework, ILogger<CompendiumTypesWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui("Compendium"))
     {
         _compendiumTypes = compendiumTypes.Where(c => c.ShowInListing).OrderBy(c => c.Plural);
         _textureProvider = textureProvider;
@@ -41,7 +42,7 @@ public class CompendiumTypesWindow : GenericWindow
         var style = ImGui.GetStyle();
 
         ImGui.SetNextItemWidth(-1);
-        ImGui.InputTextWithHint("##compendium_search", "Search compendium...", ref _search, 100);
+        ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##compendium_search")), LocalizationService.Ui("Search compendium..."), ref _search, 100);
 
         ImGui.Spacing();
         ImGui.Separator();

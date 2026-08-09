@@ -12,6 +12,7 @@ using InventoryTools.Logic;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Pages
 {
@@ -55,10 +56,10 @@ namespace InventoryTools.Ui.Pages
             var filterConfiguration = FilterConfiguration;
             var filterName = filterConfiguration.Name;
             var labelName = "##" + filterConfiguration.Key;
-            if (ImGui.CollapsingHeader("General", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+            if (ImGui.CollapsingHeader(LocalizationService.Ui("General"), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
             {
                 ImGui.SetNextItemWidth(100);
-                ImGui.LabelText(labelName + "FilterNameLabel", "Name: ");
+                ImGui.LabelText(labelName + "FilterNameLabel", LocalizationService.Ui("Name: "));
                 ImGui.SameLine();
                 ImGui.InputText(labelName + "FilterName", ref filterName, 100);
                 if (filterName != filterConfiguration.Name)
@@ -67,21 +68,21 @@ namespace InventoryTools.Ui.Pages
                 }
 
                 ImGui.NewLine();
-                if (ImGui.Button("Export Configuration to Clipboard"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Export Configuration to Clipboard"))))
                 {
                     var base64 = _importExportService.ToBase64(filterConfiguration);
                     _clipboardService.CopyToClipboard(base64);
-                    _chatUtilities.PrintClipboardMessage("[Export] ", "Filter Configuration");
+                    _chatUtilities.PrintClipboardMessage(LocalizationService.Ui("[Export] "), LocalizationService.Ui("Filter Configuration"));
                 }
 
                 var filterType = filterConfiguration.FormattedFilterType;
                 ImGui.SetNextItemWidth(100);
-                ImGui.LabelText(labelName + "FilterTypeLabel", "List Type: ");
+                ImGui.LabelText(labelName + "FilterTypeLabel", LocalizationService.Ui("List Type: "));
                 ImGui.SameLine();
                 ImGui.TextDisabled(filterType);
 
                 ImGui.SetNextItemWidth(150);
-                ImGui.LabelText(labelName + "DisplayInTabs", "Display in Tab List: ");
+                ImGui.LabelText(labelName + "DisplayInTabs", LocalizationService.Ui("Display in Tab List: "));
                 ImGui.SameLine();
                 var displayInTabs = filterConfiguration.DisplayInTabs;
                 if (ImGui.Checkbox(labelName + "DisplayInTabsCheckbox", ref displayInTabs))
@@ -93,7 +94,7 @@ namespace InventoryTools.Ui.Pages
                 }
             }
 
-            using (var tabBar = ImRaii.TabBar("###FilterConfigTabs", ImGuiTabBarFlags.FittingPolicyScroll))
+            using (var tabBar = ImRaii.TabBar(LocalizationService.Ui("###FilterConfigTabs"), ImGuiTabBarFlags.FittingPolicyScroll))
             {
                 if (tabBar)
                 {

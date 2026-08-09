@@ -4,6 +4,7 @@ using CriticalCommonLib.Services.Mediator;
 using DalaMock.Host.Mediator;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
+using InventoryTools.Localization;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -127,7 +128,7 @@ namespace InventoryTools.Logic.Columns.Abstract
             {
                 imGuiTableColumnFlags |= ImGuiTableColumnFlags.NoHeaderLabel;
             }
-            ImGui.TableSetupColumn(columnConfiguration.Name ?? (RenderName ?? Name), imGuiTableColumnFlags, Width, (uint)columnIndex);
+            ImGui.TableSetupColumn(LocalizationService.Ui(columnConfiguration.Name ?? (RenderName ?? Name)), imGuiTableColumnFlags, Width, (uint)columnIndex);
         }
         public virtual IFilterEvent? DrawFooterFilter(ColumnConfiguration columnConfiguration, FilterTable filterTable)
         {

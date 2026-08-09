@@ -3,6 +3,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -25,15 +26,15 @@ namespace InventoryTools.Logic.Filters.Abstract
             var currentValue = CurrentValue(configuration);
             if (currentValue == null)
             {
-                return "N/A";
+                return LocalizationService.Ui("N/A");
             }
 
             if (currentValue == true)
             {
-                return "Yes";
+                return LocalizationService.Ui("Yes");
             }
 
-            return "No";
+            return LocalizationService.Ui("No");
         }
 
         public bool? ConvertSelection(string selection)
@@ -65,12 +66,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
             }
             ImGui.Indent();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -86,7 +87,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                 {
                     foreach (var item in GetChoices())
                     {
-                        if (ImGui.Selectable(item, currentValue == item))
+                        if (ImGui.Selectable(LocalizationService.Ui(item), currentValue == LocalizationService.Ui(item)))
                         {
                             UpdateFilterConfiguration(configuration, ConvertSelection(item));
                         }
@@ -96,7 +97,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                 }

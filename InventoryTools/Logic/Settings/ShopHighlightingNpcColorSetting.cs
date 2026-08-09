@@ -4,12 +4,13 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
 public class ShopHighlightingNpcColorSetting : GenericEnumChoiceSetting<ObjectHighlightColor>
 {
-    public ShopHighlightingNpcColorSetting(ILogger<ShopHighlightingNpcColorSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingNpcColor", "Shop Highlighting - NPC Highlight Color", "The color used to highlight NPCs in the world when shop items are highlighted.", ObjectHighlightColor.Green, new Dictionary<ObjectHighlightColor, string>
+    public ShopHighlightingNpcColorSetting(ILogger<ShopHighlightingNpcColorSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingNpcColor", LocalizationService.Ui("Shop Highlighting - NPC Highlight Color"), LocalizationService.Ui("The color used to highlight NPCs in the world when shop items are highlighted."), ObjectHighlightColor.Green, new Dictionary<ObjectHighlightColor, string>
     {
         { ObjectHighlightColor.Red,     "Red"     },
         { ObjectHighlightColor.Green,   "Green"   },

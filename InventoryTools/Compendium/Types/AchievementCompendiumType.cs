@@ -15,6 +15,7 @@ using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -65,9 +66,9 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
         return row.RowId;
     }
 
-    public override string Singular => "Achievement";
-    public override string Plural => "Achievements";
-    public override string Description => "Achievements earned by the player.";
+    public override string Singular => LocalizationService.Ui("Achievement");
+    public override string Plural => LocalizationService.Ui("Achievements");
+    public override string Description => LocalizationService.Ui("Achievements earned by the player.");
     public override string Key => "achievements";
     public override (string?, uint?) Icon => (null, Icons.AchievementCertIcon);
 
@@ -89,14 +90,14 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<AchievementRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "Icon", HelpText = "The icon of the achievement", Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the achievement", Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "category", Name = "Category", HelpText = "The category of the achievement", Version = "14.0.3", ValueSelector = row => row.Base.AchievementCategory.Value.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "description", Name = "Description", HelpText = "The description of the achievement", Version = "14.0.3", ValueSelector = row => row.Base.Description.ToImGuiString()});
-        builder.AddIntegerColumn(new (){Key = "points", Name = "Points", HelpText = "The points earned for the achievement", Version = "14.0.3", ValueSelector = row => row.Base.Points.ToString()});
-        builder.AddBooleanColumn(new (){Key = "completed", Name = "Completed", HelpText = "Is the achievement completed?", Version = "14.0.3", ValueSelector = item => _characterMonitor.ActiveCharacter?.IsAchievementCompleted(item.RowId)
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("Icon"), HelpText = LocalizationService.Ui("The icon of the achievement"), Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "category", Name = LocalizationService.Ui("Category"), HelpText = LocalizationService.Ui("The category of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.AchievementCategory.Value.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "description", Name = LocalizationService.Ui("Description"), HelpText = LocalizationService.Ui("The description of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Description.ToImGuiString()});
+        builder.AddIntegerColumn(new (){Key = "points", Name = LocalizationService.Ui("Points"), HelpText = LocalizationService.Ui("The points earned for the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Points.ToString()});
+        builder.AddBooleanColumn(new (){Key = "completed", Name = LocalizationService.Ui("Completed"), HelpText = LocalizationService.Ui("Is the achievement completed?"), Version = "14.0.3", ValueSelector = item => _characterMonitor.ActiveCharacter?.IsAchievementCompleted(item.RowId)
         });
-        builder.AddIntegerColumn(new (){Key = "title", Name = "Title", HelpText = "The title unlocked for earning this achievement", Version = "14.0.3", ValueSelector =
+        builder.AddIntegerColumn(new (){Key = "title", Name = LocalizationService.Ui("Title"), HelpText = LocalizationService.Ui("The title unlocked for earning this achievement"), Version = "14.0.3", ValueSelector =
             item =>
             {
                 if (item.Base.Title.RowId == 0 || item.Base.Title.ValueNullable == null)
@@ -105,7 +106,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
                 }
                 return item.Base.Title.ValueNullable.Value.Masculine.ToImGuiString() + "/" + item.Base.Title.ValueNullable.Value.Feminine.ToImGuiString();
             }});
-        builder.AddItemColumn(new(){Key = "reward", Name = "Reward Item", HelpText = "The reward item for the achievement", Version = "14.0.3", ValueSelector = row => row.Base.Item.RowId});
+        builder.AddItemColumn(new(){Key = "reward", Name = LocalizationService.Ui("Reward Item"), HelpText = LocalizationService.Ui("The reward item for the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Item.RowId});
     }
 
     public override List<ICompendiumGrouping>? GetGroupings()
@@ -115,7 +116,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             new CompendiumGrouping<AchievementRow>()
             {
                 Key = "category",
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 GroupFunc = row => row.Base.AchievementCategory.RowId,
                 GroupMapping = row =>
                 {
@@ -149,7 +150,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "information",
-            SectionName = "Information",
+            SectionName = LocalizationService.Ui("Information"),
             Items = information.AsReadOnly()
         });
 
@@ -161,7 +162,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             RelatedRefs = items,
             Filter = typeof(Achievement),
             SectionKey = "required_achievements",
-            SectionName = "Required Achievements"
+            SectionName = LocalizationService.Ui("Required Achievements")
         });
 
         var relatedAchievements = _achievementSheet.Where(c => c.Base.Key.RowType == typeof(Achievement) && c.Base.Key.RowId == row.RowId || c.Base.Data.Any(d => d.RowType == typeof(Achievement) && d.RowId == row.RowId)).Select(c => c.Base.AsUntypedRowRef()).ToList();
@@ -172,7 +173,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
                 RelatedRefs = relatedAchievements,
                 Filter = typeof(Achievement),
                 SectionKey = "related_achievements",
-                SectionName = "Related Achievements"
+                SectionName = LocalizationService.Ui("Related Achievements")
             });
         }
 
@@ -181,7 +182,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlocked_item",
-                SectionName = "Unlocked Item",
+                SectionName = LocalizationService.Ui("Unlocked Item"),
                 RelatedRef = row.Base.Item.Value.AsUntypedRowRef()
             });
         }

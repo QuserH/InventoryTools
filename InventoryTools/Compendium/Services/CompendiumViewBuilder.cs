@@ -14,6 +14,7 @@ using InventoryTools.Compendium.Sections;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Services;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Services;
 
@@ -109,7 +110,7 @@ public class CompendiumViewBuilder
             this._sections ??= [];
             _linksSectionOptions ??= new LinksSectionOptions()
             {
-                SectionName = "Links",
+                SectionName = LocalizationService.Ui("Links"),
                 SectionKey = "links"
             };
             _linksSection ??= _linksSectionFactory.Invoke(_linksSectionOptions);
@@ -126,7 +127,7 @@ public class CompendiumViewBuilder
             this._sections ??= [];
             _linksSectionOptions ??= new LinksSectionOptions()
             {
-                SectionName = "Links",
+                SectionName = LocalizationService.Ui("Links"),
                 SectionKey = "links"
             };
             _linksSection ??= _linksSectionFactory.Invoke(_linksSectionOptions);
@@ -452,14 +453,14 @@ public class CompendiumViewBuilder
 
             using (ImRaii.PushId("EditSection" + index))
             {
-                ImGui.Button("=");
+                ImGui.Button(LocalizationService.Ui("="));
                 using (var source = ImRaii.DragDropSource())
                 {
                     if (source)
                     {
                         _draggedSectionKey = key;
                         ImGui.SetDragDropPayload("##SectionReorder"u8, []);
-                        ImGui.TextUnformatted("Moving: " + section.SectionOptions.SectionName);
+                        ImGui.TextUnformatted(LocalizationService.Ui("Moving: ") + section.SectionOptions.SectionName);
                     }
                 }
 
@@ -467,7 +468,7 @@ public class CompendiumViewBuilder
                 {
                     if (target)
                     {
-                        if (ImGuiUtil.IsDropping("##SectionReorder") && _draggedSectionKey != null)
+                        if (ImGuiUtil.IsDropping(LocalizationService.Ui("##SectionReorder")) && _draggedSectionKey != null)
                         {
                             var newOrder = sections.Select(s => s.SectionOptions.SectionKey).ToList();
                             newOrder.Remove(_draggedSectionKey);
@@ -481,7 +482,7 @@ public class CompendiumViewBuilder
                 ImGui.SameLine();
 
                 var visibleCopy = visible;
-                if (ImGui.Checkbox("##vis", ref visibleCopy))
+                if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("##vis")), ref visibleCopy))
                 {
                     sectionState.SetSectionVisible(key, visibleCopy);
                 }

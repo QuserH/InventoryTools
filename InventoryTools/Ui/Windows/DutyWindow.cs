@@ -20,6 +20,7 @@ using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -55,7 +56,7 @@ namespace InventoryTools.Ui
             _contentFinderConditionId = contentFinderConditionId;
             if (ContentFinderCondition != null)
             {
-                WindowName = "Allagan Tools - " + ContentFinderCondition.Base.Name.ExtractText();
+                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - ")) + ContentFinderCondition.Base.Name.ExtractText();
                 Key = "cfcid_" + contentFinderConditionId;
                 DungeonChestItems = new HashSet<uint>();
                 DungeonRewards = new HashSet<uint>();
@@ -85,7 +86,7 @@ namespace InventoryTools.Ui
             }
             else
             {
-                WindowName = "Invalid Duty";
+                WindowName = LocalizationService.Ui(LocalizationService.Ui("Invalid Duty"));
                 Key = "cfcid_unknown";
                 DungeonChestItems = new HashSet<uint>();
             }
@@ -102,20 +103,20 @@ namespace InventoryTools.Ui
 
         private Dictionary<uint, List<DungeonBossChest>> DungeonBossChests { get; set; } = null!;
         public override string GenericKey => "duty";
-        public override string GenericName => "Duty";
+        public override string GenericName => LocalizationService.Ui("Duty");
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (ContentFinderCondition == null)
             {
-                ImGui.TextUnformatted("Dungeon with the ID " + _contentFinderConditionId + " could not be found.");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Dungeon with the ID ")) + _contentFinderConditionId + LocalizationService.Ui(" could not be found."));
             }
             else
             {
                 ImGui.TextUnformatted(ContentFinderCondition.Base.Name.ExtractText());
-                ImGui.TextUnformatted(ContentFinderCondition.Base.ContentType.ValueNullable?.Name.ToString() ?? "Unknown Content Type");
-                ImGui.TextUnformatted("Level Required: " + ContentFinderCondition.Base.ClassJobLevelRequired);
-                ImGui.TextUnformatted("Item Level Required: " + ContentFinderCondition.Base.ItemLevelRequired);
+                ImGui.TextUnformatted(ContentFinderCondition.Base.ContentType.ValueNullable?.Name.ToString() ?? LocalizationService.Ui("Unknown Content Type"));
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Level Required: ")) + ContentFinderCondition.Base.ClassJobLevelRequired);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Item Level Required: ")) + ContentFinderCondition.Base.ItemLevelRequired);
                 ;
                 var itemIcon = ImGuiService.GetIconTexture((int)(ContentFinderCondition.Base.ContentType.ValueNullable?.IconDutyFinder ?? Icons.DutyIcon));
                 ImGui.Image(itemIcon.Handle, new Vector2(100, 100) * ImGui.GetIO().FontGlobalScale);
@@ -137,7 +138,7 @@ namespace InventoryTools.Ui
                             var chests = DungeonBossChests[dungeonBoss.FightNo];
                             foreach (var chest in chests.GroupBy(c => c.CofferNo))
                             {
-                                if (ImGui.CollapsingHeader("Coffer " + (chest.Key + 1),
+                                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Coffer ")) + (chest.Key + 1),
                                         ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                                 {
                                     ImGuiStylePtr style = ImGui.GetStyle();
@@ -197,7 +198,7 @@ namespace InventoryTools.Ui
                         if (DungeonBossDrops.ContainsKey(dungeonBoss.FightNo))
                         {
                             var drops = DungeonBossDrops[dungeonBoss.FightNo].Select(c => _itemSheet.GetRowOrDefault(c.ItemId)).Where(c => c != null).Select(c => c!).ToList();
-                            if (ImGui.CollapsingHeader("Drops", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                            if (ImGui.CollapsingHeader(LocalizationService.Ui("Drops"), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                             {
                                 ImGuiStylePtr style = ImGui.GetStyle();
                                 float windowVisibleX2 =
@@ -251,7 +252,7 @@ namespace InventoryTools.Ui
                     }
                 }
 
-                if (ImGui.CollapsingHeader("Other Chests (" + DungeonChestItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Other Chests (")) + DungeonChestItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -294,7 +295,7 @@ namespace InventoryTools.Ui
                     }
                 }
 
-                if (ImGui.CollapsingHeader("Rewards (" + DungeonRewards.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Rewards (")) + DungeonRewards.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -339,9 +340,9 @@ namespace InventoryTools.Ui
                 }
 
                 #if DEBUG
-                if (ImGui.CollapsingHeader("Debug"))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
                 {
-                    ImGui.TextUnformatted("Duty ID: " + _contentFinderConditionId);
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duty ID: ")) + _contentFinderConditionId);
                     Utils.PrintOutObject(ContentFinderCondition, 0, new List<string>());
                 }
                 #endif

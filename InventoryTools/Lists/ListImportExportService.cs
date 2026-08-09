@@ -13,6 +13,7 @@ using InventoryTools.Logic;
 using InventoryTools.Services;
 using Newtonsoft.Json;
 using InventoryItem = FFXIVClientStructs.FFXIV.Client.Game.InventoryItem;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Lists;
 
@@ -78,7 +79,7 @@ public class ListImportExportService
         var json  = JsonConvert.SerializeObject(toExport);
         if (json == null)
         {
-            throw new Exception("Failed to serialize configuration.");
+            throw new Exception(LocalizationService.Ui("Failed to serialize configuration."));
         }
         var bytes = Encoding.UTF8.GetBytes(json).Prepend(CurrentVersion).ToArray();
         return bytes.ToCompressedBase64();
@@ -149,9 +150,9 @@ public class ListImportExportService
                     var isHq = false;
                     var item = builder.ToString().Trim();
 
-                    if (item.Contains("(HQ)"))
+                    if (item.Contains(LocalizationService.Ui("(HQ)")))
                     {
-                        item = item.Replace("(HQ)", string.Empty);
+                        item = item.Replace(LocalizationService.Ui("(HQ)"), string.Empty);
                         isHq = true;
                     }
 
@@ -198,9 +199,9 @@ public class ListImportExportService
         {
             var quantity = 1u;
             var itemId = item;
-            if (itemId.Contains("item/"))
+            if (itemId.Contains(LocalizationService.Ui("item/")))
             {
-                itemId = itemId.Replace("item/", "");
+                itemId = itemId.Replace(LocalizationService.Ui("item/"), "");
                 if (itemId.Contains('+') || itemId.Contains(' '))
                 {
 #pragma warning disable S3220
@@ -229,7 +230,7 @@ public class ListImportExportService
     public string ToTCString(List<CraftItem> craftItems, TCExportMode exportMode = TCExportMode.Required)
     {
         List<string> lines = new();
-        lines.Add("Items :");
+        lines.Add(LocalizationService.Ui("Items :"));
         foreach (var craftItem in craftItems)
         {
             var qty = craftItem.QuantityRequired;

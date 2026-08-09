@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -14,8 +15,8 @@ public class CraftWorldPriceUseHomeWorldFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "CraftWorldPriceUseHomeWorld";
-    public override string Name { get; set; } = "Use Home World?";
-    public override string HelpText { get; set; } = "Should your currently logged in character's home world be used as a pricing source?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Use Home World?"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should your currently logged in character's home world be used as a pricing source?"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     public override bool? DefaultValue { get; set; } = true;

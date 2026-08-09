@@ -4,6 +4,7 @@ using AllaganLib.Shared.Time;
 using DalaMock.Host.Mediator;
 using Dalamud.Interface.Textures;
 using Lumina.Extensions;
+using InventoryTools.Localization;
 
 
 namespace InventoryTools.Logic.Columns;
@@ -30,9 +31,9 @@ public class UptimeColumn : TimeIntervalColumn
         _mapSheet = mapSheet;
     }
 
-    public override string Name { get; set; } = "Next Gather Uptime";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Next Gather Uptime"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "Shows how long an item will be available to gather if it's already spawned, and when the next time an item will be available to gather";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows how long an item will be available to gather if it's already spawned, and when the next time an item will be available to gather"));
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Basic;
     public override bool HasFilter { get; set; } = false;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
@@ -49,7 +50,7 @@ public class UptimeColumn : TimeIntervalColumn
                 {
                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudRed))
                     {
-                        ImGui.Text("Up in " +
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Up in ")) +
                                    TimeInterval.DurationString(currentValue.Value.Start, TimeStamp.UtcNow,
                                        true));
                     }
@@ -58,7 +59,7 @@ public class UptimeColumn : TimeIntervalColumn
                 {
                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen))
                     {
-                        ImGui.Text("Up for " +
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Up for ")) +
                                    TimeInterval.DurationString(currentValue.Value.End, TimeStamp.UtcNow,
                                        true));
                     }
@@ -83,7 +84,7 @@ public class UptimeColumn : TimeIntervalColumn
                             {
                                 using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudRed))
                                 {
-                                    ImGui.Text( " (Up in " +
+                                    ImGui.Text( LocalizationService.Ui(LocalizationService.Ui(" (Up in ")) +
                                                TimeInterval.DurationString(nextUptime.Item2.Start, TimeStamp.UtcNow,
                                                    true) + ")");
                                 }
@@ -92,7 +93,7 @@ public class UptimeColumn : TimeIntervalColumn
                             {
                                 using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen))
                                 {
-                                    ImGui.Text(" (Up for " +
+                                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui(" (Up for ")) +
                                                TimeInterval.DurationString(nextUptime.Item2.End, TimeStamp.UtcNow,
                                                    true) + ")");
                                 }

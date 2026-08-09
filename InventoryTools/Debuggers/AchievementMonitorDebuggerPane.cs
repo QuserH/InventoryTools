@@ -4,6 +4,7 @@ using AllaganLib.Monitors.Interfaces;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -16,7 +17,7 @@ public class AchievementDebuggerPane : DebugLogPane
         _achievementMonitorService = achievementMonitorService;
     }
 
-    public override string Name => "Achievement Monitor";
+    public override string Name => LocalizationService.Ui("Achievement Monitor");
 
     public override void SubscribeToEvents()
     {
@@ -24,36 +25,36 @@ public class AchievementDebuggerPane : DebugLogPane
 
     public override void DrawInfo()
     {
-        if (ImGui.CollapsingHeader("Status"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Status")))
         {
-            ImGui.TextUnformatted($"Loaded: {_achievementMonitorService.IsLoaded}");
+            ImGui.TextUnformatted(LocalizationService.Format("Loaded: {0}", _achievementMonitorService.IsLoaded));
             ImGui.TextUnformatted($"Completed Achievement Count: {_achievementMonitorService.GetCompletedAchievementIds().Count}");
         }
 
-        if (ImGui.CollapsingHeader("Completed Achievements"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Completed Achievements")))
         {
             var completed = _achievementMonitorService.GetCompletedAchievements();
 
             if (completed.Count == 0)
             {
-                ImGui.TextUnformatted("<none>");
+                ImGui.TextUnformatted(LocalizationService.Ui("<none>"));
             }
             else
             {
                 foreach (var rowRef in completed.OrderBy(r => r.RowId))
                 {
                     var name = rowRef.ValueNullable?.Name.ToImGuiString() ?? $"<unknown name>";
-                    ImGui.TextUnformatted($"ID={rowRef.RowId}, Name={name}");
+                    ImGui.TextUnformatted(LocalizationService.Format("ID={0}, Name={1}", rowRef.RowId, name));
                 }
             }
         }
 
-        if (ImGui.CollapsingHeader("Configuration"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Configuration")))
         {
             var config = _achievementMonitorService.Configuration;
             if (config == null)
             {
-                ImGui.TextUnformatted("<no configuration>");
+                ImGui.TextUnformatted(LocalizationService.Ui("<no configuration>"));
             }
             else
             {

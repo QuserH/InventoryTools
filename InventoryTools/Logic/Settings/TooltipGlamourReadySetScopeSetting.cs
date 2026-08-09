@@ -6,6 +6,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -42,16 +43,16 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText("##" + Key + "Label", Name);
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText("##" + Key + "Label", Name);
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw("##glamourReadySetScope", currentScopes))
+        if (_scopePicker.Draw(LocalizationService.Ui("##glamourReadySetScope"), currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -61,7 +62,7 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button("Reset##" + Key + "Reset"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
             {
                 Reset(configuration);
             }
@@ -74,8 +75,8 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
     }
 
     public override string Key { get; set; } = "TooltipGlamourReadySetScope";
-    public override string Name { get; set; } = "Outfit Glamour (Search Locations)";
-    public override string HelpText { get; set; } = "Which inventories should be searched when determining which outfit glamour set items you already own?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Outfit Glamour (Search Locations)"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which inventories should be searched when determining which outfit glamour set items you already own?"));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.GlamourReadySet;

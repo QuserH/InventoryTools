@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Stats;
 
@@ -15,8 +16,8 @@ public class PhysicalDamageFilter : StringFilter
     }
 
     public override string Key { get; set; } = "PhysicalDamageFilter";
-    public override string Name { get; set; } = "Physical Damage";
-    public override string HelpText { get; set; } = "The physical damage of the item";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Physical Damage"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The physical damage of the item"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

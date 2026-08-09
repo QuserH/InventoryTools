@@ -11,6 +11,7 @@ using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Widgets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -23,7 +24,7 @@ namespace InventoryTools.Logic.Columns
 
         public BestInSlotColumn(ILogger<BestInSlotColumn> logger, CharacterColumnSetting.Factory characterColumnSettingFactory, ImGuiService imGuiService, ICharacterMonitor characterMonitor, IInventoryMonitor inventoryMonitor, ClassJobCategorySheet classJobCategorySheet) : base(logger, imGuiService)
         {
-            _characterColumnSetting = characterColumnSettingFactory.Invoke("Comparison Character", "Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better.", [CharacterType.Character, CharacterType.Retainer], true);
+            _characterColumnSetting = characterColumnSettingFactory.Invoke(LocalizationService.Ui("Comparison Character"), LocalizationService.Ui("Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better."), [CharacterType.Character, CharacterType.Retainer], true);
             _characterMonitor = characterMonitor;
             _inventoryMonitor = inventoryMonitor;
             _classJobCategorySheet = classJobCategorySheet;
@@ -77,11 +78,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Relative Item Level";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Relative Item Level"));
         public override float Width { get; set; } = 150;
 
         public override string HelpText { get; set; } =
-            "Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better.";
+            LocalizationService.Ui(LocalizationService.Ui("Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better."));
 
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

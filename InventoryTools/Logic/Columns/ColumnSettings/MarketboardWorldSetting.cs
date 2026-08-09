@@ -7,13 +7,14 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
 public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
 {
     private readonly ExcelSheet<World> _worldSheet;
-    public override string EmptyText => "Home World";
+    public override string EmptyText => LocalizationService.Ui("Home World");
 
     public MarketboardWorldSetting(ILogger<MarketboardWorldSetting> logger, ImGuiService imGuiService, ExcelSheet<World> worldSheet) : base(logger, imGuiService)
     {
@@ -29,7 +30,7 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
 
         if (value.Value == 0)
         {
-            return (0, "Active World");
+            return (0, LocalizationService.Ui("Active World"));
         }
 
         var world = _worldSheet.GetRowOrDefault(value.Value);
@@ -70,18 +71,18 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
     }
 
     public override string Key { get; set; } = "MBWorld";
-    public override string Name { get; set; } = "World";
-    public override string HelpText { get; set; } = "The world for this column to display?";
+    public override string Name { get; set; } = LocalizationService.Ui("World");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The world for this column to display?"));
     public override (uint,string)? DefaultValue { get; set; } = null;
     public override List<(uint,string)?> GetChoices(ColumnConfiguration configuration)
     {
         List<(uint RowId, string FormattedName)?> worlds = _worldSheet.Where(c => c.IsPublic).Select(c =>((uint, string)?)(c.RowId, c.Name.ExtractText())).ToList();
-        worlds.Insert(0,(0,"Active World"));
+        worlds.Insert(0,(0,LocalizationService.Ui("Active World")));
         return worlds;
     }
 
     public override string GetFormattedChoice(ColumnConfiguration filterConfiguration, (uint,string)? choice)
     {
-        return choice?.Item2 ?? "Active World";
+        return choice?.Item2 ?? LocalizationService.Ui("Active World");
     }
 }

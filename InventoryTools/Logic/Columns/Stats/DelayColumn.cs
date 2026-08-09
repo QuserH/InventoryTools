@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.Stats;
 
@@ -23,7 +24,7 @@ public class DelayColumn : DecimalColumn
         return (decimal)searchResult.Item.Base.Delayms / 1000;
     }
 
-    public override string Name { get; set; } = "Delay";
+    public override string Name { get; set; } = LocalizationService.Ui("Delay");
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = "The time it takes between each automatic attack while engaged with and in range of an enemy in seconds.";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The time it takes between each automatic attack while engaged with and in range of an enemy in seconds."));
 }

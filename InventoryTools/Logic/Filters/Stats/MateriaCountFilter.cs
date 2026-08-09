@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Stats;
 
@@ -15,8 +16,8 @@ public class MateriaCountFilter : StringFilter
     }
 
     public override string Key { get; set; } = "MateriaCount";
-    public override string Name { get; set; } = "Materia Count";
-    public override string HelpText { get; set; } = "How many materia does this item have or can it have?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Materia Count"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How many materia does this item have or can it have?"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override FilterType AvailableIn { get; set; }  = FilterType.SearchFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
