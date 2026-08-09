@@ -5,6 +5,7 @@ using CriticalCommonLib.Services;
 using CriticalCommonLib.Services.Ui;
 using InventoryTools.Logic;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Overlays
 {
@@ -189,7 +190,7 @@ namespace InventoryTools.Overlays
             {
                 return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Count() + ")";
             }
-            return "Unknown "  + "(" + c.Count() + ")";
+            return LocalizationService.Ui("Unknown ")  + "(" + c.Count() + ")";
         }
 
         private string GenerateNewName(KeyValuePair<ulong, int> c)
@@ -198,7 +199,7 @@ namespace InventoryTools.Overlays
             {
                 return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Value + ")";
             }
-            return "Unknown "  + "(" + c.Value + ")";
+            return LocalizationService.Ui("Unknown ")  + "(" + c.Value + ")";
         }
         
     }

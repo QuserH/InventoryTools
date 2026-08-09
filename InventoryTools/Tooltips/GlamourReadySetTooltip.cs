@@ -14,6 +14,7 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Tooltips;
 
@@ -145,7 +146,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                     var acquiredColor = (ushort)(_acquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     var notAcquiredColor = (ushort)(_notAcquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     detailedPayloads = new List<Payload>();
-                    var header = "\nOutfit Glamour\n" + ownershipLine;
+                    var header = LocalizationService.Ui("\nOutfit Glamour\n") + ownershipLine;
                     detailedPayloads.Add(new UIForegroundPayload(baseColor));
                     detailedPayloads.Add(new UIGlowPayload(0));
                     detailedPayloads.Add(new TextPayload(header.TrimEnd('\n')));
@@ -194,7 +195,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                     var acquiredColor = (ushort)(_acquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     var notAcquiredColor = (ushort)(_notAcquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     detailedPayloads = new List<Payload>();
-                    var header = "\nPart of: " + source.ConvertedItem.NameString + "\n" + ownershipLine;
+                    var header = LocalizationService.Ui("\nPart of: ") + source.ConvertedItem.NameString + "\n" + ownershipLine;
                     detailedPayloads.Add(new UIForegroundPayload(baseColor));
                     detailedPayloads.Add(new UIGlowPayload(0));
                     detailedPayloads.Add(new TextPayload(header.TrimEnd('\n')));

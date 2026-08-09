@@ -7,6 +7,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -42,12 +43,12 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
-        public override string Name { get; set; } = "Amount Missing";
-        public override string RenderName => "Missing";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount Missing"));
+        public override string RenderName => LocalizationService.Ui("Missing");
         public override float Width { get; set; } = 60;
         public override bool? CraftOnly => true;
         public override string HelpText { get; set; } =
-            "This is the amount that needs to be sourced from MB/gathering excluding potential items to be withdrawn from retainers.";
+            LocalizationService.Ui(LocalizationService.Ui("This is the amount that needs to be sourced from MB/gathering excluding potential items to be withdrawn from retainers."));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

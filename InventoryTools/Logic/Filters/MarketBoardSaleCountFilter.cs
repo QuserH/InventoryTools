@@ -3,6 +3,7 @@ using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.MarketBoard;
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
+using InventoryTools.Localization;
 
 using InventoryTools.Extensions;
 using InventoryTools.Logic.Filters.Abstract;
@@ -22,16 +23,16 @@ namespace InventoryTools.Logic.Filters
             _configuration = configuration;
             _characterMonitor = characterMonitor;
             _marketCache = marketCache;
-            Name = "Marketboard " + configuration.MarketSaleHistoryLimit + " Sale Counter";
-            HelpText = "Shows the number of sales that have been made within " + configuration.MarketSaleHistoryLimit +
-                       " days.";
+            Name = LocalizationService.Ui("Marketboard ") + configuration.MarketSaleHistoryLimit + LocalizationService.Ui(" Sale Counter");
+            HelpText = LocalizationService.Ui("Shows the number of sales that have been made within ") + configuration.MarketSaleHistoryLimit +
+                       LocalizationService.Ui(" days.");
             ShowOperatorTooltip = true;
         }
 
         public override string Key { get; set; } = "MBSaleCount";
-        public override string Name { get; set; } = "Marketboard Sale Counter";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Marketboard Sale Counter"));
 
-        public override string HelpText { get; set; } = "Shows the number of sales that have been made within X days.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the number of sales that have been made within X days."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Market;
 

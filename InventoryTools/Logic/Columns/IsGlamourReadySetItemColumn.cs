@@ -2,6 +2,7 @@ using AllaganLib.GameSheets.Caches;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -20,7 +21,7 @@ public class IsGlamourReadySetItemColumn : CheckboxColumn
         return searchResult.Item.HasUsesByType(ItemInfoType.GlamourReadySetItem);
     }
 
-    public override string Name { get; set; } = "Is Outfit Glamour Item?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Outfit Glamour Item?"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "Is this item part of a glamour ready item?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item part of a glamour ready item?"));
 }

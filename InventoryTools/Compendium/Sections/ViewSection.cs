@@ -6,6 +6,7 @@ using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Compendium.Models;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -47,7 +48,7 @@ public abstract class ViewSection : ICompendiumViewSection
                 _headerButtons.Add(new ImGuiService.HeaderButton()
                 {
                     Id = "Settings",
-                    Image = "wrench-icon",
+                    Image = LocalizationService.Ui("wrench-icon"),
                     Label = "Settings",
                     Callback = () => { },
                 });

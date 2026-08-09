@@ -1,5 +1,6 @@
 using System;
 using InventoryTools.Logic.Filters;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Extensions;
 
@@ -9,8 +10,8 @@ public static class FilterCategoryExtensions
     {
         return filterCategory switch
         {
-            FilterCategory.SourceCategories => "Source (Categories)",
-            FilterCategory.UseCategories => "Use (Categories)",
+            FilterCategory.SourceCategories => LocalizationService.Ui("Source (Categories)"),
+            FilterCategory.UseCategories => LocalizationService.Ui("Use (Categories)"),
             _ => filterCategory.ToString().ToSentence()
         };
     }

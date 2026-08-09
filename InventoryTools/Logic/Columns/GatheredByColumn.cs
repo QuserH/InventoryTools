@@ -2,6 +2,7 @@ using System.Linq;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -25,7 +26,7 @@ public class GatheredByColumn : TextColumn
         return string.Join(",", currentValue);
     }
 
-    public override string Name { get; set; } = "Gathered By?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gathered By?"));
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "How is this item gathered?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How is this item gathered?"));
 }

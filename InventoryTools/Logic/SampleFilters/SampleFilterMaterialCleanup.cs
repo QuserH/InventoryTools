@@ -8,6 +8,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -45,11 +46,11 @@ public class SampleFilterMaterialCleanup : BooleanSetting, ISampleFilter
     }
 
     public override string Key { get; set; } = "sample3";
-    public override string Name { get; set; } = "Material clean-up";
-    public override string HelpText { get; set; } = "Finds all gatherable items in your characters inventory and attempts to show you where to put them in your retainers.";
-    public string SampleDefaultName => "100 gil or less";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Material clean-up"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Finds all gatherable items in your characters inventory and attempts to show you where to put them in your retainers."));
+    public string SampleDefaultName => LocalizationService.Ui("100 gil or less");
     public string SampleDescription =>
-        "This will add a list that will be setup to quickly put away any excess materials. It will have all the material categories automatically added. When calculating where to put items it will try to prioritise existing stacks of items.";
+        LocalizationService.Ui("This will add a list that will be setup to quickly put away any excess materials. It will have all the material categories automatically added. When calculating where to put items it will try to prioritise existing stacks of items.");
     public SampleFilterType SampleFilterType => SampleFilterType.Sample;
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.None;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.None;

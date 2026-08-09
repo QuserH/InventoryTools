@@ -1,6 +1,7 @@
 using System.Numerics;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -13,10 +14,10 @@ namespace InventoryTools.Logic.Filters
         public override FilterType AvailableIn { get; set; } =
             FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
         public override string Key { get; set; } = "HighlightDestinationColor";
-        public override string Name { get; set; } = "Highlight Destination Color";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Destination Color"));
 
         public override string HelpText { get; set; } =
-            "The color to set any items in the destination that match your source filter(assuming highlight destination duplicates is on).";
+            LocalizationService.Ui(LocalizationService.Ui("The color to set any items in the destination that match your source filter(assuming highlight destination duplicates is on)."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 

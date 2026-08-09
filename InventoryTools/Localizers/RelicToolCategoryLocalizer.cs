@@ -1,5 +1,6 @@
 using System;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -10,15 +11,15 @@ public class RelicToolCategoryLocalizer : ILocalizer<RelicToolCategory>
         switch (instance)
         {
             case RelicToolCategory.Mastercraft:
-                return "Mastercraft Tools";
+                return LocalizationService.Ui("Mastercraft Tools");
             case RelicToolCategory.Skysteel:
-                return "Skysteel Tools";
+                return LocalizationService.Ui("Skysteel Tools");
             case RelicToolCategory.Resplendent:
-                return "Resplendent Tools";
+                return LocalizationService.Ui("Resplendent Tools");
             case RelicToolCategory.Splendorous:
-                return "Splendorous Tools";
+                return LocalizationService.Ui("Splendorous Tools");
             case RelicToolCategory.Cosmic:
-                return "Cosmic Tools";
+                return LocalizationService.Ui("Cosmic Tools");
         }
         return instance.ToString();
     }

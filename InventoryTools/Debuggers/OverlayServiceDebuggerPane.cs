@@ -8,6 +8,7 @@ using CriticalCommonLib.Services;
 using CriticalCommonLib.Services.Ui;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.DebugWindows;
 
@@ -26,16 +27,16 @@ public class OverlayServiceDebuggerPane : IDebugPane
         _overlayService = overlayService;
     }
 
-    public string Name => "Overlay System";
+    public string Name => LocalizationService.Ui("Overlay System");
 
     public void Draw()
     {
         ImGui.Text($"Current State: {(OverlayService.LastState == null ? "No State" : "Has State")}");
         if (OverlayService.LastState != null)
         {
-            ImGui.Text($"Filter: {OverlayService.LastState.FilterConfiguration.Name}");
+            ImGui.Text(LocalizationService.Format("Filter: {0}", OverlayService.LastState.FilterConfiguration.Name));
             ImGui.Text($"Should Highlight: {(OverlayService.LastState.ShouldHighlight ? "Yes" : "No")}");
-            ImGui.TextUnformatted($"Active Retainer ID: {_characterMonitor.ActiveRetainerId}");
+            ImGui.TextUnformatted(LocalizationService.Format("Active Retainer ID: {0}", _characterMonitor.ActiveRetainerId));
             ImGui.TextUnformatted($"Retainer List Open?: {_gameUiManager.IsWindowVisible(CriticalCommonLib.Services.Ui.WindowName.RetainerList)}");
             ImGui.Text($"Should Highlight Destination: {(OverlayService.LastState.ShouldHighlightDestination ? "Yes" : "No")}");
             ImGui.Text($"Invert Highlighting: {(OverlayService.LastState.InvertHighlighting ? "Yes" : "No")}");
@@ -54,7 +55,7 @@ public class OverlayServiceDebuggerPane : IDebugPane
             ImGui.Text($"{(tabHighlights2.HasValue ? "Will Highlight Tab 2" : "No Highlight")}");
         }
 
-        ImGui.Text("Overlays: ");
+        ImGui.Text(LocalizationService.Ui("Overlays: "));
         foreach (var overlay in OverlayService.Overlays)
         {
             ImGui.Text($"{overlay.GetType()}");
@@ -62,7 +63,7 @@ public class OverlayServiceDebuggerPane : IDebugPane
             ImGui.Text($"Should Draw: {(overlay.ShouldDraw ? "Yes" : "No")}");
         }
 
-        if (ImGui.CollapsingHeader("Current State:") && OverlayService.LastState != null)
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Current State:")) && OverlayService.LastState != null)
         {
             Utils.PrintOutObject(OverlayService.LastState, 0, new List<string>());
             if (OverlayService.LastState.FilterResult != null)

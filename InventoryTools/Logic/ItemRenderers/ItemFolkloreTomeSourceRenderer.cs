@@ -9,6 +9,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -25,9 +26,9 @@ public class ItemFolkloreTomeSourceRenderer : ItemInfoRenderer<ItemFolkloreTomeS
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.FolkloreTome;
-    public override string SingularName => "Folklore Tome";
-    public override string? PluralName => "Folklore Tomes";
-    public override string HelpText => "Does this item unlock additional gathering items when read?";
+    public override string SingularName => LocalizationService.Ui("Folklore Tome");
+    public override string? PluralName => LocalizationService.Ui("Folklore Tomes");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item unlock additional gathering items when read?"));
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
@@ -42,12 +43,12 @@ public class ItemFolkloreTomeSourceRenderer : ItemInfoRenderer<ItemFolkloreTomeS
         var divisionName = asSource.NotebookDivision.ValueNullable?.Name.ToImGuiString();
         if (!string.IsNullOrEmpty(divisionName))
         {
-            ImGui.Text("Unlocks: " + divisionName);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unlocks: ")) + divisionName);
         }
 
         if (asSource.RelatedItems.Count > 0)
         {
-            this.DrawItems("Items Unlocked:", asSource.RelatedItems.First().Value);
+            this.DrawItems(LocalizationService.Ui("Items Unlocked:"), asSource.RelatedItems.First().Value);
         }
     };
 

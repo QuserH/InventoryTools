@@ -1,5 +1,6 @@
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -26,7 +27,7 @@ public class CraftItemLocalizer
     {
         return craftItem.IngredientPreference.Type switch
         {
-            IngredientPreferenceType.Crafting => craftItem.Recipe?.CraftType?.FormattedName ?? (craftItem.Item.CompanyCraftSequence != null ? "Company Craft" : "Unknown"),
+            IngredientPreferenceType.Crafting => craftItem.Recipe?.CraftType?.FormattedName ?? (craftItem.Item.CompanyCraftSequence != null ? LocalizationService.Ui("Company Craft") : "Unknown"),
             IngredientPreferenceType.None => "N/A",
             _ => _ingredientPreferenceLocalizer.FormattedName(craftItem.IngredientPreference)
         };

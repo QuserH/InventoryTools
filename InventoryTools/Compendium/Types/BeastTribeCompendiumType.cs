@@ -17,6 +17,7 @@ using InventoryTools.Compendium.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Icons = AllaganLib.Shared.Misc.Icons;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -39,7 +40,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
     {
         return Factory.Invoke(new CompendiumTableOptions<BeastTribe>()
         {
-            Name = "Beast Tribes",
+            Name = LocalizationService.Ui("Beast Tribes"),
             Key = "beast_tribes",
             Columns = BuiltColumns,
             CompendiumType = this
@@ -53,7 +54,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override string? GetSubtitle(BeastTribe row)
     {
-        return row.Expansion.Value.Name.ToImGuiString() + ", Uses " + row.CurrencyItem.Value.Name.ToImGuiString();
+        return row.Expansion.Value.Name.ToImGuiString() + LocalizationService.Ui(", Uses ") + row.CurrencyItem.Value.Name.ToImGuiString();
     }
 
     public override (string?, uint?) GetIcon(BeastTribe row)
@@ -78,9 +79,9 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override unsafe void BuildColumns(CompendiumColumnBuilder<BeastTribe> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the beast tribe", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the beast tribe", Version = "14.0.3", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "expansion", Name = "Expansion", HelpText = "The expansion the beast tribe was introduced", Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString()});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the beast tribe"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the beast tribe"), Version = "14.0.3", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "expansion", Name = LocalizationService.Ui("Expansion"), HelpText = LocalizationService.Ui("The expansion the beast tribe was introduced"), Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString()});
     }
 
     public override List<ICompendiumGrouping>? GetGroupings()
@@ -90,7 +91,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
             new CompendiumGrouping<BeastTribe>()
             {
                 Key = "expansion",
-                Name = "Expansion",
+                Name = LocalizationService.Ui("Expansion"),
                 GroupFunc = row => row.Expansion.RowId,
                 GroupMapping = o =>
                 {
@@ -115,26 +116,26 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
         viewBuilder.AddLevelMapLinkSection(new LevelViewSectionOptions()
         {
             SectionKey = "location",
-            SectionName = "Location",
+            SectionName = LocalizationService.Ui("Location"),
             Level = row.Level
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "currency_item",
-            SectionName = "Currency Item",
+            SectionName = LocalizationService.Ui("Currency Item"),
             RelatedRef = (RowRef)row.CurrencyItem,
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "main_quests",
-            SectionName = "Main Quests",
+            SectionName = LocalizationService.Ui("Main Quests"),
             RelatedRefs = mainQuests,
             HideWhenEmpty = true
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "repeatable_quests",
-            SectionName = "Repeatable Quests",
+            SectionName = LocalizationService.Ui("Repeatable Quests"),
             RelatedRefs = repeatableQuests,
             HideWhenEmpty = true
         });
@@ -152,9 +153,9 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override bool HasLocation => true;
 
-    public override string Singular => "Allied Society";
-    public override string Plural => "Allied Societies";
-    public override string Description => "Allied Societies the player can gain reputation with.";
+    public override string Singular => LocalizationService.Ui("Allied Society");
+    public override string Plural => LocalizationService.Ui("Allied Societies");
+    public override string Description => LocalizationService.Ui("Allied Societies the player can gain reputation with.");
     public override string Key => "beast_tribes";
     public override (string?, uint?) Icon => (null, Icons.BeastTribeIcon);
 }

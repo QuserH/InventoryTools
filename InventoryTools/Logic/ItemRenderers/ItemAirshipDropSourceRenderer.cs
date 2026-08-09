@@ -14,6 +14,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Mediator;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -26,9 +27,9 @@ public class ItemAirshipDropSourceRenderer : ItemInfoRenderer<ItemAirshipDropSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Airship;
-    public override string SingularName => "Airship Exploration";
+    public override string SingularName => LocalizationService.Ui("Airship Exploration");
     public override bool ShouldGroup => true;
-    public override string HelpText => "Can the item be earned from a airship exploration route?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be earned from a airship exploration route?"));
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
     {
@@ -53,7 +54,7 @@ public class ItemAirshipDropSourceRenderer : ItemInfoRenderer<ItemAirshipDropSou
             {
                 using (ImRaii.PushIndent())
                 {
-                    ImGui.TextUnformatted("Unlocks via: " + asSource.AirshipExplorationPoint.Unlock.Base.Name.ToImGuiString());
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Unlocks via: ")) + asSource.AirshipExplorationPoint.Unlock.Base.Name.ToImGuiString());
                 }
             }
         }
@@ -67,7 +68,7 @@ public class ItemAirshipDropSourceRenderer : ItemInfoRenderer<ItemAirshipDropSou
         {
             using (ImRaii.PushIndent())
             {
-                ImGui.TextUnformatted("Unlocks via: " + asSource.AirshipExplorationPoint.Unlock.Base.Name.ToImGuiString());
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Unlocks via: ")) + asSource.AirshipExplorationPoint.Unlock.Base.Name.ToImGuiString());
             }
         }
     };

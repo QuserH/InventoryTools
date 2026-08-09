@@ -11,6 +11,7 @@ using FFXIVClientStructs.FFXIV.Common.Math;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
 using InventoryTools.Logic;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -186,7 +187,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
         }
         else
         {
-            ImGui.Text("Invalid Icon ID");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Invalid Icon ID")));
         }
     }
 
@@ -238,7 +239,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void HelpMarker(string helpText, string? imagePath = null, System.Numerics.Vector2? imageSize = null)
     {
-        ImGui.TextDisabled("(?)");
+        ImGui.TextDisabled(LocalizationService.Ui("(?)"));
         if (ImGui.IsItemHovered())
         {
             using (ImRaii.Tooltip())
@@ -260,7 +261,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void HelpMarker(List<string> helpText, string? imagePath = null, System.Numerics.Vector2? imageSize = null)
     {
-        ImGui.TextDisabled("(?)");
+        ImGui.TextDisabled(LocalizationService.Ui("(?)"));
         if (ImGui.IsItemHovered())
         {
             using (ImRaii.Tooltip())
@@ -644,7 +645,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
 
                 ImGui.SetCursorPosX(cursorX);
 
-                if (ImGui.SmallButton("..."))
+                if (ImGui.SmallButton(LocalizationService.Ui("...")))
                 {
                     ImGui.OpenPopup(popupId);
                 }

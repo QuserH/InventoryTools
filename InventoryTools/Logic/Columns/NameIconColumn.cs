@@ -8,6 +8,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -58,7 +59,7 @@ public class NameIconColumn : TextIconColumn
             {
                 var value = searchResult.CraftItem.Recipe?.CraftType?.FormattedName ?? "";
                 ImGui.SameLine();
-                using (var combo = ImRaii.Combo("##SetRecipe" + rowIndex, value))
+                using (var combo = ImRaii.Combo(LocalizationService.Ui("##SetRecipe") + rowIndex, value))
                 {
                     if (combo.Success)
                     {
@@ -79,10 +80,10 @@ public class NameIconColumn : TextIconColumn
         return null;
     }
 
-    public override string Name { get; set; } = "Name & Icon";
-    public override string RenderName => "Name";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Name & Icon"));
+    public override string RenderName => LocalizationService.Ui("Name");
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "The name of the item with the icon next to it.";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The name of the item with the icon next to it."));
     public override bool HasFilter { get; set; } = false;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 }

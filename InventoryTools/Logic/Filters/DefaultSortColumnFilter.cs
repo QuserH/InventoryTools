@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -30,8 +31,8 @@ public class DefaultSortColumnFilter : ChoiceFilter<string>
     }
 
     public override string Key { get; set; } = "DefaultSortColumn";
-    public override string Name { get; set; } = "Default Sort Column";
-    public override string HelpText { get; set; } = "The column to use to sort by default";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Sort Column"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The column to use to sort by default"));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Columns;
 
     public override string? DefaultValue { get; set; } = null;

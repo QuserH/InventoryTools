@@ -15,6 +15,7 @@ using Lumina.Excel.Sheets;
 using Lumina.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -154,7 +155,7 @@ public class TeleporterService : DisposableMediatorSubscriberBase, IHostedServic
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace("Starting service {type} ({this})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
         MediatorService.Subscribe<RequestTeleportMessage>(this, TeleportRequested);
         MediatorService.Subscribe<RequestTeleportToTerritoryMessage>(this, TeleportRequested);
         MediatorService.Subscribe<RequestTeleportToMapMessage>(this, TeleportRequested);
@@ -211,7 +212,7 @@ public class TeleporterService : DisposableMediatorSubscriberBase, IHostedServic
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
         return Task.CompletedTask;
     }
 }

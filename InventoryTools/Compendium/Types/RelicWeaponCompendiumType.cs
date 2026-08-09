@@ -17,6 +17,7 @@ using InventoryTools.Localizers;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -49,7 +50,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "relic_weapons",
-            Name = "Relic Weapons",
+            Name = LocalizationService.Ui("Relic Weapons"),
         });
     }
 
@@ -85,7 +86,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
 
     public override void BuildColumns(CompendiumColumnBuilder<RelicWeaponGroup> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the BGM", Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the BGM"), Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
 
         var grouping = builder.CompendiumGrouping?.Key;
         if (grouping != "category")
@@ -93,9 +94,9 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             builder.AddStringColumn(new ()
             {
                 ValueSelector = row => _weaponCategoryLocalizer.Format(row.WeaponCategory),
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 Key = "Category",
-                HelpText = "The category of the item",
+                HelpText = LocalizationService.Ui("The category of the item"),
                 Version = "14.1.3"
             });
         }
@@ -104,9 +105,9 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             builder.AddStringColumn(new ()
             {
                 ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? "Unknown",
-                Name = "Class/Job",
+                Name = LocalizationService.Ui("Class/Job"),
                 Key = "class_job",
-                HelpText = "The class/job of the item",
+                HelpText = LocalizationService.Ui("The class/job of the item"),
                 Version = "14.1.3"
             });
         }
@@ -148,7 +149,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
                         builder.AddItemsColumn(new()
                         {
                             Key = "item_" + i,
-                            Name = _weaponTypeLocalizer.Format(relicWeaponType), HelpText = "Form " + (i + 1) + " of this weapon.",
+                            Name = _weaponTypeLocalizer.Format(relicWeaponType), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this weapon."),
                             Version = "14.1.3",
                             ValueSelector = relicWeapon => weaponCategory == relicWeapon.WeaponCategory ? [_itemSheet.GetRow(relicWeapon.RelicWeapons[i1].ItemId), _itemSheet.GetRow(relicWeapon.RelicWeapons[i1].OffhandItemId)] : []
                         });
@@ -166,7 +167,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             builder.AddItemColumn(new()
             {
                 Key = "item_" + i,
-                Name = "Form " + (i + 1), HelpText = "Form " + (i + 1) + " of this weapon.",
+                Name = LocalizationService.Ui("Form ") + (i + 1), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this weapon."),
                 Version = "14.1.3",
                 ValueSelector = relicWeapon =>
                     i1 >= 0 && i1 < relicWeapon.RelicWeapons.Count ? relicWeapon.RelicWeapons[i1].ItemId : null
@@ -193,19 +194,19 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = "Class/Job",
+            SectionName = LocalizationService.Ui("Class/Job"),
             RelatedRef = (RowRef)row.ClassJob
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "related_quests",
-            SectionName = "Related Quests",
+            SectionName = LocalizationService.Ui("Related Quests"),
             RelatedRefs = row.Quests.Where(c => c.RowId != 0).Select(c => (RowRef)c).ToList(),
         });
         viewBuilder.AddItemFlowSection(new ItemFlowSectionOptions()
         {
             SectionKey = "weapons",
-            SectionName = "Weapons",
+            SectionName = LocalizationService.Ui("Weapons"),
             Items = itemFlowEntries,
             ItemsPerColumn = Math.Max(3, (int)Math.Ceiling((double)itemFlowEntries.Count / 3))
         });
@@ -223,7 +224,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             new CompendiumGrouping<RelicWeaponGroup>()
             {
                 Key = "class_job",
-                Name = "Class/Job",
+                Name = LocalizationService.Ui("Class/Job"),
                 GroupFunc = row => row.ClassJob.RowId,
                 GroupMapping = row =>
                 {
@@ -241,7 +242,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             new CompendiumGrouping<RelicWeaponGroup>()
             {
                 Key = "category",
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 GroupFunc = row => row.WeaponCategory,
                 GroupMapping = row =>
                 {
@@ -269,9 +270,9 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
         return "category";
     }
 
-    public override string Singular => "Relic Weapon";
-    public override string Plural => "Relic Weapons";
-    public override string Description => "Relic Weapons";
+    public override string Singular => LocalizationService.Ui("Relic Weapon");
+    public override string Plural => LocalizationService.Ui("Relic Weapons");
+    public override string Description => LocalizationService.Ui("Relic Weapons");
     public override string Key => "relic_weapons";
     public override (string?, uint?) Icon => (null, Icons.WeaponIcon);
 }

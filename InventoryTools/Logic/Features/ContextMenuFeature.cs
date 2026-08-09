@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -24,8 +25,8 @@ public class ContextMenuFeature : Feature
     {
     }
 
-    public override string Name { get; } = "Context Menus";
+    public override string Name { get; } = LocalizationService.Ui(LocalizationService.Ui("Context Menus"));
 
     public override string Description { get; } =
-        "Adds new items to the right click/context menu for items in the game. ";
+        LocalizationService.Ui("Adds new items to the right click/context menu for items in the game. ");
 }

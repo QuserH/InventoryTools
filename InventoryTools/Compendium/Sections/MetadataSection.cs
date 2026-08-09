@@ -4,6 +4,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Compendium.Models;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -40,8 +41,8 @@ public sealed class MetadataSection : ViewSection
             ImGuiTableFlags.PadOuterX |
             ImGuiTableFlags.NoHostExtendX);
 
-        ImGui.TableSetupColumn("Label", ImGuiTableColumnFlags.WidthFixed);
-        ImGui.TableSetupColumn("Value", ImGuiTableColumnFlags.WidthStretch);
+        ImGui.TableSetupColumn(LocalizationService.Ui("Label"), ImGuiTableColumnFlags.WidthFixed);
+        ImGui.TableSetupColumn(LocalizationService.Ui("Value"), ImGuiTableColumnFlags.WidthStretch);
 
         if (!table)
             return;

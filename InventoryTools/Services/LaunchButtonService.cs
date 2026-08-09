@@ -9,6 +9,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -50,7 +51,7 @@ public class LaunchButtonService : DisposableMediatorSubscriberBase, IHostedServ
         }
         try
         {
-            _entry = _titleScreenMenu.AddEntry("Allagan Tools", _textureProvider.GetFromFile(_fileName), OnTriggered);
+            _entry = _titleScreenMenu.AddEntry(LocalizationService.Ui("Allagan Tools"), _textureProvider.GetFromFile(_fileName), OnTriggered);
 
             _pluginInterfaceService.UiBuilder.Draw -= CreateEntry;
         }

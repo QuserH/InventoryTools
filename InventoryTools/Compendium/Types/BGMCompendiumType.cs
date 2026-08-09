@@ -15,6 +15,7 @@ using InventoryTools.Compendium.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -45,7 +46,7 @@ public class BGMCompendiumType : CompendiumType<BGM>
     {
         return Factory.Invoke(new CompendiumTableOptions<BGM>()
         {
-            Name = "BGMs",
+            Name = LocalizationService.Ui("BGMs"),
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "bgms",
@@ -94,10 +95,10 @@ public class BGMCompendiumType : CompendiumType<BGM>
 
     public override void BuildColumns(CompendiumColumnBuilder<BGM> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the BGM", Version = "14.1.2", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the BGM", Version = "14.1.2", ValueSelector = this.GetName});
-        builder.AddBooleanColumn(new (){Key = "orchestrion", Name = "Orchestrion Roll?", HelpText = "Is this available as a orchestrion roll?.", Version = "14.1.2", ValueSelector = row => _bgmOrchestrions.Value.TryGetValue(row.RowId, out var value) && value.Orchestrion.RowId != 0 });
-        builder.AddBooleanColumn(new (){Key = "unlocked", Name = "Orchestrion Roll Unlocked?", HelpText = "Is the orchestrion roll unlocked?.", Version = "14.1.2", ValueSelector = row => _bgmOrchestrions.Value.TryGetValue(row.RowId, out var value) && _unlockState.IsOrchestrionUnlocked(value.Orchestrion.Value)});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the BGM"), Version = "14.1.2", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the BGM"), Version = "14.1.2", ValueSelector = this.GetName});
+        builder.AddBooleanColumn(new (){Key = "orchestrion", Name = LocalizationService.Ui("Orchestrion Roll?"), HelpText = LocalizationService.Ui("Is this available as a orchestrion roll?."), Version = "14.1.2", ValueSelector = row => _bgmOrchestrions.Value.TryGetValue(row.RowId, out var value) && value.Orchestrion.RowId != 0 });
+        builder.AddBooleanColumn(new (){Key = "unlocked", Name = LocalizationService.Ui("Orchestrion Roll Unlocked?"), HelpText = LocalizationService.Ui("Is the orchestrion roll unlocked?."), Version = "14.1.2", ValueSelector = row => _bgmOrchestrions.Value.TryGetValue(row.RowId, out var value) && _unlockState.IsOrchestrionUnlocked(value.Orchestrion.Value)});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, BGM row)
@@ -109,15 +110,15 @@ public class BGMCompendiumType : CompendiumType<BGM>
             {
                 viewBuilder.Description = bgmOrchestrion.Orchestrion.Value.Description.ToImGuiString();
                 viewBuilder.AddTag(
-                    () => _unlockState.IsOrchestrionUnlocked(bgmOrchestrion.Orchestrion.Value) ? "Unlocked" : "Not Unlocked",
-                    () => "Is the orchestrion roll unlocked?",
+                    () => _unlockState.IsOrchestrionUnlocked(bgmOrchestrion.Orchestrion.Value) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
+                    () => LocalizationService.Ui("Is the orchestrion roll unlocked?"),
                     () => _unlockState.IsOrchestrionUnlocked(bgmOrchestrion.Orchestrion.Value) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
                 if (_orchestionToItem.Value.TryGetValue(bgmOrchestrion.OrchestrionId, out var orchestrionItemId))
                 {
                     viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
                     {
                         SectionKey = "orchestrion_roll",
-                        SectionName = "Orchestrion Roll",
+                        SectionName = LocalizationService.Ui("Orchestrion Roll"),
                         RelatedRef = _itemSheet.GetRow(orchestrionItemId).AsUntypedRowRef()
                     });
                 }
@@ -135,9 +136,9 @@ public class BGMCompendiumType : CompendiumType<BGM>
         return _bgmSheet.HasRow(rowId);
     }
 
-    public override string Singular => "BGM";
-    public override string Plural => "BGM";
-    public override string Description => "Music from the game";
+    public override string Singular => LocalizationService.Ui("BGM");
+    public override string Plural => LocalizationService.Ui("BGM");
+    public override string Description => LocalizationService.Ui("Music from the game");
     public override string Key => "bgm";
     public override (string?, uint?) Icon => (null, Icons.OrchestrionIcon);
 }

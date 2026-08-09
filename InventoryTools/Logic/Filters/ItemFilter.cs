@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets;
@@ -19,10 +20,10 @@ public class ItemFilter : UintMultipleChoiceFilter
     }
 
     public override string Key { get; set; } = "ItemFilter";
-    public override string Name { get; set; } = "Name (Selector)";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Name (Selector)"));
 
     public override string HelpText { get; set; } =
-        "Select a list of items and the filter will only display these items. You are better served using a Curated List but this filter will still work.";
+        LocalizationService.Ui(LocalizationService.Ui("Select a list of items and the filter will only display these items. You are better served using a Curated List but this filter will still work."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
     public override List<uint> DefaultValue { get; set; } = new();

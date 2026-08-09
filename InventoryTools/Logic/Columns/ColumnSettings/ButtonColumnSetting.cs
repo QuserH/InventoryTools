@@ -4,6 +4,7 @@ using System.Linq;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -37,8 +38,8 @@ public class ButtonColumnSetting : MultiChoiceColumnSetting<ButtonType?>
     }
 
     public override string Key { get; set; } = "ButtonTypes";
-    public override string Name { get; set; } = "Button Types";
-    public override string HelpText { get; set; } = "The buttons to display";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Button Types"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The buttons to display"));
 
     public override List<ButtonType?> DefaultValue { get; set; } = new();
     public override List<ButtonType?> GetChoices(ColumnConfiguration configuration)
@@ -51,13 +52,13 @@ public class ButtonColumnSetting : MultiChoiceColumnSetting<ButtonType?>
         switch (choice)
         {
             case ButtonType.CraftLog:
-                return "Craft Log";
+                return LocalizationService.Ui("Craft Log");
             case ButtonType.Buy:
                 return "Buy";
             case ButtonType.Gather:
-                return "Gather Log";
+                return LocalizationService.Ui("Gather Log");
             case ButtonType.Action:
-                return "Action Button";
+                return LocalizationService.Ui("Action Button");
         }
 
         return choice.ToString() ?? "";

@@ -16,6 +16,7 @@ using InventoryTools.Ui.Widgets;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -84,7 +85,7 @@ public class DesynthesisSkillDeltaColumn : Column<(decimal, DesynthResult)?>
                     text = "optimal";
                     break;
                 case DesynthResult.TooLow:
-                    text =  "too low";
+                    text =  LocalizationService.Ui("too low");
                     break;
                 case DesynthResult.Max:
                     text =  "max";
@@ -123,7 +124,7 @@ public class DesynthesisSkillDeltaColumn : Column<(decimal, DesynthResult)?>
                     color = ImGuiColors.HealerGreen;
                     break;
                 case DesynthResult.TooLow:
-                    text =  "Too Low";
+                    text =  LocalizationService.Ui("Too Low");
                     color = ImGuiColors.DalamudYellow;
                     break;
                 case DesynthResult.Max:
@@ -135,7 +136,7 @@ public class DesynthesisSkillDeltaColumn : Column<(decimal, DesynthResult)?>
             using (ImRaii.PushColor(ImGuiCol.Text, color))
             {
                 var value = currentValue.Value.Item1.ToString("N0", CultureInfo.InvariantCulture);
-                ImGuiUtil.VerticalAlignText($"{text} ({value})", configuration.TableHeight, false);
+                ImGuiUtil.VerticalAlignText(LocalizationService.Format("{0} ({1})", text, value), configuration.TableHeight, false);
             }
 
         }
@@ -160,7 +161,7 @@ public class DesynthesisSkillDeltaColumn : Column<(decimal, DesynthResult)?>
         var text = currentValue.Value.Item2 switch
         {
             DesynthResult.Optimal => "Optimal",
-            DesynthResult.TooLow => "Too Low",
+            DesynthResult.TooLow => LocalizationService.Ui("Too Low"),
             DesynthResult.Max => "Max",
             _ => ""
         };
@@ -202,10 +203,10 @@ public class DesynthesisSkillDeltaColumn : Column<(decimal, DesynthResult)?>
     }
 
 
-    public override string Name { get; set; } = "Desynthesis Skill Delta";
+    public override string Name { get; set; } = LocalizationService.Ui("Desynthesis Skill Delta");
     public override float Width { get; set; } = 100;
 
     public override string HelpText { get; set; } =
-        "Shows the difference between the iLvl of the item and your desynthesis skill and if desynthesis is optimal";
+        LocalizationService.Ui(LocalizationService.Ui("Shows the difference between the iLvl of the item and your desynthesis skill and if desynthesis is optimal"));
 
 }

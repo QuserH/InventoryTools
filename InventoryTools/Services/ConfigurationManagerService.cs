@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Task = System.Threading.Tasks.Task;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services
 {
@@ -39,7 +40,7 @@ namespace InventoryTools.Services
         {
             Logger = logger;
             _pluginInterfaceService = pluginInterfaceService;
-            _saveQueue = taskQueueFactory.Invoke("Configuration Save Queue");
+            _saveQueue = taskQueueFactory.Invoke(LocalizationService.Ui("Configuration Save Queue"));
             _minifyResolver = minifyResolver;
             _containerAwareCsvLoader = containerAwareCsvLoader;
             _framework = framework;
@@ -113,7 +114,7 @@ namespace InventoryTools.Services
         /// <param name="file">An alternate file to load</param>
         public void Load(string? file = null)
         {
-            Logger.LogTrace("Loading configuration");
+            Logger.LogTrace(LocalizationService.Ui("Loading configuration"));
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
             if (!File.Exists(file ?? ConfigurationFile))
@@ -144,7 +145,7 @@ namespace InventoryTools.Services
                 return;
             }
             loadConfigStopwatch.Stop();
-            Logger.LogTrace("Took " + loadConfigStopwatch.Elapsed.TotalSeconds + " to load main configuration file.");
+            Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to load main configuration file."));
             Config = inventoryToolsConfiguration;
             Config.MarkReloaded();
             _configurationLoaded = true;
@@ -152,7 +153,7 @@ namespace InventoryTools.Services
 
         public List<InventoryItem> LoadInventory(string? file = null)
         {
-            Logger.LogTrace("Loading inventory");
+            Logger.LogTrace(LocalizationService.Ui("Loading inventory"));
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
 
@@ -176,7 +177,7 @@ namespace InventoryTools.Services
                         });
                     if (inventoryToolsConfiguration != null)
                     {
-                        Logger.LogTrace("Migrating inventories");
+                        Logger.LogTrace(LocalizationService.Ui("Migrating inventories"));
                         var temp = JObject.Parse(jsonText);
                         if (temp.ContainsKey("SavedInventories"))
                         {
@@ -205,7 +206,7 @@ namespace InventoryTools.Services
             }
             else if (!Config.InventoriesMigratedToCsv)
             {
-                Logger.LogTrace("Marked inventories to now load from CSV");
+                Logger.LogTrace(LocalizationService.Ui("Marked inventories to now load from CSV"));
                 if (File.Exists(InventoryFile))
                 {
                     var parsedInventories = LoadInventoriesJson(InventoryFile) ?? new();
@@ -228,7 +229,7 @@ namespace InventoryTools.Services
                 inventories = LoadInventoriesFromCsv(out bool success);
             }
             loadConfigStopwatch.Stop();
-            Logger.LogTrace("Took " + loadConfigStopwatch.Elapsed.TotalSeconds + " to load inventories.");
+            Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to load inventories."));
             loadConfigStopwatch.Restart();
             return inventories;
         }
@@ -237,7 +238,7 @@ namespace InventoryTools.Services
         {
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
-            Logger.LogTrace("Saving allagan tools configuration");
+            Logger.LogTrace(LocalizationService.Ui("Saving allagan tools configuration"));
             try
             {
                 File.WriteAllText(ConfigurationFile, JsonConvert.SerializeObject(Config, Formatting.None, new JsonSerializerSettings()
@@ -249,7 +250,7 @@ namespace InventoryTools.Services
                     ContractResolver = _minifyResolver
                 }));
                 loadConfigStopwatch.Stop();
-                Logger.LogTrace("Took " + loadConfigStopwatch.Elapsed.TotalSeconds + " to save configuration.");
+                Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to save configuration."));
             }
             catch (Exception e)
             {
@@ -273,7 +274,7 @@ namespace InventoryTools.Services
             try
             {
                 fileName ??= InventoryFile;
-                Logger.LogTrace("Loading inventories from " + fileName);
+                Logger.LogTrace(LocalizationService.Ui("Loading inventories from ") + fileName);
                 var cacheFile = new FileInfo(fileName);
                 string json = File.ReadAllText(cacheFile.FullName, Encoding.UTF8);
                 return JsonConvert.DeserializeObject<Dictionary<ulong, Dictionary<InventoryCategory, List<InventoryItem>>>>(json, new JsonSerializerSettings()
@@ -284,7 +285,7 @@ namespace InventoryTools.Services
             }
             catch (Exception e)
             {
-                Logger.LogError("Error while parsing saved saved inventory data, " + e.Message);
+                Logger.LogError(LocalizationService.Ui("Error while parsing saved saved inventory data, ") + e.Message);
                 return null;
             }
         }
@@ -298,7 +299,7 @@ namespace InventoryTools.Services
         public void SaveInventoriesToJson(
             Dictionary<ulong, Dictionary<InventoryCategory, List<InventoryItem>>> savedInventories)
         {
-            Logger.LogTrace("Saving inventory data");
+            Logger.LogTrace(LocalizationService.Ui("Saving inventory data"));
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
             try
@@ -346,14 +347,14 @@ namespace InventoryTools.Services
                 catch (Exception e)
                 {
                     success = false;
-                    Logger.LogError("Failed to load inventories from CSV");
+                    Logger.LogError(LocalizationService.Ui("Failed to load inventories from CSV"));
                     Logger.LogError(e.Message);
                 }
             }
             else
             {
                 success = true;
-                Logger.LogTrace("Not loading inventories, file does not exist.");
+                Logger.LogTrace(LocalizationService.Ui("Not loading inventories, file does not exist."));
             }
 
 
@@ -374,13 +375,13 @@ namespace InventoryTools.Services
                 catch (Exception e)
                 {
                     success = false;
-                    Logger.LogError(e, "Failed to load history from CSV");
+                    Logger.LogError(e, LocalizationService.Ui("Failed to load history from CSV"));
                 }
             }
             else
             {
                 success = true;
-                Logger.LogTrace("Not loading history, file does not exist.");
+                Logger.LogTrace(LocalizationService.Ui("Not loading history, file does not exist."));
             }
 
 
@@ -412,17 +413,17 @@ namespace InventoryTools.Services
                 catch (Exception ex)
                 {
                     Logger.LogError(ex,
-                        "Error occurred executing {WorkItem}.", nameof(workItem));
+                        LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
                 }
             }
         }
 
         public override async Task StopAsync(CancellationToken stoppingToken)
         {
-            Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
             Save();
             await base.StopAsync(stoppingToken);
-            Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
         }
 
         private bool disposed = false;

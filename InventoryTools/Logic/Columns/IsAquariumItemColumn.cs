@@ -2,6 +2,7 @@ using AllaganLib.GameSheets.Caches;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -15,9 +16,9 @@ namespace InventoryTools.Logic.Columns
         {
             return searchResult.Item.HasUsesByType(ItemInfoType.Aquarium);
         }
-        public override string Name { get; set; } = "Is Aquarium Item?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Aquarium Item?"));
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = "Can this item be put in a aquarium?";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be put in a aquarium?"));
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Choice;
     }

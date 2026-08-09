@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -39,11 +40,11 @@ public class DefaultFilterFreeCompany : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "Free Company";
-    public string SampleDefaultName => "Free Company";
+    public string Name => LocalizationService.Ui(LocalizationService.Ui("Free Company"));
+    public string SampleDefaultName => LocalizationService.Ui("Free Company");
 
     public string SampleDescription =>
-        "This will add a list that will be preconfigured to show all the items in your free company chest for your active character.";
+        LocalizationService.Ui("This will add a list that will be preconfigured to show all the items in your free company chest for your active character.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

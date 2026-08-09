@@ -17,6 +17,7 @@ using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using InventoryTools.Localizers;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -33,9 +34,9 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         _itemInfoCache = itemInfoCache;
     }
 
-    public override string Singular => "Leve";
-    public override string Plural => "Leves";
-    public override string Description => "Leves the character can undertake.";
+    public override string Singular => LocalizationService.Ui("Leve");
+    public override string Plural => LocalizationService.Ui("Leves");
+    public override string Description => LocalizationService.Ui("Leves the character can undertake.");
     public override string Key => "leves";
     public override (string?, uint?) Icon => (null, Icons.LeveIcon);
 
@@ -89,22 +90,22 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<LeveRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = "##Icon", HelpText = "The icon of the leve", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId });
-        builder.AddStringColumn(new() { Key = "name", Name = "Name", HelpText = "The name of the leve", Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString() });
-        builder.AddStringColumn(new() { Key = "type", Name = "Type", HelpText = "The type of the leve", Version = "14.0.3", ValueSelector = row => row.LeveType.ToString().Humanize() + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
-        builder.AddIntegerColumn(new() { Key = "level", Name = "Level", HelpText = "The level of the leve", Version = "14.0.3", ValueSelector = row => row.Base.ClassJobLevel.ToString() });
-        builder.AddStringColumn(new() { Key = "leveissuer", Name = "Leve Issuer", HelpText = "The NPC who starts the leve", Version = "14.0.3", ValueSelector = row => row.StartENpc == null ? "N/A" : _npcLocalizer.Format(row.StartENpc.ENpcBase.Base) });
-        builder.AddIntegerColumn(new() { Key = "exp", Name = "EXP", HelpText = "The exp rewarded on completion of the leve", Version = "14.0.3", ValueSelector = row => row.ExpReward.ToString() });
-        builder.AddIntegerColumn(new() { Key = "gil", Name = "Gil", HelpText = "The gil rewarded on completion of the leve", Version = "14.0.3", ValueSelector = row => row.GilReward.ToString() });
-        builder.AddStringColumn(new() { Key = "startlocation", Name = "Start Location", HelpText = "The start location of the leve", Version = "14.0.3", ValueSelector = row => row.StartLocation?.FormattedName ?? null });
-        builder.AddIntegerColumn(new() { Key = "handins", Name = "Hand Ins", HelpText = "The number of times the leve can be handed in", Version = "14.0.3", ValueSelector = row => row.HandIns.ToString() });
+        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the leve"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId });
+        builder.AddStringColumn(new() { Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString() });
+        builder.AddStringColumn(new() { Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the leve"), Version = "14.0.3", ValueSelector = row => row.LeveType.ToString().Humanize() + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
+        builder.AddIntegerColumn(new() { Key = "level", Name = LocalizationService.Ui("Level"), HelpText = LocalizationService.Ui("The level of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.ClassJobLevel.ToString() });
+        builder.AddStringColumn(new() { Key = "leveissuer", Name = LocalizationService.Ui("Leve Issuer"), HelpText = LocalizationService.Ui("The NPC who starts the leve"), Version = "14.0.3", ValueSelector = row => row.StartENpc == null ? "N/A" : _npcLocalizer.Format(row.StartENpc.ENpcBase.Base) });
+        builder.AddIntegerColumn(new() { Key = "exp", Name = LocalizationService.Ui("EXP"), HelpText = LocalizationService.Ui("The exp rewarded on completion of the leve"), Version = "14.0.3", ValueSelector = row => row.ExpReward.ToString() });
+        builder.AddIntegerColumn(new() { Key = "gil", Name = LocalizationService.Ui("Gil"), HelpText = LocalizationService.Ui("The gil rewarded on completion of the leve"), Version = "14.0.3", ValueSelector = row => row.GilReward.ToString() });
+        builder.AddStringColumn(new() { Key = "startlocation", Name = LocalizationService.Ui("Start Location"), HelpText = LocalizationService.Ui("The start location of the leve"), Version = "14.0.3", ValueSelector = row => row.StartLocation?.FormattedName ?? null });
+        builder.AddIntegerColumn(new() { Key = "handins", Name = LocalizationService.Ui("Hand Ins"), HelpText = LocalizationService.Ui("The number of times the leve can be handed in"), Version = "14.0.3", ValueSelector = row => row.HandIns.ToString() });
 
         //Maybe make a reward display column
         builder.AddItemsColumn(new()
         {
             Key = "rewards",
-            Name = "Rewards",
-            HelpText = "The rewards for the leve",
+            Name = LocalizationService.Ui("Rewards"),
+            HelpText = LocalizationService.Ui("The rewards for the leve"),
             Version = "14.0.3",
             ValueSelector =
                 row =>
@@ -131,8 +132,8 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         builder.AddItemsColumn(new()
         {
             Key = "required",
-            Name = "Required Items",
-            HelpText = "The required items for the leve",
+            Name = LocalizationService.Ui("Required Items"),
+            HelpText = LocalizationService.Ui("The required items for the leve"),
             Version = "14.0.3",
             ValueSelector =
                 row =>
@@ -159,7 +160,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         viewBuilder.AddInfoTableSection(new()
         {
             SectionKey = "info",
-            SectionName = "Info",
+            SectionName = LocalizationService.Ui("Info"),
             HideHeader = false,
             Items =
         [
@@ -167,7 +168,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             ("EXP", row.ExpReward.ToString(), row.ExpReward > 0),
             ("Gil", row.GilReward.ToString(),  row.GilReward > 0),
             ("Allowances", row.Base.AllowanceCost.ToString(), row.Base.AllowanceCost > 0),
-            ("Hand-Ins", row.HandIns.ToString(), true)
+            (LocalizationService.Ui("Hand-Ins"), row.HandIns.ToString(), true)
         ]
         });
         if (row.StartENpc != null && row.StartENpc.ENpcBase.Locations.Any())
@@ -175,7 +176,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddMapLinkSectionSection(new MapLinkViewSectionOptions()
             {
                 SectionKey = "leve_issuer",
-                SectionName = "Leve Issuer",
+                SectionName = LocalizationService.Ui("Leve Issuer"),
                 MapLink = new MapLinkEntry(Icons.FlagIcon, _npcLocalizer.Format(row.StartENpc.ENpcBase.Base), row.StartENpc.ENpcBase.Locations.First().FormattedName, row.StartENpc.ENpcBase.Locations.First())
             });
         }
@@ -184,7 +185,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddMapLinkSectionSection(new MapLinkViewSectionOptions()
             {
                 SectionKey = "leve_start",
-                SectionName = "Leve Start",
+                SectionName = LocalizationService.Ui("Leve Start"),
                 MapLink = new MapLinkEntry(Icons.FlagIcon, row.StartLocation.FormattedName, row.StartLocation.FormattedName, row.StartLocation)
             });
         }
@@ -199,7 +200,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
                 viewBuilder.AddItemListSection(new ItemListSectionOptions()
                 {
                     SectionKey = "required_items",
-                    SectionName = "Required Items",
+                    SectionName = LocalizationService.Ui("Required Items"),
                     Items = requiredItems,
                 });
             }
@@ -234,7 +235,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddItemListSection(new ItemListSectionOptions()
             {
                 SectionKey = "reward_items",
-                SectionName = "Reward Items",
+                SectionName = LocalizationService.Ui("Reward Items"),
                 Items = rewards,
             });
         }
@@ -259,7 +260,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             new CompendiumGrouping<LeveRow>()
             {
                 Key = "type",
-                Name = "Type",
+                Name = LocalizationService.Ui("Type"),
                 GroupFunc = row => row.LeveType,
                 GroupMapping = row =>
                 {

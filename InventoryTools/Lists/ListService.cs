@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -119,7 +120,7 @@ namespace InventoryTools.Lists
                 ValidateAndInjectListColumns(list);
                 if (list.Name == string.Empty)
                 {
-                    list.Name = "Untitled List";
+                    list.Name = LocalizationService.Ui("Untitled List");
                 }
             }
             return new ConcurrentDictionary<string, FilterConfiguration>(savedLists.ToDictionary(c => c.Key, c => c));
@@ -363,7 +364,7 @@ namespace InventoryTools.Lists
         public FilterConfiguration AddNewCraftList(string? newName = null, bool? isEphemeral = false)
         {
             var isEphemeralNN = isEphemeral ?? false;
-            var newNameNN = newName ?? (isEphemeralNN ? "New Ephemeral List" : "New Craft List");
+            var newNameNN = newName ?? (isEphemeralNN ? LocalizationService.Ui("New Ephemeral List") : LocalizationService.Ui("New Craft List"));
 
             var names = Lists.Where(c =>
                 c.FilterType == FilterType.CraftFilter && !c.CraftListDefault &&
@@ -390,7 +391,7 @@ namespace InventoryTools.Lists
 
         public FilterConfiguration AddNewCuratedList(string? name = null)
         {
-            name ??= "New Curated List";
+            name ??= LocalizationService.Ui("New Curated List");
 
             var names = Lists.Where(c =>
                 c.FilterType == FilterType.CuratedList).Select(c => c.Name).Distinct().ToHashSet();
@@ -874,7 +875,7 @@ namespace InventoryTools.Lists
 
         public void InvalidateLists(FilterType? filterType = null)
         {
-            _chatUtilities.PrintLog("Filters invalidated");
+            _chatUtilities.PrintLog(LocalizationService.Ui("Filters invalidated"));
             foreach (var filter in _lists)
             {
                 if(filterType != null && filter.Value.FilterType != filterType) continue;
@@ -948,7 +949,7 @@ namespace InventoryTools.Lists
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Starting service {type} ({this})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
             _lists = LoadListsFromConfiguration();
             return Task.CompletedTask;
         }
@@ -974,7 +975,7 @@ namespace InventoryTools.Lists
         public FilterConfiguration GenerateDefaultCraftList()
         {
             var defaultFilter = _filterConfigFactory.Invoke();
-            defaultFilter.Name = "Default Craft List";
+            defaultFilter.Name = LocalizationService.Ui("Default Craft List");
             defaultFilter.FilterType = FilterType.CraftFilter;
             AddDefaultColumns(defaultFilter);
             defaultFilter.ApplyDefaultCraftFilterConfiguration();
@@ -1093,7 +1094,7 @@ namespace InventoryTools.Lists
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
             _framework.Update -= OnUpdate;
             _configurationManagerService.ConfigurationChanged -= ConfigOnConfigurationChanged;
             _characterMonitor.OnCharacterUpdated -= CharacterMonitorOnOnCharacterUpdated;
@@ -1103,7 +1104,7 @@ namespace InventoryTools.Lists
             _characterMonitor.OnCharacterLoggedIn -= CharacterLoggedIn;
             _characterMonitor.OnCharacterLoggedOut -= CharacterLoggedOut;
             _history.OnHistoryLogged -= HistoryOnOnHistoryLogged;
-            Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
             return Task.CompletedTask;
         }
     }

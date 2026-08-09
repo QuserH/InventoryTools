@@ -5,6 +5,7 @@ using AllaganLib.GameSheets.Sheets.Rows;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -33,9 +34,9 @@ public class IngredientPatchSearchColumn : DecimalColumn
 
 
 
-    public override string Name { get; set; } = "Ingredient Patch Search";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Ingredient Patch Search"));
     public override float Width { get; set; } = 100;
 
     public override string HelpText { get; set; } =
-        "Shows a number indicating the highest patch a craft material is used in.";
+        LocalizationService.Ui(LocalizationService.Ui("Shows a number indicating the highest patch a craft material is used in."));
 }

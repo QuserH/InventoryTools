@@ -6,6 +6,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -34,8 +35,8 @@ public class StainColumn : TextColumn
             case StainColumnSettingEnum.SecondStain:
                 return item.Stain2Entry?.Name.ExtractText() ?? "";
             case StainColumnSettingEnum.Both:
-                var firstStain = item.StainEntry?.Name.ExtractText() ?? "No Dye";
-                var secondStain = item.Stain2Entry?.Name.ExtractText() ?? "No Dye";
+                var firstStain = item.StainEntry?.Name.ExtractText() ?? LocalizationService.Ui("No Dye");
+                var secondStain = item.Stain2Entry?.Name.ExtractText() ?? LocalizationService.Ui("No Dye");
                 return firstStain + " / " + secondStain;
         }
 
@@ -52,9 +53,9 @@ public class StainColumn : TextColumn
         return null;
     }
 
-    public override string Name { get; set; } = "Dye";
+    public override string Name { get; set; } = LocalizationService.Ui("Dye");
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = "The current dye of the item";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The current dye of the item"));
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 }

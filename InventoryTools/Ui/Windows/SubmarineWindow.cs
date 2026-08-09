@@ -13,6 +13,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui
 {
@@ -43,12 +44,12 @@ namespace InventoryTools.Ui
             if (SubmarineExploration != null)
             {
                 Key = "sepid_" + submarineExplorationPointId;
-                WindowName = "" + SubmarineExploration.Base.Destination.ExtractText();
+                WindowName = LocalizationService.Ui("") + SubmarineExploration.Base.Destination.ExtractText();
                 _drops = SubmarineExploration.DropItems;
             }
             else
             {
-                WindowName = "Invalid Submarine Exploration";
+                WindowName = LocalizationService.Ui(LocalizationService.Ui("Invalid Submarine Exploration"));
                 Key = "sepid_invalid";
                 _drops = new List<ItemRow>();
             }
@@ -59,24 +60,24 @@ namespace InventoryTools.Ui
         private SubmarineExplorationRow? SubmarineExploration => _submarineExplorationSheet.GetRowOrDefault(_submarineExplorationPointId);
 
         public override string GenericKey { get; } = "submarine";
-        public override string GenericName { get; } = "Submarines";
+        public override string GenericName { get; } = LocalizationService.Ui("Submarines");
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (SubmarineExploration == null)
             {
-                ImGui.TextUnformatted("Submarine Exploration Point with the ID " + _submarineExplorationPointId + " could not be found.");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Submarine Exploration Point with the ID ")) + _submarineExplorationPointId + LocalizationService.Ui(" could not be found."));
             }
             else
             {
                 ImGui.TextUnformatted(SubmarineExploration.Base.Destination.ExtractText());
-                ImGui.TextUnformatted("Unlocked Via: " + SubmarineExploration.Unlock?.Base.Destination.ExtractText() ?? "N/A");
-                ImGui.TextUnformatted("Rank Required: " + SubmarineExploration.Base.RankReq);
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Unlocked Via: ")) + SubmarineExploration.Unlock?.Base.Destination.ExtractText() ?? "N/A");
+                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Rank Required: ")) + SubmarineExploration.Base.RankReq);
                 ;
                 ImGui.Image(ImGuiService.GetIconTexture(Icons.AirshipIcon).Handle, new Vector2(100, 100) * ImGui.GetIO().FontGlobalScale);
 
 
-                if (ImGui.CollapsingHeader("Rewards (" + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Rewards (")) + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -121,9 +122,9 @@ namespace InventoryTools.Ui
                 }
 
                 #if DEBUG
-                if (ImGui.CollapsingHeader("Debug"))
+                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
                 {
-                    ImGui.TextUnformatted("Duty ID: " + _submarineExplorationPointId);
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duty ID: ")) + _submarineExplorationPointId);
                     Utils.PrintOutObject(SubmarineExploration, 0, new List<string>());
                 }
                 #endif

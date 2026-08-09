@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -39,9 +40,9 @@ public class StainColumnSetting : ChoiceColumnSetting<StainColumnSettingEnum?>
         configuration.SetSetting(Key, (uint?)newValue);
     }
 
-    public override string Key { get; set; } = "Display Mode";
-    public override string Name { get; set; } = "Display Mode";
-    public override string HelpText { get; set; } = "Choose the display mode of the dye column";
+    public override string Key { get; set; } = LocalizationService.Ui("Display Mode");
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Display Mode"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Choose the display mode of the dye column"));
     public override StainColumnSettingEnum? DefaultValue { get; set; } = StainColumnSettingEnum.Both;
     public override List<StainColumnSettingEnum?> GetChoices(ColumnConfiguration configuration)
     {
@@ -57,10 +58,10 @@ public class StainColumnSetting : ChoiceColumnSetting<StainColumnSettingEnum?>
     {
         return choice switch
         {
-            StainColumnSettingEnum.FirstStain => "First Dye Only",
-            StainColumnSettingEnum.SecondStain => "Second Dye Only",
-            StainColumnSettingEnum.Both => "Both Dyes",
-            _ => "Not Set"
+            StainColumnSettingEnum.FirstStain => LocalizationService.Ui("First Dye Only"),
+            StainColumnSettingEnum.SecondStain => LocalizationService.Ui("Second Dye Only"),
+            StainColumnSettingEnum.Both => LocalizationService.Ui("Both Dyes"),
+            _ => LocalizationService.Ui("Not Set")
         };
     }
 }

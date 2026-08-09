@@ -5,6 +5,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -30,10 +31,10 @@ public class TrackMobSpawnSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TrackMobSpawns";
-    public override string Name { get; set; } = "Track Mob Spawns";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Track Mob Spawns"));
 
     public override string HelpText { get; set; } =
-        "Should the plugin track where mobs spawn as you move around. This data is not used by the plugin yet but once you have collected enough you can hit the button next to the checkbox to export a file containing those positions. If you upload those CSVs and send a url to via feedback I can use that spawn data to provide accurate mob spawns for everyone.";
+        LocalizationService.Ui(LocalizationService.Ui("Should the plugin track where mobs spawn as you move around. This data is not used by the plugin yet but once you have collected enough you can hit the button next to the checkbox to export a file containing those positions. If you upload those CSVs and send a url to via feedback I can use that spawn data to provide accurate mob spawns for everyone."));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.MobSpawnTracker;
 
@@ -46,13 +47,13 @@ public class TrackMobSpawnSetting : BooleanSetting
         if (configuration.TrackMobSpawns)
         {
             ImGui.SameLine();
-            if (ImGui.Button("Export CSV"))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Export CSV"))))
             {
-                _fileDialogManager.SaveFileDialog("Save to csv", "*.csv", "mob_spawns.csv", ".csv",
+                _fileDialogManager.SaveFileDialog(LocalizationService.Ui("Save to csv"), "*.csv", "mob_spawns.csv", ".csv",
                     (b, s) => { SaveMobSpawns(b, s); }, null, true);
             }
 
-            ImGuiUtil.HoverTooltip("Export a CSV containing the mob spawn IDs and their positions.");
+            ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Export a CSV containing the mob spawn IDs and their positions.")));
         }
     }
 

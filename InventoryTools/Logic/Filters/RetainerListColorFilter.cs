@@ -1,6 +1,7 @@
 using System.Numerics;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -11,10 +12,10 @@ namespace InventoryTools.Logic.Filters
     public class RetainerListColorFilter : ColorFilter
     {
         public override string Key { get; set; } = "RetainerColor";
-        public override string Name { get; set; } = "Retainer List Color";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer List Color"));
 
         public override string HelpText { get; set; } =
-            "The color to set the retainers in the retainer list to for this specific filter.";
+            LocalizationService.Ui(LocalizationService.Ui("The color to set the retainers in the retainer list to for this specific filter."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 

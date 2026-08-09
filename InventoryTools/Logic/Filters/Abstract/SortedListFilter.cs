@@ -7,6 +7,7 @@ using OtterGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -71,29 +72,29 @@ namespace InventoryTools.Logic.Filters.Abstract
         {
             if (CanRemove && CanRemoveItem(configuration, item.Key))
             {
-                if (ImGui.Button("X##Column" + index))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("X##Column")) + index))
                 {
                     RemoveItem(configuration, item.Key);
                 }
                 ImGui.SameLine();
             }
-            if (ImGui.Button("Top##Column" + index))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Top##Column")) + index))
             {
                 MoveItemTop(configuration, item.Key);
             }
             ImGui.SameLine();
-            if (ImGui.Button("Up##Column" + index))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Up##Column")) + index))
             {
                 MoveItemUp(configuration, item.Key);
             }
 
             ImGui.SameLine();
-            if (ImGui.Button("Down##Column" + index))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Down##Column")) + index))
             {
                 MoveItemDown(configuration, item.Key);
             }
             ImGui.SameLine();
-            if (ImGui.Button("Bottom##Column" + index))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Bottom##Column")) + index))
             {
                 MoveItemBottom(configuration, item.Key);
             }
@@ -119,7 +120,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                         DrawButtons(configuration, item, index);
                         index++;
                         ImGui.TableNextColumn();
-                        ImGui.Selectable("", false, ImGuiSelectableFlags.SpanAllColumns,
+                        ImGui.Selectable(LocalizationService.Ui(""), false, ImGuiSelectableFlags.SpanAllColumns,
                             new Vector2(0, 16) * ImGui.GetIO().FontGlobalScale);
                         if (helpText != null)
                         {
@@ -138,7 +139,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                 }

@@ -10,6 +10,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters
 {
@@ -29,10 +30,10 @@ namespace InventoryTools.Logic.Filters
         }
         public override int Order { get; set; } = 2;
         public override string Key { get; set; } = "Destinations";
-        public override string Name { get; set; } = "Destinations";
+        public override string Name { get; set; } = LocalizationService.Ui("Destinations");
 
         public override string HelpText { get; set; } =
-            "This lists all the destinations that are applicable given the destinations picked above.";
+            LocalizationService.Ui(LocalizationService.Ui("This lists all the destinations that are applicable given the destinations picked above."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 
@@ -46,7 +47,7 @@ namespace InventoryTools.Logic.Filters
         public override void Draw(FilterConfiguration configuration)
         {
             ImGui.NewLine();
-            ImGui.Text("Destination Information: ");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Destination Information: ")));
             ImGui.SameLine();
             ImGuiService.HelpMarker(GetHelpText(configuration));
             var allCharacters = _characterMonitor.Characters;
@@ -86,7 +87,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText("##" + Key + "RetainerLabel", "Retainer Destinations" + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "RetainerLabel", LocalizationService.Ui("Retainer Destinations") + ":");
             if (destinations.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -122,7 +123,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText("##" + Key + "CharacterLabel", "Character Destinations" + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Character Destinations") + ":");
             if (destinations.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -158,7 +159,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText("##" + Key + "CharacterLabel", "Free Company Destinations" + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Free Company Destinations") + ":");
             if (destinations.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -194,7 +195,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText("##" + Key + "CharacterLabel", "Free Company Destinations" + ":");
+            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Free Company Destinations") + ":");
             if (destinations.Count != 0)
             {
                 ImGui.PopStyleColor();

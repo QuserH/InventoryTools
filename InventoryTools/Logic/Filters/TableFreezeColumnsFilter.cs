@@ -1,5 +1,6 @@
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -12,10 +13,10 @@ namespace InventoryTools.Logic.Filters
         public override FilterType AvailableIn { get; set; } =
             FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
         public override string Key { get; set; } = "TableFreezeRows";
-        public override string Name { get; set; } = "Freeze Columns";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Freeze Columns"));
 
         public override string HelpText { get; set; } =
-            "The number of columns starting at 1 to freeze(always display when scrolling).";
+            LocalizationService.Ui(LocalizationService.Ui("The number of columns starting at 1 to freeze(always display when scrolling)."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Columns;
 

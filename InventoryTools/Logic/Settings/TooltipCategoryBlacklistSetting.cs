@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
@@ -18,8 +19,8 @@ public class TooltipCategoryBlacklistSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TooltipCategoryBlacklist";
-    public override string Name { get; set; } = "Tooltip Category Blacklist";
-    public override string HelpText { get; set; } = "Makes the Tooltip Category Whitelist into a Blacklist if checked.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Tooltip Category Blacklist"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Makes the Tooltip Category Whitelist into a Blacklist if checked."));
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     public override string Version => "1.7.0.0";

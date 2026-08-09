@@ -12,6 +12,7 @@ using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Mediator;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -24,8 +25,8 @@ public class ItemSubmarineDropSourceRenderer : ItemInfoRenderer<ItemSubmarineDro
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Submarine;
-    public override string SingularName => "Submarine Exploration";
-    public override string HelpText => "Can the item be earned from a submarine exploration route?";
+    public override string SingularName => LocalizationService.Ui("Submarine Exploration");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be earned from a submarine exploration route?"));
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>

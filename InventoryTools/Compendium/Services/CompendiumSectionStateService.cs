@@ -9,6 +9,7 @@ using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Compendium.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Services;
 
@@ -64,7 +65,7 @@ public class CompendiumSectionStateService : IDisposable
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Unable to parse saved configuration.");
+                _logger.LogError(e, LocalizationService.Ui("Unable to parse saved configuration."));
             }
         }
 

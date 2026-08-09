@@ -10,6 +10,7 @@ using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using InventoryTools.Ui.Widgets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -20,7 +21,7 @@ namespace InventoryTools.Logic.Columns
         }
         public override ColumnCategory ColumnCategory => ColumnCategory.Market;
         public override string HelpText { get; set; } =
-            "Shows the minimum price of both the NQ and HQ form of the item and multiplies it by the quantity available. If no world is selected, your home world is used. This data is sourced from universalis.";
+            LocalizationService.Ui(LocalizationService.Ui("Shows the minimum price of both the NQ and HQ form of the item and multiplies it by the quantity available. If no world is selected, your home world is used. This data is sourced from universalis."));
         public override FilterType AvailableIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter;
 
         public override List<MessageBase>? DoDraw(SearchResult searchResult, (int, int)? currentValue, int rowIndex,
@@ -84,8 +85,8 @@ namespace InventoryTools.Logic.Columns
             return base.CurrentValue(columnConfiguration, searchResult);
         }
 
-        public override string Name { get; set; } = "Market Board Minimum Total Price(Qty * Price) NQ/HQ";
-        public override string RenderName => "MB Min. Total NQ/HQ";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Minimum Total Price(Qty * Price) NQ/HQ"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Min. Total NQ/HQ"));
 
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     }

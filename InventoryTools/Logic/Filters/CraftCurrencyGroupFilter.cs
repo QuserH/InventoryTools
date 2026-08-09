@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -40,10 +41,10 @@ public class CraftCurrencyGroupFilter : ChoiceFilter<CurrencyGroupSetting>
     }
 
     public override string Key { get; set; } = "CraftCurrencyGroupFilter";
-    public override string Name { get; set; } = "Group Currency By";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Group Currency By"));
 
     public override string HelpText { get; set; } =
-        "Should the currency be grouped together or show up in the Gather/Buy list?";
+        LocalizationService.Ui(LocalizationService.Ui("Should the currency be grouped together or show up in the Gather/Buy list?"));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CurrencyGroupSetting DefaultValue { get; set; } = CurrencyGroupSetting.Separate;

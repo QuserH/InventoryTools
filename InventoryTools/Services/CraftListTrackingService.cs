@@ -14,6 +14,7 @@ using InventoryTools.Logic.GenericFilters;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -115,7 +116,7 @@ public class CraftListTrackingService : IHostedService
     private void AcquisitionMonitorServiceOnItemAcquired(uint itemId, InventoryItem.ItemFlags itemFlags,
         int qtyIncrease, AcquisitionReason reason)
     {
-        _logger.LogTrace("Item acquired through {Reason}, qty of {QtyIncrease}, item ID: {ItemId}", reason, qtyIncrease,
+        _logger.LogTrace(LocalizationService.Ui("Item acquired through {Reason}, qty of {QtyIncrease}, item ID: {ItemId}"), reason, qtyIncrease,
             itemId);
 
         var activeCraftList = _listService.GetActiveCraftList();
@@ -132,12 +133,12 @@ public class CraftListTrackingService : IHostedService
                  _trackMarketBoardFilter.CurrentValue(activeCraftList) == false)
                )
             {
-                _logger.LogTrace("Craft list configured to not track {Reason}, not altering required item counts.",
+                _logger.LogTrace(LocalizationService.Ui("Craft list configured to not track {Reason}, not altering required item counts."),
                     reason);
                 return;
             }
 
-            _logger.LogTrace("Marking {Quantity} qty for item {ItemId} ({HqFlag}) as crafted.", qtyIncrease, itemId,
+            _logger.LogTrace(LocalizationService.Ui("Marking {Quantity} qty for item {ItemId} ({HqFlag}) as crafted."), qtyIncrease, itemId,
                 itemFlags.ToString());
             var activeItem = activeCraftList.CraftList.GetItemById(itemId, itemFlags);
             var missing = activeItem?.QuantityMissingOverall;
@@ -151,8 +152,8 @@ public class CraftListTrackingService : IHostedService
                 activeCraftList.CraftList.MarkCrafted(itemId, itemFlags, (uint)qtyIncrease);
                 if (activeCraftList is { IsEphemeralCraftList: true, CraftList.IsCompleted: true })
                 {
-                    _chatUtilities.Print("Ephemeral craft list '" + activeCraftList.Name +
-                                         "' completed. List has been removed.");
+                    _chatUtilities.Print(LocalizationService.Ui("Ephemeral craft list '") + activeCraftList.Name +
+                                         LocalizationService.Ui("' completed. List has been removed."));
                     _listService.RemoveList(activeCraftList);
                 }
                 else
@@ -163,7 +164,7 @@ public class CraftListTrackingService : IHostedService
         }
         else
         {
-            _logger.LogTrace("Active craft list is either inactive or in stock mode.");
+            _logger.LogTrace(LocalizationService.Ui("Active craft list is either inactive or in stock mode."));
         }
     }
 
@@ -191,7 +192,7 @@ public class CraftListTrackingService : IHostedService
         var reasonToggle = ReasonToggle(reason);
         if (reasonToggle == null || !IsToggleOn(reasonToggle, activeCraftList))
         {
-            _logger.LogTrace("Not reporting {ItemId}: report toggle for reason {Reason} is off", itemId, reason);
+            _logger.LogTrace(LocalizationService.Ui("Not reporting {ItemId}: report toggle for reason {Reason} is off"), itemId, reason);
             return;
         }
 
@@ -211,13 +212,13 @@ public class CraftListTrackingService : IHostedService
 
         if (amountText == null)
         {
-            _logger.LogTrace("Not reporting {ItemId}: completion-only is on and it isn't complete yet", itemId);
+            _logger.LogTrace(LocalizationService.Ui("Not reporting {ItemId}: completion-only is on and it isn't complete yet"), itemId);
             return;
         }
 
         var item = _itemSheet.GetRow(itemId);
 
-        _logger.LogTrace("Reporting {ItemId} ({Reason}): {Missing} complete={Complete}", itemId, reason,
+        _logger.LogTrace(LocalizationService.Ui("Reporting {ItemId} ({Reason}): {Missing} complete={Complete}"), itemId, reason,
             quantityMissing, complete);
         PrintProgress(GetPrefix(activeCraftList), item.NameString, amountText);
 
@@ -235,7 +236,7 @@ public class CraftListTrackingService : IHostedService
     {
         return _prefixFilter.CurrentValue(list) switch
         {
-            CraftReportPrefix.PluginName => "[AT]",
+            CraftReportPrefix.PluginName => LocalizationService.Ui("[AT]"),
             CraftReportPrefix.CraftListName => $"[{list.Name}]",
             _ => string.Empty,
         };

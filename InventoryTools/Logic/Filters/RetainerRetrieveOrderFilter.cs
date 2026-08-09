@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -47,8 +48,8 @@ public class RetainerRetrieveOrderFilter : ChoiceFilter<RetainerRetrieveOrder>
     }
 
     public override string Key { get; set; } = "RetainerRetrieveOrder";
-    public override string Name { get; set; } = "Retainer Retrieve Order";
-    public override string HelpText { get; set; } = "When displaying the items for a craft, if there are items to be retrieved should we display this before or after the shortfall is made up. If first is selected, it will make you retrieve items first, if last is selected, any missing items you'll need will have to be collected/purchased before the remainder will be shown for retrieval.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer Retrieve Order"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When displaying the items for a craft, if there are items to be retrieved should we display this before or after the shortfall is made up. If first is selected, it will make you retrieve items first, if last is selected, any missing items you'll need will have to be collected/purchased before the remainder will be shown for retrieval."));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override RetainerRetrieveOrder DefaultValue { get; set; } = RetainerRetrieveOrder.RetrieveFirst;
     public override List<RetainerRetrieveOrder> GetChoices(FilterConfiguration configuration)
@@ -65,9 +66,9 @@ public class RetainerRetrieveOrderFilter : ChoiceFilter<RetainerRetrieveOrder>
         switch (choice)
         {
             case RetainerRetrieveOrder.RetrieveFirst:
-                return "Retrieve First";
+                return LocalizationService.Ui("Retrieve First");
             case RetainerRetrieveOrder.RetrieveLast:
-                return "Retrieve Last";
+                return LocalizationService.Ui("Retrieve Last");
         }
         return "Unknown";
     }

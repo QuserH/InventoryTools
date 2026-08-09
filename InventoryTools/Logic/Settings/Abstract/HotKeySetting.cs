@@ -5,6 +5,7 @@ using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Classes;
 using OtterGui.Widgets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings.Abstract
 {
@@ -47,7 +48,7 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (disableReset != true && HasValueSet(configuration))
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     Reset(configuration);
                 }

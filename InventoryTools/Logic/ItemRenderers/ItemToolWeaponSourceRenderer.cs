@@ -14,6 +14,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using InventoryTools.Localizers;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -34,8 +35,8 @@ public abstract class ItemRelicToolSourceRenderer<T> : ItemInfoRenderer<T> where
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = this.AsSource(source);
-        ImGui.TextUnformatted("Class: " + asSource.RelicTool.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
-        this.DrawForms("Forms:", asSource.Forms);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + asSource.RelicTool.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
+        this.DrawForms(LocalizationService.Ui("Forms:"), asSource.Forms);
     };
 
     public void DrawForms(string sectionName, IReadOnlyList<RelicTool> items)
@@ -103,8 +104,8 @@ public class ItemMastercraftToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.MastercraftTool;
-    public override string SingularName => "Mastercraft Tool";
-    public override string HelpText => "Is this a Mastercraft Tool?";
+    public override string SingularName => LocalizationService.Ui("Mastercraft Tool");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Mastercraft Tool?"));
 }
 
 public class ItemSkysteelToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSkysteelToolSource>
@@ -114,8 +115,8 @@ public class ItemSkysteelToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSk
     }
 
     public override ItemInfoType Type => ItemInfoType.SkysteelTool;
-    public override string SingularName => "Skysteel Tool";
-    public override string HelpText => "Is this a Skysteel Tool?";
+    public override string SingularName => LocalizationService.Ui("Skysteel Tool");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Skysteel Tool?"));
 }
 
 public class ItemResplendentToolSourceRenderer : ItemRelicToolSourceRenderer<ItemResplendentToolSource>
@@ -125,8 +126,8 @@ public class ItemResplendentToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.ResplendentTool;
-    public override string SingularName => "Resplendent Tool";
-    public override string HelpText => "Is this a Resplendent Tool?";
+    public override string SingularName => LocalizationService.Ui("Resplendent Tool");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Resplendent Tool?"));
 }
 
 public class ItemSplendorousToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSplendorousToolSource>
@@ -136,8 +137,8 @@ public class ItemSplendorousToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.SplendorousTool;
-    public override string SingularName => "Splendorous Tool";
-    public override string HelpText => "Is this a Splendorous Tool?";
+    public override string SingularName => LocalizationService.Ui("Splendorous Tool");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Splendorous Tool?"));
 }
 
 public class ItemCosmicToolSourceRenderer : ItemRelicToolSourceRenderer<ItemCosmicToolSource>
@@ -147,6 +148,6 @@ public class ItemCosmicToolSourceRenderer : ItemRelicToolSourceRenderer<ItemCosm
     }
 
     public override ItemInfoType Type => ItemInfoType.CosmicTool;
-    public override string SingularName => "Cosmic Tool";
-    public override string HelpText => "Is this a Cosmic Tool?";
+    public override string SingularName => LocalizationService.Ui("Cosmic Tool");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Cosmic Tool?"));
 }

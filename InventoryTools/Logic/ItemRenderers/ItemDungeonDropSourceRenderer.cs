@@ -11,6 +11,7 @@ using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Mediator;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -23,9 +24,9 @@ public class ItemDungeonDropSourceRenderer : ItemInfoRenderer<ItemDungeonDropSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.DungeonDrop;
-    public override string SingularName => "Dungeon Drop";
-    public override string PluralName => "Dungeon Drops";
-    public override string HelpText => "Can the item be dropped from monsters in dungeons?";
+    public override string SingularName => LocalizationService.Ui("Dungeon Drop");
+    public override string PluralName => LocalizationService.Ui("Dungeon Drops");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be dropped from monsters in dungeons?"));
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Duty];
 
@@ -38,14 +39,14 @@ public class ItemDungeonDropSourceRenderer : ItemInfoRenderer<ItemDungeonDropSou
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var dungeonDropSource = AsSource(source);
-        ImGui.Text("Dungeon: " + dungeonDropSource.ContentFinderCondition.FormattedName);
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Dungeon: ")) + dungeonDropSource.ContentFinderCondition.FormattedName);
     };
 
     public override Func<ItemSource, string> GetName => source =>
     {
         var dungeonDropSource = AsSource(source);
 
-        return "Dungeon: " + dungeonDropSource.ContentFinderCondition.FormattedName;
+        return LocalizationService.Ui("Dungeon: ") + dungeonDropSource.ContentFinderCondition.FormattedName;
     };
 
     public override Func<ItemSource, int> GetIcon => _ => Icons.DutyIcon;

@@ -5,6 +5,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -40,10 +41,10 @@ public class CraftListModeFilter : ChoiceFilter<CraftListMode>
     }
 
     public override string Key { get; set; } = "CraftListMode";
-    public override string Name { get; set; } = "Craft List Mode";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft List Mode"));
 
     public override string HelpText { get; set; } =
-        "Should the craft list operate normally or in stocking mode. In normal mode, a quantity is entered and as you craft that number goes down. In stock mode, a quantity is entered and the number goes up based on the items within your characters inventory.";
+        LocalizationService.Ui(LocalizationService.Ui("Should the craft list operate normally or in stocking mode. In normal mode, a quantity is entered and as you craft that number goes down. In stock mode, a quantity is entered and the number goes up based on the items within your characters inventory."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
 

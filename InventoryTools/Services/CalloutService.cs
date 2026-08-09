@@ -3,6 +3,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Logic;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Services;
 
@@ -52,7 +53,7 @@ public class CalloutService : ICalloutService
                 ImGui.TextUnformatted(body);
                 ImGui.PopTextWrapPos();
                 ImGui.Spacing();
-                if (ImGui.Button("Got it"))
+                if (ImGui.Button(LocalizationService.Ui("Got it")))
                 {
                     MarkSeen(popup);
                     ImGui.CloseCurrentPopup();

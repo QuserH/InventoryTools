@@ -9,6 +9,7 @@ using Dalamud.Interface.Colors;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -34,11 +35,11 @@ public abstract class ItemHouseSourceRenderer<T> : ItemInfoRenderer<T> where T :
         var setName = asSource.HousingPreset.Value.Singular.ExtractText();
         if (setName == string.Empty)
         {
-            ImGui.Text("Not default in any house.");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Not default in any house.")));
         }
         else
         {
-            ImGui.Text("Default in " + setName);
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Default in ")) + setName);
         }
     };
 
@@ -59,11 +60,11 @@ public abstract class ItemHouseSourceRenderer<T> : ItemInfoRenderer<T> where T :
         var setName = asSource.HousingPreset.Value.Singular.ExtractText();
         if (setName == string.Empty)
         {
-           return "Not default in any house.";
+           return LocalizationService.Ui("Not default in any house.");
         }
         else
         {
-            return "Default in " + setName;
+            return LocalizationService.Ui("Default in ") + setName;
         }
     };
 }
@@ -75,9 +76,9 @@ public class ItemHouseDoorSourceRenderer : ItemHouseSourceRenderer<ItemHouseDoor
     {
     }
 
-    public override string SingularName => "House Fixture (Door)";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Door)");
 
-    public override string HelpText => "Can the item be placed in the door fixture slot in houses?";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the door fixture slot in houses?"));
 }
 
 
@@ -88,8 +89,8 @@ public class ItemHouseFlooringSourceRenderer : ItemHouseSourceRenderer<ItemHouse
     {
     }
 
-    public override string SingularName => "House Fixture (Flooring)";
-    public override string HelpText => "Can the item be placed in the floor fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Flooring)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the floor fixture slot in houses?"));
 }
 
 public class ItemHouseLightingSourceRenderer : ItemHouseSourceRenderer<ItemHouseLightingSource>
@@ -99,8 +100,8 @@ public class ItemHouseLightingSourceRenderer : ItemHouseSourceRenderer<ItemHouse
     {
     }
 
-    public override string SingularName => "House Fixture (Lighting)";
-    public override string HelpText => "Can the item be placed in the lighting fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Lighting)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the lighting fixture slot in houses?"));
 }
 
 public class ItemHouseRoofSourceRenderer : ItemHouseSourceRenderer<ItemHouseRoofSource>
@@ -110,8 +111,8 @@ public class ItemHouseRoofSourceRenderer : ItemHouseSourceRenderer<ItemHouseRoof
     {
     }
 
-    public override string SingularName => "House Fixture (Roof)";
-    public override string HelpText => "Can the item be placed in the roof fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Roof)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the roof fixture slot in houses?"));
 }
 
 public class ItemHouseWallpaperSourceRenderer : ItemHouseSourceRenderer<ItemHouseWallpaperSource>
@@ -121,8 +122,8 @@ public class ItemHouseWallpaperSourceRenderer : ItemHouseSourceRenderer<ItemHous
     {
     }
 
-    public override string SingularName => "House Fixture (Wallpaper)";
-    public override string HelpText => "Can the item be placed in the interior wall fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Wallpaper)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the interior wall fixture slot in houses?"));
 }
 
 public class ItemHouseWallSourceRenderer : ItemHouseSourceRenderer<ItemHouseWallSource>
@@ -132,8 +133,8 @@ public class ItemHouseWallSourceRenderer : ItemHouseSourceRenderer<ItemHouseWall
     {
     }
 
-    public override string SingularName => "House Fixture (Wall)";
-    public override string HelpText => "Can the item be placed in the exterior wall fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Wall)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the exterior wall fixture slot in houses?"));
 }
 
 public class ItemHouseWindowSourceRenderer : ItemHouseSourceRenderer<ItemHouseWindowSource>
@@ -143,6 +144,6 @@ public class ItemHouseWindowSourceRenderer : ItemHouseSourceRenderer<ItemHouseWi
     {
     }
 
-    public override string SingularName => "House Fixture (Window)";
-    public override string HelpText => "Can the item be placed in the window fixture slot in houses?";
+    public override string SingularName => LocalizationService.Ui("House Fixture (Window)");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the window fixture slot in houses?"));
 }

@@ -10,6 +10,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -22,18 +23,18 @@ public class ItemTripleTriadSourceRenderer : ItemInfoRenderer<ItemTripleTriadSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.TripleTriad;
-    public override string SingularName => "Triple Triad Card";
-    public override string HelpText => "Is this item acquired from playing triple triad?";
+    public override string SingularName => LocalizationService.Ui("Triple Triad Card");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item acquired from playing triple triad?"));
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => (source) =>
     {
         var asSource = this.AsSource(source);
 
-        ImGui.TextUnformatted("Match Cost: " + asSource.TripleTriadRow.Base.Fee + SeIconChar.Gil.ToIconString());
-        ImGui.TextUnformatted("Uses Regional Rules: " + (asSource.TripleTriadRow.Base.UsesRegionalRules ? "Yes" : "No"));
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Match Cost: ")) + asSource.TripleTriadRow.Base.Fee + SeIconChar.Gil.ToIconString());
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Uses Regional Rules: ")) + (asSource.TripleTriadRow.Base.UsesRegionalRules ? "Yes" : "No"));
 
-        DrawSection("Rules: ", asSource.TripleTriadRow.Base.TripleTriadRule.Where(c => c.RowId != 0).DistinctBy(c => c.RowId).Select(c => c.Value.Name.ToImGuiString()).ToList());
+        DrawSection(LocalizationService.Ui("Rules: "), asSource.TripleTriadRow.Base.TripleTriadRule.Where(c => c.RowId != 0).DistinctBy(c => c.RowId).Select(c => c.Value.Name.ToImGuiString()).ToList());
 
         foreach (var npc in asSource.TripleTriadRow.ENpcBaseRows)
         {

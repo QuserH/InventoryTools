@@ -9,6 +9,7 @@ using DalaMock.Host.Mediator;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -21,13 +22,13 @@ public class CraftZoneColumn : TextColumn
         _mapSheet = mapSheet;
     }
 
-    public override string Name { get; set; } = "Zone";
+    public override string Name { get; set; } = LocalizationService.Ui("Zone");
     public override float Width { get; set; } = 100;
 
     public override bool? CraftOnly { get; } = true;
 
     public override string HelpText { get; set; } =
-        "The zone in which this item should be gathered from. This is only relevant to craft lists.";
+        LocalizationService.Ui(LocalizationService.Ui("The zone in which this item should be gathered from. This is only relevant to craft lists."));
 
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Crafting;
     public override string? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)

@@ -11,6 +11,7 @@ using InventoryTools.Logic.Settings;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using InventoryTools.Ui;
+using InventoryTools.Localization;
 
 using Microsoft.Extensions.Logging;
 
@@ -86,10 +87,10 @@ namespace InventoryTools.Logic.Columns
         }
 
 
-        public override string Name { get; set; } = "Icon";
+        public override string Name { get; set; } = LocalizationService.Ui("Icon");
         public override bool HideHeaderLabel => true;
         public override float Width { get; set; } = 60.0f;
-        public override string HelpText { get; set; } = "Shows the icon of the item, pressing it will open the more information window for the item.";
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the icon of the item, pressing it will open the more information window for the item."));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

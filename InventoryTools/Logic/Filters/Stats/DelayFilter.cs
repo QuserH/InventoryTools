@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Stats;
 
@@ -15,8 +16,8 @@ public class DelayFilter : StringFilter
     }
 
     public override string Key { get; set; } = "DelayFilter";
-    public override string Name { get; set; } = "Delay";
-    public override string HelpText { get; set; } = "The time it takes between each automatic attack while engaged with and in range of an enemy in seconds.";
+    public override string Name { get; set; } = LocalizationService.Ui("Delay");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The time it takes between each automatic attack while engaged with and in range of an enemy in seconds."));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

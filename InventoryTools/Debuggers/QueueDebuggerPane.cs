@@ -3,6 +3,7 @@ using AllaganLib.Shared.Interfaces;
 using AllaganLib.Shared.Services;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -28,5 +29,5 @@ public class QueueDebuggerPane : IDebugPane
         }
     }
 
-    public string Name => "Queue Debugger";
+    public string Name => LocalizationService.Ui("Queue Debugger");
 }

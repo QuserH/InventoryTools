@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -18,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "SwitchCraftListsAutomatically";
-        public override string Name { get; set; } = "Switch craft lists automatically?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Switch craft lists automatically?"));
 
         public override string HelpText { get; set; } =
-            "Should the active craft list automatically change when moving between each craft list? The active craft list will only change if there is an active craft list already selected.";
+            LocalizationService.Ui(LocalizationService.Ui("Should the active craft list automatically change when moving between each craft list? The active craft list will only change if there is an active craft list already selected."));
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
         public override string Version => "1.7.0.0";

@@ -6,6 +6,7 @@ using CriticalCommonLib.Models;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -17,15 +18,15 @@ public class ItemPvpSeriesSourceRenderer : ItemInfoRenderer<ItemPVPSeriesSource>
 
     public override RendererType RendererType { get; } = RendererType.Source;
     public override ItemInfoType Type { get; } = ItemInfoType.PVPSeries;
-    public override string SingularName { get; } = "PVP Series";
-    public override string HelpText { get; } = "Is this item rewarded from a PVP series?";
+    public override string SingularName { get; } = LocalizationService.Ui("PVP Series");
+    public override string HelpText { get; } = LocalizationService.Ui(LocalizationService.Ui("Is this item rewarded from a PVP series?"));
     public override bool ShouldGroup { get; } = true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text("Reward in PVP Series " + asSource.PvpSeries.Value.RowId);
-        ImGui.Text("Unlocks at level " + asSource.Level);
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Reward in PVP Series ")) + asSource.PvpSeries.Value.RowId);
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unlocks at level ")) + asSource.Level);
     };
 
     public override Func<ItemSource, string> GetName => source =>

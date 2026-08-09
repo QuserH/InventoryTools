@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -13,10 +14,10 @@ namespace InventoryTools.Logic.Filters
     public class DisplayFilterInRetainersFilter : ChoiceFilter<FilterItemsRetainerEnum>
     {
         public override string Key { get; set; } = "FilterInRetainers";
-        public override string Name { get; set; } = "Filter Items when in Retainer?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter Items when in Retainer?"));
 
         public override string HelpText { get; set; } =
-            "When talking with a retainer should the filter adjust itself to only show items that should be put inside the retainer from your inventory? If set to only, highlighting will only occur when at the retainer bell and when within a retainer.";
+            LocalizationService.Ui(LocalizationService.Ui("When talking with a retainer should the filter adjust itself to only show items that should be put inside the retainer from your inventory? If set to only, highlighting will only occur when at the retainer bell and when within a retainer."));
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
         public override void ResetFilter(FilterConfiguration configuration)

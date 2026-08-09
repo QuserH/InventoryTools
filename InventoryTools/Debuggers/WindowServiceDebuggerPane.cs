@@ -2,6 +2,7 @@ using System;
 using AllaganLib.Shared.Interfaces;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -15,9 +16,9 @@ public class WindowServiceDebuggerPane : IDebugPane
     {
         _windowService = windowService;
     }
-    public string Name => "Window Service";
+    public string Name => LocalizationService.Ui("Window Service");
     public void Draw()
     {
-        ImGui.Text($"Filter Window Open: {WindowService.HasFilterWindowOpen}");
+        ImGui.Text(LocalizationService.Format("Filter Window Open: {0}", WindowService.HasFilterWindowOpen));
     }
 }

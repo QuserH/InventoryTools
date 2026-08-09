@@ -8,6 +8,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -23,7 +24,7 @@ public class CharacterDebuggerPane : DebugLogPane
         _clientState = clientState;
         _configuration = configuration;
     }
-    public override string Name => "Character Monitor";
+    public override string Name => LocalizationService.Ui("Character Monitor");
 
     public override void SubscribeToEvents()
     {
@@ -102,38 +103,38 @@ public class CharacterDebuggerPane : DebugLogPane
 
     public override unsafe void DrawInfo()
     {
-        if (ImGui.CollapsingHeader("Session / Active State"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Session / Active State")))
         {
-            ImGui.TextUnformatted($"Is Logged In: {_characterMonitor.IsLoggedIn}");
-            ImGui.TextUnformatted($"Local Content ID: {_characterMonitor.LocalContentId}");
-            ImGui.TextUnformatted($"Internal Character ID: {_characterMonitor.InternalCharacterId}");
+            ImGui.TextUnformatted(LocalizationService.Format("Is Logged In: {0}", _characterMonitor.IsLoggedIn));
+            ImGui.TextUnformatted(LocalizationService.Format("Local Content ID: {0}", _characterMonitor.LocalContentId));
+            ImGui.TextUnformatted(LocalizationService.Format("Internal Character ID: {0}", _characterMonitor.InternalCharacterId));
 
             ImGui.Separator();
-            ImGui.TextUnformatted("Active Character:");
+            ImGui.TextUnformatted(LocalizationService.Ui("Active Character:"));
             ImGui.TextUnformatted(_characterMonitor.ActiveCharacter != null
                 ? $"{_characterMonitor.ActiveCharacter.Name} ({_characterMonitor.ActiveCharacterId})"
                 : "<none>");
 
-            ImGui.TextUnformatted("Active Retainer:");
+            ImGui.TextUnformatted(LocalizationService.Ui("Active Retainer:"));
             ImGui.TextUnformatted(_characterMonitor.ActiveRetainer != null
                 ? $"{_characterMonitor.ActiveRetainer.Name} ({_characterMonitor.ActiveRetainerId})"
                 : "<none>");
 
-            ImGui.TextUnformatted("Active Free Company:");
+            ImGui.TextUnformatted(LocalizationService.Ui("Active Free Company:"));
             ImGui.TextUnformatted(_characterMonitor.ActiveFreeCompany != null
                 ? $"{_characterMonitor.ActiveFreeCompany.Name} ({_characterMonitor.ActiveFreeCompanyId})"
                 : "<none>");
         }
 
-        if (ImGui.CollapsingHeader("Housing"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Housing")))
         {
-            ImGui.TextUnformatted($"Active House ID: {_characterMonitor.ActiveHouseId}");
-            ImGui.TextUnformatted($"Cached Ward Id: {_characterMonitor.InternalWardId}");
-            ImGui.TextUnformatted($"Cached Plot Id: {_characterMonitor.InternalPlotId}");
-            ImGui.TextUnformatted($"Cached Division Id: {_characterMonitor.InternalDivisionId}");
-            ImGui.TextUnformatted($"Cached Room Id: {_characterMonitor.InternalRoomId}");
-            ImGui.TextUnformatted($"Cached House Id: {_characterMonitor.InternalHouseId}");
-            ImGui.TextUnformatted($"Territory Type Id: {_characterMonitor.CorrectedTerritoryTypeId}");
+            ImGui.TextUnformatted(LocalizationService.Format("Active House ID: {0}", _characterMonitor.ActiveHouseId));
+            ImGui.TextUnformatted(LocalizationService.Format("Cached Ward Id: {0}", _characterMonitor.InternalWardId));
+            ImGui.TextUnformatted(LocalizationService.Format("Cached Plot Id: {0}", _characterMonitor.InternalPlotId));
+            ImGui.TextUnformatted(LocalizationService.Format("Cached Division Id: {0}", _characterMonitor.InternalDivisionId));
+            ImGui.TextUnformatted(LocalizationService.Format("Cached Room Id: {0}", _characterMonitor.InternalRoomId));
+            ImGui.TextUnformatted(LocalizationService.Format("Cached House Id: {0}", _characterMonitor.InternalHouseId));
+            ImGui.TextUnformatted(LocalizationService.Format("Territory Type Id: {0}", _characterMonitor.CorrectedTerritoryTypeId));
 
             var hm = HousingManager.Instance();
             if (hm != null)
@@ -147,11 +148,11 @@ public class CharacterDebuggerPane : DebugLogPane
             }
 
             ImGui.Separator();
-            ImGui.TextUnformatted("Owned Houses:");
+            ImGui.TextUnformatted(LocalizationService.Ui("Owned Houses:"));
             foreach (var id in _characterMonitor.GetOwnedHouseIds())
                 ImGui.BulletText(id.ToString());
 
-            ImGui.TextUnformatted("Has Housing Permission: " +
+            ImGui.TextUnformatted(LocalizationService.Ui("Has Housing Permission: ") +
                 (_characterMonitor.InternalHasHousePermission ||
                  _characterMonitor.GetOwnedHouseIds().Contains(_characterMonitor.InternalHouseId)
                     ? "Yes"
@@ -161,30 +162,30 @@ public class CharacterDebuggerPane : DebugLogPane
         //
         // Worlds
         //
-        if (ImGui.CollapsingHeader("Worlds"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Worlds")))
         {
             foreach (var wid in _characterMonitor.GetWorldIds())
-                ImGui.BulletText($"World {wid}");
+                ImGui.BulletText(LocalizationService.Format("World {0}", wid));
         }
 
-        if (ImGui.CollapsingHeader("Characters"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Characters")))
         {
             foreach (var kv in _characterMonitor.Characters)
-                ImGui.BulletText($"{kv.Key}: {kv.Value.Name}");
+                ImGui.BulletText(LocalizationService.Format("{0}: {1}", kv.Key, kv.Value.Name));
         }
 
-        if (ImGui.CollapsingHeader("Retainers"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Retainers")))
         {
             using (var table = ImRaii.Table("retainerTable", 6))
             {
                 if (table)
                 {
-                    ImGui.TableSetupColumn("Hire Order");
-                    ImGui.TableSetupColumn("Name");
-                    ImGui.TableSetupColumn("Type");
-                    ImGui.TableSetupColumn("Gil");
-                    ImGui.TableSetupColumn("ID");
-                    ImGui.TableSetupColumn("Owner ID");
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Hire Order"));
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Name"));
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Type"));
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Gil"));
+                    ImGui.TableSetupColumn(LocalizationService.Ui("ID"));
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Owner ID"));
                     ImGui.TableHeadersRow();
 
                     foreach (var retainer in _characterMonitor.GetRetainerCharacters())
@@ -216,7 +217,7 @@ public class CharacterDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader("Character Objects"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Character Objects")))
         {
             foreach (var kv in _characterMonitor.Characters)
             {
@@ -224,7 +225,7 @@ public class CharacterDebuggerPane : DebugLogPane
                     ? kv.Value.HousingName
                     : kv.Value.Name;
 
-                if (ImGui.TreeNode($"{label}##{kv.Key}"))
+                if (ImGui.TreeNode(LocalizationService.Format("{0}##{1}", label, kv.Key)))
                 {
                     Utils.PrintOutObject(kv.Value, 0, new List<string>());
                     ImGui.TreePop();
@@ -232,13 +233,13 @@ public class CharacterDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader("Acquired Items"))
+        if (ImGui.CollapsingHeader(LocalizationService.Ui("Acquired Items")))
         {
             foreach (var characterPair in _configuration.AcquiredItems)
             {
                 var character = _characterMonitor.GetCharacterById(characterPair.Key);
                 ImGui.TextUnformatted(character?.FormattedName ?? "Unknown Character");
-                ImGui.Text($"{characterPair.Value.Count} unlocked items");
+                ImGui.Text(LocalizationService.Format("{0} unlocked items", characterPair.Value.Count));
             }
         }
     }

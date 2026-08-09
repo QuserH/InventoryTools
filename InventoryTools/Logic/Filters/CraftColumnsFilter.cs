@@ -5,6 +5,7 @@ using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Extensions;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using Dalamud.Interface.Colors;
 using Dalamud.Bindings.ImGui;
@@ -56,9 +57,9 @@ namespace InventoryTools.Logic.Filters
             UpdateFilterConfiguration(configuration, new Dictionary<ColumnConfiguration, (string, string?)>());
         }
 
-        public override string Key { get; set; } = "Craft Columns";
-        public override string Name { get; set; } = "Craft Columns";
-        public override string HelpText { get; set; } = "";
+        public override string Key { get; set; } = LocalizationService.Ui("Craft Columns");
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Columns"));
+        public override string HelpText { get; set; } = LocalizationService.Ui("");
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.CraftColumns;
         public override bool ShowReset { get; set; } = false;
         public override Dictionary<ColumnConfiguration, (string, string?)> DefaultValue { get; set; } = new();
@@ -129,7 +130,7 @@ namespace InventoryTools.Logic.Filters
         {
             base.DrawButtons(configuration, item, index);
             ImGui.SameLine();
-            if (ImGui.Button("Edit##Column" + index))
+            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Edit##Column")) + index))
             {
                 EditItem(configuration, item.Key);
             }
@@ -159,10 +160,10 @@ namespace InventoryTools.Logic.Filters
                     var groupedItems = GetGroupedItems(configuration);
                     if (_selectedColumnKey == "")
                     {
-                        ImGui.Text("Add Column");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Add Column")));
                         ImGui.Separator();
                         var searchString = SearchString;
-                        ImGui.InputText("##ItemSearch", ref searchString, 50);
+                        ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
                         if (_searchString != searchString)
                         {
                             SearchString = searchString;
@@ -171,7 +172,7 @@ namespace InventoryTools.Logic.Filters
                         ImGui.Separator();
                         if (_searchString == "")
                         {
-                            ImGui.TextUnformatted("Start typing to search...");
+                            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
                         }
 
                         ImGui.Separator();
@@ -194,7 +195,7 @@ namespace InventoryTools.Logic.Filters
                                 continue;
                             }
 
-                            if (ImGui.CollapsingHeader(groupedItem.Key.ToString(), ImGuiTreeNodeFlags.DefaultOpen))
+                            if (ImGui.CollapsingHeader(LocalizationService.Ui(groupedItem.Key.ToString()), ImGuiTreeNodeFlags.DefaultOpen))
                             {
                                 foreach (var column in groupedItem)
                                 {
@@ -227,14 +228,14 @@ namespace InventoryTools.Logic.Filters
                                     {
                                         ImGui.SameLine();
                                         ImGui.Image(ImGuiService.GetIconTexture(Icons.SproutIcon).Handle, new Vector2(16,16));
-                                        ImGuiUtil.HoverTooltip("Default Column");
+                                        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Default Column")));
                                     }
 
                                     if (column.Value.IsConfigurable)
                                     {
                                         ImGui.SameLine();
                                         ImGui.Image(ImGuiService.GetIconTexture(Icons.WrenchIcon).Handle, new Vector2(16,16));
-                                        ImGuiUtil.HoverTooltip("Configurable");
+                                        ImGuiUtil.HoverTooltip(LocalizationService.Ui("Configurable"));
                                     }
 
                                     pushColor?.Pop();
@@ -245,7 +246,7 @@ namespace InventoryTools.Logic.Filters
                                         ImGui.PushTextWrapPos();
                                         ImGui.Text(column.Value.HelpText);
                                         ImGui.PopTextWrapPos();
-                                        if (ImGui.Button("Add"))
+                                        if (ImGui.Button(LocalizationService.Ui("Add")))
                                         {
                                             _selectedColumnName = column.Value.Name;
                                             _selectedColumnHelp = column.Value.HelpText;
@@ -271,10 +272,10 @@ namespace InventoryTools.Logic.Filters
                         ImGui.PopTextWrapPos();
                         ImGui.Separator();
                         ImGui.SetNextItemWidth(LabelSize);
-                        ImGui.LabelText("##" + Key + "Custom", "Custom Column Name: ");
+                        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Custom", LocalizationService.Ui("Custom Column Name: "));
                         ImGui.SetNextItemWidth(InputSize);
                         ImGui.SameLine();
-                        if (ImGui.InputTextWithHint("##CustomColumnName", _selectedColumnName, ref customName, 100,
+                        if (ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##CustomColumnName")), _selectedColumnName, ref customName, 100,
                                 ImGuiInputTextFlags.None))
                         {
                             _customName = customName;
@@ -282,10 +283,10 @@ namespace InventoryTools.Logic.Filters
 
                         string exportName = _exportName;
                         ImGui.SetNextItemWidth(LabelSize);
-                        ImGui.LabelText("##" + Key + "Export", "Custom Export Name: ");
+                        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Export", LocalizationService.Ui("Custom Export Name: "));
                         ImGui.SetNextItemWidth(InputSize);
                         ImGui.SameLine();
-                        if (ImGui.InputTextWithHint("##CustomExportName", _selectedColumnName, ref exportName, 100,
+                        if (ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##CustomExportName")), _selectedColumnName, ref exportName, 100,
                                 ImGuiInputTextFlags.None))
                         {
                             _exportName = exportName;
@@ -335,7 +336,7 @@ namespace InventoryTools.Logic.Filters
                         }
                         ImGui.SameLine();
                         ImGui.SetCursorPosX(posX - ImGui.GetStyle().ItemSpacing.X - 50);
-                        if (ImGui.Button("Cancel", new Vector2(50, 20)))
+                        if (ImGui.Button(LocalizationService.Ui("Cancel"), new Vector2(50, 20)))
                         {
                             _selectedColumnName = "";
                             _selectedColumnKey = "";
@@ -355,7 +356,7 @@ namespace InventoryTools.Logic.Filters
             {
                 if (table.Success)
                 {
-                    ImGui.Text("Current Columns:");
+                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Current Columns:")));
                     ImGui.Separator();
                     DrawTable(configuration);
                 }

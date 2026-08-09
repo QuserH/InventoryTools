@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -19,12 +20,12 @@ public class TooltipDisplayGlamourReadySetSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TooltipDisplayGlamourReadySet";
-    public override string Name { get; set; } = "Outfit Glamour Info";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Outfit Glamour Info"));
 
-    public override string WizardName { get; } = "Outfit Glamour Info";
+    public override string WizardName { get; } = LocalizationService.Ui("Outfit Glamour Info");
 
     public override string HelpText { get; set; } =
-        "When hovering an item, show whether it is a Outfit Glamour Set or part of one, along with which component items you already have in your Armory Chest or Armoire.";
+        LocalizationService.Ui(LocalizationService.Ui("When hovering an item, show whether it is a Outfit Glamour Set or part of one, along with which component items you already have in your Armory Chest or Armoire."));
 
     public override uint? Order { get; } = 0;
 

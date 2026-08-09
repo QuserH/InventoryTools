@@ -15,6 +15,7 @@ using InventoryTools.Logic.Settings;
 using Microsoft.Extensions.Logging;
 using OtterGui;
 using OtterGui.Extensions;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Tooltips;
 
@@ -140,7 +141,7 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if (oItem.IsCollectible)
                     {
-                        typeIcon = "\uE03d";
+                        typeIcon = LocalizationService.Ui("\\uE03d");
                     }
 
                     locations.Add($"{name} - {_itemLocalizer.FormattedBagLocation(oItem)} " + typeIcon);
@@ -203,7 +204,7 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = "\uE03d";
+                        typeIcon = LocalizationService.Ui("\\uE03d");
                     }
 
                     locations.Add($"{name} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon);
@@ -249,7 +250,7 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = "\uE03d";
+                        typeIcon = LocalizationService.Ui("\\uE03d");
                     }
 
                     var locationLine = string.IsNullOrEmpty(worldName)
@@ -289,7 +290,7 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = "\uE03d";
+                        typeIcon = LocalizationService.Ui("\\uE03d");
                     }
 
                     locations.Add($"{name} - " + quantity + " " + typeIcon);

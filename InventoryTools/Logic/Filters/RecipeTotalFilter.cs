@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Shared.Extensions;
 using CriticalCommonLib.Models;
@@ -16,8 +17,8 @@ public class RecipeTotalFilter : StringFilter
     }
 
     public override string Key { get; set; } = "RecipeTotalFilter";
-    public override string Name { get; set; } = "Recipe Total Count";
-    public override string HelpText { get; set; } = "The number of recipes the item is a component of.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Recipe Total Count"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The number of recipes the item is a component of."));
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Crafting;
 
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -17,6 +18,6 @@ public class BasicFeature : Feature
     {
     }
     
-    public override string Name { get; } = "Basic";
-    public override string Description { get; } = "Configure the basic settings of Allagan Tools";
+    public override string Name { get; } = LocalizationService.Ui("Basic");
+    public override string Description { get; } = LocalizationService.Ui("Configure the basic settings of Allagan Tools");
 }

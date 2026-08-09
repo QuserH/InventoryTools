@@ -4,6 +4,7 @@ using DalaMock.Host.Mediator;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic;
 using InventoryTools.Ui.Pages;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.MenuItems;
 
@@ -23,7 +24,7 @@ public class SeparatorPageItem : IConfigPage
 
     }
 
-    public string Name => "Separator";
+    public string Name => LocalizationService.Ui("Separator");
 
     public List<MessageBase>? Draw()
     {

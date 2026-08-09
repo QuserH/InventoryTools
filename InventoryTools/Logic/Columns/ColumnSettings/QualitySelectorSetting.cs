@@ -11,6 +11,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns.ColumnSettings;
 
@@ -46,8 +47,8 @@ public class QualitySelectorSetting : MultiChoiceColumnSetting<(FFXIVClientStruc
 
 
     public override string Key { get; set; } = "QualitySelector";
-    public override string Name { get; set; } = "Qualities";
-    public override string HelpText { get; set; } = "Which quality of items should be counted?";
+    public override string Name { get; set; } = LocalizationService.Ui("Qualities");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which quality of items should be counted?"));
     public override List<(InventoryItem.ItemFlags,string)>? DefaultValue { get; set; } = null;
     public override List<(InventoryItem.ItemFlags,string)> GetChoices(ColumnConfiguration configuration)
     {

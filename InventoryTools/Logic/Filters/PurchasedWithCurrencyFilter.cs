@@ -8,6 +8,7 @@
  using InventoryTools.Logic.Filters.Abstract;
  using InventoryTools.Services;
  using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
  namespace InventoryTools.Logic.Filters
  {
@@ -24,10 +25,10 @@
          }
 
          public override string Key { get; set; } = "PurchaseWithCurrency";
-         public override string Name { get; set; } = "Purchased with Currency";
+         public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Purchased with Currency"));
 
          public override string HelpText { get; set; } =
-             "Filter items based on the currency they can be purchased with.";
+             LocalizationService.Ui(LocalizationService.Ui("Filter items based on the currency they can be purchased with."));
 
          public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 

@@ -18,6 +18,7 @@ using InventoryTools.Mediator;
 using InventoryTools.Services.Interfaces;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Commands
 {
@@ -83,7 +84,7 @@ namespace InventoryTools.Commands
         {
             if (args == string.Empty)
             {
-                var message = "Please enter the name of a compendium type, the following are available:\n";
+                var message = LocalizationService.Ui("Please enter the name of a compendium type, the following are available:\n");
                 message += string.Join("\n", _compendiumTypes.Where(c => c.ShowInListing).Select(c => c.Plural));
                 _chatUtilities.Print(message);
             }
@@ -98,7 +99,7 @@ namespace InventoryTools.Commands
                 }
                 else
                 {
-                    _chatUtilities.PrintError(args + " is not a valid compendium type.");
+                    _chatUtilities.PrintError(args + LocalizationService.Ui(" is not a valid compendium type."));
                 }
             }
         }
@@ -113,7 +114,7 @@ namespace InventoryTools.Commands
             Logger.LogTrace(args);
             if (args.Trim() == "")
             {
-                _chatUtilities.PrintError("You must enter the name of an list.");
+                _chatUtilities.PrintError(LocalizationService.Ui("You must enter the name of an list."));
             }
             else
             {
@@ -127,7 +128,7 @@ namespace InventoryTools.Commands
         {
             if (args.Trim() == "")
             {
-                _chatUtilities.PrintError("You must enter the name of a list.");
+                _chatUtilities.PrintError(LocalizationService.Ui("You must enter the name of a list."));
             }
             else
             {
@@ -138,7 +139,7 @@ namespace InventoryTools.Commands
                 }
                 else
                 {
-                    _chatUtilities.PrintError("Could not find a list with that name.");
+                    _chatUtilities.PrintError(LocalizationService.Ui("Could not find a list with that name."));
                 }
             }
         }
@@ -278,7 +279,7 @@ namespace InventoryTools.Commands
             }
             else
             {
-                _chatUtilities.PrintError("The item " + args + " could not be found.");
+                _chatUtilities.PrintError(LocalizationService.Ui("The item ") + args + LocalizationService.Ui(" could not be found."));
             }
         }
 

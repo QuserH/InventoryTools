@@ -11,6 +11,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings.Abstract
 {
@@ -128,18 +129,18 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (disableColouring != true && HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", customName ?? Name);
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", customName ?? Name);
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
             }
             var enabled = value != null;
 
             if (DefaultValue == null)
             {
-                if (ImGui.Checkbox("Enable##" + Key + "Boolean", ref enabled))
+                if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("Enable##")) + Key + "Boolean", ref enabled))
                 {
                     if (value == null)
                     {
@@ -174,7 +175,7 @@ namespace InventoryTools.Logic.Settings.Abstract
                 {
                     using (ImRaii.Tooltip())
                     {
-                        ImGui.Text("Click to open colour selector.");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Click to open colour selector.")));
                     }
                 }
             }
@@ -197,7 +198,7 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (disableReset != true && HasValueSet(configuration))
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     Reset(configuration);
                 }

@@ -15,6 +15,7 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Sections;
 
@@ -91,8 +92,8 @@ public class LevelViewSection : ViewSection
                 {
                     ImGui.TextUnformatted(_levelRow.FormattedName);
                     ImGui.Separator();
-                    ImGui.Text($"X: {_levelRow.MapX:0.0}");
-                    ImGui.Text($"Y: {_levelRow.MapY:0.0}");
+                    ImGui.Text(LocalizationService.Format("X: {0:0.0}", _levelRow.MapX));
+                    ImGui.Text(LocalizationService.Format("Y: {0:0.0}", _levelRow.MapY));
                 }
             }
         }

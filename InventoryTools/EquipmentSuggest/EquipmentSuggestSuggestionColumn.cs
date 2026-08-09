@@ -10,6 +10,7 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -140,7 +141,7 @@ public sealed class EquipmentSuggestSuggestionColumn : StringFormField<Equipment
                         {
                             ImGui.Separator();
                             ImGui.PushTextWrapPos();
-                            ImGui.Text("This item is from outside the range visible as it's the closest item that matches, it has a lower level than the level of this column.");
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("This item is from outside the range visible as it's the closest item that matches, it has a lower level than the level of this column.")));
                             ImGui.PopTextWrapPos();
                         }
                     }
@@ -215,7 +216,7 @@ public sealed class EquipmentSuggestSuggestionColumn : StringFormField<Equipment
     public bool HideFilter { get; set; } = true;
     public bool IsHidden { get; set; }
     public ImGuiTableColumnFlags ColumnFlags { get; set; } = ImGuiTableColumnFlags.WidthStretch;
-    public override string HelpText { get; set; } = "";
+    public override string HelpText { get; set; } = LocalizationService.Ui("");
     public override string Version { get; set; } = "1.12.0.10";
     public string? CurrentValue(EquipmentSuggestItem item)
     {

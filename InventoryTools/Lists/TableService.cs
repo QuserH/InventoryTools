@@ -18,6 +18,7 @@ using InventoryTools.Logic.Settings;
 using InventoryTools.Mediator;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Lists;
 
@@ -49,7 +50,7 @@ public class TableService : DisposableMediatorBackgroundService
         _listService.ListRefreshed += ListRefreshed;
         _itemListTables = new ConcurrentDictionary<string, FilterTable>();
         _craftItemTables = new ConcurrentDictionary<string, CraftItemTable>();
-        TableQueue = taskQueueFactory.Invoke("Table Queue", 3);
+        TableQueue = taskQueueFactory.Invoke(LocalizationService.Ui("Table Queue"), 3);
         _framework.Update += OnUpdate;
         MediatorService.Subscribe<RequestTableUpdateMessage>(this, message => this.InvalidateTables(message.FilterConfiguration));
     }
@@ -125,7 +126,7 @@ public class TableService : DisposableMediatorBackgroundService
 
         if (filterConfiguration.SearchResults != null && filterConfiguration.CraftList.BeenGenerated && filterConfiguration.CraftList.BeenUpdated)
         {
-            Logger.LogTrace("CraftTable: Refreshing");
+            Logger.LogTrace(LocalizationService.Ui("CraftTable: Refreshing"));
             craftItemTable.CraftItems = filterConfiguration.CraftList.GetFlattenedMergedMaterials().Select(c => new SearchResult(c)).ToList();
             filterConfiguration.CraftList.ClearGroupCache();
             var outputList = filterConfiguration.CraftList.GetOutputList();
@@ -377,19 +378,19 @@ public class TableService : DisposableMediatorBackgroundService
             catch (Exception ex)
             {
                 Logger.LogError(ex,
-                    "Error occurred executing {WorkItem}.", nameof(workItem));
+                    LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
             }
         }
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
         await base.StopAsync(cancellationToken);
         _framework.Update -= OnUpdate;
         _listService.ListConfigurationChanged -= ListConfigurationChanged;
         _listService.ListTableConfigurationChanged -= ListTableConfigurationChanged;
         _listService.ListRefreshed -= ListRefreshed;
-        Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
     }
 }

@@ -4,6 +4,7 @@ using FFXIVClientStructs.FFXIV.Common.Math;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Widgets;
 
@@ -20,7 +21,7 @@ public static class ImGuiUtil
             ImGui.CloseCurrentPopup();
 
         ImGui.SetNextItemWidth(300 * ImGuiHelpers.GlobalScale);
-        var enterPressed = ImGui.InputTextWithHint("##newName", "Enter New Name...", ref newName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
+        var enterPressed = ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##newName")), LocalizationService.Ui("Enter New Name..."), ref newName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
         if (ImGui.IsWindowAppearing())
             ImGui.SetKeyboardFocusHere(-1);
 

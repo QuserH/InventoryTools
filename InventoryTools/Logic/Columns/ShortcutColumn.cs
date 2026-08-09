@@ -8,6 +8,7 @@ using InventoryTools.Extensions;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -25,11 +26,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Shortcuts";
+        public override string Name { get; set; } = LocalizationService.Ui("Shortcuts");
         public override float Width { get; set; } = 32.0f;
 
         public override string HelpText { get; set; } =
-            "Provides a series of small buttons that allow opening garland tools and trying on items.";
+            LocalizationService.Ui(LocalizationService.Ui("Provides a series of small buttons that allow opening garland tools and trying on items."));
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 
@@ -40,7 +41,7 @@ namespace InventoryTools.Logic.Columns
             ImGui.TableNextColumn();
             if (ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
             {
-                if (ImGui.SmallButton("GT##GT" + rowIndex))
+                if (ImGui.SmallButton(LocalizationService.Ui(LocalizationService.Ui("GT##GT")) + rowIndex))
                 {
                     $"https://www.garlandtools.org/db/#item/{searchResult.Item.GarlandToolsId}".OpenBrowser();
                 }
@@ -48,7 +49,7 @@ namespace InventoryTools.Logic.Columns
                 if (searchResult.Item.CanTryOn)
                 {
                     ImGui.SameLine();
-                    if (ImGui.SmallButton("Try On##TO" + rowIndex))
+                    if (ImGui.SmallButton(LocalizationService.Ui("Try On##TO") + rowIndex))
                     {
                         if (_tryOn.CanUseTryOn)
                         {
@@ -57,7 +58,7 @@ namespace InventoryTools.Logic.Columns
                         }
                         else
                         {
-                            Logger.LogError("Something went wrong while attempting to try on " +
+                            Logger.LogError(LocalizationService.Ui("Something went wrong while attempting to try on ") +
                                             searchResult.Item.NameString);
                         }
                     }

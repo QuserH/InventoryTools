@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services.Interfaces;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -39,11 +40,11 @@ public class DefaultFilterHistory : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => "History";
+    public string Name => LocalizationService.Ui("History");
     public string SampleDefaultName => "History";
 
     public string SampleDescription =>
-        "This will add a list that shows you the movement of items in your inventories. History tracking must be enabled for this to function.";
+        LocalizationService.Ui("This will add a list that shows you the movement of items in your inventories. History tracking must be enabled for this to function.");
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

@@ -22,6 +22,7 @@ using InventoryTools.Logic.Filters;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Lists;
 
@@ -84,7 +85,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
         _useActiveWorldSetting = useActiveWorldSetting;
         _useHomeWorldSetting = useHomeWorldSetting;
         _useDefaultWorldsSetting = useDefaultWorldsSetting;
-        FilterQueue = taskQueueFactory.Invoke("List Filter Queue", 1);
+        FilterQueue = taskQueueFactory.Invoke(LocalizationService.Ui("List Filter Queue"), 1);
         MediatorService.Subscribe<RequestListUpdateMessage>(this, message => RequestRefresh(message.FilterConfiguration));
     }
 
@@ -221,9 +222,9 @@ public class ListFilterService : DisposableMediatorBackgroundService
         var activeCharacter = _characterMonitor.ActiveCharacterId;
         var activeRetainer = _characterMonitor.ActiveRetainerId;
 
-        Logger.LogTrace("Filter Information:");
-        Logger.LogTrace("Filter Name:" + filter.Name);
-        Logger.LogTrace("List Type: " + filter.FilterType);
+        Logger.LogTrace(LocalizationService.Ui("Filter Information:"));
+        Logger.LogTrace(LocalizationService.Ui("Filter Name:") + filter.Name);
+        Logger.LogTrace(LocalizationService.Ui("List Type: ") + filter.FilterType);
 
         var filtersWithValues = _filterService.AvailableFilters.Where(c => c.HasValueSet(filter) && c.AvailableIn.HasFlag(filter.FilterType)).ToList();
 
@@ -237,7 +238,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
             Dictionary<(ulong, InventoryType), List<FilteredItem>> filteredSources = new();
             //Dictionary<(ulong, InventoryCategory), List<InventoryItem>> filteredDestinations = new();
             var sourceKeys = sourceInventories.Select(c => c.Key);
-            Logger.LogTrace(sourceInventories.Count() + " inventories to examine.");
+            Logger.LogTrace(sourceInventories.Count() + LocalizationService.Ui(" inventories to examine."));
             if (filter.FilterType == FilterType.CraftFilter)
             {
                 filter.CraftList.GetFlattenedMergedMaterials(true);
@@ -301,7 +302,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
 
             foreach (var sourceInventory in filteredSources)
             {
-                //_logger.LogTrace("Found " + sourceInventory.Value.Count + " items in " + sourceInventory.Key + " " + sourceInventory.Key.Item2.ToString());
+                //_logger.LogTrace(LocalizationService.Ui("Found ") + sourceInventory.Value.Count + LocalizationService.Ui(" items in ") + sourceInventory.Key + " " + sourceInventory.Key.Item2.ToString());
                 for (var index = 0; index < sourceInventory.Value.Count; index++)
                 {
                     ct.ThrowIfCancellationRequested();
@@ -406,7 +407,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
                                                         sourceInventory.Key.Item1, seenInventoryLocation.Item1))
                                                     {
                                                         //_logger.LogTrace(
-                                                        //    "Added item to filter result as we've seen the item before: " +
+                                                        //    LocalizationService.Ui("Added item to filter result as we've seen the item before: ") +
                                                         //    sourceItem.FormattedName);
                                                         var sortingResult = new SortingResult(sourceInventory.Key.Item1,
                                                             seenInventoryLocation.Item1, sourceItem.SortedContainer,
@@ -500,7 +501,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
                     }
                     else
                     {
-                        // _logger.LogTrace("Added item to unsortable list, maybe I should show these somewhere: " +
+                        // _logger.LogTrace(LocalizationService.Ui("Added item to unsortable list, maybe I should show these somewhere: ") +
                         //                  sourceItem.FormattedName);
                         var sortingResult = new SortingResult(sourceInventory.Key.Item1, sourceItem.SortedContainer, sourceItem, (int) sourceItem.TempQuantity, false);
                         searchResults.Add(new SearchResult(sortingResult));
@@ -519,7 +520,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
             //Filter the source and destination inventories based on the applicable items so we have less to sort
             Dictionary<(ulong, InventoryType), List<FilteredItem>> filteredSources = new();
             //Dictionary<(ulong, InventoryCategory), List<InventoryItem>> filteredDestinations = new();
-            Logger.LogTrace(sourceInventories.Count() + " inventories to examine.");
+            Logger.LogTrace(sourceInventories.Count() + LocalizationService.Ui(" inventories to examine."));
             foreach (var sourceInventory in sourceInventories)
             {
                 ct.ThrowIfCancellationRequested();
@@ -893,15 +894,15 @@ public class ListFilterService : DisposableMediatorBackgroundService
             catch (Exception ex)
             {
                 Logger.LogError(ex,
-                    "Error occurred executing {WorkItem}.", nameof(workItem));
+                    LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
             }
         }
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace("Stopping service {Type} ({This})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
         await base.StopAsync(cancellationToken);
-        Logger.LogTrace("Stopped service {Type} ({This})", GetType().Name, this);
+        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
     }
 }

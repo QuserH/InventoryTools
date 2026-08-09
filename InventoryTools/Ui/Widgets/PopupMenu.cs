@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Widgets;
 
@@ -148,16 +149,16 @@ public class PopupMenu
                 return ;
 
             ImGui.TextUnformatted(
-                _question + "\nThis operation cannot be undone!\n\n");
+                _question + LocalizationService.Ui("\nThis operation cannot be undone!\n\n"));
             ImGui.Separator();
 
-            if (ImGui.Button("OK", new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
+            if (ImGui.Button(LocalizationService.Ui("OK"), new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
             {
                 _callback?.Invoke(_id, true);
                 ImGui.CloseCurrentPopup();
             }
             ImGui.SameLine();
-            if (ImGui.Button("Cancel", new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
+            if (ImGui.Button(LocalizationService.Ui("Cancel"), new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
             {
                 _callback?.Invoke(_id, false);
                 ImGui.CloseCurrentPopup();

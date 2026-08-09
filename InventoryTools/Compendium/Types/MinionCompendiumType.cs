@@ -18,6 +18,7 @@ using InventoryTools.Localizers;
 using InventoryTools.Ui;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -93,7 +94,7 @@ public class MinionCompendiumType : CompendiumType<Companion>
     {
         return Factory.Invoke(new CompendiumTableOptions<Companion>()
         {
-            Name = "Minions",
+            Name = LocalizationService.Ui("Minions"),
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "minions",
@@ -132,11 +133,11 @@ public class MinionCompendiumType : CompendiumType<Companion>
 
     public override void BuildColumns(CompendiumColumnBuilder<Companion> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "The icon of the minion", Version = "14.1.2", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = "Name", HelpText = "The name of the minion", Version = "14.1.2", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "category", Name = "Category", HelpText = "The category of the minion", Version = "14.1.2", ValueSelector = row => row.MinionRace.Value.Name.ToImGuiString()});
-        builder.AddBooleanColumn(new (){Key = "unlocked", Name = "Unlocked", HelpText = "Is the minion unlocked?.", Version = "14.1.2", ValueSelector = row => _unlockState.IsCompanionUnlocked(row)});
-        builder.AddItemSourcesColumn(new (){Key = "sources", Name = "Sources", HelpText = "The sources for obtaining the minion", Version = "14.1.2", ValueSelector =
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the minion"), Version = "14.1.2", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the minion"), Version = "14.1.2", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "category", Name = LocalizationService.Ui("Category"), HelpText = LocalizationService.Ui("The category of the minion"), Version = "14.1.2", ValueSelector = row => row.MinionRace.Value.Name.ToImGuiString()});
+        builder.AddBooleanColumn(new (){Key = "unlocked", Name = LocalizationService.Ui("Unlocked"), HelpText = LocalizationService.Ui("Is the minion unlocked?."), Version = "14.1.2", ValueSelector = row => _unlockState.IsCompanionUnlocked(row)});
+        builder.AddItemSourcesColumn(new (){Key = "sources", Name = LocalizationService.Ui("Sources"), HelpText = LocalizationService.Ui("The sources for obtaining the minion"), Version = "14.1.2", ValueSelector =
             row =>
             {
                 var relatedItem = GetRelatedItem(row.RowId);
@@ -155,15 +156,15 @@ public class MinionCompendiumType : CompendiumType<Companion>
         var transientInformation = _companionTransientSheet.GetRow(row.RowId);
         viewBuilder.Description = transientInformation.DescriptionEnhanced.ToImGuiString();
         viewBuilder.AddTag(
-            () => _unlockState.IsCompanionUnlocked(row) ? "Unlocked" : "Not Unlocked",
-            () => "Is the minion unlocked?",
+            () => _unlockState.IsCompanionUnlocked(row) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
+            () => LocalizationService.Ui("Is the minion unlocked?"),
             () => _unlockState.IsCompanionUnlocked(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
-        viewBuilder.AddTag(() => "Type: " + transientInformation.MinionSkillType.Value.Name.ToImGuiString(), () => "The skill type of the minion.");
-        viewBuilder.AddTag(() => "Action: " + transientInformation.SpecialActionName.ToImGuiString(), () => transientInformation.SpecialActionDescription.ToImGuiString());
+        viewBuilder.AddTag(() => LocalizationService.Ui("Type: ") + transientInformation.MinionSkillType.Value.Name.ToImGuiString(), () => LocalizationService.Ui("The skill type of the minion."));
+        viewBuilder.AddTag(() => LocalizationService.Ui("Action: ") + transientInformation.SpecialActionName.ToImGuiString(), () => transientInformation.SpecialActionDescription.ToImGuiString());
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "stats",
-            SectionName = "Stats",
+            SectionName = LocalizationService.Ui("Stats"),
             Items =
             [
                 ("Attack", transientInformation.Attack.ToString(), true),
@@ -177,14 +178,14 @@ public class MinionCompendiumType : CompendiumType<Companion>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "related_item",
-                SectionName = "Related Item",
+                SectionName = LocalizationService.Ui("Related Item"),
                 RelatedRef = relatedItem.Value.AsUntypedRowRef()
             });
             var itemSources = _itemInfoCache.GetItemSources(relatedItem.Value.RowId);
             viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
             {
                 SectionKey = "sources",
-                SectionName = "Sources",
+                SectionName = LocalizationService.Ui("Sources"),
                 Sources = itemSources ?? [],
                 SourceType = SourceType.Source
             });
@@ -207,7 +208,7 @@ public class MinionCompendiumType : CompendiumType<Companion>
             new CompendiumGrouping<Companion>()
             {
                 Key = "category",
-                Name = "Category",
+                Name = LocalizationService.Ui("Category"),
                 GroupFunc = r => r.MinionRace.RowId,
                 GroupMapping = o =>
                 {
@@ -218,9 +219,9 @@ public class MinionCompendiumType : CompendiumType<Companion>
         };
     }
 
-    public override string Singular => "Minion";
-    public override string Plural => "Minions";
-    public override string Description => "Unlockable minions summonable by the player.";
+    public override string Singular => LocalizationService.Ui("Minion");
+    public override string Plural => LocalizationService.Ui("Minions");
+    public override string Description => LocalizationService.Ui("Unlockable minions summonable by the player.");
     public override string Key => "minions";
     public override (string?, uint?) Icon => (null, Icons.MinionIcon);
 }

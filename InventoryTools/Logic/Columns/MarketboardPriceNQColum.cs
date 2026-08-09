@@ -9,6 +9,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Logic.Columns.ColumnSettings;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -98,10 +99,10 @@ namespace InventoryTools.Logic.Columns
 
             return Loading;
         }
-        public override string Name { get; set; } = "Market Board Average Price NQ";
-        public override string RenderName => "MB Avg. Price NQ";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Average Price NQ"));
+        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Avg. Price NQ"));
         public override string HelpText { get; set; } =
-            "Shows the average price of the NQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis.";
+            LocalizationService.Ui(LocalizationService.Ui("Shows the average price of the NQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis."));
         public override float Width { get; set; } = 250.0f;
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

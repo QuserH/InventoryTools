@@ -19,6 +19,7 @@ using InventoryTools.Services;
 using InventoryTools.Ui;
 using Microsoft.Extensions.Logging;
 using Serilog.Events;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Windows;
 
@@ -40,7 +41,7 @@ public class CompendiumListWindow : CompendiumWindow
 
     public delegate Owned<CompendiumListWindow> Factory(ICompendiumType compendiumType);
 
-    public CompendiumListWindow(ILogger<CompendiumListWindow> logger, WindowState windowState, CompendiumSectionStateService sectionStateService, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ICompendiumType compendiumType, IPluginLog pluginLog, IEnumerable<IMenuWindow> menuWindows, IEnumerable<ICompendiumType> compendiumTypes) : base(logger, mediator, imGuiService, configuration, compendiumType.Plural + " Window")
+    public CompendiumListWindow(ILogger<CompendiumListWindow> logger, WindowState windowState, CompendiumSectionStateService sectionStateService, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ICompendiumType compendiumType, IPluginLog pluginLog, IEnumerable<IMenuWindow> menuWindows, IEnumerable<ICompendiumType> compendiumTypes) : base(logger, mediator, imGuiService, configuration, compendiumType.Plural + LocalizationService.Ui(LocalizationService.Ui(" Window")))
     {
         _windowState = windowState;
         _sectionStateService = sectionStateService;
@@ -158,26 +159,26 @@ public class CompendiumListWindow : CompendiumWindow
             {
                 if (menuBar)
                 {
-                    using (var menu = ImRaii.Menu("File"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("File")))
                     {
                         if (menu)
                         {
-                            if (ImGui.MenuItem("Configuration"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Configuration")))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(ConfigurationWindow)));
                             }
 
-                            if (ImGui.MenuItem("Changelog"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Changelog")))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(ChangelogWindow)));
                             }
 
-                            if (ImGui.MenuItem("Help"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Help")))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow)));
                             }
 
-                            if (ImGui.MenuItem("Enable Verbose Logging", "",
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Enable Verbose Logging")), "",
                                     this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose))
                             {
                                 if (this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose)
@@ -190,22 +191,22 @@ public class CompendiumListWindow : CompendiumWindow
                                 }
                             }
 
-                            if (ImGui.MenuItem("Generate Support Dump"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"))))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(SupportDumpWindow)));
                             }
 
-                            if (ImGui.MenuItem("Report a Issue"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Report a Issue"))))
                             {
                                 "https://github.com/Critical-Impact/InventoryTools".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem("Ko-Fi"))
+                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Ko-Fi"))))
                             {
                                 "https://ko-fi.com/critical_impact".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem("Close"))
+                            if (ImGui.MenuItem(LocalizationService.Ui("Close")))
                             {
                                 this.IsOpen = false;
                             }
@@ -216,11 +217,11 @@ public class CompendiumListWindow : CompendiumWindow
                     var groupings = _compendiumType.GetGroupings();
                     if (groupings != null)
                     {
-                        using (var groupingMenu = ImRaii.Menu("Group By"))
+                        using (var groupingMenu = ImRaii.Menu(LocalizationService.Ui("Group By")))
                         {
                             if (groupingMenu)
                             {
-                                if (ImGui.MenuItem("None", _compendiumGrouping == null))
+                                if (ImGui.MenuItem(LocalizationService.Ui("None"), _compendiumGrouping == null))
                                 {
                                     _compendiumGrouping = null;
                                     _table.Value.ClearGrouping();
@@ -238,7 +239,7 @@ public class CompendiumListWindow : CompendiumWindow
                         }
                     }
 
-                    using (var menu = ImRaii.Menu("Windows"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Windows")))
                     {
                         if (menu)
                         {
@@ -252,7 +253,7 @@ public class CompendiumListWindow : CompendiumWindow
                         }
                     }
 
-                    using (var menu = ImRaii.Menu("Compendium"))
+                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Compendium")))
                     {
                         if (menu)
                         {
@@ -270,7 +271,7 @@ public class CompendiumListWindow : CompendiumWindow
                     {
                         using (ImRaii.Tooltip())
                         {
-                            ImGui.Text("Compendium is a WIP feature, expect more here soon!");
+                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Compendium is a WIP feature, expect more here soon!")));
                         }
                     }
 
@@ -285,7 +286,7 @@ public class CompendiumListWindow : CompendiumWindow
 
     public override FilterConfiguration? SelectedConfiguration => null;
     public override string GenericKey => CompendiumType.Plural.ToLower();
-    public override string GenericName => CompendiumType.Plural + " Window";
+    public override string GenericName => CompendiumType.Plural + LocalizationService.Ui(" Window");
     public override bool DestroyOnClose => true;
     public override bool SaveState => false;
     public override Vector2? DefaultSize => new Vector2(800, 500);

@@ -14,6 +14,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using InventoryTools.Localizers;
 using LuminaSupplemental.Excel.Model;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -34,8 +35,8 @@ public abstract class ItemRelicWeaponSourceRenderer<T> : ItemInfoRenderer<T> whe
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = this.AsSource(source);
-        ImGui.TextUnformatted("Class: " + asSource.RelicWeapon.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
-        this.DrawForms("Forms:", asSource.Forms);
+        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + asSource.RelicWeapon.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
+        this.DrawForms(LocalizationService.Ui("Forms:"), asSource.Forms);
     };
 
     public void DrawForms(string sectionName, IReadOnlyList<RelicWeapon> items)
@@ -116,8 +117,8 @@ public class ItemZodiacWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Item
     }
 
     public override ItemInfoType Type => ItemInfoType.ZodiacWeapon;
-    public override string SingularName => "Zodiac Weapon";
-    public override string HelpText => "Is this a Zodiac Weapon?";
+    public override string SingularName => LocalizationService.Ui("Zodiac Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Zodiac Weapon?"));
 }
 
 public class ItemAnimaWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemAnimaWeaponSource>
@@ -127,8 +128,8 @@ public class ItemAnimaWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemA
     }
 
     public override ItemInfoType Type => ItemInfoType.AnimaWeapon;
-    public override string SingularName => "Anima Weapon";
-    public override string HelpText => "Is this a Anima Weapon?";
+    public override string SingularName => LocalizationService.Ui("Anima Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Anima Weapon?"));
 }
 
 public class ItemEurekanWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemEurekanWeaponSource>
@@ -138,8 +139,8 @@ public class ItemEurekanWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.EurekanWeapon;
-    public override string SingularName => "Eurekan Weapon";
-    public override string HelpText => "Is this a Eurekan Weapon?";
+    public override string SingularName => LocalizationService.Ui("Eurekan Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Eurekan Weapon?"));
 }
 
 public class ItemResistanceWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemResistanceWeaponSource>
@@ -149,8 +150,8 @@ public class ItemResistanceWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<
     }
 
     public override ItemInfoType Type => ItemInfoType.ResistanceWeapon;
-    public override string SingularName => "Resistance Weapon";
-    public override string HelpText => "Is this a Resistance Weapon?";
+    public override string SingularName => LocalizationService.Ui("Resistance Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Resistance Weapon?"));
 }
 
 public class ItemMandervilleWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemMandervilleWeaponSource>
@@ -160,8 +161,8 @@ public class ItemMandervilleWeaponSourceRenderer : ItemRelicWeaponSourceRenderer
     }
 
     public override ItemInfoType Type => ItemInfoType.MandervilleWeapon;
-    public override string SingularName => "Manderville Weapon";
-    public override string HelpText => "Is this a Manderville Weapon?";
+    public override string SingularName => LocalizationService.Ui("Manderville Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Manderville Weapon?"));
 }
 
 public class ItemPhantomWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemPhantomWeaponSource>
@@ -171,6 +172,6 @@ public class ItemPhantomWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.PhantomWeapon;
-    public override string SingularName => "Phantom Weapon";
-    public override string HelpText => "Is this a Phantom Weapon?";
+    public override string SingularName => LocalizationService.Ui("Phantom Weapon");
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Phantom Weapon?"));
 }

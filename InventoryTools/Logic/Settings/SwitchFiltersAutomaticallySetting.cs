@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -18,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "SwitchFiltersAutomatically";
-        public override string Name { get; set; } = "Switch lists automatically?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Switch lists automatically?"));
 
         public override string HelpText { get; set; } =
-            "When you view a different list, should highlighting automatically switch to the list you are viewing? Highlighting will only change to the new list if highlighting is already active.";
+            LocalizationService.Ui(LocalizationService.Ui("When you view a different list, should highlighting automatically switch to the list you are viewing? Highlighting will only change to the new list if highlighting is already active."));
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
         public override string Version => "1.7.0.0";

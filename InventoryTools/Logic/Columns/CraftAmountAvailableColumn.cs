@@ -6,6 +6,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns
 {
@@ -60,13 +61,13 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = "Amount to Retrieve";
-        public override string RenderName => "Retrieve";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve"));
+        public override string RenderName => LocalizationService.Ui("Retrieve");
         public override float Width { get; set; } = 60;
         public override bool? CraftOnly => false;
 
         public override string HelpText { get; set; } =
-            "This is the amount to retrieve from retainers.";
+            LocalizationService.Ui(LocalizationService.Ui("This is the amount to retrieve from retainers."));
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter | Logic.FilterType.SortingFilter;
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

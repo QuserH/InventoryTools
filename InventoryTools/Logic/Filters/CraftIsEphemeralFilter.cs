@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
 
@@ -10,10 +11,10 @@ namespace InventoryTools.Logic.Filters;
 public class CraftIsEphemeralFilter : BooleanFilter
 {
     public override string Key { get; set; } = "CraftIsEphemeral";
-    public override string Name { get; set; } = "Ephemeral?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Ephemeral?"));
 
     public override string HelpText { get; set; } =
-        "Is this craft list ephemeral? If checked, once all the items in the craft list are deleted, the list will delete itself. This is only checked as each craft is completed.";
+        LocalizationService.Ui(LocalizationService.Ui("Is this craft list ephemeral? If checked, once all the items in the craft list are deleted, the list will delete itself. This is only checked as each craft is completed."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;

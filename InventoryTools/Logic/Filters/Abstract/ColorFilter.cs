@@ -4,6 +4,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters.Abstract
 {
@@ -27,12 +28,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText("##" + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
             }
             ImGui.Indent();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -45,7 +46,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (value == null)
             {
                 var isChecked = false;
-                if (ImGui.Checkbox("Override Color##" + Key + "ColorEnable", ref isChecked))
+                if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("Override Color##")) + Key + "ColorEnable", ref isChecked))
                 {
                     if (isChecked)
                     {
@@ -66,7 +67,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Clear Color"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Clear Color"))))
                 {
                     UpdateFilterConfiguration(configuration, null);
                 }
@@ -74,12 +75,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && value?.W == 0)
             {
                 ImGui.SameLine();
-                ImGui.TextColored(ImGuiColors.DalamudRed, "The alpha is currently set to 0, this will be invisible.");
+                ImGui.TextColored(ImGuiColors.DalamudRed, LocalizationService.Ui(LocalizationService.Ui("The alpha is currently set to 0, this will be invisible.")));
             }
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button("Reset##" + Key + "Reset"))
+                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
                 {
                     ResetFilter(configuration);
                 }

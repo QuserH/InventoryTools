@@ -5,6 +5,7 @@ using AllaganLib.Interface.FormFields;
 using AllaganLib.Shared.Extensions;
 using Humanizer;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.EquipmentSuggest;
 
@@ -20,8 +21,8 @@ public class EquipmentSuggestClassJobFormField : ChoiceFormField<uint, Equipment
 
     public override uint DefaultValue { get; set; } = 0;
     public override string Key { get; set; } = "ClassJob";
-    public override string Name { get; set; } = "Job";
-    public override string HelpText { get; set; } = "The job to recommend items for";
+    public override string Name { get; set; } = LocalizationService.Ui("Job");
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The job to recommend items for"));
     public override string Version { get; set; } = "1.12.0.10";
     public override Dictionary<uint, string> Choices => _choices;
     public override bool Equal(uint item1, uint item2)

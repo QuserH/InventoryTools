@@ -4,6 +4,7 @@ using AllaganLib.Shared.Interfaces;
 using CriticalCommonLib;
 using CriticalCommonLib.Services;
 using Dalamud.Interface.Utility.Raii;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Debuggers;
 
@@ -15,7 +16,7 @@ public class InventoryMonitorDebuggerPane : IDebugPane
     {
         _inventoryMonitor = inventoryMonitor;
     }
-    public string Name => "Inventory Monitor";
+    public string Name => LocalizationService.Ui("Inventory Monitor");
     public void Draw()
     {
         foreach (var character in _inventoryMonitor.Inventories)

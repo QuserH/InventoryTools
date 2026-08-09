@@ -8,6 +8,7 @@ using InventoryTools.Logic;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -28,7 +29,7 @@ public class TeamCraftImportWindow : GenericWindow
 
 
     public override string GenericKey { get; } = "tcimport";
-    public override string GenericName { get; } = "Teamcraft Import";
+    public override string GenericName { get; } = LocalizationService.Ui("Teamcraft Import");
     public override bool DestroyOnClose { get; }
     public override bool SaveState { get; } = false;
     public override Vector2? DefaultSize { get; } = new Vector2(300, 300);
@@ -40,18 +41,18 @@ public class TeamCraftImportWindow : GenericWindow
 
     public override void DrawWindow()
     {
-        ImGui.Text("Import to Craft List: ");
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Import to Craft List: ")));
         ImGui.SameLine();
-        ImGuiService.HelpMarker("Guide to importing lists.\r\n\r\n" +
-                                "Step 1. Open a list on Teamcraft with the items you wish to craft.\r\n\r\n" +
-                                "Step 2. Find the 'Items' \"Copy as Text\" button. You only want to copy the output items.\r\n\r\n" +
-                                "Step 3. Paste into the text box below in this window.\r\n\r\n" +
-                                "Step 4. Click import.");
-        ImGui.Text("Paste text here");
-        ImGui.InputTextMultiline("###FinalItems", ref _importListItems, 10000000, new Vector2(ImGui.GetContentRegionAvail().X, 100));
+        ImGuiService.HelpMarker(LocalizationService.Ui("Guide to importing lists.\r\n\r\n") +
+                                LocalizationService.Ui("Step 1. Open a list on Teamcraft with the items you wish to craft.\r\n\r\n") +
+                                LocalizationService.Ui("Step 2. Find the 'Items' \"Copy as Text\" button. You only want to copy the output items.\r\n\r\n") +
+                                LocalizationService.Ui("Step 3. Paste into the text box below in this window.\r\n\r\n") +
+                                LocalizationService.Ui("Step 4. Click import."));
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Paste text here")));
+        ImGui.InputTextMultiline(LocalizationService.Ui(LocalizationService.Ui("###FinalItems")), ref _importListItems, 10000000, new Vector2(ImGui.GetContentRegionAvail().X, 100));
 
 
-        if (ImGui.Button("Import"))
+        if (ImGui.Button(LocalizationService.Ui("Import")))
         {
             var importedList = _importExportService.FromTCString(_importListItems ?? "");
             if (importedList is not null)
@@ -62,7 +63,7 @@ public class TeamCraftImportWindow : GenericWindow
 
         }
         ImGui.SameLine();
-        if (ImGui.Button("Cancel"))
+        if (ImGui.Button(LocalizationService.Ui("Cancel")))
         {
             Close();
         }

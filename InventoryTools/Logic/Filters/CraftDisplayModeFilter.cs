@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AllaganLib.GameSheets.Sheets.Rows;
 using CriticalCommonLib.Models;
+using InventoryTools.Localization;
 
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
@@ -26,10 +27,10 @@ public class CraftDisplayModeFilter : ChoiceFilter<CraftDisplayMode>
     }
 
     public override string Key { get; set; } = "CraftDisplayMode";
-    public override string Name { get; set; } = "Craft Display Mode";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Display Mode"));
 
     public override string HelpText { get; set; } =
-        "Should the craft items be placed in a single table or grouped into multiple tabs.";
+        LocalizationService.Ui(LocalizationService.Ui("Should the craft items be placed in a single table or grouped into multiple tabs."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
     public override CraftDisplayMode DefaultValue { get; set; } = CraftDisplayMode.SingleTable;
@@ -60,7 +61,7 @@ public class CraftDisplayModeFilter : ChoiceFilter<CraftDisplayMode>
             case CraftDisplayMode.Tabs:
                 return "Tabs";
             case CraftDisplayMode.SingleTable:
-                return "Single Table";
+                return LocalizationService.Ui("Single Table");
         }
 
         return choice.ToString();

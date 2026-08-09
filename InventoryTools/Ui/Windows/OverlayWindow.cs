@@ -10,6 +10,7 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -233,7 +234,7 @@ public abstract class OverlayWindow : GenericWindow, IDisposable
         }
         catch (Exception e)
         {
-            this.pluginLog.Error(e, "Failed to wrangle imgui window into position");
+            this.pluginLog.Error(e, LocalizationService.Ui("Failed to wrangle imgui window into position"));
         }
     }
 }

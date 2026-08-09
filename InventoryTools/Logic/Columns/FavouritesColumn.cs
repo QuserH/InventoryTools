@@ -6,6 +6,7 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Columns;
 
@@ -40,13 +41,13 @@ public class FavouritesColumn : CheckboxColumn
         {
             _configuration.ToggleFavouriteItem(itemId);
         }
-        ImGuiUtil.HoverTooltip("Click to favourite/unfavourite.");
+        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Click to favourite/unfavourite.")));
         return null;
     }
 
-    public override string Name { get; set; } = "Favourite?";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Favourite?"));
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = "Is this item in your list of favourites?";
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item in your list of favourites?"));
 
     public override FilterType DefaultIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter | Logic.FilterType.GameItemFilter;
 }

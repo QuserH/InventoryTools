@@ -6,6 +6,7 @@ using Dalamud.Interface.Windowing;
 using InventoryTools.Logic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -57,13 +58,13 @@ namespace InventoryTools.Ui
 
         public override void OnOpen()
         {
-            Logger.LogTrace("{WindowName} opened", this.GenericName);
+            Logger.LogTrace(LocalizationService.Ui("{WindowName} opened"), this.GenericName);
             Opened?.Invoke(this);
         }
 
         public override void OnClose()
         {
-            Logger.LogTrace("{WindowName} closed", this.GenericName);
+            Logger.LogTrace(LocalizationService.Ui("{WindowName} closed"), this.GenericName);
             Closed?.Invoke(this);
         }
 

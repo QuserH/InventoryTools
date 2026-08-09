@@ -4,6 +4,7 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -14,10 +15,10 @@ public class CraftSourceInventoriesFilter : InventoryScopeFilter
     }
 
     public override string Key { get; set; } = "CraftSourceInventories";
-    public override string Name { get; set; } = "Inventories to Retrieve From";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Inventories to Retrieve From"));
 
     public override string HelpText { get; set; } =
-        "Which inventories should the crafting list check for materials to withdraw? Items found in the selected inventories will appear in the 'Items in Retainers/Bags' list and you will need to retrieve them either before gathering or after gathering depending on your craft list's configuration.";
+        LocalizationService.Ui(LocalizationService.Ui("Which inventories should the crafting list check for materials to withdraw? Items found in the selected inventories will appear in the 'Items in Retainers/Bags' list and you will need to retrieve them either before gathering or after gathering depending on your craft list's configuration."));
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 

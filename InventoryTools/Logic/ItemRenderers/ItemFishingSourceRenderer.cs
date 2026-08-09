@@ -11,6 +11,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.ItemRenderers;
 
@@ -26,8 +27,8 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Fishing;
-    public override string HelpText => "Can the item be gathered via fishing?";
-    public override string SingularName => "Fishing";
+    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be gathered via fishing?"));
+    public override string SingularName => LocalizationService.Ui("Fishing");
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Gathering, ItemInfoRenderCategory.Fishing];
 
@@ -36,7 +37,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
         var asSources = AsSource(sources);
 
         var level = asSources.First().FishParameter.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text("Level:" + (level == 0 ? "N/A" : level));
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
 
         DrawMaps(sources);
     };
@@ -46,7 +47,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
         var asSource = AsSource(source);
 
         var level = asSource.FishParameter.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text("Level:" + (level == 0 ? "N/A" : level));
+        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
 
         DrawMaps(source);
     };

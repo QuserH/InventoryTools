@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -22,12 +23,12 @@ public class ContextMenuOpenGatheringLogSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "OpenGatheringLogContextMenu";
-    public override string Name { get; set; } = "Context Menu - Open Gathering Log";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Open Gathering Log"));
 
-    public override string WizardName { get; } = "Open Gathering Log";
+    public override string WizardName { get; } = LocalizationService.Ui("Open Gathering Log");
 
     public override string HelpText { get; set; } =
-        "Add a context menu item to open the gathering log for any item that can be gathered?";
+        LocalizationService.Ui(LocalizationService.Ui("Add a context menu item to open the gathering log for any item that can be gathered?"));
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

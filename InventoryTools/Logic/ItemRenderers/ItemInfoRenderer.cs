@@ -17,6 +17,7 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Extensions;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
+using InventoryTools.Localization;
 
 
 namespace InventoryTools.Logic.ItemRenderers;
@@ -59,22 +60,22 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                 ImGui.SameLine();
                 if (itemInfo.Count == null)
                 {
-                    ImGui.TextUnformatted($"{item.NameString}" + (itemInfo.IsOptional ?? false ? " (Optional)" : ""));
+                    ImGui.TextUnformatted(LocalizationService.Format("{0}", item.NameString) + (itemInfo.IsOptional ?? false ? LocalizationService.Ui(" (Optional)") : ""));
                 }
                 else
                 {
-                    ImGui.TextUnformatted($"{item.NameString} x {itemInfo.Count}" + (itemInfo.IsOptional ?? false ? " (Optional)" : ""));
+                    ImGui.TextUnformatted(LocalizationService.Format("{0} x {1}", item.NameString, itemInfo.Count) + (itemInfo.IsOptional ?? false ? LocalizationService.Ui(" (Optional)") : ""));
                 }
                 if (itemInfo.Min != null && itemInfo.Max != null)
                 {
                     ImGui.SameLine();
                     if (itemInfo.Min == itemInfo.Max)
                     {
-                        ImGui.Text("(Drops 1)");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops 1)")));
                     }
                     else
                     {
-                        ImGui.Text("(Drops " + itemInfo.Min.Value + " - " + itemInfo.Max.Value + ")");
+                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops ")) + itemInfo.Min.Value + " - " + itemInfo.Max.Value + ")");
                     }
                 }
             }
@@ -101,7 +102,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                     new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale
                 );
                 ImGui.SameLine();
-                ImGui.TextUnformatted($"{item.NameString}");
+                ImGui.TextUnformatted(LocalizationService.Format("{0}", item.NameString));
             }
         }
     }
@@ -119,7 +120,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
 
         if (maps.Count != 0)
         {
-            ImGui.Text("Maps:");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Maps:")));
             using (ImRaii.PushIndent())
             {
                 foreach (var map in maps)
@@ -141,7 +142,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
 
         if (maps.Count != 0)
         {
-            ImGui.Text("Maps:");
+            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Maps:")));
             using (ImRaii.PushIndent())
             {
                 foreach (var map in maps)
@@ -168,7 +169,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                 if (map != null)
                 {
                     var spawns = string.Join(", ", groupedMaps.Select(location => $"{location.MapX.ToString("N2", CultureInfo.InvariantCulture)}/{location.MapY.ToString("N2", CultureInfo.InvariantCulture)}"));
-                    ImGui.Text($"{map.FormattedName}");
+                    ImGui.Text(LocalizationService.Format("{0}", map.FormattedName));
                     using (ImRaii.PushIndent())
                     {
                         ImGui.PushTextWrapPos();

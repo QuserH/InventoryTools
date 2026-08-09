@@ -16,6 +16,7 @@ using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Mediator;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui;
 
@@ -45,7 +46,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
     public override void Initialize()
     {
-        WindowName = "NPCs";
+        WindowName = LocalizationService.Ui("NPCs");
         Key = "enpcs";
          _columns = new List<TableColumn<ENpcResidentRow>>()
         {
@@ -117,7 +118,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
                 }
             },
-            new("Is Vendor", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new(LocalizationService.Ui("Is Vendor"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 FilterBool = (s, exes) =>
                 {
@@ -133,15 +134,15 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
                 {
                     if (ex.ENpcBase.IsVendor)
                     {
-                        ImGui.Text("Yes");
+                        ImGui.Text(LocalizationService.Ui("Yes"));
                     }
                     else
                     {
-                        ImGui.Text("No");
+                        ImGui.Text(LocalizationService.Ui("No"));
                     }
                 }
             },
-            new("Vendor Items", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new(LocalizationService.Ui("Vendor Items"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 Sort = (specs, exes) =>
                 {
@@ -302,7 +303,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
     public override bool UseClipper => _useClipper;
     public override string GenericKey => "npcs";
-    public override string GenericName => "Npcs";
+    public override string GenericName => LocalizationService.Ui("Npcs");
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

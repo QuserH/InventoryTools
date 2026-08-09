@@ -4,6 +4,7 @@ using CriticalCommonLib.Models;
 using InventoryTools.Logic.Filters.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Filters;
 
@@ -25,10 +26,10 @@ public class CraftReportSoundFilter : ChoiceFilter<uint>
     }
     
     public override string Key { get; set; } = "CraftReportSound";
-    public override string Name { get; set; } = "Completion Sound";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Completion Sound"));
     
     public override string HelpText { get; set; } =
-        "Which sound effect to play when an item in this list reaches its required quantity (when 'Play a sound when an item is complete?' is enabled).";
+        LocalizationService.Ui(LocalizationService.Ui("Which sound effect to play when an item in this list reaches its required quantity (when 'Play a sound when an item is complete?' is enabled)."));
     
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Notifications;
     public override uint DefaultValue { get; set; } = 5;
@@ -69,7 +70,7 @@ public class CraftReportSoundFilter : ChoiceFilter<uint>
     
     public override string GetFormattedChoice(FilterConfiguration filterConfiguration, uint choice)
     {
-        return "se." + choice;
+        return LocalizationService.Ui("se.") + choice;
     }
     
     public CraftReportSoundFilter(ILogger<CraftReportSoundFilter> logger, ImGuiService imGuiService) : base(logger,
