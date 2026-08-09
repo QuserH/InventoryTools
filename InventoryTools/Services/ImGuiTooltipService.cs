@@ -436,7 +436,7 @@ public class ImGuiTooltipService
                             locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
                         }
                     }
-                    else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality)
+                    if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality)
                     {
                         var groupedItems = ownedItems.GroupBy(c => (c.RetainerId, c.SortedCategory, c.Flags)).ToList();
                         foreach (var oGroup in groupedItems)
