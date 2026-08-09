@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
 using InventoryTools.Logic.Columns.Abstract;
@@ -64,8 +65,11 @@ public class CharacterOwnerColumn : TextColumn
         }
         else if (character.CharacterType == CharacterType.FreeCompanyChest)
         {
-            // 物品在部队储物柜：角色持有者 = 部队名（加尖括号）
-            ownerName = "<" + character.FormattedName + ">";
+            // 物品在部队储物柜：角色持有者 = <部队名> + 部队内记录的角色
+            var fcName = "<" + character.FormattedName + ">";
+            var fcCharacters = _characterMonitor.GetFreeCompanyCharacters(character.CharacterId);
+            var names = fcCharacters.Select(c => c.Value.FormattedName).ToList();
+            ownerName = fcName + (names.Count > 0 ? string.Join(", ", names) : "");
         }
         else
         {
