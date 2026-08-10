@@ -2998,7 +2998,7 @@ public static partial class LocalizationService
             [" + owner + "] = " 持有者 ",
             [" + c.Count + "] = " 数量 ",
             ["historical records"] = "历史记录",
-            ["Relic"] = "古武器",
+            ["Relic"] = "发光武器",
             ["No Key"] = "无按键",
             ["Right-click to clear filters."] = "右键清除筛选器。",
             ["Hold CTRL and right-click to delete."] = "按住 CTRL 并右键删除。",
@@ -3675,6 +3675,23 @@ public static partial class LocalizationService
             ["Gained"] = "获得",
             ["Lost"] = "失去",
             ["Market Price Updated"] = "市场价已更新",
+            // 道具稀有度（悬浮 tooltip FormattedRarity）
+            ["Scarce"] = "稀少",
+            ["Artifact"] = "校服",
+            ["Aetherial"] = "以太",
+            // 市场价格 / 商店 / 持有标签
+            ["Server"] = "服务器",
+            ["Qty"] = "数量",
+            ["Time"] = "时间",
+            ["Quantities"] = "数量",
+            ["Checking"] = "检测中",
+            ["XP"] = "经验值",
+            ["Scrip"] = "工票",
+            ["Quality"] = "品质",
+            ["Average Price: "] = "平均价格：",
+            ["Average Price (HQ): "] = "平均价格（HQ）：",
+            ["Minimum Price: "] = "最低价格：",
+            ["Minimum Price (HQ): "] = "最低价格（HQ）：",
         };
 
     public static string CurrentLanguage { get; set; } = "zh-CN";

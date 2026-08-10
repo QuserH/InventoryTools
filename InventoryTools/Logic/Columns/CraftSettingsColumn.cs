@@ -16,6 +16,7 @@ using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Localizers;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
+using InventoryTools.Extensions;
 using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
@@ -211,7 +212,7 @@ public class CraftSettingsColumn : IColumn
                 ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Zone: ")) + (zonePreference != null ? _mapSheet.GetRowOrDefault(zonePreference.Value)?.FormattedName ?? LocalizationService.Ui("Use Default") : LocalizationService.Ui("Use Default")));
                 if (searchResult.Item.CanBePlacedOnMarket)
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Market World Preference: ")) + (worldPreference != null ? _worldSheet.GetRowOrDefault(worldPreference.Value)?.Name.ExtractText() ?? LocalizationService.Ui("Use Default") : LocalizationService.Ui("Use Default")));
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Market World Preference: ")) + (worldPreference != null ? (CnWorlds.Names.TryGetValue(worldPreference.Value, out var cnWorldPref) ? cnWorldPref.World : _worldSheet.GetRowOrDefault(worldPreference.Value)?.Name.ExtractText() ?? LocalizationService.Ui("Use Default")) : LocalizationService.Ui("Use Default")));
                     ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Market Price Override: ")) + (priceOverride != null ? priceOverride.Value.ToString("N0") : LocalizationService.Ui("Use Default")));
                 }
             }
@@ -609,7 +610,9 @@ public class CraftSettingsColumn : IColumn
         {
             var worldId = configuration.CraftList.GetMarketItemWorldPreference(item.ItemId);
             var currentWorld = worldId != null ? _worldSheet.GetRowOrDefault(worldId.Value) : null;
-            var previewValue = currentWorld?.Name.ExtractText() ?? LocalizationService.Ui("Use Default");
+            var previewValue = (currentWorld != null && CnWorlds.Names.TryGetValue(currentWorld.Value.RowId, out var cnWorld)
+                ? cnWorld.World
+                : currentWorld?.Name.ExtractText()) ?? LocalizationService.Ui("Use Default");
             ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Market World Preference:")));
             ImGui.SameLine();
             ImGuiService.HelpMarker(LocalizationService.Ui("Override the market world preferences for this item. If you select a world here, the craft pricer will attempt to take prices from this world first then follow the normal rules for craft pricing."));
@@ -624,12 +627,11 @@ public class CraftSettingsColumn : IColumn
                         configuration.NotifyConfigurationChange();
                         return true;
                     }
-                    var worlds = _worldSheet.Where(c => c.IsPublic).OrderBy(c => c.Name.ExtractText()).ToList();
-                    foreach (var world in worlds)
+                    foreach (var worldEntry in CnWorlds.Names)
                     {
-                        if (ImGui.Selectable(world.Name.ExtractText()))
+                        if (ImGui.Selectable($"{worldEntry.Value.DataCenter} · {worldEntry.Value.World}"))
                         {
-                            configuration.CraftList.UpdateItemWorldPreference(item.ItemId, world.RowId);
+                            configuration.CraftList.UpdateItemWorldPreference(item.ItemId, worldEntry.Key);
                             configuration.NeedsRefresh = true;
                             configuration.NotifyConfigurationChange();
                             return true;

@@ -32,14 +32,14 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
         (string, string?) GetWorldDetails(uint c)
         {
             string worldName;
-            var world = _worldSheet.GetRowOrDefault(c);
-            if (world != null)
+            if (CnWorlds.Names.TryGetValue(c, out var cnWorld))
             {
-                worldName = world.Value.Name.ExtractText();
+                worldName = cnWorld.World;
             }
             else
             {
-                worldName = LocalizationService.Ui(" (Unknown World)");
+                var world = _worldSheet.GetRowOrDefault(c);
+                worldName = world != null ? world.Value.Name.ExtractText() : LocalizationService.Ui(" (Unknown World)");
             }
             return (worldName, null);
         }
@@ -134,7 +134,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
                 }
                 foreach (var item in SearchWorlds.Where(c => !currentValue.ContainsKey(c.RowId)))
                 {
-                    var formattedName = item.Name.ExtractText();
+                    var formattedName = CnWorlds.Names.TryGetValue(item.RowId, out var searchCn) ? searchCn.World : item.Name.ExtractText();
                     if (ImGui.Selectable(formattedName, currentAddItem == formattedName))
                     {
                         AddItem(configuration,item.RowId);
@@ -157,7 +157,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
             }
             if (_searchWorlds == null)
             {
-                _searchWorlds = _worldSheet.Where(c => c.IsPublic && c.Name.ExtractText().ToParseable().PassesFilter(SearchString.ToParseable())).Take(100).ToList();
+                _searchWorlds = _worldSheet.Where(c => CnWorlds.IsCnWorld(c.RowId) && c.Name.ExtractText().ToParseable().PassesFilter(SearchString.ToParseable())).Take(100).ToList();
             }
 
             return _searchWorlds;

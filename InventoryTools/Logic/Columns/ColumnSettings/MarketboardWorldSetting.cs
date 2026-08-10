@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CriticalCommonLib.Models;
 using Dalamud.Plugin.Services;
+using InventoryTools.Extensions;
 using InventoryTools.Logic.Columns.Abstract.ColumnSettings;
 using InventoryTools.Services;
 using Lumina.Excel;
@@ -38,7 +39,7 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
         {
             return null;
         }
-        return (world.Value.RowId, world.Value.Name.ExtractText());
+        return (world.Value.RowId, CnWorlds.Names.TryGetValue(world.Value.RowId, out var cnWorld) ? cnWorld.World : world.Value.Name.ExtractText());
     }
 
     public uint SelectedWorldId(ColumnConfiguration configuration, Character character)
@@ -76,7 +77,7 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
     public override (uint,string)? DefaultValue { get; set; } = null;
     public override List<(uint,string)?> GetChoices(ColumnConfiguration configuration)
     {
-        List<(uint RowId, string FormattedName)?> worlds = _worldSheet.Where(c => c.IsPublic).Select(c =>((uint, string)?)(c.RowId, c.Name.ExtractText())).ToList();
+        List<(uint RowId, string FormattedName)?> worlds = CnWorlds.Names.Select(c => ((uint, string)?)(c.Key, $"{c.Value.DataCenter} · {c.Value.World}")).ToList();
         worlds.Insert(0,(0,LocalizationService.Ui("Active World")));
         return worlds;
     }

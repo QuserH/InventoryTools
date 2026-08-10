@@ -7,6 +7,7 @@ using CriticalCommonLib.Models;
 using CriticalCommonLib.Services;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using InventoryTools.Extensions;
 using InventoryTools.Services;
 using InventoryTools.Ui.Widgets;
 using Lumina.Excel;
@@ -575,15 +576,17 @@ public class CharacterScopePicker
                                     {
                                         var selectedWorld = _selectedScope.WorldId == 0 ? null : _worldSheet.GetRowOrDefault(_selectedScope.WorldId.Value);
                                         using (var worldSelector = ImRaii.Combo(LocalizationService.Ui("##world"),
-                                                   selectedWorld?.Name.ExtractText() ?? LocalizationService.Ui("Select World")))
+                                                   (selectedWorld != null && CnWorlds.Names.TryGetValue(selectedWorld.Value.RowId, out var cnWorld)
+                                                       ? cnWorld.World
+                                                       : selectedWorld?.Name.ExtractText()) ?? LocalizationService.Ui("Select World")))
                                         {
                                             if (worldSelector)
                                             {
-                                                foreach (var world in _worldSheet.Where(c => c.IsPublic))
+                                                foreach (var worldEntry in CnWorlds.Names)
                                                 {
-                                                    if (ImGui.Selectable(world.Name.ExtractText()))
+                                                    if (ImGui.Selectable($"{worldEntry.Value.DataCenter} · {worldEntry.Value.World}"))
                                                     {
-                                                        _selectedScope.WorldId = world.RowId;
+                                                        _selectedScope.WorldId = worldEntry.Key;
                                                     }
                                                 }
                                             }

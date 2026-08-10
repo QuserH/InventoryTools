@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CriticalCommonLib.Services;
+using InventoryTools.Extensions;
 using InventoryTools.Services.Interfaces;
 
 namespace InventoryTools.Services;
@@ -15,7 +16,7 @@ public class MarketBoardService : IMarketBoardService
         _characterMonitor = characterMonitor;
         _configuration = configuration;
     }
-    
+
     public List<uint> GetDefaultWorlds()
     {
         var useActiveWorld = _configuration.MarketBoardUseActiveWorld;
@@ -35,6 +36,7 @@ public class MarketBoardService : IMarketBoardService
             }
         }
 
-        return worldIds.ToList();
+        // 只保留国服服务器
+        return worldIds.Where(CnWorlds.IsCnWorld).ToList();
     }
 }

@@ -48,6 +48,7 @@ using InventoryItem = FFXIVClientStructs.FFXIV.Client.Game.InventoryItem;
 
 namespace InventoryTools.Ui
 {
+    /// <summary>旧版全世界选择器（供 Mock 测试项目使用）。</summary>
     public class WorldPicker : FilterComboBase<World>
     {
         public HashSet<uint> SelectedWorldIds { get; set; } = new();
@@ -59,6 +60,88 @@ namespace InventoryTools.Ui
         protected override string ToString(World obj)
         {
             return obj.Name.ExtractText();
+        }
+    }
+
+    /// <summary>国服服务器选择项：全区 / 大区 / 单服。</summary>
+    public class CnWorldPickerEntry
+    {
+        public string DisplayName { get; init; } = "";
+        public string? DataCenterName { get; init; }
+        public uint? WorldId { get; init; }
+    }
+
+    /// <summary>一次选择：一个显示标识（全区/大区/单服）及其包含的世界。</summary>
+    public class CnWorldSelection
+    {
+        public string Label { get; init; } = "";
+        public List<uint> WorldIds { get; init; } = new();
+    }
+
+    /// <summary>国服服务器选择器：全区（全部大区）、各大大区、以及各大区下的子服务器。
+    /// 选中后记录为"标识组"（全区=一个标识、大区=一个标识、单服=一个标识），价格查询取所有组的并集。</summary>
+    public class CnWorldPicker : FilterComboBase<CnWorldPickerEntry>
+    {
+        public List<CnWorldSelection> Selections { get; } = new();
+        public HashSet<uint> SelectedWorldIds { get; } = new();
+
+        public CnWorldPicker(IReadOnlyList<CnWorldPickerEntry> items, bool keepStorage, Logger log) : base(items, keepStorage, log)
+        {
+
+        }
+
+        protected override string ToString(CnWorldPickerEntry obj)
+        {
+            return obj.DisplayName;
+        }
+
+        protected override bool DrawSelectable(int globalIdx, bool selected)
+        {
+            var entry = Items[globalIdx];
+            if (!ImGui.Selectable(entry.DisplayName, selected))
+            {
+                return false;
+            }
+
+            if (entry.WorldId != null)
+            {
+                // 单个服务器：一个标识
+                var id = entry.WorldId.Value;
+                Selections.Add(new CnWorldSelection { Label = entry.DisplayName, WorldIds = new() { id } });
+            }
+            else if (entry.DataCenterName != null)
+            {
+                // 大区：一个标识（该大区下所有服务器）
+                var dcName = entry.DataCenterName;
+                Selections.Add(new CnWorldSelection { Label = dcName, WorldIds = CnWorlds.DataCenters[dcName].ToList() });
+            }
+            else
+            {
+                // 全区：清空其它选择，只保留"全区"一个标识
+                Selections.Clear();
+                Selections.Add(new CnWorldSelection { Label = "全区", WorldIds = CnWorlds.AllWorlds.ToList() });
+            }
+
+            Recalculate();
+            return true;
+        }
+
+        public void RemoveSelection(CnWorldSelection selection)
+        {
+            Selections.Remove(selection);
+            Recalculate();
+        }
+
+        private void Recalculate()
+        {
+            SelectedWorldIds.Clear();
+            foreach (var selection in Selections)
+            {
+                foreach (var worldId in selection.WorldIds)
+                {
+                    SelectedWorldIds.Add(worldId);
+                }
+            }
         }
     }
     public class ItemWindow : UintWindow
@@ -139,8 +222,21 @@ namespace InventoryTools.Ui
             base.Initialize(itemId);
              Flags = ImGuiWindowFlags.NoSavedSettings;
             _itemId = itemId;
-            var worlds = _worldSheet.Where(c => c.IsPublic).ToList();
-            _picker = new WorldPicker(worlds, true, _otterLogger);
+            var entries = new List<CnWorldPickerEntry>
+            {
+                new() { DisplayName = "全区" }
+            };
+            foreach (var (dcName, worldIds) in CnWorlds.DataCenters)
+            {
+                entries.Add(new CnWorldPickerEntry { DisplayName = dcName, DataCenterName = dcName });
+            }
+
+            foreach (var (worldId, worldInfo) in CnWorlds.Names)
+            {
+                entries.Add(new CnWorldPickerEntry { DisplayName = $"{worldInfo.DataCenter} · {worldInfo.World}", WorldId = worldId });
+            }
+
+            _picker = new CnWorldPicker(entries, true, _otterLogger);
             MediatorService.Subscribe<MarketCacheUpdatedMessage>(this, MarketCacheUpdated);
             if (Item != null)
             {
@@ -215,7 +311,7 @@ namespace InventoryTools.Ui
         private ItemRow? Item => _itemSheet.GetRow(_itemId);
         private CraftItem? _craftItem;
         private List<MarketPricing> _marketPrices = new List<MarketPricing>();
-        private WorldPicker _picker;
+        private CnWorldPicker _picker;
         private Dictionary<uint, string>? _craftTypes;
         private uint? _craftTypeId;
 
@@ -284,7 +380,7 @@ namespace InventoryTools.Ui
                 ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Patch ")) + Item.Patch);
                 if (Item.CanBeDesynthed && Item.Base.ClassJobRepair.RowId != 0)
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Desynth with ")) + (Item.Base.ClassJobRepair.ValueNullable?.Name.ToString().ToTitleCase() ?? "Unknown"));
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Desynth with ")) + (Item.Base.ClassJobRepair.ValueNullable?.Name.ToString().ToTitleCase() ?? LocalizationService.Ui("Unknown")));
                 }
 
                 var description = Item.Base.Description.ExtractText();
@@ -298,7 +394,7 @@ namespace InventoryTools.Ui
                 if (Item.CanBeAcquired)
                 {
                     var hasAcquired = _unlockTrackerService.IsUnlocked(Item);
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Acquired:")) + (hasAcquired == null ? "Checking" : hasAcquired == true ? "Yes" : "No"));
+                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Acquired:")) + (hasAcquired == null ? LocalizationService.Ui("Checking") : hasAcquired == true ? LocalizationService.Ui("Yes") : LocalizationService.Ui("No")));
                 }
 
                 if (Item.SellToVendorPrice != 0)
@@ -553,7 +649,7 @@ namespace InventoryTools.Ui
                     var craftTypes = new Dictionary<uint, string>();
                     if (Item.IsCompanyCraft)
                     {
-                        craftTypes.Add(0, "All");
+                        craftTypes.Add(0, LocalizationService.Ui("All"));
                         var companyCraftIndex = 1u;
                         if (Item.CompanyCraftSequence != null)
                         {
@@ -587,7 +683,7 @@ namespace InventoryTools.Ui
                     _craftTypeId = 0;
                 }
 
-                string headerName = "Recipes - for crafting this item";
+                string headerName = LocalizationService.Ui("Recipes - for crafting this item");
                 if (ImGui.CollapsingHeader(headerName))
                 {
                     if (_craftTypes.Count > 1)
@@ -797,7 +893,7 @@ namespace InventoryTools.Ui
                                 float lastButtonX2 = ImGui.GetItemRectMax().X;
                                 float nextButtonX2 = lastButtonX2 + style.ItemSpacing.X + 32;
                                 ImGuiUtil.HoverTooltip(recipe.ItemResult!.NameString + " - " +
-                                                       (recipe.CraftType?.FormattedName ?? "Unknown"));
+                                                       (recipe.CraftType?.FormattedName ?? LocalizationService.Ui("Unknown")));
                                 if (index + 1 < RecipesAsRequirement.Length && nextButtonX2 < windowVisibleX2)
                                 {
                                     ImGui.SameLine();
@@ -820,7 +916,7 @@ namespace InventoryTools.Ui
                 if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Gathering (")) + GatheringSources.Count + ")"))
                 {
                     ImGuiTable.DrawTable("Gathering", GatheringSources, DrawGatheringRow,
-                        ImGuiTableFlags.None, new[] { "", "Level", "Location", "" });
+                        ImGuiTableFlags.None, new[] { "", LocalizationService.Ui("Level"), LocalizationService.Ui("Location"), "" });
                 }
             }
 
@@ -836,7 +932,7 @@ namespace InventoryTools.Ui
                 if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Ventures (")) + RetainerTasks.Count() + ")"))
                 {
                     ImGuiTable.DrawTable("Ventures", RetainerTasks, DrawRetainerRow, ImGuiTableFlags.SizingStretchProp,
-                        new[] { "Name", "Time", "Quantities" });
+                        new[] { LocalizationService.Ui("Name"), LocalizationService.Ui("Time"), LocalizationService.Ui("Quantities") });
                 }
             }
 
@@ -853,7 +949,7 @@ namespace InventoryTools.Ui
                 {
                     ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Shops: ")));
                     ImGuiTable.DrawTable("VendorsText", Vendors, DrawSupplierRow, ImGuiTableFlags.None,
-                        new[] { LocalizationService.Ui("Shop Name"),"NPC", "Location", "" });
+                        new[] { LocalizationService.Ui("Shop Name"), LocalizationService.Ui("NPC"), LocalizationService.Ui("Location"), "" });
                 }
             }
 
@@ -864,33 +960,56 @@ namespace InventoryTools.Ui
         {
             if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Owned (")) + OwnedItems.Count + ")"))
             {
-                ImGuiTable.DrawTable("OwnedItems", OwnedItems, DrawOwnedItem, ImGuiTableFlags.None,
-                    new[] { "Character","Location", "Qty", LocalizationService.Ui("Is HQ?") });
+                // 与悬浮模式"角色-雇员-分类-数量-品质"保持一致：按(角色/雇员, 分类, 品质)分组求和
+                var groupedItems = OwnedItems.GroupBy(c => (c.RetainerId, c.SortedCategory, c.Flags)).ToList();
+                ImGuiTable.DrawTable("OwnedItems", groupedItems, DrawOwnedGroup, ImGuiTableFlags.None,
+                    new[] { LocalizationService.Ui("Character"), LocalizationService.Ui("Retainer"), LocalizationService.Ui("Category"), LocalizationService.Ui("Qty"), LocalizationService.Ui("Quality") });
             }
         }
 
-        private void DrawOwnedItem(CriticalCommonLib.Models.InventoryItem obj)
+        private void DrawOwnedGroup(IGrouping<(ulong RetainerId, InventoryCategory SortedCategory, InventoryItem.ItemFlags Flags), CriticalCommonLib.Models.InventoryItem> group)
         {
-            ImGui.TableNextColumn();
-            ImGui.TextWrapped(_characterMonitor.GetCharacterNameById(obj.RetainerId));
-            ImGui.TableNextColumn();
-            ImGui.TextWrapped(_itemLocalizer.FormattedBagLocation(obj));
-            if (obj.SortedCategory == InventoryCategory.GlamourChest && obj.GlamourId != 0)
+            var quantity = group.Sum(c => c.Quantity);
+
+            // 判断是角色背包还是雇员背包（与悬浮模式一致）
+            var isRetainer = group.Key.RetainerId.ToString().StartsWith("3");
+            var characterName = "";
+            var retainerName = "";
+
+            if (isRetainer)
             {
-                ImGui.SameLine();
-                ImGui.Image(this.ImGuiService.GetIconTexture(Icons.MannequinIcon).Handle, new Vector2(16,16));
-                if (ImGui.IsItemHovered())
-                {
-                    using (ImRaii.Tooltip())
-                    {
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("This item has been combined into a single outfit glamour item.")));
-                    }
-                }
+                // 雇员背包：角色名 = 所属角色，雇员名 = 雇员本身
+                var retainer = _characterMonitor.GetCharacterById(group.Key.RetainerId);
+                retainerName = retainer?.FormattedName ?? "";
+                characterName = _characterMonitor.GetCharacterNameById(group.Key.RetainerId, true);
             }
+            else
+            {
+                // 角色背包：角色名 = 该角色
+                var character = _characterMonitor.GetCharacterById(group.Key.RetainerId);
+                characterName = character?.FormattedName ?? "";
+            }
+
             ImGui.TableNextColumn();
-            ImGui.TextWrapped(obj.Quantity.ToString());
+            ImGui.TextWrapped(characterName);
             ImGui.TableNextColumn();
-            ImGui.TextWrapped(obj.IsHQ ? "Yes" : "No");
+            ImGui.TextWrapped(retainerName);
+            ImGui.TableNextColumn();
+            ImGui.TextWrapped(group.Key.SortedCategory.FormattedName());
+            ImGui.TableNextColumn();
+            ImGui.TextWrapped(quantity.ToString());
+            ImGui.TableNextColumn();
+
+            var typeIcon = "";
+            if ((group.Key.Flags & InventoryItem.ItemFlags.HighQuality) != 0)
+            {
+                typeIcon = "\uE03c";
+            }
+            else if ((group.Key.Flags & InventoryItem.ItemFlags.Collectable) != 0)
+            {
+                typeIcon = "\uE03d";
+            }
+            ImGui.TextWrapped(typeIcon);
         }
 
 
@@ -965,14 +1084,12 @@ namespace InventoryTools.Ui
 
 
                     var selected = 0;
-                    if (_picker.Draw("Worlds", "", "", ref selected, 100, 20, ImGuiComboFlags.None))
+                    if (_picker.Draw("##Worlds", "＋ 添加服务器", "", ref selected, 100, 20, ImGuiComboFlags.None))
                     {
-                        var world = _picker.Items[selected];
-                        _picker.SelectedWorldIds.Add(world.RowId);
                         RequestMarketPrices();
                     }
 
-                    if (_picker.SelectedWorldIds.Count != 0)
+                    if (_picker.Selections.Count != 0)
                     {
                         ImGui.SameLine();
                     }
@@ -983,34 +1100,31 @@ namespace InventoryTools.Ui
 
                     var count = 0;
 
-                    foreach (var selectedWorldId in _picker.SelectedWorldIds)
+                    foreach (var selection in _picker.Selections)
                     {
-                        var selectedWorld = _worldSheet.GetRowOrDefault((uint)selectedWorldId);
-                        if (selectedWorld != null)
+                        var selectedWorldFormattedName = selection.Label + " X";
+                        var itemWidth = ImGui.CalcTextSize(selectedWorldFormattedName).X  + (2 * ImGui.GetStyle().FramePadding.X) + 5;
+                        if (windowVisibleX > X + itemWidth)
                         {
-                            var selectedWorldFormattedName = selectedWorld.Value.Name.ExtractText() + " X";
-                            var itemWidth = ImGui.CalcTextSize(selectedWorldFormattedName).X  + (2 * ImGui.GetStyle().FramePadding.X) + 5;
-                            if (windowVisibleX > X + itemWidth)
+                            if (count != 0)
                             {
-                                if (count != 0)
-                                {
-                                    ImGui.SameLine();
-                                }
-
-                                X += itemWidth;
-                            }
-                            else
-                            {
-                                X = itemWidth;
-                                ImGui.NewLine();
+                                ImGui.SameLine();
                             }
 
-                            count++;
+                            X += itemWidth;
+                        }
+                        else
+                        {
+                            X = itemWidth;
+                            ImGui.NewLine();
+                        }
 
-                            if (ImGui.Button(selectedWorldFormattedName))
-                            {
-                                _picker.SelectedWorldIds.Remove(selectedWorldId);
-                            }
+                        count++;
+
+                        if (ImGui.Button(selectedWorldFormattedName))
+                        {
+                            _picker.RemoveSelection(selection);
+                            RequestMarketPrices();
                         }
                     }
 
@@ -1023,14 +1137,16 @@ namespace InventoryTools.Ui
                     }
                     ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Refresh the current prices.")));
                     ImGuiTable.DrawTable("MarketPrices", _marketPrices, DrawMarketRow, ImGuiTableFlags.None,
-                        new[] { "Server",LocalizationService.Ui("Updated At"), "Available", LocalizationService.Ui("Min. Price") });
+                        new[] { LocalizationService.Ui("Server"),LocalizationService.Ui("Updated At"), LocalizationService.Ui("Available"), LocalizationService.Ui("Min. Price") });
                 }
             }
 
             void DrawMarketRow(MarketPricing obj)
             {
                 ImGui.TableNextColumn();
-                ImGui.TextWrapped(_worldSheet.GetRowOrDefault(obj.WorldId)?.Name.ExtractText() ?? "Unknown");
+                ImGui.TextWrapped(CnWorlds.Names.TryGetValue(obj.WorldId, out var cnWorld)
+                    ? cnWorld.World
+                    : _worldSheet.GetRowOrDefault(obj.WorldId)?.Name.ExtractText() ?? "Unknown");
                 ImGui.TableNextColumn();
                 ImGui.TextWrapped((obj.LastUpdate - DateTime.Now).Humanize(minUnit: TimeUnit.Minute, maxUnit: TimeUnit.Hour, precision: 1) + LocalizationService.Ui(" ago"));
                 ImGui.TableNextColumn();
@@ -1053,13 +1169,13 @@ namespace InventoryTools.Ui
                         if (table.Success)
                         {
                             ImGui.TableNextColumn();
-                            ImGui.TableHeader("Level");
+                            ImGui.TableHeader(LocalizationService.Ui("Level"));
                             ImGui.TableNextColumn();
                             ImGui.TableHeader(LocalizationService.Ui("Collectable Rating"));
                             ImGui.TableNextColumn();
-                            ImGui.TableHeader("XP");
+                            ImGui.TableHeader(LocalizationService.Ui("XP"));
                             ImGui.TableNextColumn();
-                            ImGui.TableHeader("Scrip");
+                            ImGui.TableHeader(LocalizationService.Ui("Scrip"));
 
                             ImGui.TableNextRow();
                             ImGui.TableNextColumn();

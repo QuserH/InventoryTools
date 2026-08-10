@@ -94,17 +94,17 @@ public class DisplayMarketPriceTooltip : BaseTooltip
                                 if (Configuration.TooltipDisplayMarketAveragePrice)
                                 {
                                     textLines.Add(
-                                        $"{indentation}Average Price: {Math.Round(marketData.AveragePriceNq, 0)}\n");
+                                        $"{indentation}{LocalizationService.Ui("Average Price: ")}{Math.Round(marketData.AveragePriceNq, 0)}\n");
                                     textLines.Add(
-                                        $"{indentation}Average Price (HQ): {Math.Round(marketData.AveragePriceHq, 0)}\n");
+                                        $"{indentation}{LocalizationService.Ui("Average Price (HQ): ")}{Math.Round(marketData.AveragePriceHq, 0)}\n");
                                 }
 
                                 if (Configuration.TooltipDisplayMarketLowestPrice)
                                 {
                                     textLines.Add(
-                                        $"{indentation}Minimum Price: {Math.Round(marketData.MinPriceNq, 0)}\n");
+                                        $"{indentation}{LocalizationService.Ui("Minimum Price: ")}{Math.Round(marketData.MinPriceNq, 0)}\n");
                                     textLines.Add(
-                                        $"{indentation}Minimum Price (HQ): {Math.Round(marketData.MinPriceHq, 0)}\n");
+                                        $"{indentation}{LocalizationService.Ui("Minimum Price (HQ): ")}{Math.Round(marketData.MinPriceHq, 0)}\n");
                                 }
                             }
                         }

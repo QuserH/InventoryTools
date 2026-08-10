@@ -533,7 +533,7 @@ public class ImGuiTooltipService
             ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Equip Level {0}"), item.Base.LevelEquip));
         }
 
-        ImGui.TextUnformatted(item.FormattedRarity);
+        ImGui.TextUnformatted(LocalizationService.Ui(item.FormattedRarity));
 
         if (item.EquipRace != CharacterRace.Any && item.EquipRace != CharacterRace.None)
         {

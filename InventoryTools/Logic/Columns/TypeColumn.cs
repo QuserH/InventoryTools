@@ -56,6 +56,25 @@ namespace InventoryTools.Logic.Columns
             return base.Draw(configuration, columnConfiguration, searchResult, rowIndex, columnIndex);
         }
 
+        /// <summary>显示改为品质图标：HQ 显示 E03c，收藏品显示 E03d，NQ 不显示。筛选/排序/导出仍用文本值（HQ/NQ/Collectible）。</summary>
+        public override List<MessageBase>? DoDraw(SearchResult searchResult, string? currentValue, int rowIndex,
+            FilterConfiguration filterConfiguration, ColumnConfiguration columnConfiguration)
+        {
+            ImGui.TableNextColumn();
+            if (ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
+            {
+                var display = currentValue switch
+                {
+                    "HQ" => "\uE03c",
+                    "Collectible" => "\uE03d",
+                    _ => ""
+                };
+                ImGuiUtil.VerticalAlignText(display, filterConfiguration.TableHeight, filterConfiguration.FilterType == Logic.FilterType.CraftFilter);
+            }
+
+            return null;
+        }
+
         public override string? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
             if (searchResult.InventoryItem != null)
