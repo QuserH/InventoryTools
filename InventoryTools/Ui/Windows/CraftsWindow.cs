@@ -81,6 +81,8 @@ namespace InventoryTools.Ui
         private readonly ICompendiumTypeFactory _compendiumTypeFactory;
         private readonly ICalloutService _calloutService;
         private readonly MissingRequirementsGrouper _missingRequirementsGrouper;
+        private readonly RetainerRetrievalAutomation _retainerRetrievalAutomation;
+        private readonly RetainerRetrievalPlanner _retainerRetrievalPlanner;
         private readonly IPluginLog _pluginLog;
         private IEnumerable<IMenuWindow> _menuWindows;
         private ThrottleDispatcher? _throttleDispatcher;
@@ -116,6 +118,8 @@ namespace InventoryTools.Ui
             ICompendiumTypeFactory compendiumTypeFactory,
             ICalloutService calloutService,
             MissingRequirementsGrouper missingRequirementsGrouper,
+            RetainerRetrievalAutomation retainerRetrievalAutomation,
+            RetainerRetrievalPlanner retainerRetrievalPlanner,
             IPluginLog pluginLog) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui(LocalizationService.Ui("Crafts Window")))
         {
             _tableService = tableService;
@@ -146,6 +150,8 @@ namespace InventoryTools.Ui
             _compendiumTypeFactory = compendiumTypeFactory;
             _calloutService = calloutService;
             _missingRequirementsGrouper = missingRequirementsGrouper;
+            _retainerRetrievalAutomation = retainerRetrievalAutomation;
+            _retainerRetrievalPlanner = retainerRetrievalPlanner;
             _pluginLog = pluginLog;
             Flags = ImGuiWindowFlags.MenuBar;
             MediatorService.Subscribe<ListUpdatedMessage>(this, ListUpdatedMessage);
@@ -212,6 +218,7 @@ namespace InventoryTools.Ui
         private bool _missingRequirementsDirty = true;
         private string? _lastMissingReqConfigKey;
         private IReadOnlyList<MissingRequirementGroup> _missingRequirements = Array.Empty<MissingRequirementGroup>();
+        private RetainerRetrievalPlan? _retainerRetrievalPlan;
 
 
 
@@ -2471,6 +2478,7 @@ namespace InventoryTools.Ui
             if (_missingRequirementsDirty || filterConfiguration.Key != _lastMissingReqConfigKey)
             {
                 _missingRequirements = _missingRequirementsGrouper.GetMissingRequirements(filterConfiguration.CraftList);
+                _retainerRetrievalPlan = _retainerRetrievalPlanner.Build(filterConfiguration.CraftList);
                 _missingRequirementsDirty = false;
                 _lastMissingReqConfigKey = filterConfiguration.Key;
             }
@@ -2595,6 +2603,44 @@ namespace InventoryTools.Ui
                         }
                     }
                     ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Open the craft list's tree view.")));
+
+                    ImGui.SameLine();
+                    width -= 28 * ImGui.GetIO().FontGlobalScale;
+                    if (_retainerRetrievalAutomation.IsRunning)
+                    {
+                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.Stop, ref width))
+                        {
+                            _retainerRetrievalAutomation.Cancel();
+                        }
+
+                        ImGuiUtil.HoverTooltip(LocalizationService.Ui("点击停止自动取回。") + "\n" + _retainerRetrievalAutomation.Status);
+                    }
+                    else
+                    {
+                        var retrievalPlan = _retainerRetrievalPlan;
+                        var planReady = retrievalPlan != null && !retrievalPlan.IsEmpty;
+                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.PeopleCarry, ref width) && planReady)
+                        {
+                            _retainerRetrievalAutomation.Start(filterConfiguration.CraftList);
+                        }
+
+                        if (planReady)
+                        {
+                            var involvedRetainers = retrievalPlan!.Entries
+                                .Select(entry => entry.RetainerId)
+                                .Distinct()
+                                .Select(retainerId => _characterMonitor.GetCharacterNameById(retainerId))
+                                .ToList();
+                            ImGuiUtil.HoverTooltip(LocalizationService.Format(
+                                LocalizationService.Ui("从雇员自动取回清单缺料（共 {0} 件，涉及雇员：{1}）。\n需要站在传唤铃旁，点击后会自动呼叫雇员并取出材料。"),
+                                retrievalPlan.TotalQuantity, string.Join("、", involvedRetainers)));
+                        }
+                        else
+                        {
+                            ImGuiUtil.HoverTooltip(LocalizationService.Ui("当前角色的雇员中没有清单需要取回的材料。") +
+                                (_retainerRetrievalAutomation.Status != "空闲" ? "\n" + _retainerRetrievalAutomation.Status : ""));
+                        }
+                    }
 
                     ImGui.SameLine();
                     width -= 156 * ImGui.GetIO().FontGlobalScale;

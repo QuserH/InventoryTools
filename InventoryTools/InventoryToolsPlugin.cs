@@ -260,6 +260,10 @@ namespace InventoryTools
             builder.RegisterSingletonSelfAndInterfaces<AchievementMonitorConfiguration>();
             builder.RegisterSingletonSelfAndInterfaces<UIStateService>();
             builder.RegisterSingletonSelfAndInterfaces<ChocoboColourSolver>();
+            builder.RegisterSingletonSelfAndInterfaces<RetainerRetrievalPlanner>();
+            builder.RegisterType<RetainerRetrievalService>().As<IRetainerRetrievalService>().AsSelf().SingleInstance();
+            builder.RegisterType<RetainerGameUi>().As<IRetainerGameUi>().SingleInstance();
+            builder.RegisterType<RetainerRetrievalAutomation>().AsSelf().SingleInstance();
 
             //Transient registrations
             builder.RegisterTransientSelfAndInterfaces<BackgroundTaskQueue>();
