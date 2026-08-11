@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CriticalCommonLib.Crafting;
 using CriticalCommonLib.Services;
 using Dalamud.Plugin.Services;
