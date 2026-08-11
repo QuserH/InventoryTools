@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - zh-cn-translation
 
 env:
   INTERNAL_NAME: InventoryTools
