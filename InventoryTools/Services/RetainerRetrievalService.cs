@@ -7,8 +7,8 @@ public interface IRetainerRetrievalService
 {
     bool IsRunning { get; }
     string Status { get; }
-    RetainerRetrievalPlan BuildPlan(CraftList craftList);
-    bool Start(CraftList craftList);
+    RetainerRetrievalPlan BuildPlan(CraftList craftList, IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null);
+    bool Start(CraftList craftList, IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null);
     void Cancel();
 }
 
@@ -29,14 +29,17 @@ public sealed class RetainerRetrievalService : IRetainerRetrievalService
     public bool IsRunning => _automation.IsRunning;
     public string Status => _automation.Status;
 
-    public RetainerRetrievalPlan BuildPlan(CraftList craftList) => _planner.Build(craftList);
+    public RetainerRetrievalPlan BuildPlan(CraftList craftList,
+        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null) =>
+        _planner.Build(craftList, requestedQuantities);
 
-    public bool Start(CraftList craftList)
+    public bool Start(CraftList craftList,
+        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null)
     {
         if (IsRunning)
             return false;
 
-        return _automation.Start(craftList);
+        return _automation.Start(craftList, requestedQuantities);
     }
 
     public void Cancel()

@@ -16,6 +16,8 @@ public sealed record RetainerRetrievalEntry(
     uint Quantity,
     IReadOnlyList<InventoryItem> Stacks);
 
+public sealed record RetainerRetrievalItemKey(uint ItemId, ItemFlags Flags);
+
 public sealed class RetainerRetrievalPlan
 {
     public IReadOnlyList<RetainerRetrievalEntry> Entries { get; }
@@ -44,7 +46,8 @@ public sealed class RetainerRetrievalPlanner
         _characterMonitor = characterMonitor;
     }
 
-    public RetainerRetrievalPlan Build(CraftList craftList)
+    public RetainerRetrievalPlan Build(CraftList craftList,
+        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null)
     {
         var required = new Dictionary<(uint ItemId, ItemFlags Flags), uint>();
         foreach (var item in craftList.GetFlattenedMaterials())
@@ -54,6 +57,21 @@ public sealed class RetainerRetrievalPlanner
             var key = (item.ItemId, RequiredFlags(item));
             required.TryAdd(key, 0);
             required[key] += item.QuantityWillRetrieve;
+        }
+
+        if (requestedQuantities != null)
+        {
+            foreach (var requirement in required.Keys.ToArray())
+            {
+                var selectionKey = new RetainerRetrievalItemKey(requirement.ItemId, requirement.Flags);
+                if (!requestedQuantities.TryGetValue(selectionKey, out var requested) || requested == 0)
+                {
+                    required.Remove(requirement);
+                    continue;
+                }
+
+                required[requirement] = Math.Min(required[requirement], requested);
+            }
         }
 
         if (required.Count == 0 || !_characterMonitor.IsLoggedIn)

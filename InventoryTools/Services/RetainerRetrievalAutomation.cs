@@ -48,7 +48,8 @@ public sealed class RetainerRetrievalAutomation : IDisposable
     public bool IsRunning => State is not (RetainerRetrievalState.Idle or RetainerRetrievalState.Completed
         or RetainerRetrievalState.Failed or RetainerRetrievalState.Cancelled);
 
-    public bool Start(CraftList craftList)
+    public bool Start(CraftList craftList,
+        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null)
     {
         if (IsRunning)
             return false;
@@ -63,7 +64,7 @@ public sealed class RetainerRetrievalAutomation : IDisposable
             return false;
         }
 
-        _plan = _planner.Build(craftList);
+        _plan = _planner.Build(craftList, requestedQuantities);
         if (_plan.IsEmpty)
         {
             Status = "当前角色的雇员中没有清单需要取回的材料";

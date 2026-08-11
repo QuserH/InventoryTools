@@ -79,8 +79,23 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
 
     public bool IsRetainerListReady => TryGetReadyAddon("RetainerList", out _);
 
-    public bool IsRetainerInventoryReady =>
-        TryGetReadyAddon("InventoryRetainer", out _) || TryGetReadyAddon("InventoryRetainerLarge", out _);
+    public bool IsRetainerInventoryReady
+    {
+        get
+        {
+            // The client normally reuses the standard inventory addon for a retainer.  The
+            // InventoryRetainer names only occur in some client layouts, so accepting only those
+            // names left the state machine waiting forever after selecting "Entrust or withdraw".
+            if (TryGetReadyAddon("InventoryRetainer", out _) || TryGetReadyAddon("InventoryRetainerLarge", out _) ||
+                TryGetReadyAddon("Inventory", out _) || TryGetReadyAddon("InventoryLarge", out _))
+                return IsRetainerAgentActive();
+
+            // The inventory addon can be suppressed by a custom UI layout.  Once the retainer
+            // agent is active and its first bag container has been loaded, it is still safe to
+            // proceed: TryRetrieve validates the slot and context menu before it clicks anything.
+            return IsRetainerAgentActive() && HasLoadedRetainerInventory();
+        }
+    }
 
     public bool TryInteractWithNearestBell()
     {
@@ -294,6 +309,18 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         }
 
         return -1;
+    }
+
+    private static bool IsRetainerAgentActive()
+    {
+        var agent = AgentModule.Instance()->GetAgentByInternalId(AgentId.Retainer);
+        return agent != null && agent->IsAgentActive();
+    }
+
+    private static bool HasLoadedRetainerInventory()
+    {
+        var manager = InventoryManager.Instance();
+        return manager != null && manager->GetInventoryContainer(InventoryType.RetainerPage1) != null;
     }
 
     private static bool TryFindRetainerSlot(uint itemId, InventoryItem.ItemFlags flags, out InventoryType container,

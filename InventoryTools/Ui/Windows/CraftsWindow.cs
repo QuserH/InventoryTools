@@ -219,6 +219,11 @@ namespace InventoryTools.Ui
         private string? _lastMissingReqConfigKey;
         private IReadOnlyList<MissingRequirementGroup> _missingRequirements = Array.Empty<MissingRequirementGroup>();
         private RetainerRetrievalPlan? _retainerRetrievalPlan;
+        private const string RetainerRetrievalSelectionKey = "CraftRetainerRetrievalSelection";
+        private string? _retainerRetrievalSelectionConfigKey;
+        private readonly Dictionary<RetainerRetrievalItemKey, uint> _retainerRetrievalSelection = new();
+        private sealed record RetainerRetrievalDisplayItem(RetainerRetrievalItemKey Key, uint Quantity,
+            IReadOnlyList<string> Retainers);
 
 
 
@@ -2471,6 +2476,161 @@ namespace InventoryTools.Ui
             ImGui.SameLine();
         }
 
+        private static string RetainerRetrievalPopupId(FilterConfiguration filterConfiguration) =>
+            "Retainer retrieval plan##" + filterConfiguration.Key;
+
+        private void DrawRetainerRetrievalPlanPopup(FilterConfiguration filterConfiguration)
+        {
+            var popupId = RetainerRetrievalPopupId(filterConfiguration);
+            if (!ImGui.BeginPopup(popupId))
+                return;
+
+            var fullPlan = _retainerRetrievalPlanner.Build(filterConfiguration.CraftList);
+            if (fullPlan.IsEmpty)
+            {
+                ImGui.TextUnformatted(LocalizationService.Ui("No required materials are currently held by this character's retainers."));
+                ImGui.EndPopup();
+                return;
+            }
+
+            EnsureRetainerRetrievalSelection(filterConfiguration, fullPlan);
+            var items = fullPlan.Entries
+                .GroupBy(entry => new RetainerRetrievalItemKey(entry.ItemId, entry.Flags))
+                .Select(group => new RetainerRetrievalDisplayItem(group.Key,
+                    (uint)group.Sum(entry => (long)entry.Quantity),
+                    group.GroupBy(entry => entry.RetainerId)
+                        .Select(retainer => $"{_characterMonitor.GetCharacterNameById(retainer.Key)} x{retainer.Sum(entry => (long)entry.Quantity)}")
+                        .ToList()))
+                .OrderBy(item => ItemName(item.Key.ItemId))
+                .ToList();
+
+            ImGui.TextUnformatted(LocalizationService.Ui("Retainer retrieval plan"));
+            ImGui.SameLine();
+            ImGui.TextDisabled(LocalizationService.Format(LocalizationService.Ui("({0} item types)"), items.Count));
+            if (ImGui.Button(LocalizationService.Ui("Select all")))
+            {
+                foreach (var item in items)
+                    _retainerRetrievalSelection[item.Key] = item.Quantity;
+            }
+
+            ImGui.SameLine();
+            if (ImGui.Button(LocalizationService.Ui("Clear selection")))
+            {
+                foreach (var item in items)
+                    _retainerRetrievalSelection[item.Key] = 0;
+            }
+
+            ImGui.Separator();
+            using (var table = ImRaii.Table("RetainerRetrievalPlan", 4,
+                       ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.RowBg))
+            {
+                if (table.Success)
+                {
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Retrieve"), ImGuiTableColumnFlags.WidthFixed, 65);
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Item"), ImGuiTableColumnFlags.WidthStretch, 0.42f);
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Quantity"), ImGuiTableColumnFlags.WidthFixed, 110);
+                    ImGui.TableSetupColumn(LocalizationService.Ui("Retainers"), ImGuiTableColumnFlags.WidthStretch, 0.58f);
+                    ImGui.TableHeadersRow();
+
+                    foreach (var item in items)
+                    {
+                        var selectedQuantity = _retainerRetrievalSelection.GetValueOrDefault(item.Key, item.Quantity);
+                        var selected = selectedQuantity > 0;
+                        ImGui.TableNextRow();
+                        ImGui.TableSetColumnIndex(0);
+                        if (ImGui.Checkbox("##retainer-retrieve-" + item.Key.ItemId + "-" + (uint)item.Key.Flags, ref selected))
+                            selectedQuantity = selected ? item.Quantity : 0;
+
+                        ImGui.TableSetColumnIndex(1);
+                        ImGui.TextUnformatted(ItemName(item.Key.ItemId) + " (" + RetrievalQualityLabel(item.Key.Flags) + ")");
+
+                        ImGui.TableSetColumnIndex(2);
+                        var editableQuantity = (int)Math.Min(selectedQuantity, int.MaxValue);
+                        ImGui.SetNextItemWidth(-1);
+                        if (ImGui.InputInt("##retainer-quantity-" + item.Key.ItemId + "-" + (uint)item.Key.Flags,
+                                ref editableQuantity, 1, 10))
+                            selectedQuantity = (uint)Math.Clamp(editableQuantity, 0, (int)Math.Min(item.Quantity, int.MaxValue));
+                        _retainerRetrievalSelection[item.Key] = selectedQuantity;
+                        ImGuiUtil.HoverTooltip(LocalizationService.Format(LocalizationService.Ui("Available to retrieve: {0}"), item.Quantity));
+
+                        ImGui.TableSetColumnIndex(3);
+                        ImGui.TextWrapped(string.Join(", ", item.Retainers));
+                    }
+                }
+            }
+
+            var selectedItems = _retainerRetrievalSelection.Where(entry => entry.Value > 0)
+                .ToDictionary(entry => entry.Key, entry => entry.Value);
+            ImGui.Separator();
+            if (ImGui.Button(LocalizationService.Ui("Retrieve selected")) && selectedItems.Count > 0)
+            {
+                SaveRetainerRetrievalSelection(filterConfiguration, items);
+                if (_retainerRetrievalAutomation.Start(filterConfiguration.CraftList, selectedItems))
+                    ImGui.CloseCurrentPopup();
+            }
+
+            ImGui.SameLine();
+            if (ImGui.Button(LocalizationService.Ui("Close")))
+            {
+                SaveRetainerRetrievalSelection(filterConfiguration, items);
+                ImGui.CloseCurrentPopup();
+            }
+
+            ImGui.EndPopup();
+        }
+
+        private void EnsureRetainerRetrievalSelection(FilterConfiguration filterConfiguration, RetainerRetrievalPlan plan)
+        {
+            Dictionary<RetainerRetrievalItemKey, uint>? savedSelections = null;
+            if (_retainerRetrievalSelectionConfigKey != filterConfiguration.Key)
+            {
+                _retainerRetrievalSelectionConfigKey = filterConfiguration.Key;
+                _retainerRetrievalSelection.Clear();
+                savedSelections = filterConfiguration.GetStringChoiceFilter(RetainerRetrievalSelectionKey)
+                    .Select(ParseRetainerRetrievalSelection)
+                    .Where(selection => selection.HasValue)
+                    .Select(selection => selection!.Value)
+                    .GroupBy(selection => selection.Key)
+                    .ToDictionary(group => group.Key, group => group.Last().Quantity);
+            }
+
+            foreach (var group in plan.Entries.GroupBy(entry => new RetainerRetrievalItemKey(entry.ItemId, entry.Flags)))
+            {
+                var available = (uint)group.Sum(entry => (long)entry.Quantity);
+                if (savedSelections != null && savedSelections.TryGetValue(group.Key, out var saved))
+                    _retainerRetrievalSelection[group.Key] = Math.Min(saved, available);
+                else if (_retainerRetrievalSelection.TryGetValue(group.Key, out var selected))
+                    _retainerRetrievalSelection[group.Key] = Math.Min(selected, available);
+                else
+                    _retainerRetrievalSelection[group.Key] = available;
+            }
+        }
+
+        private void SaveRetainerRetrievalSelection(FilterConfiguration filterConfiguration,
+            IEnumerable<RetainerRetrievalDisplayItem> items)
+        {
+            filterConfiguration.UpdateStringChoiceFilter(RetainerRetrievalSelectionKey, items.Select(item =>
+                $"{item.Key.ItemId}:{(uint)item.Key.Flags}:{_retainerRetrievalSelection.GetValueOrDefault(item.Key)}").ToList());
+        }
+
+        private static (RetainerRetrievalItemKey Key, uint Quantity)? ParseRetainerRetrievalSelection(string value)
+        {
+            var parts = value.Split(':');
+            if (parts.Length != 3 || !uint.TryParse(parts[0], out var itemId) ||
+                !uint.TryParse(parts[1], out var flags) || !uint.TryParse(parts[2], out var quantity))
+                return null;
+            return (new RetainerRetrievalItemKey(itemId, (InventoryItem.ItemFlags)flags), quantity);
+        }
+
+        private string ItemName(uint itemId) => _itemSheet.GetRow(itemId)?.NameString ?? $"Item #{itemId}";
+
+        private static string RetrievalQualityLabel(InventoryItem.ItemFlags flags)
+        {
+            if (flags.HasFlag(InventoryItem.ItemFlags.Collectable))
+                return "Collectable";
+            return flags.HasFlag(InventoryItem.ItemFlags.HighQuality) ? "HQ" : "NQ";
+        }
+
         private HorizontalSplitter _splitter;
 
         private unsafe void DrawCraftPanel(FilterConfiguration filterConfiguration)
@@ -2619,6 +2779,18 @@ namespace InventoryTools.Ui
                     {
                         var retrievalPlan = _retainerRetrievalPlan;
                         var planReady = retrievalPlan != null && !retrievalPlan.IsEmpty;
+                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.List, ref width) && planReady)
+                        {
+                            EnsureRetainerRetrievalSelection(filterConfiguration, retrievalPlan!);
+                            ImGui.OpenPopup(RetainerRetrievalPopupId(filterConfiguration));
+                        }
+
+                        ImGuiUtil.HoverTooltip(planReady
+                            ? LocalizationService.Ui("Choose retainer materials and quantities to retrieve.")
+                            : LocalizationService.Ui("No required materials are currently held by this character's retainers."));
+
+                        ImGui.SameLine();
+                        width -= 28 * ImGui.GetIO().FontGlobalScale;
                         if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.PeopleCarry, ref width) && planReady)
                         {
                             _retainerRetrievalAutomation.Start(filterConfiguration.CraftList);
@@ -2682,6 +2854,8 @@ namespace InventoryTools.Ui
                     }
                 }
             }
+
+            DrawRetainerRetrievalPlanPopup(filterConfiguration);
 
             using (var contentChild = ImRaii.Child("Content", new Vector2(0, -44) * ImGui.GetIO().FontGlobalScale, true))
             {
