@@ -25,7 +25,8 @@ public sealed class CraftRetainerAvailableFilter : BooleanFilter
     public override string Key { get; set; } = "CraftRetainerAvailable";
     public override string Name { get; set; } = LocalizationService.Ui("Retainer Material Available");
     public override string HelpText { get; set; } = LocalizationService.Ui("Show craft items found in one of the active character's retainers.");
-    public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
+    public override FilterCategory FilterCategory { get; set; } = FilterCategory.IngredientSourcing;
+    public override int Order { get; set; } = 100;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     public override bool? DefaultValue { get; set; } = null;
 

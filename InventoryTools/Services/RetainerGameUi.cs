@@ -40,6 +40,12 @@ public interface IRetainerGameUi
 
 public sealed unsafe class RetainerGameUi : IRetainerGameUi
 {
+    private static readonly string[] RetainerInventoryAddons =
+    {
+        "RetainerGrid0", "RetainerGrid1", "RetainerGrid2", "RetainerGrid3", "RetainerGrid4",
+        "RetainerCrystalGrid",
+    };
+
     private static readonly InventoryType[] RetainerContainers =
     {
         InventoryType.RetainerPage1, InventoryType.RetainerPage2, InventoryType.RetainerPage3,
@@ -83,17 +89,19 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
     {
         get
         {
-            // The client normally reuses the standard inventory addon for a retainer.  The
-            // InventoryRetainer names only occur in some client layouts, so accepting only those
-            // names left the state machine waiting forever after selecting "Entrust or withdraw".
-            if (TryGetReadyAddon("InventoryRetainer", out _) || TryGetReadyAddon("InventoryRetainerLarge", out _) ||
-                TryGetReadyAddon("Inventory", out _) || TryGetReadyAddon("InventoryLarge", out _))
-                return IsRetainerAgentActive();
+            if (!IsRetainerAgentActive())
+                return false;
 
-            // The inventory addon can be suppressed by a custom UI layout.  Once the retainer
-            // agent is active and its first bag container has been loaded, it is still safe to
-            // proceed: TryRetrieve validates the slot and context menu before it clicks anything.
-            return IsRetainerAgentActive() && HasLoadedRetainerInventory();
+            // These are the client addons that actually render a retainer's bags.  They are used
+            // by AutoRetainer's tested retrieval path; the generic Inventory addon is not a
+            // reliable indication that the retainer inventory is available.
+            foreach (var name in RetainerInventoryAddons)
+            {
+                if (TryGetReadyAddon(name, out _))
+                    return true;
+            }
+
+            return false;
         }
     }
 
@@ -188,10 +196,11 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             return false;
 
         var wantsPartial = stack > quantity;
-        var entryIndex = FindContextEntry(agent, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
+        var entryIndex = FindContextEntry((AddonContextMenu*)contextMenu,
+            wantsPartial ? RetrieveQuantityText : RetrieveAllText);
         if (entryIndex < 0 && wantsPartial)
         {
-            entryIndex = FindContextEntry(agent, RetrieveAllText);
+            entryIndex = FindContextEntry((AddonContextMenu*)contextMenu, RetrieveAllText);
             wantsPartial = false;
         }
 
@@ -201,13 +210,12 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             return false;
         }
 
-        var values = stackalloc AtkValue[5];
+        // Native ContextMenu entries use exactly the same callback as AddonMaster.ContextMenu.Entry.Select.
+        var values = stackalloc AtkValue[3];
         values[0] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
         values[1] = new AtkValue { Type = AtkValueType.Int, Int = entryIndex };
         values[2] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
-        values[3] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
-        values[4] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
-        contextMenu->FireCallback(5, values, true);
+        contextMenu->FireCallback(3, values, true);
 
         expectsQuantityInput = wantsPartial;
         willRetrieve = wantsPartial ? quantity : stack;
@@ -294,14 +302,13 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return false;
     }
 
-    private static int FindContextEntry(AgentInventoryContext* agent, string expected)
+    private static int FindContextEntry(AddonContextMenu* contextMenu, string expected)
     {
-        var start = agent->ContexItemStartIndex;
-        var count = agent->ContextItemCount;
+        var count = (int)contextMenu->AtkValues[0].UInt;
         for (var index = 0; index < count; index++)
         {
-            var value = agent->EventParams[start + index];
-            if (value.Type != AtkValueType.String || value.String.Value == null)
+            var value = contextMenu->AtkValues[index + 8];
+            if (value.String.Value == null)
                 continue;
             var label = MemoryHelper.ReadSeStringNullTerminated((nint)value.String.Value).TextValue;
             if (string.Equals(label, expected, StringComparison.Ordinal))
@@ -315,12 +322,6 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
     {
         var agent = AgentModule.Instance()->GetAgentByInternalId(AgentId.Retainer);
         return agent != null && agent->IsAgentActive();
-    }
-
-    private static bool HasLoadedRetainerInventory()
-    {
-        var manager = InventoryManager.Instance();
-        return manager != null && manager->GetInventoryContainer(InventoryType.RetainerPage1) != null;
     }
 
     private static bool TryFindRetainerSlot(uint itemId, InventoryItem.ItemFlags flags, out InventoryType container,

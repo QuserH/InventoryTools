@@ -237,6 +237,8 @@ public static partial class LocalizationService
             ["Required Items"] = "所需物品",
             ["Retainer/Bag List"] = "雇员/背包列表",
             ["Retainer/Bag List (CSV)"] = "雇员/背包列表（CSV）",
+            ["Retainer Material Available"] = "雇员持有材料",
+            ["Show craft items found in one of the active character's retainers."] = "只显示当前角色任一雇员持有的制作材料。",
             ["Retrieve"] = "取回",
             ["Retrieve from Retainer"] = "从雇员取回",
             ["Right Click: Menu"] = "右键：菜单",
