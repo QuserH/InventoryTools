@@ -65,6 +65,7 @@ jobs:
           name: InventoryTools zh-CN ${{ env.PLUGIN_VERSION }}
           target_commitish: ${{ github.sha }}
           files: ${{ env.PLUGIN_ZIP }}
+          overwrite_files: true
           generate_release_notes: true
 
       - name: Notify zh-repo

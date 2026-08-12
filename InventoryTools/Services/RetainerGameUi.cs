@@ -187,7 +187,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return false;
     }
 
-    public bool TrySelectEntrustOrWithdraw() => TrySelectStringEntry(EntrustText);
+    public bool TrySelectEntrustOrWithdraw() => TrySelectStringEntry(EntrustText, IsEntrustOrWithdrawEntry);
 
     public bool TrySelectQuit() => TrySelectStringEntry(QuitText);
 
@@ -304,7 +304,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return true;
     }
 
-    private bool TrySelectStringEntry(string entryText)
+    private bool TrySelectStringEntry(string entryText, Func<string, bool>? fallbackMatch = null)
     {
         if (!TryGetReadyAddon("SelectString", out var addon))
             return false;
@@ -317,7 +317,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             if (entryPointer == null)
                 continue;
             var entry = MemoryHelper.ReadSeStringNullTerminated((nint)entryPointer).TextValue;
-            if (!entry.StartsWith(entryText, StringComparison.Ordinal))
+            if (!TextMatches(entry, entryText) && !(fallbackMatch?.Invoke(entry) ?? false))
                 continue;
 
             var values = stackalloc AtkValue[1];
@@ -327,6 +327,40 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         }
 
         return false;
+    }
+
+    private bool IsEntrustOrWithdrawEntry(string entry)
+    {
+        var normalized = NormalizeMenuText(entry);
+        return normalized.Contains("entrust", StringComparison.Ordinal) ||
+               normalized.Contains("withdraw", StringComparison.Ordinal) ||
+               normalized.Contains("itemtransfer", StringComparison.Ordinal) ||
+               normalized.Contains("アイテム", StringComparison.Ordinal) ||
+               normalized.Contains("道具", StringComparison.Ordinal) ||
+               normalized.Contains("物品", StringComparison.Ordinal) ||
+               normalized.Contains("寄存", StringComparison.Ordinal) ||
+               normalized.Contains("取回", StringComparison.Ordinal);
+    }
+
+    private static bool TextMatches(string entry, string expected)
+    {
+        var normalizedEntry = NormalizeMenuText(entry);
+        var normalizedExpected = NormalizeMenuText(expected);
+        return normalizedEntry.StartsWith(normalizedExpected, StringComparison.Ordinal) ||
+               normalizedExpected.StartsWith(normalizedEntry, StringComparison.Ordinal);
+    }
+
+    private static string NormalizeMenuText(string value)
+    {
+        Span<char> buffer = stackalloc char[value.Length];
+        var length = 0;
+        foreach (var character in value)
+        {
+            if (!char.IsWhiteSpace(character) && !char.IsPunctuation(character) && !char.IsControl(character))
+                buffer[length++] = char.ToLowerInvariant(character);
+        }
+
+        return new string(buffer[..length]);
     }
 
     private static int FindContextEntry(AgentInventoryContext* agent, string expected)

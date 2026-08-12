@@ -117,16 +117,14 @@ public sealed class RetainerRetrievalAutomation : IDisposable
     {
         var entry = _plan!.Entries[_entryIndex];
 
-        // A Talk window can appear both after interacting with the bell and after choosing an
-        // individual retainer.  It must be advanced before waiting for the next addon; otherwise
-        // the automation waits for SelectString while the game's conversation is still on screen.
-        if (State is RetainerRetrievalState.WaitingForRetainerList or RetainerRetrievalState.SelectingRetainerAction)
+        // The bell opens Talk before RetainerList. Do not do this globally: a Talk addon can remain
+        // visible behind the retainer SelectString menu, and then it would prevent choosing the
+        // actual "Entrust or withdraw items" entry.
+        if (State == RetainerRetrievalState.WaitingForRetainerList)
         {
             if (CanAct(now) && _ui.TryAdvanceBellTalk())
             {
-                Status = State == RetainerRetrievalState.WaitingForRetainerList
-                    ? "正在跳过传唤铃对话"
-                    : "正在跳过雇员对话";
+                Status = "正在跳过传唤铃对话";
                 return;
             }
         }
@@ -159,8 +157,13 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 break;
 
             case RetainerRetrievalState.SelectingRetainerAction:
-                if (CanAct(now) && _ui.TrySelectEntrustOrWithdraw())
-                    SetState(RetainerRetrievalState.WaitingForInventory, "正在打开雇员背包");
+                if (CanAct(now))
+                {
+                    if (_ui.TrySelectEntrustOrWithdraw())
+                        SetState(RetainerRetrievalState.WaitingForInventory, "正在打开雇员背包");
+                    else if (_ui.TryAdvanceBellTalk())
+                        Status = "正在跳过雇员对话";
+                }
                 break;
 
             case RetainerRetrievalState.WaitingForInventory:
