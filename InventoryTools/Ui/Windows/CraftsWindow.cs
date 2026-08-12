@@ -2779,10 +2779,18 @@ namespace InventoryTools.Ui
                     {
                         var retrievalPlan = _retainerRetrievalPlan;
                         var planReady = retrievalPlan != null && !retrievalPlan.IsEmpty;
-                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.List, ref width) && planReady)
+                        var planButtonClicked = ImGuiService.DrawIconButton(_font, FontAwesomeIcon.List, ref width);
+                        if (planButtonClicked)
                         {
-                            EnsureRetainerRetrievalSelection(filterConfiguration, retrievalPlan!);
-                            ImGui.OpenPopup(RetainerRetrievalPopupId(filterConfiguration));
+                            // Rebuild from the current craft list and live inventory cache when the
+                            // popup is opened, so the per-item quantities are never stale.
+                            retrievalPlan = _retainerRetrievalPlanner.Build(filterConfiguration.CraftList);
+                            _retainerRetrievalPlan = retrievalPlan;
+                            if (!retrievalPlan.IsEmpty)
+                            {
+                                EnsureRetainerRetrievalSelection(filterConfiguration, retrievalPlan);
+                                ImGui.OpenPopup(RetainerRetrievalPopupId(filterConfiguration));
+                            }
                         }
 
                         ImGuiUtil.HoverTooltip(planReady
@@ -2791,9 +2799,12 @@ namespace InventoryTools.Ui
 
                         ImGui.SameLine();
                         width -= 28 * ImGui.GetIO().FontGlobalScale;
-                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.PeopleCarry, ref width) && planReady)
+                        if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.PeopleCarry, ref width))
                         {
-                            _retainerRetrievalAutomation.Start(filterConfiguration.CraftList);
+                            var freshPlan = _retainerRetrievalPlanner.Build(filterConfiguration.CraftList);
+                            _retainerRetrievalPlan = freshPlan;
+                            if (!freshPlan.IsEmpty)
+                                _retainerRetrievalAutomation.Start(filterConfiguration.CraftList);
                         }
 
                         if (planReady)

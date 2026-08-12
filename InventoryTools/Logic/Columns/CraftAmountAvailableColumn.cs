@@ -7,13 +7,18 @@ using InventoryTools.Logic.Columns.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using InventoryTools.Localization;
+using OtterGui;
 
 namespace InventoryTools.Logic.Columns
 {
     public class CraftAmountAvailableColumn : IntegerColumn
     {
-        public CraftAmountAvailableColumn(ILogger<CraftAmountAvailableColumn> logger, ImGuiService imGuiService) : base(logger, imGuiService)
+        private readonly RetainerRetrievalAutomation _retainerRetrievalAutomation;
+
+        public CraftAmountAvailableColumn(ILogger<CraftAmountAvailableColumn> logger, ImGuiService imGuiService,
+            RetainerRetrievalAutomation retainerRetrievalAutomation) : base(logger, imGuiService)
         {
+            _retainerRetrievalAutomation = retainerRetrievalAutomation;
         }
         public override ColumnCategory ColumnCategory => ColumnCategory.Crafting;
 
@@ -47,6 +52,32 @@ namespace InventoryTools.Logic.Columns
                 ImGui.TableNextColumn();
                 return null;
             }
+
+            ImGui.TableNextColumn();
+            if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
+                return null;
+
+            var quantity = craftItem?.QuantityWillRetrieve ?? 0;
+            if (quantity == 0)
+                return null;
+
+            ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.ParsedBlue);
+            ImGui.TextUnformatted(quantity.ToString("N0"));
+            ImGui.PopStyleColor();
+            ImGui.SameLine();
+
+            if (!_retainerRetrievalAutomation.IsRunning &&
+                ImGui.SmallButton(LocalizationService.Ui("Retrieve") + "##retainerRetrieve" + rowIndex + searchResult.ItemId))
+            {
+                var key = new RetainerRetrievalItemKey(searchResult.ItemId, searchResult.Flags);
+                _retainerRetrievalAutomation.Start(configuration.CraftList,
+                    new Dictionary<RetainerRetrievalItemKey, uint> { [key] = quantity });
+            }
+
+            ImGuiUtil.HoverTooltip(LocalizationService.Ui("Retrieve this item's required quantity from retainers."));
+            return null;
+
+            /*
             if (craftItem != null && craftItem.QuantityWillRetrieve != 0)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.ParsedBlue);
@@ -59,6 +90,7 @@ namespace InventoryTools.Logic.Columns
                 ImGui.PopStyleColor();
             }
             return null;
+            */
         }
 
         public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve"));
