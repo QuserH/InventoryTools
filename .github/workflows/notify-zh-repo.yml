@@ -1,4 +1,4 @@
-name: notify-zh-repo
+name: release-zh
 
 on:
   workflow_dispatch:
@@ -7,12 +7,72 @@ on:
       - zh-cn-translation
 
 jobs:
-  notify:
-    runs-on: ubuntu-latest
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
-      - name: Dispatch rebuild to zh-repo
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Checkout translated dependencies
+        uses: actions/checkout@v4
+        with:
+          repository: QuserH/CriticalCommonLib
+          ref: zh-cn-translation
+          path: CriticalCommonLib
+
+      - name: Checkout OtterGui
+        uses: actions/checkout@v4
+        with:
+          repository: QuserH/OtterGui
+          ref: zh-cn-translation
+          path: OtterGui
+          submodules: recursive
+
+      - name: Setup Dalamud
+        uses: Blooym/setup-dalamud@v1
+        with:
+          branch: release
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build and package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          dotnet restore OtterGui/OtterGui.sln --nologo -v q
+          dotnet build OtterGui/OtterGui.sln -c Release --nologo -v q --no-restore
+          dotnet build InventoryTools/InventoryTools.csproj -c Release --nologo -v q
+
+          $output = 'InventoryTools/bin/Release'
+          $manifest = Get-Content (Join-Path $output 'InventoryTools.json') -Raw | ConvertFrom-Json
+          $version = $manifest.AssemblyVersion
+          $zip = "InventoryTools-$version-zh.zip"
+          Compress-Archive -Path (Join-Path $output '*') -DestinationPath $zip -Force
+          "PLUGIN_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "PLUGIN_ZIP=$zip" | Out-File -FilePath $env:GITHUB_ENV -Append
+          "RELEASE_TAG=zh-v$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: InventoryTools zh-CN ${{ env.PLUGIN_VERSION }}
+          target_commitish: ${{ github.sha }}
+          files: ${{ env.PLUGIN_ZIP }}
+          generate_release_notes: true
+
+      - name: Notify zh-repo
+        shell: bash
         env:
           ZH_REPO_TOKEN: ${{ secrets.ZH_REPO_TOKEN }}
+          PLUGIN_VERSION: ${{ env.PLUGIN_VERSION }}
+          RELEASE_TAG: ${{ env.RELEASE_TAG }}
         run: |
           if [ -z "$ZH_REPO_TOKEN" ]; then
             echo "::error::Missing repository secret ZH_REPO_TOKEN."
@@ -23,11 +83,11 @@ jobs:
             -H "Authorization: Bearer $ZH_REPO_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/QuserH/zh-repo/dispatches \
-            -d '{"event_type":"rebuild-inventorytools"}'
+            -d "{\"event_type\":\"publish-plugin\",\"client_payload\":{\"internal_name\":\"InventoryTools\",\"version\":\"$PLUGIN_VERSION\",\"download_url\":\"https://github.com/QuserH/InventoryTools/releases/download/$RELEASE_TAG/InventoryTools-$PLUGIN_VERSION-zh.zip\",\"repo_url\":\"https://github.com/QuserH/InventoryTools\"}}"
           )
 
           if [ "$status" != "204" ]; then
             cat response.json
-            echo "::error::zh-repo dispatch failed with HTTP $status. ZH_REPO_TOKEN needs access to QuserH/zh-repo."
+            echo "::error::zh-repo publish dispatch failed with HTTP $status. ZH_REPO_TOKEN needs access to QuserH/zh-repo."
             exit 1
           fi
