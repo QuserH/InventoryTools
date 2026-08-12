@@ -200,11 +200,10 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         }
 
         var wantsPartial = stack > quantity;
-        var entryIndex = FindContextEntry((AddonContextMenu*)contextMenu,
-            wantsPartial ? RetrieveQuantityText : RetrieveAllText);
+        var entryIndex = FindContextEntry(agent, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
         if (entryIndex < 0 && wantsPartial)
         {
-            entryIndex = FindContextEntry((AddonContextMenu*)contextMenu, RetrieveAllText);
+            entryIndex = FindContextEntry(agent, RetrieveAllText);
             wantsPartial = false;
         }
 
@@ -214,12 +213,16 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             return false;
         }
 
-        // Native ContextMenu entries use exactly the same callback as AddonMaster.ContextMenu.Entry.Select.
-        var values = stackalloc AtkValue[3];
+        // Match Artisan's retainer context callback. The menu index is derived from the retainer
+        // agent's string event parameters, rather than from UI node offsets that vary by client UI.
+        var values = stackalloc AtkValue[6];
         values[0] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
         values[1] = new AtkValue { Type = AtkValueType.Int, Int = entryIndex };
         values[2] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
-        contextMenu->FireCallback(3, values, true);
+        values[3] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
+        values[4] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
+        values[5] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
+        contextMenu->FireCallback(6, values, true);
 
         expectsQuantityInput = wantsPartial;
         willRetrieve = wantsPartial ? quantity : stack;
@@ -311,17 +314,17 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return false;
     }
 
-    private static int FindContextEntry(AddonContextMenu* contextMenu, string expected)
+    private static int FindContextEntry(AgentInventoryContext* agent, string expected)
     {
-        var count = (int)contextMenu->AtkValues[0].UInt;
-        for (var index = 0; index < count; index++)
+        var menuIndex = 0;
+        foreach (var value in agent->EventParams)
         {
-            var value = contextMenu->AtkValues[index + 8];
-            if (value.String.Value == null)
+            if (value.Type != AtkValueType.String || value.String.Value == null)
                 continue;
             var label = MemoryHelper.ReadSeStringNullTerminated((nint)value.String.Value).TextValue;
             if (string.Equals(label, expected, StringComparison.Ordinal))
-                return index;
+                return menuIndex;
+            menuIndex++;
         }
 
         return -1;
