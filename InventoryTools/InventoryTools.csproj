@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
     <AssemblyName>InventoryTools</AssemblyName>
-    <Version>1.15.0.10</Version>
-    <AssemblyVersion>1.15.0.10</AssemblyVersion>
-    <FileVersion>1.15.0.10</FileVersion>
+    <Version>1.15.0.11</Version>
+    <AssemblyVersion>1.15.0.11</AssemblyVersion>
+    <FileVersion>1.15.0.11</FileVersion>
     <NoWarn>IDE0003</NoWarn>
     <NoWarn>S3267</NoWarn>
     <OutputType>Library</OutputType>

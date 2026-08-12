@@ -23,7 +23,7 @@ jobs:
             -H "Authorization: Bearer $ZH_REPO_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/QuserH/zh-repo/dispatches \
-            -d '{"event_type":"rebuild-zh"}'
+            -d '{"event_type":"rebuild-inventorytools"}'
           )
 
           if [ "$status" != "204" ]; then
