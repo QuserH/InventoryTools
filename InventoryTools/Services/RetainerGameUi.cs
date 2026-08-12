@@ -140,8 +140,23 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         if (!TryGetReadyAddon("Talk", out var talk))
             return false;
 
-        // The summoning bell's initial text window is advanced with its empty callback.
-        talk->FireCallback(0, null, true);
+        // A retainer can show Talk both after the bell is used and immediately after it is selected.
+        // Talk does not handle the generic empty callback here.  Mirror the actual mouse sequence
+        // used by Artisan/AutoRetainer so the game advances to RetainerList or SelectString.
+        var evt = stackalloc AtkEvent[1];
+        evt[0] = new AtkEvent
+        {
+            Listener = (AtkEventListener*)talk,
+            Target = &AtkStage.Instance()->AtkEventTarget,
+            State = new AtkEventState { StateFlags = (AtkEventStateFlags)132 },
+        };
+        var data = stackalloc AtkEventData[1];
+        for (var index = 0; index < sizeof(AtkEventData); index++)
+            ((byte*)data)[index] = 0;
+
+        talk->ReceiveEvent(AtkEventType.MouseDown, 0, evt, data);
+        talk->ReceiveEvent(AtkEventType.MouseClick, 0, evt, data);
+        talk->ReceiveEvent(AtkEventType.MouseUp, 0, evt, data);
         return true;
     }
 

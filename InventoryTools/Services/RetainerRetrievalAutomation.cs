@@ -116,6 +116,21 @@ public sealed class RetainerRetrievalAutomation : IDisposable
     private void Advance(long now)
     {
         var entry = _plan!.Entries[_entryIndex];
+
+        // A Talk window can appear both after interacting with the bell and after choosing an
+        // individual retainer.  It must be advanced before waiting for the next addon; otherwise
+        // the automation waits for SelectString while the game's conversation is still on screen.
+        if (State is RetainerRetrievalState.WaitingForRetainerList or RetainerRetrievalState.SelectingRetainerAction)
+        {
+            if (CanAct(now) && _ui.TryAdvanceBellTalk())
+            {
+                Status = State == RetainerRetrievalState.WaitingForRetainerList
+                    ? "正在跳过传唤铃对话"
+                    : "正在跳过雇员对话";
+                return;
+            }
+        }
+
         switch (State)
         {
             case RetainerRetrievalState.FindingBell:
@@ -134,8 +149,6 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 break;
 
             case RetainerRetrievalState.WaitingForRetainerList:
-                if (CanAct(now))
-                    _ui.TryAdvanceBellTalk();
                 if (_ui.IsRetainerListReady)
                     SetState(RetainerRetrievalState.SelectingRetainer, $"正在呼叫雇员 {RetainerName(entry.RetainerId)}");
                 break;
