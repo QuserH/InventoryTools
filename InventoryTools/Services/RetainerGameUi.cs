@@ -191,9 +191,13 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         if (agent == null || retainerAgent == null || !retainerAgent->IsAgentActive())
             return false;
 
-        agent->OpenForItemSlot(container, slot, 0, retainerAgent->GetAddonId());
+        // Opening the native context menu is asynchronous.  The first call opens it and the next
+        // framework update selects the matching native entry once the addon is ready.
         if (!TryGetReadyAddon("ContextMenu", out var contextMenu))
+        {
+            agent->OpenForItemSlot(container, slot, 0, retainerAgent->GetAddonId());
             return false;
+        }
 
         var wantsPartial = stack > quantity;
         var entryIndex = FindContextEntry((AddonContextMenu*)contextMenu,
@@ -251,8 +255,13 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         if (!TryGetReadyAddon("InputNumeric", out var numeric))
             return false;
 
+        var maximum = numeric->AtkValues[3].UInt;
         var values = stackalloc AtkValue[1];
-        values[0] = new AtkValue { Type = AtkValueType.Int, Int = (int)quantity };
+        values[0] = new AtkValue
+        {
+            Type = AtkValueType.Int,
+            Int = (int)Math.Clamp(quantity, 1u, maximum),
+        };
         numeric->FireCallback(1, values, true);
         return true;
     }
