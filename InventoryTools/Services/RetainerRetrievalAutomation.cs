@@ -175,10 +175,26 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 if (CanAct(now))
                 {
                     _retainerQuantityBeforeTransfer = _ui.GetRetainerItemQuantity(entry.ItemId, entry.Flags);
+                    if (_retainerQuantityBeforeTransfer == 0)
+                    {
+                        _log.Debug($"Retainer {entry.RetainerId} has no remaining item {entry.ItemId}; skipping entry with {_remainingForEntry} still requested");
+                        SkipCurrentEntry();
+                        break;
+                    }
+
                     if (_ui.TryRetrieve(entry.ItemId, entry.Flags, _remainingForEntry,
                             out var expectsQuantity, out var willRetrieve))
                     {
-                        _pendingQuantity = Math.Min(_remainingForEntry, willRetrieve);
+                        // The cache may be stale. Clamp the requested amount to the quantity that
+                        // is actually present in this retainer right now.
+                        _pendingQuantity = Math.Min(_remainingForEntry,
+                            Math.Min(willRetrieve, _retainerQuantityBeforeTransfer));
+                        if (_pendingQuantity == 0)
+                        {
+                            SkipCurrentEntry();
+                            break;
+                        }
+
                         if (expectsQuantity)
                             SetState(RetainerRetrievalState.WaitingForQuantityInput, "正在输入取回数量");
                         else
@@ -260,6 +276,21 @@ public sealed class RetainerRetrievalAutomation : IDisposable
         return true;
     }
 
+    private void SkipCurrentEntry()
+    {
+        if (TryAdvanceEntry(out var sameRetainer))
+        {
+            SetState(sameRetainer
+                    ? RetainerRetrievalState.RetrievingItem
+                    : RetainerRetrievalState.ClosingRetainerInventory,
+                sameRetainer ? "当前雇员库存不足，正在继续下一项" : "当前雇员库存不足，正在返回雇员菜单");
+        }
+        else
+        {
+            SetState(RetainerRetrievalState.ClosingRetainerInventory, "取回完成，正在关闭雇员背包");
+        }
+    }
+
     private bool CanAct(long now)
     {
         if (now - _lastActionMs < ActionThrottleMs)
@@ -271,7 +302,10 @@ public sealed class RetainerRetrievalAutomation : IDisposable
     private bool HasExpectedTransferCompleted(RetainerRetrievalEntry entry)
     {
         var current = _ui.GetRetainerItemQuantity(entry.ItemId, entry.Flags);
-        return current <= _retainerQuantityBeforeTransfer - Math.Min(_retainerQuantityBeforeTransfer, _pendingQuantity);
+        var expectedRemaining = _retainerQuantityBeforeTransfer > _pendingQuantity
+            ? _retainerQuantityBeforeTransfer - _pendingQuantity
+            : 0;
+        return current <= expectedRemaining;
     }
 
     private string RetainerName(ulong retainerId) => _characters.GetCharacterNameById(retainerId);
