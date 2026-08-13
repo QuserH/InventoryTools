@@ -16,7 +16,15 @@ public static partial class LocalizationService
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["Allagan Tools"] = "亚拉戈工具箱",
-            ["Show Foreign Wiki Links?"] = "是否显示国外Wiki站？",
+
+            ["Merge same source items in craft list?"] = "合并制作列表相同来源相同道具的数量？",
+            ["Should stacks of the same item held by the same character and retainer be merged into a single row in the craft list inventory panel?"] = "是否将制作列表下方“雇员/背包中的物品”面板中，同一角色同一雇员持有的同种道具堆叠合并为一行？",
+            ["Merge same name items from all sources in craft list?"] = "合并所有来源道具名称都相同的物品（包括HQ和NQ）？",
+            ["Should items with the same name be merged into a single row regardless of which character or retainer holds them, including HQ and NQ variants?"] = "是否将名称相同的道具合并为一行，不论由哪个角色或雇员持有，并包含HQ和NQ形态？",
+            ["Required Quantity"] = "需求数量",
+            ["Missing Quantity"] = "缺少数量",
+            ["The total quantity of this material required by the active craft list."] = "当前制作清单对该材料的总需求数量。",
+            ["The quantity of this material still missing after retrieving from retainers. Empty when nothing is missing."] = "从雇员取回后该材料仍缺少的数量；不缺货时留空。",            ["Show Foreign Wiki Links?"] = "是否显示国外Wiki站？",
             ["Should the item right-click menu show links to foreign wiki sites (Garland Tools, Teamcraft, Universalis, Gamer Escape, Console Games Wiki)?"] = "是否在道具右键菜单中显示国外Wiki站点的链接（Garland Tools、Teamcraft、Universalis、Gamer Escape、Console Games Wiki）？",
             ["Items"] = "物品",
             ["Crafts"] = "制作",

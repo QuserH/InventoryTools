@@ -2633,6 +2633,26 @@ namespace InventoryTools.Ui
 
         private HorizontalSplitter _splitter;
 
+        private static SearchResult MergeRetainerRows(IEnumerable<SearchResult> rows)
+        {
+            var list = rows.ToList();
+            var first = list[0];
+            if (list.Count == 1)
+            {
+                return first;
+            }
+
+            var clone = CloneInventoryItem(first.InventoryItem!);
+            clone.Quantity = (uint)list.Sum(r => r.InventoryItem!.Quantity);
+            return new SearchResult(clone);
+        }
+
+        private static CriticalCommonLib.Models.InventoryItem CloneInventoryItem(CriticalCommonLib.Models.InventoryItem item)
+        {
+            var cloneMethod = typeof(object).GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            return (CriticalCommonLib.Models.InventoryItem)cloneMethod!.Invoke(item, null)!;
+        }
+
         private unsafe void DrawCraftPanel(FilterConfiguration filterConfiguration)
         {
             if (_missingRequirementsDirty || filterConfiguration.Key != _lastMissingReqConfigKey)
@@ -2651,9 +2671,27 @@ namespace InventoryTools.Ui
                 .Where(c => !c.IsOutputItem && c.QuantityMissingInventory > 0)
                 .Select(c => (c.ItemId, c.Flags))
                 .ToHashSet();
-            itemTable.RenderSearchResults = itemTable.RenderSearchResults
-                .Where(r => r.InventoryItem != null && missingKeys.Contains((r.ItemId, r.Flags)))
-                .ToList();
+            IEnumerable<SearchResult> panelResults = itemTable.RenderSearchResults
+                .Where(r => r.InventoryItem != null && missingKeys.Contains((r.ItemId, r.Flags)));
+
+            // Merging only affects this inventory panel and is configurable in the General
+            // settings: stacks of the same item in the same source (character + retainer) can be
+            // combined, or every row with the same item name can be combined across sources,
+            // including HQ and NQ variants.
+            if (_configuration.MergeCraftListSameName)
+            {
+                panelResults = panelResults
+                    .GroupBy(r => r.ItemId)
+                    .Select(MergeRetainerRows);
+            }
+            else if (_configuration.MergeCraftListSameSource)
+            {
+                panelResults = panelResults
+                    .GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId))
+                    .Select(MergeRetainerRows);
+            }
+
+            itemTable.RenderSearchResults = panelResults.ToList();
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)
