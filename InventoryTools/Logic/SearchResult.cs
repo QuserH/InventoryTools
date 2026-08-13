@@ -75,6 +75,12 @@ namespace InventoryTools.Logic
             }
         }
 
+        /// <summary>
+        /// Set when a row represents several merged inventory stacks, so display-only columns
+        /// (name quality marker, bag location) can be suppressed.
+        /// </summary>
+        public bool IsMerged { get; set; }
+
         public uint ItemId => Item.RowId;
 
         public SearchResult(ItemRow item)

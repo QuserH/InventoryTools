@@ -61,7 +61,7 @@ namespace InventoryTools
         private bool _addTitleMenuButton;
         private bool _showForeignWikiLinks;
         private bool _mergeCraftListSameSource = true;
-        private bool _mergeCraftListSameName;
+        private bool _mergeCraftListNqHq;
 
         private Vector4 _tabHighlightColor = new (0.007f, 0.008f,
             0.007f, 0.2f);
@@ -215,12 +215,12 @@ namespace InventoryTools
                 IsDirty = true;
             }
         }
-        public bool MergeCraftListSameName
+        public bool MergeCraftListNqHq
         {
-            get => _mergeCraftListSameName;
+            get => _mergeCraftListNqHq;
             set
             {
-                _mergeCraftListSameName = value;
+                _mergeCraftListNqHq = value;
                 IsDirty = true;
             }
         }

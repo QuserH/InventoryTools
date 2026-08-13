@@ -20,7 +20,8 @@ namespace InventoryTools.Logic.Columns
 
         public override string? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
-            if (searchResult.InventoryItem != null)
+            // Merged rows combine several stacks, so there is no single bag location to show.
+            if (searchResult.InventoryItem != null && !searchResult.IsMerged)
             {
                 return _itemLocalizer.FormattedBagLocation(searchResult.InventoryItem);
             }

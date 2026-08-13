@@ -2633,7 +2633,7 @@ namespace InventoryTools.Ui
 
         private HorizontalSplitter _splitter;
 
-        private static SearchResult MergeRetainerRows(IEnumerable<SearchResult> rows)
+        private static SearchResult MergeRetainerRows(IEnumerable<SearchResult> rows, bool mergeNqHq)
         {
             var list = rows.ToList();
             var first = list[0];
@@ -2644,7 +2644,12 @@ namespace InventoryTools.Ui
 
             var clone = CloneInventoryItem(first.InventoryItem!);
             clone.Quantity = (uint)list.Sum(r => r.InventoryItem!.Quantity);
-            return new SearchResult(clone);
+            if (mergeNqHq)
+            {
+                clone.Flags = InventoryItem.ItemFlags.None;
+            }
+
+            return new SearchResult(clone) { IsMerged = true };
         }
 
         private static CriticalCommonLib.Models.InventoryItem CloneInventoryItem(CriticalCommonLib.Models.InventoryItem item)
@@ -2675,20 +2680,23 @@ namespace InventoryTools.Ui
                 .Where(r => r.InventoryItem != null && missingKeys.Contains((r.ItemId, r.Flags)));
 
             // Merging only affects this inventory panel and is configurable in the General
-            // settings: stacks of the same item in the same source (character + retainer) can be
-            // combined, or every row with the same item name can be combined across sources,
-            // including HQ and NQ variants.
-            if (_configuration.MergeCraftListSameName)
+            // settings. Rows merge only when the character, source (retainer) and item name all
+            // match; whether NQ and HQ are also merged together is a separate sub-option. Merged
+            // rows hide the specific bag location.
+            if (_configuration.MergeCraftListSameSource)
             {
-                panelResults = panelResults
-                    .GroupBy(r => r.ItemId)
-                    .Select(MergeRetainerRows);
-            }
-            else if (_configuration.MergeCraftListSameSource)
-            {
-                panelResults = panelResults
-                    .GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId))
-                    .Select(MergeRetainerRows);
+                if (_configuration.MergeCraftListNqHq)
+                {
+                    panelResults = panelResults
+                        .GroupBy(r => (r.ItemId, r.InventoryItem!.RetainerId))
+                        .Select(g => MergeRetainerRows(g, true));
+                }
+                else
+                {
+                    panelResults = panelResults
+                        .GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId))
+                        .Select(g => MergeRetainerRows(g, false));
+                }
             }
 
             itemTable.RenderSearchResults = panelResults.ToList();

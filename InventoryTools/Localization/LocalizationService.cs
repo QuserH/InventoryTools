@@ -17,11 +17,10 @@ public static partial class LocalizationService
         {
             ["Allagan Tools"] = "亚拉戈工具箱",
 
-            ["Merge same source items in craft list?"] = "合并制作列表相同来源相同道具的数量？",
-            ["Should stacks of the same item held by the same character and retainer be merged into a single row in the craft list inventory panel?"] = "是否将制作列表下方“雇员/背包中的物品”面板中，同一角色同一雇员持有的同种道具堆叠合并为一行？",
-            ["Merge same name items from all sources in craft list?"] = "合并所有来源道具名称都相同的物品（包括HQ和NQ）？",
-            ["Should items with the same name be merged into a single row regardless of which character or retainer holds them, including HQ and NQ variants?"] = "是否将名称相同的道具合并为一行，不论由哪个角色或雇员持有，并包含HQ和NQ形态？",
-            ["Required Quantity"] = "需求数量",
+            ["Merge same source items in craft list?"] = "合并角色、来源、道具名称均一致的数量？",
+["Merge HQ and NQ in craft list?"] = "是否合并NQ和HQ？",
+["When the same character, source and item name have both NQ and HQ stacks, should they be merged into one row without showing quality? When disabled, different qualities are kept separate."] = "同一角色、来源、道具名称下同时存在NQ和HQ时，是否合并为一行且不显示品质？关闭时不同品质分开显示。",            ["Should stacks of the same item held by the same character and retainer be merged into a single row in the craft list inventory panel?"] = "是否将制作列表下方“雇员/背包中的物品”面板中，同一角色同一雇员持有的同种道具堆叠合并为一行？合并后不再显示具体背包位置；是否连同NQ和HQ一起合并由下一项决定。",
+                                    ["Required Quantity"] = "需求数量",
             ["Missing Quantity"] = "缺少数量",
             ["The total quantity of this material required by the active craft list."] = "当前制作清单对该材料的总需求数量。",
             ["The quantity of this material still missing after retrieving from retainers. Empty when nothing is missing."] = "从雇员取回后该材料仍缺少的数量；不缺货时留空。",            ["Show Foreign Wiki Links?"] = "是否显示国外Wiki站？",

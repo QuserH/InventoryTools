@@ -15,9 +15,16 @@ namespace InventoryTools.Logic.Columns
         public override ColumnCategory ColumnCategory => ColumnCategory.Basic;
         public override (string, Vector4)? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
+            var name = searchResult.CraftItem?.FormattedName;
+            if (name == null)
+            {
+                name = searchResult.IsMerged
+                    ? searchResult.Item.NameString
+                    : searchResult.InventoryItem?.FormattedName ?? searchResult.Item.NameString;
+            }
+
             return (
-                searchResult.CraftItem?.FormattedName ??
-                searchResult.InventoryItem?.FormattedName ?? searchResult.Item.NameString,
+                name,
                 searchResult.InventoryItem?.ItemColour ?? ImGuiColors.DalamudWhite);
         }
         public override string Name { get; set; } = LocalizationService.Ui("Name");
