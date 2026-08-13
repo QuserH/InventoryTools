@@ -16,6 +16,8 @@ public static partial class LocalizationService
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["Allagan Tools"] = "亚拉戈工具箱",
+            ["Show Foreign Wiki Links?"] = "是否显示国外Wiki站？",
+            ["Should the item right-click menu show links to foreign wiki sites (Garland Tools, Teamcraft, Universalis, Gamer Escape, Console Games Wiki)?"] = "是否在道具右键菜单中显示国外Wiki站点的链接（Garland Tools、Teamcraft、Universalis、Gamer Escape、Console Games Wiki）？",
             ["Items"] = "物品",
             ["Crafts"] = "制作",
             ["Lists"] = "列表",

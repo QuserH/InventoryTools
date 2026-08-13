@@ -59,6 +59,7 @@ namespace InventoryTools
         private bool _showItemNumberRetainerList = true;
         private bool _historyEnabled;
         private bool _addTitleMenuButton;
+        private bool _showForeignWikiLinks;
 
         private Vector4 _tabHighlightColor = new (0.007f, 0.008f,
             0.007f, 0.2f);
@@ -191,6 +192,15 @@ namespace InventoryTools
             set
             {
                 _addTitleMenuButton = value;
+                IsDirty = true;
+            }
+        }
+        public bool ShowForeignWikiLinks
+        {
+            get => _showForeignWikiLinks;
+            set
+            {
+                _showForeignWikiLinks = value;
                 IsDirty = true;
             }
         }

@@ -383,35 +383,38 @@ public class ImGuiMenuService
     {
         ImGui.Text(searchResult.Item.NameString);
         ImGui.Separator();
-        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Garland Tools"))))
+        if (_configuration.ShowForeignWikiLinks)
         {
-            $"https://www.garlandtools.org/db/#item/{searchResult.Item.GarlandToolsId}".OpenBrowser();
-        }
-        if (ImGui.MenuItem(LocalizationService.Ui("Open in Teamcraft")))
-        {
-            $"https://ffxivteamcraft.com/db/en/item/{searchResult.Item.RowId}".OpenBrowser();
-        }
-        if (ImGui.MenuItem(LocalizationService.Ui("Open in Universalis")))
-        {
-            $"https://universalis.app/market/{searchResult.Item.RowId}".OpenBrowser();
-        }
-        if (ImGui.MenuItem(LocalizationService.Ui("Open in Gamer Escape")))
-        {
-            var name = searchResult.Item.NameString.Replace(' ', '_');
-            name = name.Replace('–', '-');
+            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Garland Tools"))))
+            {
+                $"https://www.garlandtools.org/db/#item/{searchResult.Item.GarlandToolsId}".OpenBrowser();
+            }
+            if (ImGui.MenuItem(LocalizationService.Ui("Open in Teamcraft")))
+            {
+                $"https://ffxivteamcraft.com/db/en/item/{searchResult.Item.RowId}".OpenBrowser();
+            }
+            if (ImGui.MenuItem(LocalizationService.Ui("Open in Universalis")))
+            {
+                $"https://universalis.app/market/{searchResult.Item.RowId}".OpenBrowser();
+            }
+            if (ImGui.MenuItem(LocalizationService.Ui("Open in Gamer Escape")))
+            {
+                var name = searchResult.Item.NameString.Replace(' ', '_');
+                name = name.Replace('–', '-');
 
-            if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
-                name = name.Substring(2);
-            $"https://ffxiv.gamerescape.com/wiki/{HttpUtility.UrlEncode(name)}?useskin=Vector".OpenBrowser();
-        }
-        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Console Games Wiki"))))
-        {
-            var name = searchResult.Item.NameString.Replace("#"," ").Replace("  ", " ").Replace(' ', '_');
-            name = name.Replace('–', '-');
+                if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
+                    name = name.Substring(2);
+                $"https://ffxiv.gamerescape.com/wiki/{HttpUtility.UrlEncode(name)}?useskin=Vector".OpenBrowser();
+            }
+            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Open in Console Games Wiki"))))
+            {
+                var name = searchResult.Item.NameString.Replace("#"," ").Replace("  ", " ").Replace(' ', '_');
+                name = name.Replace('–', '-');
 
-            if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
-                name = name.Substring(2);
-            $"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(name)}".OpenBrowser();
+                if (name.StartsWith("_")) // LocalizationService.Ui("level sync") icon
+                    name = name.Substring(2);
+                $"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(name)}".OpenBrowser();
+            }
         }
         ImGui.Separator();
         if (ImGui.MenuItem(LocalizationService.Ui("Copy Name")))
