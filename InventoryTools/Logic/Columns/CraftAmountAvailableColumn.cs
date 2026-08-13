@@ -93,10 +93,19 @@ namespace InventoryTools.Logic.Columns
             // The inventory table contains InventoryItem results, not CraftItem results. Resolve
             // the corresponding craft requirement by item id and quality flags so the per-item
             // action is available next to the actual held stack.
-            return configuration.CraftList.GetFlattenedMaterials()
+            var missing = configuration.CraftList.GetFlattenedMaterials()
                 .Where(item => !item.IsOutputItem && item.ItemId == searchResult.ItemId &&
                                MatchesFlags(item.Flags, searchResult.Flags))
-                .Aggregate(0u, (total, item) => total + item.QuantityWillRetrieve);
+                .Aggregate(0u, (total, item) => total + item.QuantityMissingInventory);
+
+            // Cap the amount by what this source actually holds (merged stacks), so the button
+            // never asks for more than the retainer has.
+            if (searchResult.InventoryItem != null)
+            {
+                missing = System.Math.Min(missing, searchResult.InventoryItem.Quantity);
+            }
+
+            return missing;
         }
 
         private static bool MatchesFlags(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags required,

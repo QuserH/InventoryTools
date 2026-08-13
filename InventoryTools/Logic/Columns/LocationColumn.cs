@@ -21,9 +21,15 @@ namespace InventoryTools.Logic.Columns
         public override string? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
             // Merged rows combine several stacks, so there is no single bag location to show.
+            // Market listings are the exception: they are still reported as being on the market.
             if (searchResult.InventoryItem != null && !searchResult.IsMerged)
             {
                 return _itemLocalizer.FormattedBagLocation(searchResult.InventoryItem);
+            }
+
+            if (searchResult.IsMerged && searchResult.MergedContainsMarket)
+            {
+                return LocalizationService.Ui("On the Market");
             }
 
             return null;

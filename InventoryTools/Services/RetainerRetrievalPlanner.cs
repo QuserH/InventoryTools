@@ -52,11 +52,11 @@ public sealed class RetainerRetrievalPlanner
         var required = new Dictionary<(uint ItemId, ItemFlags Flags), uint>();
         foreach (var item in craftList.GetFlattenedMaterials())
         {
-            if (item.QuantityWillRetrieve == 0)
+            if (item.QuantityMissingInventory == 0)
                 continue;
             var key = (item.ItemId, RequiredFlags(item));
             required.TryAdd(key, 0);
-            required[key] += item.QuantityWillRetrieve;
+            required[key] += item.QuantityMissingInventory;
         }
 
         if (requestedQuantities != null)

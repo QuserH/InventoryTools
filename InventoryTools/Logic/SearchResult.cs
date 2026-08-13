@@ -81,6 +81,12 @@ namespace InventoryTools.Logic
         /// </summary>
         public bool IsMerged { get; set; }
 
+        /// <summary>
+        /// Set when a merged row contains at least one stack listed on the retainer market, so the
+        /// location column can still report it as being on the market.
+        /// </summary>
+        public bool MergedContainsMarket { get; set; }
+
         public uint ItemId => Item.RowId;
 
         public SearchResult(ItemRow item)

@@ -215,6 +215,8 @@ namespace InventoryTools.Ui
                     {
                         var craftTable = _tableService.GetCraftTable(filterConfiguration);
                         MediatorService.Publish(craftTable.Draw(new Vector2(0, -400)));
+                        itemTable.RenderSearchResults = MergedSearchResults.Apply(itemTable.RenderSearchResults,
+                            _configuration.MergeCraftListSameSource, _configuration.MergeCraftListNqHq);
                         MediatorService.Publish(itemTable.Draw(new Vector2(0, 0)));
                     }
                     else

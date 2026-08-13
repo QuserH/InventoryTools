@@ -2633,30 +2633,6 @@ namespace InventoryTools.Ui
 
         private HorizontalSplitter _splitter;
 
-        private static SearchResult MergeRetainerRows(IEnumerable<SearchResult> rows, bool mergeNqHq)
-        {
-            var list = rows.ToList();
-            var first = list[0];
-            if (list.Count == 1)
-            {
-                return first;
-            }
-
-            var clone = CloneInventoryItem(first.InventoryItem!);
-            clone.Quantity = (uint)list.Sum(r => r.InventoryItem!.Quantity);
-            if (mergeNqHq)
-            {
-                clone.Flags = InventoryItem.ItemFlags.None;
-            }
-
-            return new SearchResult(clone) { IsMerged = true };
-        }
-
-        private static CriticalCommonLib.Models.InventoryItem CloneInventoryItem(CriticalCommonLib.Models.InventoryItem item)
-        {
-            var cloneMethod = typeof(object).GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            return (CriticalCommonLib.Models.InventoryItem)cloneMethod!.Invoke(item, null)!;
-        }
 
         private unsafe void DrawCraftPanel(FilterConfiguration filterConfiguration)
         {
@@ -2682,24 +2658,9 @@ namespace InventoryTools.Ui
             // Merging only affects this inventory panel and is configurable in the General
             // settings. Rows merge only when the character, source (retainer) and item name all
             // match; whether NQ and HQ are also merged together is a separate sub-option. Merged
-            // rows hide the specific bag location.
-            if (_configuration.MergeCraftListSameSource)
-            {
-                if (_configuration.MergeCraftListNqHq)
-                {
-                    panelResults = panelResults
-                        .GroupBy(r => (r.ItemId, r.InventoryItem!.RetainerId))
-                        .Select(g => MergeRetainerRows(g, true));
-                }
-                else
-                {
-                    panelResults = panelResults
-                        .GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId))
-                        .Select(g => MergeRetainerRows(g, false));
-                }
-            }
-
-            itemTable.RenderSearchResults = panelResults.ToList();
+            // rows hide the specific bag location but still show market listings.
+            itemTable.RenderSearchResults = MergedSearchResults.Apply(panelResults,
+                _configuration.MergeCraftListSameSource, _configuration.MergeCraftListNqHq);
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)
