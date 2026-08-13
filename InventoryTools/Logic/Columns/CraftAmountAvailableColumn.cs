@@ -20,7 +20,7 @@ namespace InventoryTools.Logic.Columns
         {
             _retainerRetrievalAutomation = retainerRetrievalAutomation;
         }
-        public override ColumnCategory ColumnCategory => ColumnCategory.Crafting;
+        public override ColumnCategory ColumnCategory => ColumnCategory.Inventory;
 
         public override int? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
@@ -76,26 +76,11 @@ namespace InventoryTools.Logic.Columns
 
             ImGuiUtil.HoverTooltip(LocalizationService.Ui("Retrieve this item's required quantity from retainers."));
             return null;
-
-            /*
-            if (craftItem != null && craftItem.QuantityWillRetrieve != 0)
-            {
-                ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.ParsedBlue);
-            }
-
-            base.Draw(configuration, columnConfiguration, searchResult, rowIndex, columnIndex);
-
-            if (craftItem != null &&craftItem.QuantityWillRetrieve != 0)
-            {
-                ImGui.PopStyleColor();
-            }
-            return null;
-            */
         }
 
         public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve"));
         public override string RenderName => LocalizationService.Ui("Retrieve");
-        public override float Width { get; set; } = 60;
+        public override float Width { get; set; } = 110;
         public override bool? CraftOnly => false;
 
         public override string HelpText { get; set; } =
