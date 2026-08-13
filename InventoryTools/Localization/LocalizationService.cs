@@ -17,6 +17,7 @@ public static partial class LocalizationService
         {
             ["Allagan Tools"] = "亚拉戈工具箱",
 
+            ["Free Company Chest"] = "部队储物箱",
             ["Apply merge to craft list?"] = "制作列表生效",
             ["Apply merge to item window?"] = "物品窗口生效",
             ["Apply NQ/HQ merge to craft list?"] = "制作列表生效",

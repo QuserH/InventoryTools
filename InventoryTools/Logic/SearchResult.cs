@@ -87,6 +87,12 @@ namespace InventoryTools.Logic
         /// </summary>
         public bool MergedContainsMarket { get; set; }
 
+        /// <summary>
+        /// Set when a merged row contains only stacks held in the Free Company chest, so the
+        /// location column can report it as the company chest instead of a plain bag.
+        /// </summary>
+        public bool MergedContainsFreeCompany { get; set; }
+
         public uint ItemId => Item.RowId;
 
         public SearchResult(ItemRow item)

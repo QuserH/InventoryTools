@@ -36,6 +36,11 @@ public static class MergedSearchResults
                result.InventoryItem!.Container == InventoryType.RetainerMarket;
     }
 
+    private static bool IsFreeCompany(SearchResult result)
+    {
+        return result.InventoryItem!.SortedCategory == InventoryCategory.FreeCompanyBags;
+    }
+
     private static SearchResult MergeGroup(IEnumerable<SearchResult> rows, bool mergeNqHq)
     {
         var list = rows.ToList();
@@ -54,6 +59,7 @@ public static class MergedSearchResults
 
         var merged = new SearchResult(clone) { IsMerged = true };
         merged.MergedContainsMarket = IsMarket(first);
+        merged.MergedContainsFreeCompany = IsFreeCompany(first);
         return merged;
     }
 

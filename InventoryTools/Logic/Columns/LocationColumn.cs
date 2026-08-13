@@ -29,9 +29,17 @@ namespace InventoryTools.Logic.Columns
 
             if (searchResult.IsMerged)
             {
-                return searchResult.MergedContainsMarket
-                    ? LocalizationService.Ui("On the Market")
-                    : LocalizationService.Ui("Merged Bag");
+                if (searchResult.MergedContainsMarket)
+                {
+                    return LocalizationService.Ui("On the Market");
+                }
+
+                if (searchResult.MergedContainsFreeCompany)
+                {
+                    return LocalizationService.Ui("Free Company Chest");
+                }
+
+                return LocalizationService.Ui("Merged Bag");
             }
 
             return null;
