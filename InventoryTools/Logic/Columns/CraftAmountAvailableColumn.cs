@@ -51,11 +51,6 @@ namespace InventoryTools.Logic.Columns
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
                 return null;
 
-            // The retrieve action only applies to items actually held by a retainer; character
-            // inventory rows should not offer it.
-            if (searchResult.InventoryItem == null || searchResult.InventoryItem.RetainerId == 0)
-                return null;
-
             var quantity = GetCraftListQuantity(configuration, searchResult);
             if (quantity == 0)
                 return null;
@@ -63,10 +58,15 @@ namespace InventoryTools.Logic.Columns
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.ParsedBlue);
             ImGui.TextUnformatted(quantity.ToString("N0"));
             ImGui.PopStyleColor();
-            ImGui.SameLine();
 
-            if (!_retainerRetrievalAutomation.IsRunning &&
-                ImGui.SmallButton(LocalizationService.Ui("Retrieve") + "##retainerRetrieve" + rowIndex + searchResult.ItemId))
+            // The retrieve button is only offered for a short material that is actually held by
+            // one of this character's retainers; other inventory rows only show the amount.
+            var heldByRetainer = searchResult.InventoryItem != null && searchResult.InventoryItem.RetainerId != 0;
+            if (!heldByRetainer || _retainerRetrievalAutomation.IsRunning)
+                return null;
+
+            ImGui.SameLine();
+            if (ImGui.SmallButton(LocalizationService.Ui("Retrieve") + "##retainerRetrieve" + rowIndex + searchResult.ItemId))
             {
                 var key = new RetainerRetrievalItemKey(searchResult.ItemId, searchResult.Flags);
                 _retainerRetrievalAutomation.Start(configuration.CraftList,

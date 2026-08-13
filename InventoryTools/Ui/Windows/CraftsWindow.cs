@@ -2644,6 +2644,16 @@ namespace InventoryTools.Ui
             }
             var itemTable = _tableService.GetListTable(filterConfiguration);
             var craftTable = _tableService.GetCraftTable(filterConfiguration);
+
+            // The lower inventory panel only needs materials that are still missing, so rows
+            // already fully covered by the character inventory are hidden.
+            var missingKeys = filterConfiguration.CraftList.GetFlattenedMaterials()
+                .Where(c => !c.IsOutputItem && c.QuantityMissingInventory > 0)
+                .Select(c => (c.ItemId, c.Flags))
+                .ToHashSet();
+            itemTable.RenderSearchResults = itemTable.RenderSearchResults
+                .Where(r => r.InventoryItem != null && missingKeys.Contains((r.ItemId, r.Flags)))
+                .ToList();
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)

@@ -61,11 +61,6 @@ public sealed class RetainerRetrievalAutomation : IDisposable
             Status = "未登录角色";
             return false;
         }
-        if (_ui.IsOccupiedAtBell)
-        {
-            Status = "请先关闭当前雇员界面，再从传唤铃旁开始取回";
-            return false;
-        }
 
         _plan = _planner.Build(craftList, requestedQuantities);
         if (_plan.IsEmpty)
@@ -96,6 +91,10 @@ public sealed class RetainerRetrievalAutomation : IDisposable
         else if (_ui.IsRetainerListReady)
         {
             SetState(RetainerRetrievalState.SelectingRetainer, $"正在呼召雇员 {RetainerName(firstEntry.RetainerId)}");
+        }
+        else if (_ui.IsRetainerActionMenuReady)
+        {
+            SetState(RetainerRetrievalState.SelectingQuit, "正在退出当前雇员菜单");
         }
         else
         {

@@ -25,6 +25,7 @@ public interface IRetainerGameUi
 {
     bool IsOccupiedAtBell { get; }
     bool IsRetainerListReady { get; }
+    bool IsRetainerActionMenuReady { get; }
     bool IsRetainerInventoryReady { get; }
     bool TryInteractWithNearestBell();
     bool TryAdvanceBellTalk();
@@ -86,6 +87,29 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
     public bool IsOccupiedAtBell => _condition[ConditionFlag.OccupiedSummoningBell];
 
     public bool IsRetainerListReady => TryGetReadyAddon("RetainerList", out _);
+
+    public bool IsRetainerActionMenuReady
+    {
+        get
+        {
+            if (!TryGetReadyAddon("SelectString", out var addon))
+                return false;
+
+            var selectString = (AddonSelectString*)addon;
+            var count = selectString->PopupMenu.PopupMenu.EntryCount;
+            for (var index = 0; index < count; index++)
+            {
+                var entryPointer = selectString->PopupMenu.PopupMenu.EntryNames[index].Value;
+                if (entryPointer == null)
+                    continue;
+                var entry = MemoryHelper.ReadSeStringNullTerminated((nint)entryPointer).TextValue;
+                if (TextMatches(entry, EntrustText) || IsEntrustOrWithdrawEntry(entry))
+                    return true;
+            }
+
+            return false;
+        }
+    }
 
     public bool IsRetainerInventoryReady
     {
@@ -203,6 +227,11 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         if (!TryFindRetainerSlot(itemId, flags, out var container, out var slot, out var stack))
             return false;
 
+        // Crystals live on a separate retainer page. The context menu only works once that
+        // page is actually visible, so switch to it first and retry on the next update.
+        if (container == InventoryType.RetainerCrystals && !TryEnsureCrystalPageReady())
+            return false;
+
         var agent = AgentInventoryContext.Instance();
         var retainerAgent = AgentModule.Instance()->GetAgentByInternalId(AgentId.Retainer);
         if (agent == null || retainerAgent == null || !retainerAgent->IsAgentActive())
@@ -269,6 +298,27 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         }
 
         return quantity;
+    }
+
+    private bool TryEnsureCrystalPageReady()
+    {
+        if (TryGetReadyAddon("RetainerCrystalGrid", out _))
+            return true;
+
+        if (TryGetReadyAddon("InventoryRetainer", out var addon))
+        {
+            var retainer = (AddonInventoryRetainer*)addon;
+            if (retainer->TabIndex != 1)
+                retainer->SetTab(1);
+        }
+        else if (TryGetReadyAddon("InventoryRetainerLarge", out var largeAddon))
+        {
+            var retainer = (AddonInventoryRetainerLarge*)largeAddon;
+            if (retainer->TabIndex != 5)
+                retainer->SetTab(5);
+        }
+
+        return false;
     }
 
     public bool ContainsRetainerItem(uint itemId, InventoryItem.ItemFlags flags)
