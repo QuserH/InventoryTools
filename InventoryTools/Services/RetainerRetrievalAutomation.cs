@@ -24,6 +24,7 @@ public sealed class RetainerRetrievalAutomation : IDisposable
     private readonly IPluginLog _log;
 
     private RetainerRetrievalPlan? _plan;
+    private bool _keepInventoryOpenOnComplete;
     private int _entryIndex;
     private uint _remainingForEntry;
     private uint _pendingQuantity;
@@ -50,7 +51,8 @@ public sealed class RetainerRetrievalAutomation : IDisposable
         or RetainerRetrievalState.Failed or RetainerRetrievalState.Cancelled);
 
     public bool Start(CraftList craftList,
-        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null)
+        IReadOnlyDictionary<RetainerRetrievalItemKey, uint>? requestedQuantities = null,
+        bool keepInventoryOpen = false)
     {
         if (IsRunning)
             return false;
@@ -74,8 +76,31 @@ public sealed class RetainerRetrievalAutomation : IDisposable
 
         _entryIndex = 0;
         _remainingForEntry = _plan.Entries[0].Quantity;
+        _keepInventoryOpenOnComplete = keepInventoryOpen;
         _log.Information($"Retainer retrieval started: {_plan.Entries.Count} entries, {_plan.TotalQuantity} items total");
-        SetState(RetainerRetrievalState.FindingBell, "正在寻找附近的传唤铃");
+
+        // Reuse the current retainer UI when possible. If the first item is already in the
+        // currently open retainer, continue directly; otherwise navigate from wherever we are
+        // (retainer inventory -> retainer list -> target retainer, retainer list -> target
+        // retainer, or bell -> full flow). Whether the run stays in the last retainer's
+        // inventory or exits the retainer list is controlled by keepInventoryOpen.
+        var firstEntry = _plan.Entries[0];
+        if (_ui.IsRetainerInventoryReady && _ui.ContainsRetainerItem(firstEntry.ItemId, firstEntry.Flags))
+        {
+            SetState(RetainerRetrievalState.RetrievingItem, "正在当前雇员背包中取回清单材料");
+        }
+        else if (_ui.IsRetainerInventoryReady)
+        {
+            SetState(RetainerRetrievalState.ClosingRetainerInventory, "当前雇员不含该材料，正在返回雇员列表");
+        }
+        else if (_ui.IsRetainerListReady)
+        {
+            SetState(RetainerRetrievalState.SelectingRetainer, $"正在呼召雇员 {RetainerName(firstEntry.RetainerId)}");
+        }
+        else
+        {
+            SetState(RetainerRetrievalState.FindingBell, "正在寻找附近的传唤铃");
+        }
         return true;
     }
 
@@ -233,7 +258,14 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 }
                 else
                 {
-                    SetState(RetainerRetrievalState.ClosingRetainerInventory, "取回完成，正在关闭雇员背包");
+                    if (_keepInventoryOpenOnComplete)
+                    {
+                        SetState(RetainerRetrievalState.Completed, "取回完成，已停留在雇员背包");
+                    }
+                    else
+                    {
+                        SetState(RetainerRetrievalState.ClosingRetainerInventory, "取回完成，正在退出雇员列表");
+                    }
                 }
                 break;
 
@@ -243,6 +275,12 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 break;
 
             case RetainerRetrievalState.SelectingQuit:
+                if (_entryIndex < _plan.Entries.Count && _ui.IsRetainerListReady)
+                {
+                    SetState(RetainerRetrievalState.SelectingRetainer, $"正在呼召雇员 {RetainerName(entry.RetainerId)}");
+                    break;
+                }
+
                 if (CanAct(now) && _ui.TrySelectQuit())
                 {
                     if (_entryIndex < _plan.Entries.Count)
@@ -293,7 +331,14 @@ public sealed class RetainerRetrievalAutomation : IDisposable
         }
         else
         {
-            SetState(RetainerRetrievalState.ClosingRetainerInventory, "取回完成，正在关闭雇员背包");
+            if (_keepInventoryOpenOnComplete)
+            {
+                SetState(RetainerRetrievalState.Completed, "取回完成，已停留在雇员背包");
+            }
+            else
+            {
+                SetState(RetainerRetrievalState.ClosingRetainerInventory, "取回完成，正在退出雇员列表");
+            }
         }
     }
 

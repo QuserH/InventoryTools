@@ -31,6 +31,7 @@ public interface IRetainerGameUi
     bool TrySelectRetainer(ulong retainerId);
     bool TrySelectEntrustOrWithdraw();
     bool TryRetrieve(uint itemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags flags, uint quantity, out bool expectsQuantityInput, out uint willRetrieve);
+    bool ContainsRetainerItem(uint itemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags flags);
     uint GetRetainerItemQuantity(uint itemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags flags);
     bool TrySetQuantity(uint quantity);
     bool TryConfirmTransfer();
@@ -220,7 +221,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         // can only operate on this slot.
         var requested = Math.Min(quantity, stack);
         var wantsPartial = requested < stack;
-        var entryIndex = FindContextEntry(agent, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
+        var entryIndex = FindContextEntry(contextMenu, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
 
         if (entryIndex < 0)
         {
@@ -270,12 +271,19 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return quantity;
     }
 
+    public bool ContainsRetainerItem(uint itemId, InventoryItem.ItemFlags flags)
+    {
+        return TryFindRetainerSlot(itemId, flags, out _, out _, out _);
+    }
+
     public bool TrySetQuantity(uint quantity)
     {
         if (!TryGetReadyAddon("InputNumeric", out var numeric))
             return false;
 
         var maximum = numeric->AtkValues[3].UInt;
+        if (maximum == 0)
+            return false;
         var values = stackalloc AtkValue[1];
         values[0] = new AtkValue
         {
@@ -381,17 +389,21 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         return new string(buffer[..length]);
     }
 
-    private static int FindContextEntry(AgentInventoryContext* agent, string expected)
+    private static int FindContextEntry(AtkUnitBase* addon, string expected)
     {
-        var menuIndex = 0;
-        foreach (var value in agent->EventParams)
+        // ContextMenu stores its entry count in AtkValues[0] and each native entry label at
+        // AtkValues[8 + index]. Reading the visible addon directly keeps the callback index
+        // aligned with the entries the player sees; crystal menus expose labels as managed
+        // strings, so both string types are accepted.
+        var count = addon->AtkValues[0].UInt;
+        for (var index = 0; index < count; index++)
         {
-            if (value.Type != AtkValueType.String || value.String.Value == null)
+            var value = addon->AtkValues[8 + index];
+            if ((value.Type != AtkValueType.String && value.Type != AtkValueType.ManagedString) || value.String.Value == null)
                 continue;
             var label = MemoryHelper.ReadSeStringNullTerminated((nint)value.String.Value).TextValue;
             if (string.Equals(label, expected, StringComparison.Ordinal))
-                return menuIndex;
-            menuIndex++;
+                return index;
         }
 
         return -1;

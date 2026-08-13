@@ -51,6 +51,11 @@ namespace InventoryTools.Logic.Columns
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
                 return null;
 
+            // The retrieve action only applies to items actually held by a retainer; character
+            // inventory rows should not offer it.
+            if (searchResult.InventoryItem == null || searchResult.InventoryItem.RetainerId == 0)
+                return null;
+
             var quantity = GetCraftListQuantity(configuration, searchResult);
             if (quantity == 0)
                 return null;
@@ -65,7 +70,7 @@ namespace InventoryTools.Logic.Columns
             {
                 var key = new RetainerRetrievalItemKey(searchResult.ItemId, searchResult.Flags);
                 _retainerRetrievalAutomation.Start(configuration.CraftList,
-                    new Dictionary<RetainerRetrievalItemKey, uint> { [key] = quantity });
+                    new Dictionary<RetainerRetrievalItemKey, uint> { [key] = quantity }, true);
             }
 
             ImGuiUtil.HoverTooltip(LocalizationService.Ui("Retrieve this item's required quantity from retainers."));

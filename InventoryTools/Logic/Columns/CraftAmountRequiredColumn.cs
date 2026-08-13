@@ -32,11 +32,11 @@ namespace InventoryTools.Logic.Columns
         {
             if (searchResult.CraftItem == null) return null;
 
-            if (searchResult.CraftItem.IsOutputItem)
-            {
-                return ((int)searchResult.CraftItem.QuantityNeeded,(int)searchResult.CraftItem.QuantityRequired);
-            }
-            return ((int)searchResult.CraftItem.QuantityNeeded,(int)searchResult.CraftItem.QuantityRequired);
+            // The left value is how much is still needed from any source (total minus character
+            // inventory), while the right value is the total requirement. QuantityNeeded alone
+            // also subtracts retainer holdings, which made the left number collapse to 0 even
+            // while materials still had to be retrieved from retainers.
+            return ((int)searchResult.CraftItem.QuantityMissingInventory, (int)searchResult.CraftItem.QuantityRequired);
         }
 
         public override List<MessageBase>? Draw(FilterConfiguration configuration,
