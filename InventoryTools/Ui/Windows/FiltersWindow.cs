@@ -133,7 +133,7 @@ namespace InventoryTools.Ui
                     new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Retainer Ventures Window"), "ventures",
                         OpenRetainerVenturesWindow, LocalizationService.Ui("Open the retainer ventures window.")),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable("Help", "help", OpenHelpWindow, LocalizationService.Ui("Open the help window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Help"), "help", OpenHelpWindow, LocalizationService.Ui("Open the help window.")),
                 });
 
             _tabLayout = Utils.GenerateRandomId();
@@ -1013,7 +1013,10 @@ namespace InventoryTools.Ui
                                                     }
                                                     catch (ListImportVersionException e)
                                                     {
-                                                        _chatUtilities.PrintClipboardMessage("[Import] ", $"This list is no longer valid. It's version is {(e.ImportingVersion?.ToString() ?? "0")} and it's required version is {e.RequiredVersion}.");
+                                                        _chatUtilities.PrintClipboardMessage("[Import] ",
+                                                            LocalizationService.Format(
+                                                                "This list is no longer valid. Its version is {0}, but version {1} is required.",
+                                                                e.ImportingVersion?.ToString() ?? "0", e.RequiredVersion));
                                                     }
                                                 }
                                             }
@@ -1067,7 +1070,7 @@ namespace InventoryTools.Ui
                                         }
                                     }
 
-                                    ImGuiUtil.HoverTooltip("[CTRL] to open in a new window.");
+                                    ImGuiUtil.HoverTooltip(LocalizationService.Ui("[CTRL] to open in a new window."));
                                 }
 
                                 if (index != windowGroups.Count - 1)

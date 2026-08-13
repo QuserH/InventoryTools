@@ -49,6 +49,7 @@ public class ItemGlamourReadySetItemSourceRenderer : ItemInfoRenderer<ItemGlamou
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return $"Part of {asSource.ConvertedItem.NameString} which contains {string.Join(", ", asSource.SetItems.Select(c => c.NameString))}";
+        return LocalizationService.Format("Part of {0} which contains {1}", asSource.ConvertedItem.NameString,
+            string.Join(", ", asSource.SetItems.Select(c => c.NameString)));
     };
 }

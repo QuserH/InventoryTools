@@ -82,7 +82,7 @@ namespace InventoryTools.Ui
                     new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Retainer Ventures Window"), "ventures",_ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(RetainerTasksWindow))),
                         LocalizationService.Ui("Open the retainer ventures window.")),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable("Help", "help", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow))), LocalizationService.Ui("Open the help window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Help"), "help", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow))), LocalizationService.Ui("Open the help window.")),
                 });
         }
 

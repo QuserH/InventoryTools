@@ -845,7 +845,8 @@ namespace InventoryTools.Ui
             uint toId = IsLocked ? Configuration.ChocoboLockedTargetStainId : _targetStainId;
 
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine($"Chocobo recolour: {GetStainName(fromId)} → {GetStainName(toId)}");
+            sb.AppendLine(LocalizationService.Format("Chocobo recolour: {0} -> {1}", GetStainName(fromId),
+                GetStainName(toId)));
             for (int i = 0; i < fruits.Count; i++)
             {
                 sb.AppendLine($"{i + 1}. {fruits[i].Name}");

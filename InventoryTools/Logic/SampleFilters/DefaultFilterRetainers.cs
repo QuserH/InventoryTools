@@ -41,7 +41,7 @@ public class DefaultFilterRetainers : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("Retainers");
-    public string SampleDefaultName => "Retainers";
+    public string SampleDefaultName => LocalizationService.Ui("Retainers");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that will be preconfigured to show items across all retainer inventories.");

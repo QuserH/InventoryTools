@@ -245,7 +245,8 @@ public abstract class ItemGatheringSourceRenderer<T> : ItemInfoRenderer<T> where
          var stars = asSource.GatheringItem.Base.GatheringItemLevel.Value.Stars;
          ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Stars:")) + (stars == 0 ? LocalizationService.Ui("N/A") : stars));
          var perceptionRequired = asSource.GatheringItem.Base.PerceptionReq;
-         ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Perception Required:")) + (perceptionRequired == 0 ? LocalizationService.Ui("N/A") : stars));
+         ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Perception Required:")) +
+                    (perceptionRequired == 0 ? LocalizationService.Ui("N/A") : perceptionRequired));
 
          if (asSource.GatheringItem.AvailableAtTimedNode)
          {
@@ -336,6 +337,7 @@ public abstract class ItemGatheringSourceRenderer<T> : ItemInfoRenderer<T> where
             starsString += "*";
         }
 
-        return $"Level {(level == 0 ? "N/A" : level)} ({starsString}) ({perceptionRequired} perception required)";
+        return LocalizationService.Format("Level {0} ({1}) ({2} perception required)",
+            level == 0 ? LocalizationService.Ui("N/A") : level, starsString, perceptionRequired);
     };
 }

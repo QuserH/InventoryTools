@@ -180,7 +180,9 @@ public abstract class MultipleChoiceSetting<T> : Setting<List<T>> where T:notnul
 
     public virtual string GetPreviewValue(List<T> items)
     {
-        return items.Count == 0 ? LocalizationService.Ui("No items selected") : $"{items.Count} items selected";
+        return items.Count == 0
+            ? LocalizationService.Ui("No items selected")
+            : LocalizationService.Format("{0} items selected", items.Count);
     }
 
     public virtual int? ResultLimit { get; } = null;

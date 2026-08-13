@@ -175,7 +175,7 @@ namespace InventoryTools.Ui
                     new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Submarines Window"), "submarines", OpenSubmarinesWindow,LocalizationService.Ui("Open the submarines window.")),
                     new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Retainer Ventures Window"), "ventures", OpenRetainerVenturesWindow,LocalizationService.Ui("Open the retainer ventures window.")),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable("Help", "help", OpenHelpWindow,LocalizationService.Ui("Open the help window.")),
+                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Help"), "help", OpenHelpWindow,LocalizationService.Ui("Open the help window.")),
                 });
 
             _wizardMenu = new PopupMenu("wizardMenu", PopupMenu.PopupMenuButtons.All,
@@ -286,10 +286,10 @@ namespace InventoryTools.Ui
                 _popupMenus[configuration] = new PopupMenu("fm" + configuration.Key, PopupMenu.PopupMenuButtons.Right,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the filter.")),
+                        new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Duplicate"), "df_" + configuration.Key, configuration.Name, DuplicateFilter, LocalizationService.Ui("Duplicate the filter.")),
                         new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Move Up"), "mu_" + configuration.Key, MoveFilterUp, LocalizationService.Ui("Move the filter up.")),
                         new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Move Down"), "md_" + configuration.Key, MoveFilterDown, LocalizationService.Ui("Move the filter down.")),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this filter?"), RemoveFilter, LocalizationService.Ui("Remove the filter.")),
+                        new PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Remove"), "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this filter?"), RemoveFilter, LocalizationService.Ui("Remove the filter.")),
                     }
                 );
             }

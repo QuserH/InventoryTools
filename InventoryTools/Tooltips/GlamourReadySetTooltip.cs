@@ -107,7 +107,8 @@ public class GlamourReadySetTooltip : BaseTooltip
                 .Where(i => i.ItemId == itemId)
                 .Select(i => i.SortedCategory)
                 .Distinct();
-            return string.Concat(categories.Select(c => $"Already in {c.FormattedDetailedName()}\n"));
+            return string.Concat(categories.Select(c =>
+                LocalizationService.Format("Already in {0}", c.FormattedDetailedName()) + "\n"));
         }
 
         var newText = "";
@@ -138,7 +139,8 @@ public class GlamourReadySetTooltip : BaseTooltip
                         }
                     }
 
-                    newText += $"\nOutfit Glamour: {ownedCount}/{source.SetItems.Count} {visualizer}\n";
+                    newText += "\n" + LocalizationService.Format("Outfit Glamour: {0}/{1} {2}", ownedCount,
+                        source.SetItems.Count, visualizer) + "\n";
                     newText += ownershipLine;
                 }
                 else
@@ -187,7 +189,8 @@ public class GlamourReadySetTooltip : BaseTooltip
                         }
                     }
 
-                    newText += $"\nPart of: {source.ConvertedItem.NameString} ({ownedCount}/{source.SetItems.Count} {visualizer})\n";
+                    newText += "\n" + LocalizationService.Format("Part of: {0} ({1}/{2} {3})",
+                        source.ConvertedItem.NameString, ownedCount, source.SetItems.Count, visualizer) + "\n";
                     newText += ownershipLine;
                 }
                 else

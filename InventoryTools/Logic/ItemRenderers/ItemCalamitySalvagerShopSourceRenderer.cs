@@ -78,16 +78,15 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
 
         if (firstItem.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            ImGui.Text(
-                $"Achievement Required: {firstItem.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()}");
+            ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+                firstItem.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
         }
 
         foreach (var quest in firstItem.GilShopItem.Base.QuestRequired)
         {
             if (quest.RowId != 0)
             {
-                ImGui.Text(
-                    $"Quest Required: {quest.Value.Name.ExtractText()}");
+                ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
             }
         }
 
@@ -103,16 +102,15 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
 
         if (asSource.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            ImGui.Text(
-                $"Achievement Required: {asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()}");
+            ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+                asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
         }
 
         foreach (var quest in asSource.GilShopItem.Base.QuestRequired)
         {
             if (quest.RowId != 0)
             {
-                ImGui.Text(
-                    $"Quest Required: {quest.Value.Name.ExtractText()}");
+                ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
             }
         }
 
@@ -142,14 +140,15 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
 
         if (asSource.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            description += $" (Requires achievement: {asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()})";
+            description += LocalizationService.Format(" (Requires achievement: {0})",
+                asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText());
         }
 
         foreach (var quest in asSource.GilShopItem.Base.QuestRequired)
         {
             if (quest.RowId != 0)
             {
-                description += ($" (Requires quest: {quest.Value.Name.ExtractText()})");
+                description += LocalizationService.Format(" (Requires quest: {0})", quest.Value.Name.ExtractText());
             }
         }
 

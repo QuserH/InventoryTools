@@ -100,7 +100,7 @@ public class CofferLootTooltip : BaseTooltip
         if (lootItems.Count > 0)
         {
             var ownedCount = lootItems.Count(loot => (_unlockTrackerService.IsUnlocked(loot, false) == true) ||  allItemsList.Any(i => i.ItemId == loot.RowId));
-            newText += $"\nLoot: {ownedCount}/{lootItems.Count} items owned";
+            newText += "\n" + LocalizationService.Format("Loot: {0}/{1} items owned", ownedCount, lootItems.Count);
         }
         else
         {
@@ -123,7 +123,7 @@ public class CofferLootTooltip : BaseTooltip
 
             var alreadyAcquired = allItemsList.Any(i => i.ItemId == HoverItemId);
             if (alreadyAcquired)
-                newText += "\nAlready acquired";
+                newText += "\n" + LocalizationService.Ui("Already acquired");
         }
 
         if (newText == "") return;

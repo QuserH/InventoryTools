@@ -41,7 +41,7 @@ public class DefaultFilterCharacter : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("Character");
-    public string SampleDefaultName => "Character";
+    public string SampleDefaultName => LocalizationService.Ui("Character");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that will be preconfigured to show the items in your character's bags.");

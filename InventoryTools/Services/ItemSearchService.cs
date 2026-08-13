@@ -94,17 +94,20 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
 
                 normalTotal = (uint)(normalTotal + normalQuantity);
                 hqTotal = (uint)(hqTotal + hqQuantity);
-                searchResults.Add($"    {(normalQuantity != 0 ? normalQuantity.ToString() :  "")}{(hqQuantity != 0 ? (normalQuantity != 0 ? "," : "") + hqQuantity + "\uE03c" : "")} found in {itemByCategory.Key.FormattedName()}");
+                var quantities = $"{(normalQuantity != 0 ? normalQuantity.ToString() : "")}{(hqQuantity != 0 ? (normalQuantity != 0 ? "," : "") + hqQuantity + "\uE03c" : "")}";
+                searchResults.Add("    " + LocalizationService.Format("{0} found in {1}", quantities,
+                    itemByCategory.Key.FormattedName()));
             }
         }
 
         if (normalTotal == 0 && hqTotal == 0)
         {
-            searchResults.Add("No results found.");
+            searchResults.Add(LocalizationService.Ui("No results found."));
         }
         else
         {
-            searchResults.Add($"Total: {(normalTotal != 0 ? normalTotal.ToString() :  "")}{(hqTotal != 0 ? "," + hqTotal + "\uE03c" : "")} found.");
+            var totals = $"{(normalTotal != 0 ? normalTotal.ToString() : "")}{(hqTotal != 0 ? "," + hqTotal + "\uE03c" : "")}";
+            searchResults.Add(LocalizationService.Format("Total: {0} found.", totals));
         }
 
         stringBuilder.Append(String.Join("\n", searchResults));

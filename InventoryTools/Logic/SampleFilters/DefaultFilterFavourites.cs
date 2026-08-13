@@ -34,7 +34,7 @@ public class DefaultFilterFavourites : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("Favourites");
-    public string SampleDefaultName => "Favourites";
+    public string SampleDefaultName => LocalizationService.Ui("Favourites");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will show all the items you have favourited.");

@@ -533,8 +533,10 @@ public class ImGuiMenuService
                             {
                                 foreach (var gatheringPoint in groupedGathering.Value.DistinctBy(c => (c.MapX, c.MapY)))
                                 {
-                                    if (ImGui.MenuItem(
-                                            $"Teleport to ({gatheringPoint.GatheringPointNameRow.Base.Singular}) at ({gatheringPoint.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {gatheringPoint.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                    if (ImGui.MenuItem(LocalizationService.Format("Teleport to ({0}) at ({1}, {2})",
+                                            gatheringPoint.GatheringPointNameRow.Base.Singular,
+                                            gatheringPoint.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                            gatheringPoint.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                     {
                                         messages.Add(new RequestTeleportToGatheringPointRowMessage(gatheringPoint));
                                         _chatUtilities.PrintFullMapLink(gatheringPoint,
@@ -561,8 +563,10 @@ public class ImGuiMenuService
                             {
                                 foreach (var gatheringPoint in groupedGathering.Value.DistinctBy(c => (c.MapX, c.MapY)))
                                 {
-                                    if (ImGui.MenuItem(
-                                            $"Open map to ({gatheringPoint.GatheringPointNameRow.Base.Singular}) at ({gatheringPoint.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {gatheringPoint.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                    if (ImGui.MenuItem(LocalizationService.Format("Open map to ({0}) at ({1}, {2})",
+                                            gatheringPoint.GatheringPointNameRow.Base.Singular,
+                                            gatheringPoint.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                            gatheringPoint.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                     {
                                         _chatUtilities.PrintFullMapLink(gatheringPoint,
                                             $"Lv. {gatheringPoint.GatheringPointBase.Base.GatheringLevel} {gatheringPoint.GatheringPointNameRow.Base.Singular.ExtractText().ToTitleCase()}");
@@ -607,8 +611,10 @@ public class ImGuiMenuService
                                     foreach (var fishingSpot in
                                              groupedGathering.Value.DistinctBy(c => (c.MapX, c.MapY)))
                                     {
-                                        if (ImGui.MenuItem(
-                                                $"Teleport to ({fishingSpot.Base.PlaceName.Value.Name.ExtractText()}, {fishParameter.FishRecordType}) at ({fishingSpot.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {fishingSpot.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                        if (ImGui.MenuItem(LocalizationService.Format("Teleport to ({0}, {1}) at ({2}, {3})",
+                                                fishingSpot.Base.PlaceName.Value.Name.ExtractText(), fishParameter.FishRecordType,
+                                                fishingSpot.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                                fishingSpot.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                         {
                                             messages.Add(new RequestTeleportToFishingSpotRowMessage(fishingSpot));
                                             _chatUtilities.PrintFullMapLink(fishingSpot,
@@ -646,8 +652,10 @@ public class ImGuiMenuService
                                     foreach (var fishingSpot in
                                              groupedGathering.Value.DistinctBy(c => (c.MapX, c.MapY)))
                                     {
-                                        if (ImGui.MenuItem(
-                                                $"Open map to ({fishingSpot.Base.PlaceName.Value.Name.ExtractText()}, {fishParameter.FishRecordType}) at ({fishingSpot.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {fishingSpot.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                        if (ImGui.MenuItem(LocalizationService.Format("Open map to ({0}, {1}) at ({2}, {3})",
+                                                fishingSpot.Base.PlaceName.Value.Name.ExtractText(), fishParameter.FishRecordType,
+                                                fishingSpot.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                                fishingSpot.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                         {
                                             _chatUtilities.PrintFullMapLink(fishingSpot,
                                                 $"Lv. {fishingSpot.Base.GatheringLevel} {fishingSpot.Base.FishingSpotCategory}");
@@ -694,8 +702,11 @@ public class ImGuiMenuService
                                     foreach (var fishingSpot in groupedGathering.Value.DistinctBy(c =>
                                                  (c.SpearfishingNotebook!.MapX, c.SpearfishingNotebook!.MapY)))
                                     {
-                                        if (ImGui.MenuItem(
-                                                $"Teleport to ({fishingSpot.SpearfishingNotebook!.Base.PlaceName.Value.Name.ExtractText()}, {spearfishingItem.FishRecordType}) at ({fishingSpot.SpearfishingNotebook.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {fishingSpot.SpearfishingNotebook.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                        if (ImGui.MenuItem(LocalizationService.Format("Teleport to ({0}, {1}) at ({2}, {3})",
+                                                fishingSpot.SpearfishingNotebook!.Base.PlaceName.Value.Name.ExtractText(),
+                                                spearfishingItem.FishRecordType,
+                                                fishingSpot.SpearfishingNotebook.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                                fishingSpot.SpearfishingNotebook.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                         {
                                             messages.Add(
                                                 new RequestTeleportToSpearFishingSpotRowMessage(fishingSpot
@@ -735,8 +746,11 @@ public class ImGuiMenuService
                                 foreach (var fishingSpot in groupedGathering.Value.DistinctBy(c =>
                                              (c.SpearfishingNotebook!.MapX, c.SpearfishingNotebook!.MapY)))
                                 {
-                                    if (ImGui.MenuItem(
-                                            $"Open map to ({fishingSpot.SpearfishingNotebook!.Base.PlaceName.Value.Name.ExtractText()}, {spearfishingItem.FishRecordType}) at ({fishingSpot.SpearfishingNotebook.MapX.ToString("N2", CultureInfo.InvariantCulture)}, {fishingSpot.SpearfishingNotebook.MapY.ToString("N2", CultureInfo.InvariantCulture)})"))
+                                    if (ImGui.MenuItem(LocalizationService.Format("Open map to ({0}, {1}) at ({2}, {3})",
+                                            fishingSpot.SpearfishingNotebook!.Base.PlaceName.Value.Name.ExtractText(),
+                                            spearfishingItem.FishRecordType,
+                                            fishingSpot.SpearfishingNotebook.MapX.ToString("N2", CultureInfo.InvariantCulture),
+                                            fishingSpot.SpearfishingNotebook.MapY.ToString("N2", CultureInfo.InvariantCulture))))
                                     {
                                         _chatUtilities.PrintFullMapLink(fishingSpot.SpearfishingNotebook!,
                                             $"Lv. {fishingSpot.Base.GatheringLevel}");

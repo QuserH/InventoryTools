@@ -57,11 +57,13 @@ public class ItemCashShopSourceRenderer : ItemInfoRenderer<ItemCashShopSource>
     {
         var asSource = AsSource(source);
         var priceUsd = asSource.PriceUsd.ToString("C2", CultureInfo.GetCultureInfo(LocalizationService.Ui("en-US")));
-        var description = $"Price(USD): {priceUsd}";
+        var description = LocalizationService.Format("Price(USD): {0}", priceUsd);
         if (asSource.FittingShopItemSetRow != null)
         {
-            description += $" (Part of {asSource.FittingShopItemSetRow.Base.Name.ExtractText()} set)";
-            description += $" (Contains {String.Join(", ", asSource.FittingShopItemSetRow.Items.Select(c => c.NameString))}";
+            description += LocalizationService.Format(" (Part of {0} set)",
+                asSource.FittingShopItemSetRow.Base.Name.ExtractText());
+            description += LocalizationService.Format(" (Contains {0})",
+                string.Join(", ", asSource.FittingShopItemSetRow.Items.Select(c => c.NameString)));
         }
         return description;
     };

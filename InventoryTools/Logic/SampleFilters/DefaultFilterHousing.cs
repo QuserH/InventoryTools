@@ -41,7 +41,7 @@ public class DefaultFilterHousing : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("Housing");
-    public string SampleDefaultName => "Housing";
+    public string SampleDefaultName => LocalizationService.Ui("Housing");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that will be preconfigured to show all items stored in the houses your character owns.");

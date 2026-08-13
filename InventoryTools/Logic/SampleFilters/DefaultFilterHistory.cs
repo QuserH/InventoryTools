@@ -41,7 +41,7 @@ public class DefaultFilterHistory : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("History");
-    public string SampleDefaultName => "History";
+    public string SampleDefaultName => LocalizationService.Ui("History");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that shows you the movement of items in your inventories. History tracking must be enabled for this to function.");

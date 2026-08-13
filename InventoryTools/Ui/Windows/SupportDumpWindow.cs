@@ -73,15 +73,18 @@ namespace InventoryTools.Ui
             if (result.Success)
             {
                 var included = result.IncludedFiles.Any() ? string.Join(", ", result.IncludedFiles) : LocalizationService.Ui("no files");
-                _chatUtilities.Print($"Support dump saved to {result.ZipPath} ({included}).");
+                _chatUtilities.Print(LocalizationService.Format("Support dump saved to {0} ({1}).", result.ZipPath, included));
                 if (result.MissingFiles.Any())
                 {
-                    _chatUtilities.PrintError($"The following files could not be included in the support dump: {string.Join(", ", result.MissingFiles)}.");
+                    _chatUtilities.PrintError(LocalizationService.Format(
+                        "The following files could not be included in the support dump: {0}.",
+                        string.Join(", ", result.MissingFiles)));
                 }
             }
             else
             {
-                _chatUtilities.PrintError("Failed to generate the support dump. Please check your Dalamud log for details.");
+                _chatUtilities.PrintError(LocalizationService.Ui(
+                    "Failed to generate the support dump. Please check your Dalamud log for details."));
             }
 
             this.IsOpen = false;

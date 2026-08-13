@@ -455,7 +455,8 @@ public class CraftSettingsColumn : IColumn
                 }
 
                 using var tt = ImRaii.Tooltip();
-                ImGui.Text($"Recipe ({itemRecipe.CraftType?.FormattedName ?? "Unknown"}): ");
+        ImGui.Text(LocalizationService.Format("Recipe ({0}): ",
+            itemRecipe.CraftType?.FormattedName ?? LocalizationService.Ui("Unknown")));
                 ImGui.Separator();
                 foreach (var ingredient in itemRecipe.IngredientCounts)
                 {

@@ -12,6 +12,7 @@ using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Logic;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Mediator;
+using InventoryTools.Localization;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -159,8 +160,9 @@ namespace InventoryTools.IPC
                 {
                     try
                     {
-                        var guid = _wotsitRegister.InvokeFunc(IpcDisplayName, $"Toggle Filter - {filter.Name}",
-                            $"Toggle the filter on/off {filter.Name} as a background filter. ", WotsitIconId);
+                        var guid = _wotsitRegister.InvokeFunc(IpcDisplayName,
+                            LocalizationService.Format("Toggle Filter - {0}", filter.Name),
+                            LocalizationService.Format("Toggle {0} as a background filter.", filter.Name), WotsitIconId);
                         _wotsitToggleFilterGuids.Add(guid, filter.Key);
                         _wotsitFilterNames.Add(filter.Key, filter.Name);
                     }

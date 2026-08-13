@@ -11,6 +11,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using InventoryTools.Logic.Settings;
+using InventoryTools.Localization;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 
@@ -76,7 +77,8 @@ public class IngredientPatchTooltip : BaseTooltip
             seStr.Payloads.Add(GetLinkPayload());
             seStr.Payloads.Add(RawPayload.LinkTerminator);
 
-            var newText = $"\nIngredient Patch: {patch.ToString(CultureInfo.InvariantCulture)}";
+            var newText = "\n" + LocalizationService.Format("Ingredient Patch: {0}",
+                patch.ToString(CultureInfo.InvariantCulture));
 
             newText = newText.TrimEnd('\n');
             if (newText != "")

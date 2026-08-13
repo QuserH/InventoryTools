@@ -71,7 +71,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
 
     public override string? GetSubtitle(SatisfactionNpc row)
     {
-        return $"Level {row.LevelUnlock} Custom Delivery Client";
+        return LocalizationService.Format("Level {0} Custom Delivery Client", row.LevelUnlock);
     }
 
     public override (string?, uint?) GetIcon(SatisfactionNpc row)
@@ -212,7 +212,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
             {
                 Items = supplyItems,
                 SectionKey = $"requested_items_tier_{tierNumber}",
-                SectionName = $"Requested Items (Tier {tierNumber})",
+                SectionName = LocalizationService.Format("Requested Items (Tier {0})", tierNumber),
                 HideWhenEmpty = true
             });
         }
@@ -262,7 +262,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
                 Name = LocalizationService.Ui("Level"),
                 Key = "level",
                 GroupFunc = row => row.LevelUnlock,
-                GroupMapping = row => $"Level {(byte)row}"
+                GroupMapping = row => LocalizationService.Format("Level {0}", (byte)row)
             }
         ];
     }

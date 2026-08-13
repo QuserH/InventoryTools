@@ -133,7 +133,7 @@ public class CompendiumTypesWindow : GenericWindow
 
     public override FilterConfiguration? SelectedConfiguration => null;
     public override string GenericKey => "compendium_types";
-    public override string GenericName => "Compendium";
+    public override string GenericName => LocalizationService.Ui("Compendium");
     public override bool DestroyOnClose => true;
     public override bool SaveState => true;
     public override Vector2? DefaultSize => new Vector2(600, 600);

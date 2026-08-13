@@ -54,6 +54,7 @@ public class ItemAquariumUseRenderer : ItemInfoRenderer<ItemAquariumSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return $"Can be placed in {asSource.AquariumFish.Size} aquariums with {asSource.AquariumFish.Base.AquariumWater.Value.Name}";
+        return LocalizationService.Format("Can be placed in {0} aquariums with {1}",
+            asSource.AquariumFish.Size, asSource.AquariumFish.Base.AquariumWater.Value.Name);
     };
 }

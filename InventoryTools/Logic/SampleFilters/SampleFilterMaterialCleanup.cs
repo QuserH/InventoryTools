@@ -48,7 +48,7 @@ public class SampleFilterMaterialCleanup : BooleanSetting, ISampleFilter
     public override string Key { get; set; } = "sample3";
     public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Material clean-up"));
     public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Finds all gatherable items in your characters inventory and attempts to show you where to put them in your retainers."));
-    public string SampleDefaultName => LocalizationService.Ui("100 gil or less");
+    public string SampleDefaultName => LocalizationService.Ui("Material clean-up");
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that will be setup to quickly put away any excess materials. It will have all the material categories automatically added. When calculating where to put items it will try to prioritise existing stacks of items.");
     public SampleFilterType SampleFilterType => SampleFilterType.Sample;

@@ -48,9 +48,9 @@ namespace InventoryTools.Ui.Pages
                 _popupMenus[configuration] = new PopupMenu("fm" + configuration.Key, PopupMenu.PopupMenuButtons.LeftRight,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectableAskName("Duplicate", "df_" + configuration.Key, configuration.Name, DuplicateList, LocalizationService.Ui("Duplicate the list.")),
+                        new PopupMenu.PopupMenuItemSelectableAskName(LocalizationService.Ui("Duplicate"), "df_" + configuration.Key, configuration.Name, DuplicateList, LocalizationService.Ui("Duplicate the list.")),
                         new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Export Configuration"), "ef_" + configuration.Key, ExportList, LocalizationService.Ui("Copies the list export string to clipboard.")),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Remove", "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this list?"), RemoveList, LocalizationService.Ui("Remove the list.")),
+                        new PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Remove"), "rf_" + configuration.Key, LocalizationService.Ui("Are you sure you want to remove this list?"), RemoveList, LocalizationService.Ui("Remove the list.")),
                     }
                 );
             }

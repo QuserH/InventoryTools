@@ -41,6 +41,7 @@ public class ItemArmoireSourceRenderer : ItemInfoRenderer<ItemArmoireSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return $"Can be placed in the {asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text}";
+        return LocalizationService.Format("Can be placed in the {0}",
+            asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text);
     };
 }

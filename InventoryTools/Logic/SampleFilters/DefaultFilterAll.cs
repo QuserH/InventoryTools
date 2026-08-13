@@ -41,7 +41,7 @@ public class DefaultFilterAll : ISampleFilter
     }
 
     public string Name => LocalizationService.Ui("All");
-    public string SampleDefaultName => "All";
+    public string SampleDefaultName => LocalizationService.Ui("All");
 
     public string SampleDescription =>
         LocalizationService.Ui("This will add a list that will be preconfigured to show all the items in bags related to your character. This includes owned retainers, free company, saddle bags, etc");

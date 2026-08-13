@@ -47,7 +47,7 @@ public class TooltipDisplayUnlockCharacterSetting : MultipleChoiceSetting<ulong>
         }
         else
         {
-            return $"{items.Count} characters will be shown..";
+            return LocalizationService.Format("{0} characters will be shown.", items.Count);
         }
     }
 
