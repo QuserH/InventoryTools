@@ -227,10 +227,6 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         if (!TryFindRetainerSlot(itemId, flags, out var container, out var slot, out var stack))
             return false;
 
-        // Crystals live on a separate retainer page. The context menu only works once that
-        // page is actually visible, so switch to it first and retry on the next update.
-        if (container == InventoryType.RetainerCrystals && !TryEnsureCrystalPageReady())
-            return false;
 
         var agent = AgentInventoryContext.Instance();
         var retainerAgent = AgentModule.Instance()->GetAgentByInternalId(AgentId.Retainer);
@@ -298,27 +294,6 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         }
 
         return quantity;
-    }
-
-    private bool TryEnsureCrystalPageReady()
-    {
-        if (TryGetReadyAddon("RetainerCrystalGrid", out _))
-            return true;
-
-        if (TryGetReadyAddon("InventoryRetainer", out var addon))
-        {
-            var retainer = (AddonInventoryRetainer*)addon;
-            if (retainer->TabIndex != 1)
-                retainer->SetTab(1);
-        }
-        else if (TryGetReadyAddon("InventoryRetainerLarge", out var largeAddon))
-        {
-            var retainer = (AddonInventoryRetainerLarge*)largeAddon;
-            if (retainer->TabIndex != 5)
-                retainer->SetTab(5);
-        }
-
-        return false;
     }
 
     public bool ContainsRetainerItem(uint itemId, InventoryItem.ItemFlags flags)

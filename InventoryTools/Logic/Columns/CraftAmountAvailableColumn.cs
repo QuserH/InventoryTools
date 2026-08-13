@@ -61,7 +61,7 @@ namespace InventoryTools.Logic.Columns
 
             // The retrieve button is only offered for a short material that is actually held by
             // one of this character's retainers; other inventory rows only show the amount.
-            var heldByRetainer = searchResult.InventoryItem != null && searchResult.InventoryItem.RetainerId != 0;
+            var heldByRetainer = searchResult.InventoryItem != null && searchResult.InventoryItem.InRetainer;
             if (!heldByRetainer || _retainerRetrievalAutomation.IsRunning)
                 return null;
 
