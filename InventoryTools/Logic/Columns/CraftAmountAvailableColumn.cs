@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CriticalCommonLib.Services.Mediator;
 using DalaMock.Host.Mediator;
 using Dalamud.Interface.Colors;
@@ -46,18 +47,11 @@ namespace InventoryTools.Logic.Columns
             ColumnConfiguration columnConfiguration,
             SearchResult searchResult, int rowIndex, int columnIndex)
         {
-            var craftItem = searchResult.CraftItem;
-            if (craftItem?.IsOutputItem ?? false)
-            {
-                ImGui.TableNextColumn();
-                return null;
-            }
-
             ImGui.TableNextColumn();
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
                 return null;
 
-            var quantity = craftItem?.QuantityWillRetrieve ?? 0;
+            var quantity = GetCraftListQuantity(configuration, searchResult);
             if (quantity == 0)
                 return null;
 
@@ -87,6 +81,28 @@ namespace InventoryTools.Logic.Columns
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
-        public override bool? CraftOnly => true;
+        public override bool? CraftOnly => false;
+
+        private static uint GetCraftListQuantity(FilterConfiguration configuration, SearchResult searchResult)
+        {
+            // The inventory table contains InventoryItem results, not CraftItem results. Resolve
+            // the corresponding craft requirement by item id and quality flags so the per-item
+            // action is available next to the actual held stack.
+            return configuration.CraftList.GetFlattenedMaterials()
+                .Where(item => !item.IsOutputItem && item.ItemId == searchResult.ItemId &&
+                               MatchesFlags(item.Flags, searchResult.Flags))
+                .Aggregate(0u, (total, item) => total + item.QuantityWillRetrieve);
+        }
+
+        private static bool MatchesFlags(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags required,
+            FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags actual)
+        {
+            if (required.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable))
+                return actual.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable);
+            if (required.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.HighQuality))
+                return actual.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.HighQuality);
+            return !actual.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.HighQuality) &&
+                   !actual.HasFlag(FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable);
+        }
     }
 }

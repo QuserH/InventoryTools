@@ -162,20 +162,19 @@ namespace InventoryTools.Lists
                 }
             }
 
-            // This column used to be injected into the general columns list. Keep existing
-            // craft-list configurations usable while exposing it in the dedicated Craft Columns
-            // editor where it belongs.
-            if (list.FilterType == FilterType.CraftFilter && list.Columns != null)
+            // The retrieval action belongs beside the inventory/retainer item table. Migrate
+            // configurations created by the brief craft-column implementation back to Columns.
+            if (list.FilterType == FilterType.CraftFilter && list.CraftColumns != null)
             {
-                var legacyColumns = list.Columns
+                var legacyColumns = list.CraftColumns
                     .Where(c => c.ColumnName == nameof(CraftAmountAvailableColumn))
                     .ToList();
                 foreach (var legacyColumn in legacyColumns)
                 {
-                    list.Columns.Remove(legacyColumn);
-                    list.CraftColumns ??= new List<ColumnConfiguration>();
-                    if (!list.CraftColumns.Any(c => c.ColumnName == legacyColumn.ColumnName))
-                        list.CraftColumns.Add(legacyColumn);
+                    list.CraftColumns.Remove(legacyColumn);
+                    list.Columns ??= new List<ColumnConfiguration>();
+                    if (!list.Columns.Any(c => c.ColumnName == legacyColumn.ColumnName))
+                        list.Columns.Add(legacyColumn);
                 }
             }
         }
@@ -1068,7 +1067,7 @@ namespace InventoryTools.Lists
                 AddCraftColumn(configuration,typeof(IconColumn), false);
                 AddCraftColumn(configuration,typeof(NameColumn), false);
                 AddCraftColumn(configuration,typeof(CraftAmountRequiredColumn), false);
-                AddCraftColumn(configuration,typeof(CraftAmountAvailableColumn), false);
+                AddColumn(configuration,typeof(CraftAmountAvailableColumn), false);
                 AddCraftColumn(configuration,typeof(CraftSettingsColumn), false);
                 AddCraftColumn(configuration,typeof(CraftSimpleColumn), false);
                 AddCraftColumn(configuration,typeof(MarketBoardMinPriceColumn), false);

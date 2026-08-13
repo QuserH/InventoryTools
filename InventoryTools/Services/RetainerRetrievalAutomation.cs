@@ -209,6 +209,12 @@ public sealed class RetainerRetrievalAutomation : IDisposable
                 break;
 
             case RetainerRetrievalState.WaitingForInventoryChange:
+                if (CanAct(now) && _ui.TryConfirmTransfer())
+                {
+                    Status = "正在确认物品转移";
+                    break;
+                }
+
                 if (!HasExpectedTransferCompleted(entry))
                     break;
                 _remainingForEntry = _pendingQuantity >= _remainingForEntry ? 0 : _remainingForEntry - _pendingQuantity;

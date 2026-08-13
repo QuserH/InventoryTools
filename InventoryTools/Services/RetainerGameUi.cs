@@ -33,6 +33,7 @@ public interface IRetainerGameUi
     bool TryRetrieve(uint itemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags flags, uint quantity, out bool expectsQuantityInput, out uint willRetrieve);
     uint GetRetainerItemQuantity(uint itemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags flags);
     bool TrySetQuantity(uint quantity);
+    bool TryConfirmTransfer();
     bool TryCloseRetainerInventory();
     bool TrySelectQuit();
     bool TryCloseRetainerList();
@@ -282,6 +283,22 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             Int = (int)Math.Clamp(quantity, 1u, maximum),
         };
         numeric->FireCallback(1, values, true);
+        return true;
+    }
+
+    public bool TryConfirmTransfer()
+    {
+        if (!TryGetReadyAddon("RetainerItemTransferProgress", out var addon))
+            return false;
+
+        var button = addon->GetComponentButtonById(9);
+        if (button == null || !button->IsEnabled || !button->AtkResNode->IsVisible())
+            return false;
+
+        var component = (AtkComponentBase*)button;
+        var buttonNode = component->OwnerNode->AtkResNode;
+        var evt = (AtkEvent*)buttonNode.AtkEventManager.Event;
+        addon->ReceiveEvent(evt->State.EventType, (int)evt->Param, buttonNode.AtkEventManager.Event);
         return true;
     }
 
