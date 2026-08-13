@@ -22,10 +22,16 @@ public static class MergedSearchResults
         }
 
         IEnumerable<SearchResult> merged = mergeNqHq
-            ? rows.GroupBy(r => (r.ItemId, r.InventoryItem!.RetainerId)).Select(g => MergeGroup(g, true))
-            : rows.GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId)).Select(g => MergeGroup(g, false));
+            ? rows.GroupBy(r => (r.ItemId, r.InventoryItem!.RetainerId, IsMarket(r))).Select(g => MergeGroup(g, true))
+            : rows.GroupBy(r => (r.ItemId, r.Flags, r.InventoryItem!.RetainerId, IsMarket(r))).Select(g => MergeGroup(g, false));
 
         return merged.ToList();
+    }
+
+    private static bool IsMarket(SearchResult result)
+    {
+        return result.InventoryItem!.SortedContainer == InventoryType.RetainerMarket ||
+               result.InventoryItem!.Container == InventoryType.RetainerMarket;
     }
 
     private static SearchResult MergeGroup(IEnumerable<SearchResult> rows, bool mergeNqHq)
@@ -45,9 +51,7 @@ public static class MergedSearchResults
         }
 
         var merged = new SearchResult(clone) { IsMerged = true };
-        merged.MergedContainsMarket = list.Any(r =>
-            r.InventoryItem!.SortedContainer == InventoryType.RetainerMarket ||
-            r.InventoryItem!.Container == InventoryType.RetainerMarket);
+        merged.MergedContainsMarket = IsMarket(first);
         return merged;
     }
 

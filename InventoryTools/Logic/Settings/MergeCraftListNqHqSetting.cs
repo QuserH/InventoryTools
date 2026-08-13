@@ -29,5 +29,7 @@ public class MergeCraftListNqHqSetting : BooleanSetting
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+    public override uint? Order => 4;
+    public override string? ParentKey => "MergeCraftListSameSource";
     public override string Version => "1.7.0.0";
 }

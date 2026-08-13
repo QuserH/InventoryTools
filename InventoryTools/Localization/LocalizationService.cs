@@ -17,6 +17,15 @@ public static partial class LocalizationService
         {
             ["Allagan Tools"] = "亚拉戈工具箱",
 
+            ["Apply merge to craft list?"] = "制作列表生效",
+            ["Apply merge to item window?"] = "物品窗口生效（/atools）",
+            ["Apply NQ/HQ merge to craft list?"] = "制作列表生效",
+            ["Apply NQ/HQ merge to item window?"] = "物品窗口生效（/atools）",
+            ["Should the merge apply to the craft list inventory panel?"] = "是否在制作列表的“雇员/背包中的物品”面板中应用合并？",
+            ["Should the merge apply to the item window opened by /atools?"] = "是否在 /atools 命令打开的物品窗口中应用合并？",
+            ["Should the NQ/HQ merge apply to the craft list inventory panel?"] = "是否在制作列表的“雇员/背包中的物品”面板中合并NQ和HQ？",
+            ["Should the NQ/HQ merge apply to the item window opened by /atools?"] = "是否在 /atools 命令打开的物品窗口中合并NQ和HQ？",
+            ["Merged Bag"] = "背包",
             ["On the Market"] = "市场上",
             ["Merge same source items in craft list?"] = "合并角色、来源、道具名称均一致的数量？",
 ["Merge HQ and NQ in craft list?"] = "是否合并NQ和HQ？",

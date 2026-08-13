@@ -27,9 +27,11 @@ namespace InventoryTools.Logic.Columns
                 return _itemLocalizer.FormattedBagLocation(searchResult.InventoryItem);
             }
 
-            if (searchResult.IsMerged && searchResult.MergedContainsMarket)
+            if (searchResult.IsMerged)
             {
-                return LocalizationService.Ui("On the Market");
+                return searchResult.MergedContainsMarket
+                    ? LocalizationService.Ui("On the Market")
+                    : LocalizationService.Ui("Merged Bag");
             }
 
             return null;

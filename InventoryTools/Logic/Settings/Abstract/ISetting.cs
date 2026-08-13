@@ -19,6 +19,7 @@ namespace InventoryTools.Logic.Settings.Abstract
         public string Version { get; }
 
         public uint? Order { get; }
+        public string? ParentKey { get; }
 
         public bool HasValueSet(InventoryToolsConfiguration configuration);
 

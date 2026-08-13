@@ -2660,7 +2660,8 @@ namespace InventoryTools.Ui
             // match; whether NQ and HQ are also merged together is a separate sub-option. Merged
             // rows hide the specific bag location but still show market listings.
             itemTable.RenderSearchResults = MergedSearchResults.Apply(panelResults,
-                _configuration.MergeCraftListSameSource, _configuration.MergeCraftListNqHq);
+                _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToCraftWindow,
+                _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToCraftWindow);
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)

@@ -32,6 +32,8 @@ namespace InventoryTools.Logic.Settings.Abstract
 
         public virtual uint? Order { get; } = null;
 
+        public virtual string? ParentKey { get; } = null;
+
 
         public virtual string WizardName
         {

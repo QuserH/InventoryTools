@@ -79,15 +79,54 @@ namespace InventoryTools.Ui.Pages
         {
             foreach (var groupedSettings in Settings)
             {
-                foreach(var setting in groupedSettings.Value.OrderBy(c => c.Order ?? 999).ToList())
+                foreach (var setting in groupedSettings.Value.OrderBy(c => c.Order ?? 999).ToList())
                 {
                     ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
-                    setting.Draw(_configuration, null, null, null);
+                    var indent = GetIndentLevel(setting);
+                    if (indent > 0)
+                    {
+                        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + indent * 24);
+                    }
+
+                    using (var disabled = ImRaii.Disabled(!IsParentEnabled(setting)))
+                    {
+                        setting.Draw(_configuration, null, null, null);
+                    }
+
                     ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 5);
                 }
             }
 
             return null;
+        }
+
+        private int GetIndentLevel(ISetting setting)
+        {
+            var level = 0;
+            var current = setting;
+            var visited = new HashSet<string>();
+            while (current.ParentKey != null && visited.Add(current.Key))
+            {
+                level++;
+                current = _settings.FirstOrDefault(s => s.Key == current.ParentKey);
+                if (current == null)
+                {
+                    break;
+                }
+            }
+
+            return level;
+        }
+
+        private bool IsParentEnabled(ISetting setting)
+        {
+            if (setting.ParentKey == null)
+            {
+                return true;
+            }
+
+            var parent = _settings.FirstOrDefault(s => s.Key == setting.ParentKey);
+            return parent is not BooleanSetting booleanSetting || booleanSetting.CurrentValue(_configuration);
         }
 
         public override bool IsMenuItem => _isSeparator;

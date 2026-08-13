@@ -29,5 +29,6 @@ public class MergeCraftListSameSourceSetting : BooleanSetting
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+    public override uint? Order => 1;
     public override string Version => "1.7.0.0";
 }

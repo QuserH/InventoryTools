@@ -51,6 +51,15 @@ namespace InventoryTools.Logic.Columns
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
                 return null;
 
+            // Market listings cannot be retrieved from the retainer, so they show no retrieve
+            // quantity or button here.
+            var isMarket = searchResult.MergedContainsMarket ||
+                           (searchResult.InventoryItem != null &&
+                            (searchResult.InventoryItem.SortedContainer == CriticalCommonLib.Enums.InventoryType.RetainerMarket ||
+                             searchResult.InventoryItem.Container == CriticalCommonLib.Enums.InventoryType.RetainerMarket));
+            if (isMarket)
+                return null;
+
             var quantity = GetCraftListQuantity(configuration, searchResult);
             if (quantity == 0)
                 return null;

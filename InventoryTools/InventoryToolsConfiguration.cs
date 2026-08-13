@@ -62,6 +62,10 @@ namespace InventoryTools
         private bool _showForeignWikiLinks;
         private bool _mergeCraftListSameSource = true;
         private bool _mergeCraftListNqHq;
+        private bool _mergeCraftListApplyToCraftWindow = true;
+        private bool _mergeCraftListApplyToItemWindow = true;
+        private bool _mergeCraftListNqHqApplyToCraftWindow = true;
+        private bool _mergeCraftListNqHqApplyToItemWindow = true;
 
         private Vector4 _tabHighlightColor = new (0.007f, 0.008f,
             0.007f, 0.2f);
@@ -221,6 +225,42 @@ namespace InventoryTools
             set
             {
                 _mergeCraftListNqHq = value;
+                IsDirty = true;
+            }
+        }
+        public bool MergeCraftListApplyToCraftWindow
+        {
+            get => _mergeCraftListApplyToCraftWindow;
+            set
+            {
+                _mergeCraftListApplyToCraftWindow = value;
+                IsDirty = true;
+            }
+        }
+        public bool MergeCraftListApplyToItemWindow
+        {
+            get => _mergeCraftListApplyToItemWindow;
+            set
+            {
+                _mergeCraftListApplyToItemWindow = value;
+                IsDirty = true;
+            }
+        }
+        public bool MergeCraftListNqHqApplyToCraftWindow
+        {
+            get => _mergeCraftListNqHqApplyToCraftWindow;
+            set
+            {
+                _mergeCraftListNqHqApplyToCraftWindow = value;
+                IsDirty = true;
+            }
+        }
+        public bool MergeCraftListNqHqApplyToItemWindow
+        {
+            get => _mergeCraftListNqHqApplyToItemWindow;
+            set
+            {
+                _mergeCraftListNqHqApplyToItemWindow = value;
                 IsDirty = true;
             }
         }
