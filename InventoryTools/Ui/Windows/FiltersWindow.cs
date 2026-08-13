@@ -1735,13 +1735,16 @@ namespace InventoryTools.Ui
             {
                 if (contentChild.Success)
                 {
+                    // Apply the configured merge to every filter type shown in this window so the
+                    // user-created lists all get the same row merging.
+                    itemTable.RenderSearchResults = MergedSearchResults.Apply(itemTable.RenderSearchResults,
+                        _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToItemWindow,
+                        _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToItemWindow);
+
                     if (filterConfiguration.FilterType == FilterType.CraftFilter)
                     {
                         var craftTable = _tableService.GetCraftTable(filterConfiguration);
                         MediatorService.Publish(craftTable.Draw(new Vector2(0, -400)));
-                        itemTable.RenderSearchResults = MergedSearchResults.Apply(itemTable.RenderSearchResults,
-                            _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToItemWindow,
-                            _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToItemWindow);
                         MediatorService.Publish(itemTable.Draw(new Vector2(0, 0)));
                     }
                     else
