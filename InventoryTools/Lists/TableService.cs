@@ -266,6 +266,7 @@ public class TableService : DisposableMediatorBackgroundService
                 TableRefreshed?.Invoke(filterTable);
             }
         }
+        filterTable.MergedDisplayResults = BuildMergedDisplay(filterTable);
         filterTable.NeedsRefresh = false;
         filterTable.Refreshing = false;
     }
@@ -340,6 +341,30 @@ public class TableService : DisposableMediatorBackgroundService
                 craftItemTable.InitialColumnSetupDone = false;
             }
         }
+    }
+
+    private List<SearchResult>? BuildMergedDisplay(FilterTable filterTable)
+    {
+        var mergeSameSource = _configuration.MergeCraftListSameSource &&
+                              (_configuration.MergeCraftListApplyToCraftWindow ||
+                               _configuration.MergeCraftListApplyToItemWindow);
+        if (!mergeSameSource)
+        {
+            return null;
+        }
+
+        var mergeNqHq = _configuration.MergeCraftListNqHq &&
+                        (_configuration.MergeCraftListNqHqApplyToCraftWindow ||
+                         _configuration.MergeCraftListNqHqApplyToItemWindow);
+        var merged = MergedSearchResults.Apply(filterTable.SearchResults, mergeSameSource, mergeNqHq);
+        if (filterTable.SortColumn is int sortIndex && sortIndex >= 0 &&
+            sortIndex < filterTable.Columns.Count && filterTable.SortDirection != null)
+        {
+            var sortColumn = filterTable.Columns[sortIndex];
+            merged = sortColumn.Column.Sort(sortColumn, filterTable.SortDirection.Value, merged).ToList();
+        }
+
+        return merged;
     }
 
     public Task RequestRefresh(FilterTable filterTable)

@@ -34,54 +34,29 @@ namespace InventoryTools.Logic
             _font = font;
         }
 
-        private List<SearchResult>? _displayCacheSource;
-        private int? _displayCacheSortColumn;
-        private int? _displayCacheSortDirection;
-        private bool _displayCacheSameSource;
-        private bool _displayCacheNqHq;
-        private HashSet<(uint ItemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags Flags)>? _displayCacheMissing;
-        private List<SearchResult>? _displayCacheResult;
+        /// <summary>
+        /// The merged display list computed on the background refresh thread. Windows render this
+        /// directly so the merge and re-sort never block the UI thread.
+        /// </summary>
+        public List<SearchResult>? MergedDisplayResults { get; set; }
 
         /// <summary>
-        /// Returns the display rows with the configured merge applied. The result is cached on the
-        /// table and only rebuilt when the raw search results, sort state, merge options or the
-        /// optional missing-material filter change, so windows can call this every frame cheaply.
+        /// Returns the rows to render: the precomputed merged list when this window has merging
+        /// enabled, otherwise the raw search results. An optional missing-material filter is
+        /// applied for the craft inventory panel.
         /// </summary>
         public List<SearchResult> GetMergedDisplayResults(bool mergeSameSource, bool mergeNqHq,
             HashSet<(uint ItemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags Flags)>? missingOnly)
         {
-            var source = SearchResults;
-            if (!ReferenceEquals(_displayCacheSource, source) ||
-                _displayCacheSortColumn != SortColumn ||
-                _displayCacheSortDirection != (int?)SortDirection ||
-                _displayCacheSameSource != mergeSameSource || _displayCacheNqHq != mergeNqHq ||
-                !ReferenceEquals(_displayCacheMissing, missingOnly))
+            IEnumerable<SearchResult> rows = mergeSameSource && MergedDisplayResults != null
+                ? MergedDisplayResults
+                : SearchResults;
+            if (missingOnly != null)
             {
-                _displayCacheSource = source;
-                _displayCacheSortColumn = SortColumn;
-                _displayCacheSortDirection = (int?)SortDirection;
-                _displayCacheSameSource = mergeSameSource;
-                _displayCacheNqHq = mergeNqHq;
-                _displayCacheMissing = missingOnly;
-
-                IEnumerable<SearchResult> rows = source;
-                if (missingOnly != null)
-                {
-                    rows = source.Where(r => r.InventoryItem != null && missingOnly.Contains((r.ItemId, r.Flags)));
-                }
-
-                var merged = MergedSearchResults.Apply(rows, mergeSameSource, mergeNqHq);
-                if (mergeSameSource && SortColumn is int sortIndex &&
-                    sortIndex >= 0 && sortIndex < Columns.Count && SortDirection != null)
-                {
-                    var sortColumn = Columns[sortIndex];
-                    merged = sortColumn.Column.Sort(sortColumn, SortDirection.Value, merged).ToList();
-                }
-
-                _displayCacheResult = merged;
+                return rows.Where(r => r.InventoryItem != null && missingOnly.Contains((r.ItemId, r.Flags))).ToList();
             }
 
-            return _displayCacheResult!;
+            return rows as List<SearchResult> ?? rows.ToList();
         }
 
 
