@@ -34,6 +34,56 @@ namespace InventoryTools.Logic
             _font = font;
         }
 
+        private List<SearchResult>? _displayCacheSource;
+        private int? _displayCacheSortColumn;
+        private int? _displayCacheSortDirection;
+        private bool _displayCacheSameSource;
+        private bool _displayCacheNqHq;
+        private HashSet<(uint ItemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags Flags)>? _displayCacheMissing;
+        private List<SearchResult>? _displayCacheResult;
+
+        /// <summary>
+        /// Returns the display rows with the configured merge applied. The result is cached on the
+        /// table and only rebuilt when the raw search results, sort state, merge options or the
+        /// optional missing-material filter change, so windows can call this every frame cheaply.
+        /// </summary>
+        public List<SearchResult> GetMergedDisplayResults(bool mergeSameSource, bool mergeNqHq,
+            HashSet<(uint ItemId, FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags Flags)>? missingOnly)
+        {
+            var source = SearchResults;
+            if (!ReferenceEquals(_displayCacheSource, source) ||
+                _displayCacheSortColumn != SortColumn ||
+                _displayCacheSortDirection != (int?)SortDirection ||
+                _displayCacheSameSource != mergeSameSource || _displayCacheNqHq != mergeNqHq ||
+                !ReferenceEquals(_displayCacheMissing, missingOnly))
+            {
+                _displayCacheSource = source;
+                _displayCacheSortColumn = SortColumn;
+                _displayCacheSortDirection = (int?)SortDirection;
+                _displayCacheSameSource = mergeSameSource;
+                _displayCacheNqHq = mergeNqHq;
+                _displayCacheMissing = missingOnly;
+
+                IEnumerable<SearchResult> rows = source;
+                if (missingOnly != null)
+                {
+                    rows = source.Where(r => r.InventoryItem != null && missingOnly.Contains((r.ItemId, r.Flags)));
+                }
+
+                var merged = MergedSearchResults.Apply(rows, mergeSameSource, mergeNqHq);
+                if (mergeSameSource && SortColumn is int sortIndex &&
+                    sortIndex >= 0 && sortIndex < Columns.Count && SortDirection != null)
+                {
+                    var sortColumn = Columns[sortIndex];
+                    merged = sortColumn.Column.Sort(sortColumn, SortDirection.Value, merged).ToList();
+                }
+
+                _displayCacheResult = merged;
+            }
+
+            return _displayCacheResult!;
+        }
+
 
         public virtual bool DrawFilter(ColumnConfiguration columnConfiguration, string tableKey, int columnIndex)
         {

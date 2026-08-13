@@ -75,13 +75,7 @@ namespace InventoryTools.Ui
         private readonly ImGuiMenuService _menuService;
         private CriticalCommonLib.Crafting.CraftList? _lastMissingCraftList;
         private HashSet<(uint ItemId, InventoryItem.ItemFlags Flags)>? _lastMissingKeys;
-        private FilterTable? _mergeCacheTable;
-        private List<InventoryTools.Logic.SearchResult>? _mergeCacheSource;
-        private int? _mergeCacheSortColumn;
-        private int? _mergeCacheSortDirection;
-        private bool _mergeCacheSameSource;
-        private bool _mergeCacheNqHq;
-        private List<InventoryTools.Logic.SearchResult>? _mergeCacheResult;
+
         private readonly IClipboardService _clipboardService;
         private readonly IKeyState _keyState;
         private readonly ItemSheet _itemSheet;
@@ -2671,36 +2665,12 @@ namespace InventoryTools.Ui
             // Merging only affects this inventory panel and is configurable in the General
             // settings. Rows merge only when the character, source (retainer) and item name all
             // match; whether NQ and HQ are also merged together is a separate sub-option. The
-            // merged result is cached and only rebuilt when the rows, sort state or options change.
-            var mergeSameSource = _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToCraftWindow;
-            var mergeNqHq = _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToCraftWindow;
-            var source = itemTable.RenderSearchResults;
-            if (_mergeCacheTable != itemTable || !ReferenceEquals(_mergeCacheSource, source) ||
-                _mergeCacheSortColumn != itemTable.SortColumn ||
-                _mergeCacheSortDirection != (int?)itemTable.SortDirection ||
-                _mergeCacheSameSource != mergeSameSource || _mergeCacheNqHq != mergeNqHq)
-            {
-                _mergeCacheTable = itemTable;
-                _mergeCacheSource = source;
-                _mergeCacheSortColumn = itemTable.SortColumn;
-                _mergeCacheSortDirection = (int?)itemTable.SortDirection;
-                _mergeCacheSameSource = mergeSameSource;
-                _mergeCacheNqHq = mergeNqHq;
-                var panelResults = source
-                    .Where(r => r.InventoryItem != null && _lastMissingKeys!.Contains((r.ItemId, r.Flags)))
-                    .ToList();
-                var merged = MergedSearchResults.Apply(panelResults, mergeSameSource, mergeNqHq);
-                if (mergeSameSource && itemTable.SortColumn is int sortIndex &&
-                    sortIndex >= 0 && sortIndex < itemTable.Columns.Count && itemTable.SortDirection != null)
-                {
-                    var sortColumn = itemTable.Columns[sortIndex];
-                    merged = sortColumn.Column.Sort(sortColumn, itemTable.SortDirection.Value, merged).ToList();
-                }
-
-                _mergeCacheResult = merged;
-            }
-
-            itemTable.RenderSearchResults = _mergeCacheResult!;
+            // result is cached on the table and only rebuilt when the rows, sort state or options
+            // change.
+            itemTable.RenderSearchResults = itemTable.GetMergedDisplayResults(
+                _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToCraftWindow,
+                _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToCraftWindow,
+                _lastMissingKeys);
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)
