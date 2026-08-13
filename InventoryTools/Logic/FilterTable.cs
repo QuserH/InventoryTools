@@ -41,6 +41,12 @@ namespace InventoryTools.Logic
         public List<SearchResult>? MergedDisplayResults { get; set; }
 
         /// <summary>
+        /// Signature of the source rows used to build MergedDisplayResults, so a refresh that did
+        /// not actually change the visible items can skip rebuilding the merged list.
+        /// </summary>
+        public long MergedDisplaySignature { get; set; }
+
+        /// <summary>
         /// Returns the rows to render: the precomputed merged list when this window has merging
         /// enabled, otherwise the raw search results. An optional missing-material filter is
         /// applied for the craft inventory panel.

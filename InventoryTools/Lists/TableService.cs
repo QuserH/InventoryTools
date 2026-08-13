@@ -356,7 +356,14 @@ public class TableService : DisposableMediatorBackgroundService
         var mergeNqHq = _configuration.MergeCraftListNqHq &&
                         (_configuration.MergeCraftListNqHqApplyToCraftWindow ||
                          _configuration.MergeCraftListNqHqApplyToItemWindow);
-        var merged = MergedSearchResults.Apply(filterTable.SearchResults, mergeSameSource, mergeNqHq);
+        var source = filterTable.SearchResults;
+        var signature = ComputeMergedSignature(source, filterTable.SortColumn, filterTable.SortDirection, mergeNqHq);
+        if (signature == filterTable.MergedDisplaySignature && filterTable.MergedDisplayResults != null)
+        {
+            return filterTable.MergedDisplayResults;
+        }
+
+        var merged = MergedSearchResults.Apply(source, mergeSameSource, mergeNqHq);
         if (filterTable.SortColumn is int sortIndex && sortIndex >= 0 &&
             sortIndex < filterTable.Columns.Count && filterTable.SortDirection != null)
         {
@@ -364,7 +371,34 @@ public class TableService : DisposableMediatorBackgroundService
             merged = sortColumn.Column.Sort(sortColumn, filterTable.SortDirection.Value, merged).ToList();
         }
 
+        filterTable.MergedDisplaySignature = signature;
+        filterTable.MergedDisplayResults = merged;
         return merged;
+    }
+
+    private static long ComputeMergedSignature(List<SearchResult> source, int? sortColumn,
+        ImGuiSortDirection? sortDirection, bool mergeNqHq)
+    {
+        unchecked
+        {
+            var hash = 17L;
+            hash = hash * 31 + source.Count;
+            hash = hash * 31 + (sortColumn ?? -1);
+            hash = hash * 31 + (sortDirection == null ? -1 : (int)sortDirection.Value);
+            hash = hash * 31 + (mergeNqHq ? 1 : 0);
+            foreach (var result in source)
+            {
+                hash = hash * 31 + result.ItemId;
+                hash = hash * 31 + (int)result.Flags;
+                if (result.InventoryItem != null)
+                {
+                    hash = hash * 31 + (long)result.InventoryItem.RetainerId;
+                    hash = hash * 31 + result.InventoryItem.Quantity;
+                }
+            }
+
+            return hash;
+        }
     }
 
     public Task RequestRefresh(FilterTable filterTable)
