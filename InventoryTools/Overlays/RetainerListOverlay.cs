@@ -93,13 +93,11 @@ namespace InventoryTools.Overlays
                         {
                             var allItems = filterResult;
                             Dictionary<ulong, HashSet<uint>> hasItems = new();
-                            Dictionary<ulong, int> characterTotals = new();
 
                             foreach (var character in _characterMonitor.GetRetainerCharacters(_characterMonitor
                                          .ActiveCharacterId))
                             {
                                 hasItems[character.Key] = new HashSet<uint>();
-                                characterTotals[character.Key] = 0;
                             }
 
                             foreach (var item in _inventoryMonitor.AllItems)
@@ -112,18 +110,13 @@ namespace InventoryTools.Overlays
                             }
 
 
-                            foreach (var item in allItems)
-                            {
-                                foreach (var character in hasItems)
-                                {
-                                    if (character.Value.Contains(item.Item.RowId))
-                                    {
-                                        characterTotals[character.Key]++;
-                                    }
-                                }
-                            }
-
-                            var finalTotals = characterTotals.Where(c => c.Value != 0).ToList();
+                            var filteredItemIds = allItems.Select(item => item.Item.RowId).ToHashSet();
+                            var finalTotals = hasItems
+                                .Select(character => new KeyValuePair<ulong, int>(
+                                    character.Key,
+                                    character.Value.Count(filteredItemIds.Contains)))
+                                .Where(character => character.Value != 0)
+                                .ToList();
                             RetainerNames = finalTotals.ToDictionary(c => c.Key, GenerateNewName);
                             RetainerColors = finalTotals.ToDictionary(c => c.Key,
                                 c => filterConfiguration.RetainerListColor ??
@@ -188,9 +181,9 @@ namespace InventoryTools.Overlays
         {
             if (_characterMonitor.Characters.ContainsKey(c.Key))
             {
-                return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Count() + ")";
+                return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Select(item => item.Item.RowId).Distinct().Count() + ")";
             }
-            return LocalizationService.Ui("Unknown ")  + "(" + c.Count() + ")";
+            return LocalizationService.Ui("Unknown ")  + "(" + c.Select(item => item.Item.RowId).Distinct().Count() + ")";
         }
 
         private string GenerateNewName(KeyValuePair<ulong, int> c)
