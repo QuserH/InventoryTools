@@ -97,12 +97,22 @@ namespace InventoryTools.Logic.Columns
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
         public override bool? CraftOnly => false;
 
-        private static uint GetCraftListQuantity(FilterConfiguration configuration, SearchResult searchResult)
+        private CriticalCommonLib.Crafting.CraftList? _lastCraftList;
+        private List<CriticalCommonLib.Crafting.CraftItem>? _lastMaterials;
+
+        private uint GetCraftListQuantity(FilterConfiguration configuration, SearchResult searchResult)
         {
             // The inventory table contains InventoryItem results, not CraftItem results. Resolve
             // the corresponding craft requirement by item id and quality flags so the per-item
             // action is available next to the actual held stack.
-            var missing = configuration.CraftList.GetFlattenedMaterials()
+            var craftList = configuration.CraftList;
+            if (!ReferenceEquals(_lastCraftList, craftList))
+            {
+                _lastCraftList = craftList;
+                _lastMaterials = craftList.GetFlattenedMaterials();
+            }
+
+            var missing = _lastMaterials!
                 .Where(item => !item.IsOutputItem && item.ItemId == searchResult.ItemId &&
                                MatchesFlags(item.Flags, searchResult.Flags))
                 .Aggregate(0u, (total, item) => total + item.QuantityMissingInventory);

@@ -57,9 +57,11 @@ public static class MergedSearchResults
         return merged;
     }
 
+    private static readonly System.Reflection.MethodInfo CloneMethod =
+        typeof(object).GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+
     private static InventoryItem CloneItem(InventoryItem item)
     {
-        var cloneMethod = typeof(object).GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        return (InventoryItem)cloneMethod!.Invoke(item, null)!;
+        return (InventoryItem)CloneMethod.Invoke(item, null)!;
     }
 }

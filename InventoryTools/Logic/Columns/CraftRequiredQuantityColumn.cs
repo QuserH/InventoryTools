@@ -51,9 +51,19 @@ namespace InventoryTools.Logic.Columns
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
         public override bool? CraftOnly => false;
 
-        private static uint GetCraftListQuantity(FilterConfiguration configuration, SearchResult searchResult)
+        private CriticalCommonLib.Crafting.CraftList? _lastCraftList;
+        private List<CriticalCommonLib.Crafting.CraftItem>? _lastMaterials;
+
+        private uint GetCraftListQuantity(FilterConfiguration configuration, SearchResult searchResult)
         {
-            return configuration.CraftList.GetFlattenedMaterials()
+            var craftList = configuration.CraftList;
+            if (!ReferenceEquals(_lastCraftList, craftList))
+            {
+                _lastCraftList = craftList;
+                _lastMaterials = craftList.GetFlattenedMaterials();
+            }
+
+            return _lastMaterials!
                 .Where(item => !item.IsOutputItem && item.ItemId == searchResult.ItemId &&
                                MatchesFlags(item.Flags, searchResult.Flags))
                 .Aggregate(0u, (total, item) => total + item.QuantityRequired);

@@ -62,6 +62,13 @@ namespace InventoryTools.Ui
         private readonly ItemSheet _itemSheet;
         private readonly FilterConfiguration.Factory _filterConfigFactory;
         private readonly IEnumerable<ISampleFilter> _sampleFilters;
+        private FilterTable? _mergeCacheTable;
+        private List<InventoryTools.Logic.SearchResult>? _mergeCacheSource;
+        private int? _mergeCacheSortColumn;
+        private int? _mergeCacheSortDirection;
+        private bool _mergeCacheSameSource;
+        private bool _mergeCacheNqHq;
+        private List<InventoryTools.Logic.SearchResult>? _mergeCacheResult;
         private readonly IClipboardService _clipboardService;
         private readonly PopupService _popupService;
         private readonly IKeyState _keyState;
@@ -1737,18 +1744,34 @@ namespace InventoryTools.Ui
                 {
                     // Apply the configured merge to every filter type shown in this window so the
                     // user-created lists all get the same row merging, then re-sort by the active
-                    // sort column so ordering reflects the merged values.
+                    // sort column so ordering reflects the merged values. The result is cached and
+                    // only rebuilt when the underlying rows, sort state or merge options change.
                     var mergeSameSource = _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToItemWindow;
-                    var mergedResults = MergedSearchResults.Apply(itemTable.RenderSearchResults, mergeSameSource,
-                        _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToItemWindow);
-                    if (mergeSameSource && itemTable.SortColumn is int sortIndex &&
-                        sortIndex >= 0 && sortIndex < itemTable.Columns.Count && itemTable.SortDirection != null)
+                    var mergeNqHq = _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToItemWindow;
+                    var source = itemTable.RenderSearchResults;
+                    if (_mergeCacheTable != itemTable || !ReferenceEquals(_mergeCacheSource, source) ||
+                        _mergeCacheSortColumn != itemTable.SortColumn ||
+                        _mergeCacheSortDirection != (int?)itemTable.SortDirection ||
+                        _mergeCacheSameSource != mergeSameSource || _mergeCacheNqHq != mergeNqHq)
                     {
-                        var sortColumn = itemTable.Columns[sortIndex];
-                        mergedResults = sortColumn.Column.Sort(sortColumn, itemTable.SortDirection.Value, mergedResults).ToList();
+                        _mergeCacheTable = itemTable;
+                        _mergeCacheSource = source;
+                        _mergeCacheSortColumn = itemTable.SortColumn;
+                        _mergeCacheSortDirection = (int?)itemTable.SortDirection;
+                        _mergeCacheSameSource = mergeSameSource;
+                        _mergeCacheNqHq = mergeNqHq;
+                        var merged = MergedSearchResults.Apply(source, mergeSameSource, mergeNqHq);
+                        if (mergeSameSource && itemTable.SortColumn is int sortIndex &&
+                            sortIndex >= 0 && sortIndex < itemTable.Columns.Count && itemTable.SortDirection != null)
+                        {
+                            var sortColumn = itemTable.Columns[sortIndex];
+                            merged = sortColumn.Column.Sort(sortColumn, itemTable.SortDirection.Value, merged).ToList();
+                        }
+
+                        _mergeCacheResult = merged;
                     }
 
-                    itemTable.RenderSearchResults = mergedResults;
+                    itemTable.RenderSearchResults = _mergeCacheResult!;
 
                     if (filterConfiguration.FilterType == FilterType.CraftFilter)
                     {
