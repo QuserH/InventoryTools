@@ -214,16 +214,17 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             return false;
         }
 
-        var wantsPartial = stack > quantity;
+        // Use the live native stack as the hard upper bound. The craft cache can still contain
+        // an aggregate quantity from several retainers or a stale scan, but one context action
+        // can only operate on this slot.
+        var requested = Math.Min(quantity, stack);
+        var wantsPartial = requested < stack;
         var entryIndex = FindContextEntry(agent, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
-        if (entryIndex < 0 && wantsPartial)
-        {
-            entryIndex = FindContextEntry(agent, RetrieveAllText);
-            wantsPartial = false;
-        }
 
         if (entryIndex < 0)
         {
+            // Never fall back to "retrieve all" for a partial request. A missing or shifted
+            // context-menu index must retry safely instead of transferring the whole stack.
             contextMenu->FireCallback(0, null, true);
             return false;
         }
@@ -240,7 +241,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         contextMenu->FireCallback(6, values, true);
 
         expectsQuantityInput = wantsPartial;
-        willRetrieve = wantsPartial ? quantity : stack;
+        willRetrieve = requested;
         return true;
     }
 

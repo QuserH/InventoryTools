@@ -81,13 +81,12 @@ namespace InventoryTools.Logic.Columns
         public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve"));
         public override string RenderName => LocalizationService.Ui("Retrieve");
         public override float Width { get; set; } = 110;
-        public override bool? CraftOnly => false;
-
         public override string HelpText { get; set; } =
             LocalizationService.Ui(LocalizationService.Ui("This is the amount to retrieve from retainers."));
-        public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter | Logic.FilterType.SortingFilter;
+        public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
+        public override bool? CraftOnly => true;
     }
 }
