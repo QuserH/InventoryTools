@@ -245,8 +245,16 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         // an aggregate quantity from several retainers or a stale scan, but one context action
         // can only operate on this slot.
         var requested = Math.Min(quantity, stack);
-        var wantsPartial = requested < stack;
-        var entryIndex = FindContextEntry(contextMenu, wantsPartial ? RetrieveQuantityText : RetrieveAllText);
+
+        // Crystals/shards (item ids <= 19) only expose a reliable "retrieve all" action in the
+        // retainer context menu, matching Artisan. The whole stack is taken and the plan amount
+        // is treated as satisfied.
+        var isCrystal = itemId <= 19;
+        var wantsPartial = !isCrystal && requested < stack;
+        var expectedEntry = wantsPartial ? RetrieveQuantityText : RetrieveAllText;
+        var entryIndex = FindContextEntry(contextMenu, expectedEntry);
+        if (entryIndex < 0)
+            entryIndex = FindContextEntry(agent, expectedEntry);
 
         if (entryIndex < 0)
         {
@@ -256,8 +264,8 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             return false;
         }
 
-        // Match Artisan's retainer context callback. The menu index is derived from the retainer
-        // agent's string event parameters, rather than from UI node offsets that vary by client UI.
+        // Match Artisan's retainer context callback: fire the same 6-value callback with the
+        // resolved menu index.
         var values = stackalloc AtkValue[6];
         values[0] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
         values[1] = new AtkValue { Type = AtkValueType.Int, Int = entryIndex };
@@ -268,7 +276,7 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         contextMenu->FireCallback(6, values, true);
 
         expectsQuantityInput = wantsPartial;
-        willRetrieve = requested;
+        willRetrieve = isCrystal ? stack : requested;
         return true;
     }
 
@@ -429,6 +437,26 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
             var label = MemoryHelper.ReadSeStringNullTerminated((nint)value.String.Value).TextValue;
             if (string.Equals(label, expected, StringComparison.Ordinal))
                 return index;
+        }
+
+        return -1;
+    }
+
+    private static int FindContextEntry(AgentInventoryContext* agent, string expected)
+    {
+        // Artisan resolves context menu entries from the retainer agent's string event
+        // parameters. This is the fallback when the visible addon layout does not expose the
+        // expected label; crystal menus expose labels as managed strings, so both string
+        // types are accepted.
+        var menuIndex = 0;
+        foreach (var value in agent->EventParams)
+        {
+            if ((value.Type != AtkValueType.String && value.Type != AtkValueType.ManagedString) || value.String.Value == null)
+                continue;
+            var label = MemoryHelper.ReadSeStringNullTerminated((nint)value.String.Value).TextValue;
+            if (string.Equals(label, expected, StringComparison.Ordinal))
+                return menuIndex;
+            menuIndex++;
         }
 
         return -1;
