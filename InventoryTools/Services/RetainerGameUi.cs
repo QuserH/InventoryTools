@@ -246,12 +246,12 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         // can only operate on this slot.
         var requested = Math.Min(quantity, stack);
 
-        // Crystals/shards (item ids <= 19) only expose a reliable "retrieve all" action in the
-        // retainer context menu, matching Artisan. The whole stack is taken and the plan amount
-        // is treated as satisfied.
+        // Crystals/shards (item ids <= 19) only expose "Retrieve from Retainer" in the context
+        // menu, and selecting it opens a quantity prompt, so the needed amount is typed into
+        // InputNumeric afterwards (matching Artisan/AutoRetainer).
         var isCrystal = itemId <= 19;
-        var wantsPartial = !isCrystal && requested < stack;
-        var expectedEntry = wantsPartial ? RetrieveQuantityText : RetrieveAllText;
+        var wantsPartial = requested < stack;
+        var expectedEntry = isCrystal || !wantsPartial ? RetrieveAllText : RetrieveQuantityText;
         var entryIndex = FindContextEntry(contextMenu, expectedEntry);
         if (entryIndex < 0)
             entryIndex = FindContextEntry(agent, expectedEntry);
@@ -275,8 +275,8 @@ public sealed unsafe class RetainerGameUi : IRetainerGameUi
         values[5] = new AtkValue { Type = AtkValueType.Int, Int = 0 };
         contextMenu->FireCallback(6, values, true);
 
-        expectsQuantityInput = wantsPartial;
-        willRetrieve = isCrystal ? stack : requested;
+        expectsQuantityInput = isCrystal || wantsPartial;
+        willRetrieve = requested;
         return true;
     }
 
