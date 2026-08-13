@@ -2659,9 +2659,17 @@ namespace InventoryTools.Ui
             // settings. Rows merge only when the character, source (retainer) and item name all
             // match; whether NQ and HQ are also merged together is a separate sub-option. Merged
             // rows hide the specific bag location but still show market listings.
-            itemTable.RenderSearchResults = MergedSearchResults.Apply(panelResults,
-                _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToCraftWindow,
+            var mergeSameSource = _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToCraftWindow;
+            var mergedResults = MergedSearchResults.Apply(panelResults, mergeSameSource,
                 _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToCraftWindow);
+            if (mergeSameSource && itemTable.SortColumn is int sortIndex &&
+                sortIndex >= 0 && sortIndex < itemTable.Columns.Count && itemTable.SortDirection != null)
+            {
+                var sortColumn = itemTable.Columns[sortIndex];
+                mergedResults = sortColumn.Column.Sort(sortColumn, itemTable.SortDirection.Value, mergedResults).ToList();
+            }
+
+            itemTable.RenderSearchResults = mergedResults;
             using (var topBarChild = ImRaii.Child("TopBar", new Vector2(0, 40) * ImGui.GetIO().FontGlobalScale, true, ImGuiWindowFlags.NoScrollbar))
             {
                 if (topBarChild.Success)

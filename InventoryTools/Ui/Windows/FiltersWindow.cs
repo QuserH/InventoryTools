@@ -1736,10 +1736,19 @@ namespace InventoryTools.Ui
                 if (contentChild.Success)
                 {
                     // Apply the configured merge to every filter type shown in this window so the
-                    // user-created lists all get the same row merging.
-                    itemTable.RenderSearchResults = MergedSearchResults.Apply(itemTable.RenderSearchResults,
-                        _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToItemWindow,
+                    // user-created lists all get the same row merging, then re-sort by the active
+                    // sort column so ordering reflects the merged values.
+                    var mergeSameSource = _configuration.MergeCraftListSameSource && _configuration.MergeCraftListApplyToItemWindow;
+                    var mergedResults = MergedSearchResults.Apply(itemTable.RenderSearchResults, mergeSameSource,
                         _configuration.MergeCraftListNqHq && _configuration.MergeCraftListNqHqApplyToItemWindow);
+                    if (mergeSameSource && itemTable.SortColumn is int sortIndex &&
+                        sortIndex >= 0 && sortIndex < itemTable.Columns.Count && itemTable.SortDirection != null)
+                    {
+                        var sortColumn = itemTable.Columns[sortIndex];
+                        mergedResults = sortColumn.Column.Sort(sortColumn, itemTable.SortDirection.Value, mergedResults).ToList();
+                    }
+
+                    itemTable.RenderSearchResults = mergedResults;
 
                     if (filterConfiguration.FilterType == FilterType.CraftFilter)
                     {

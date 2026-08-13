@@ -15,11 +15,13 @@ public static class MergedSearchResults
 {
     public static List<SearchResult> Apply(IEnumerable<SearchResult> results, bool mergeSameSource, bool mergeNqHq)
     {
-        var rows = results.Where(r => r.InventoryItem != null).ToList();
+        var list = results.ToList();
         if (!mergeSameSource)
         {
-            return rows;
+            return list;
         }
+
+        var rows = list.Where(r => r.InventoryItem != null).ToList();
 
         IEnumerable<SearchResult> merged = mergeNqHq
             ? rows.GroupBy(r => (r.ItemId, r.InventoryItem!.RetainerId, IsMarket(r))).Select(g => MergeGroup(g, true))
