@@ -1,4 +1,5 @@
 using InventoryTools.Compendium.Types.Extra;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Localizers;
 
@@ -9,11 +10,11 @@ public class ChocoboItemSourceTypeLocalizer : ILocalizer<ChocoboItemSourceType>
         switch (itemSourceType)
         {
             case ChocoboItemSourceType.BuddyItem:
-                return "Consumable";
+                return LocalizationService.Ui("Consumable");
             case ChocoboItemSourceType.BuddyEquip:
-                return "Equipment";
+                return LocalizationService.Ui("Equipment");
         }
 
-        return "Unknown";
+        return LocalizationService.Ui("Unknown");
     }
 }

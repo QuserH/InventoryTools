@@ -79,7 +79,7 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
         builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the shared model"), Version = "14.0.3", ValueSelector = row => ("armor", null), CompendiumType = this, RowIdSelector = row => (uint)_sharedModelCache.IndexOf(row)});
         builder.AddStringColumn(new StringColumnOptions<SharedModelCache.SharedModelGroup>
         {
-            ValueSelector = row => row.Items.First().ClassJobCategory?.Base.Name.ExtractText() ?? "Unknown",
+            ValueSelector = row => row.Items.First().ClassJobCategory?.Base.Name.ExtractText() ?? LocalizationService.Ui("Unknown"),
             Name = LocalizationService.Ui("Class/Job"),
             Key = "class_job",
             HelpText = LocalizationService.Ui("The class/job of the item"),
@@ -87,7 +87,7 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
         });
         builder.AddStringColumn(new StringColumnOptions<SharedModelCache.SharedModelGroup>
         {
-            ValueSelector = row => string.Join(", ", row.Items.First().EquipSlotCategory?.PossibleSlots.Select(c => c.Humanize()) ?? []),
+            ValueSelector = row => string.Join(", ", row.Items.First().EquipSlotCategory?.PossibleSlots.Select(EquipSlotName) ?? []),
             Name = LocalizationService.Ui("Equip Slots"),
             Key = "equip_slots",
             HelpText = LocalizationService.Ui("The equipment slots of the item"),
@@ -122,4 +122,22 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
     public override string Description => LocalizationService.Ui("Items that share the same model.");
     public override string Key => "shared_models";
     public override (string?, uint?) Icon => (null, Icons.CombinedClothingIcon);
+
+    private static string EquipSlotName(EquipSlot slot) => slot switch
+    {
+        EquipSlot.MainHand => LocalizationService.Ui("Main Hand"),
+        EquipSlot.OffHand => LocalizationService.Ui("Off Hand"),
+        EquipSlot.Head => LocalizationService.Ui("Head"),
+        EquipSlot.Body => LocalizationService.Ui("Body"),
+        EquipSlot.Gloves => LocalizationService.Ui("Gloves"),
+        EquipSlot.Legs => LocalizationService.Ui("Legs"),
+        EquipSlot.Feet => LocalizationService.Ui("Feet"),
+        EquipSlot.Ears => LocalizationService.Ui("Ears"),
+        EquipSlot.Neck => LocalizationService.Ui("Neck"),
+        EquipSlot.Wrists => LocalizationService.Ui("Wrists"),
+        EquipSlot.FingerR => LocalizationService.Ui("Right Finger"),
+        EquipSlot.FingerL => LocalizationService.Ui("Left Finger"),
+        EquipSlot.SoulCrystal => LocalizationService.Ui("Soul Crystal"),
+        _ => LocalizationService.Ui(slot.Humanize()),
+    };
 }

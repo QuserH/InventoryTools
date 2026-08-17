@@ -11,41 +11,41 @@ public class RelicToolTypeLocalizer : ILocalizer<RelicToolType>
         switch (relicToolType)
         {
             case RelicToolType.Unknown:
-                return "Unknown";
+                return LocalizationService.Ui("Unknown");
             case RelicToolType.MastercraftBase:
-                return "Mastercraft";
+                return LocalizationService.Ui("Mastercraft");
             case RelicToolType.MastercraftSupra:
-                return "Supra";
+                return LocalizationService.Ui("Supra");
             case RelicToolType.MastercraftLucis:
-                return "Lucis";
+                return LocalizationService.Ui("Lucis");
             case RelicToolType.SkysteelBase:
-                return "Skysteel";
+                return LocalizationService.Ui("Skysteel");
             case RelicToolType.SkysteelBase1:
                 return LocalizationService.Ui("Skysteel + 1");
             case RelicToolType.SkysteelDragonsung:
-                return "Dragonsung";
+                return LocalizationService.Ui("Dragonsung");
             case RelicToolType.SkysteelAugmentedDragonsung:
                 return LocalizationService.Ui("Augmented Dragonsung");
             case RelicToolType.SkysteelSkysung:
-                return "Skysung";
+                return LocalizationService.Ui("Skysung");
             case RelicToolType.SkysteelSkybuilders:
-                return "Skybuilders";
+                return LocalizationService.Ui("Skybuilders");
             case RelicToolType.Resplendent:
-                return "Resplendent";
+                return LocalizationService.Ui("Resplendent");
             case RelicToolType.SplendorousBase:
-                return "Spendorous";
+                return LocalizationService.Ui("Splendorous");
             case RelicToolType.SplendorousAugmented:
                 return LocalizationService.Ui("Augmented Splendorous");
             case RelicToolType.SplendorousCrystalline:
-                return "Crystalline";
+                return LocalizationService.Ui("Crystalline");
             case RelicToolType.SplendorousChoraZoiCrystalline:
                 return LocalizationService.Ui("Chora-Zoi's Crystalline");
             case RelicToolType.SplendorousBrilliant:
-                return "Brilliant";
+                return LocalizationService.Ui("Brilliant");
             case RelicToolType.SplendorousVrandticVisionary:
                 return LocalizationService.Ui("Vrandtic Visionary's");
             case RelicToolType.SplendorousLodestar:
-                return "Lodestar";
+                return LocalizationService.Ui("Lodestar");
             case RelicToolType.CosmicPrototype01:
                 return LocalizationService.Ui("Prototype v0.1");
             case RelicToolType.CosmicPrototype02:
@@ -63,7 +63,7 @@ public class RelicToolTypeLocalizer : ILocalizer<RelicToolType>
             case RelicToolType.CosmicPrototype08:
                 return LocalizationService.Ui("Prototype v0.8");
             case RelicToolType.CosmicCosmic:
-                return "Cosmic";
+                return LocalizationService.Ui("Cosmic");
             case RelicToolType.CosmicCosmic11:
                 return LocalizationService.Ui("Cosmic v1.1");
             case RelicToolType.CosmicCosmic12:
@@ -73,15 +73,15 @@ public class RelicToolTypeLocalizer : ILocalizer<RelicToolType>
             case RelicToolType.CosmicCosmic14:
                 return LocalizationService.Ui("Cosmic v1.4");
             case RelicToolType.CosmicStellar:
-                return "Stellar";
+                return LocalizationService.Ui("Stellar");
             case RelicToolType.CosmicStellar11:
                 return LocalizationService.Ui("Stellar v1.1");
             case RelicToolType.CosmicStellar12:
                 return LocalizationService.Ui("Stellar v1.2");
             case RelicToolType.CosmicHypertools:
-                return "Hypertools";
+                return LocalizationService.Ui("Hypertools");
         }
 
-        return relicToolType.ToString();
+        return LocalizationService.Ui(relicToolType.ToString());
     }
 }

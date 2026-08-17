@@ -58,7 +58,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
 
     public override string? GetSubtitle(LeveRow row)
     {
-        return row.LeveType.ToString().Humanize();
+        return LocalizationService.Ui(row.LeveType.ToString().Humanize());
     }
 
     public override (string?, uint?) GetIcon(LeveRow row)
@@ -92,7 +92,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
     {
         builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the leve"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId });
         builder.AddStringColumn(new() { Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString() });
-        builder.AddStringColumn(new() { Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the leve"), Version = "14.0.3", ValueSelector = row => row.LeveType.ToString().Humanize() + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
+        builder.AddStringColumn(new() { Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the leve"), Version = "14.0.3", ValueSelector = row => LocalizationService.Ui(row.LeveType.ToString().Humanize()) + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
         builder.AddIntegerColumn(new() { Key = "level", Name = LocalizationService.Ui("Level"), HelpText = LocalizationService.Ui("The level of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.ClassJobLevel.ToString() });
         builder.AddStringColumn(new() { Key = "leveissuer", Name = LocalizationService.Ui("Leve Issuer"), HelpText = LocalizationService.Ui("The NPC who starts the leve"), Version = "14.0.3", ValueSelector = row => row.StartENpc == null ? "N/A" : _npcLocalizer.Format(row.StartENpc.ENpcBase.Base) });
         builder.AddIntegerColumn(new() { Key = "exp", Name = LocalizationService.Ui("EXP"), HelpText = LocalizationService.Ui("The exp rewarded on completion of the leve"), Version = "14.0.3", ValueSelector = row => row.ExpReward.ToString() });
@@ -153,7 +153,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, LeveRow row)
     {
         viewBuilder.Title = row.Base.Name.ToImGuiString();
-        viewBuilder.Subtitle = row.LeveType.ToString().Humanize() + "(" +
+        viewBuilder.Subtitle = LocalizationService.Ui(row.LeveType.ToString().Humanize()) + "(" +
                                row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")";
         viewBuilder.Icon = (uint)row.Base.LeveAssignmentType.Value.Icon;
         viewBuilder.Description = row.Base.Description.ToImGuiString();
@@ -164,10 +164,10 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             HideHeader = false,
             Items =
         [
-            ("Level", row.Base.ClassJobLevel.ToString(), true),
-            ("EXP", row.ExpReward.ToString(), row.ExpReward > 0),
-            ("Gil", row.GilReward.ToString(),  row.GilReward > 0),
-            ("Allowances", row.Base.AllowanceCost.ToString(), row.Base.AllowanceCost > 0),
+            (LocalizationService.Ui("Level"), row.Base.ClassJobLevel.ToString(), true),
+            (LocalizationService.Ui("EXP"), row.ExpReward.ToString(), row.ExpReward > 0),
+            (LocalizationService.Ui("Gil"), row.GilReward.ToString(),  row.GilReward > 0),
+            (LocalizationService.Ui("Allowances"), row.Base.AllowanceCost.ToString(), row.Base.AllowanceCost > 0),
             (LocalizationService.Ui("Hand-Ins"), row.HandIns.ToString(), true)
         ]
         });
@@ -267,11 +267,11 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
                     var leveType = (LeveType)row;
                     return leveType switch
                     {
-                        LeveType.Battle => "Battle",
-                        LeveType.Gathering => "Gathering",
-                        LeveType.Craft => "Craft",
-                        LeveType.Company => "Company",
-                        _ => "Unknown"
+                        LeveType.Battle => LocalizationService.Ui("Battle"),
+                        LeveType.Gathering => LocalizationService.Ui("Gathering"),
+                        LeveType.Craft => LocalizationService.Ui("Craft"),
+                        LeveType.Company => LocalizationService.Ui("Company"),
+                        _ => LocalizationService.Ui("Unknown")
                     };
                 },
             }

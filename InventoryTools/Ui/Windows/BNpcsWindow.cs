@@ -43,11 +43,11 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
         TerritoryTypeSheet territoryTypeSheet,
         ItemSheet itemSheet,
         BNpcNameSheet bnpcNameSheet,
-        string name = "Mobs Window") : base(logger,
+        string name = "") : base(logger,
         mediator,
         imGuiService,
         configuration,
-        name)
+        string.IsNullOrEmpty(name) ? LocalizationService.Ui("Mobs Window") : name)
     {
         _chatUtilities = chatUtilities;
         _mobSpawnPositions = mobSpawnPositions;
@@ -65,7 +65,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
         _mappedMobs = mobSpawns.Select(c => (c.BNpcNameId, c.TerritoryTypeId)).GroupBy(c => c.BNpcNameId).ToDictionary(c => c.Key, c => c.Select(c => c.TerritoryTypeId).ToHashSet());
         _columns = new List<TableColumn<BNpcNameRow>>()
         {
-            new("Icon", 32, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Icon"), 32, ImGuiTableColumnFlags.WidthFixed)
             {
                 OnLeftClick = OnLeftClick,
                 Draw = (ex, contentTypeId) =>
@@ -77,7 +77,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                     }
                 }
             },
-            new("ID", 50, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.DefaultHide)
+            new(LocalizationService.Ui("ID"), 50, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.DefaultHide)
             {
                 Sort = (specs, exes) =>
                 {
@@ -101,7 +101,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                     ImGui.TextUnformatted(ex.RowId.ToString());
                 }
             },
-            new("Name", 150, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Name"), 150, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -125,7 +125,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                     ImGui.TextUnformatted(ex.Base.Singular.ExtractText());
                 }
             },
-            new("Type", 70, ImGuiTableColumnFlags.WidthFixed)
+            new(LocalizationService.Ui("Type"), 70, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -149,7 +149,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                     ImGui.TextUnformatted(String.Join(",", ex.MobTypes.Select(d => LocalizationService.Ui(d.ToString()))));
                 }
             },
-            new("Locations", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new(LocalizationService.Ui("Locations"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 Draw = (ex, contentTypeId) =>
                 {
@@ -175,7 +175,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                             if (ImGui.IsItemHovered())
                             {
                                 using var tt = ImRaii.Tooltip();
-                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? "Unknown") + " - " +
+                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? LocalizationService.Ui("Unknown")) + " - " +
                                                       position.Position.X +
                                                       " : " + position.Position.Y);
                             }
@@ -186,7 +186,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
 
                 }
             },
-            new("Drops", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new(LocalizationService.Ui("Drops"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 Sort = (specs, exes) =>
                 {
@@ -245,7 +245,7 @@ public class BNpcsWindow : GenericTabbedTable<BNpcNameRow>, IMenuWindow
                 }
             },
         };
-        _tabs = _territoryTypeSheet.Where(c => availableTerritories.Contains(c.RowId)).OrderBy(c => c.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? "Unknown").ToDictionary(c => c.RowId, c =>c.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? "Unknown");
+        _tabs = _territoryTypeSheet.Where(c => availableTerritories.Contains(c.RowId)).OrderBy(c => c.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? LocalizationService.Ui("Unknown")).ToDictionary(c => c.RowId, c =>c.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? LocalizationService.Ui("Unknown"));
         _items = new Dictionary<uint, List<BNpcNameRow>>();
         _filteredItems = new Dictionary<uint, List<BNpcNameRow>>();
     }

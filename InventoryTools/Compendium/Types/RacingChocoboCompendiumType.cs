@@ -130,7 +130,7 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
     {
         var item = row.Item.ValueNullable;
 
-        viewBuilder.Title = item?.Name.ToImGuiString() ?? "Unknown";
+        viewBuilder.Title = item?.Name.ToImGuiString() ?? LocalizationService.Ui("Unknown");
         viewBuilder.Subtitle = GetCategoryName(row.Category);
         viewBuilder.Icon = item?.Icon ?? 0;
 
@@ -140,8 +140,8 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
             SectionName = LocalizationService.Ui("Info"),
             Items =
             [
-                ("Category", GetCategoryName(row.Category), true),
-                ("Rank", row.Unknown1.ToString(), true),
+                (LocalizationService.Ui("Category"), GetCategoryName(row.Category), true),
+                (LocalizationService.Ui("Rank"), row.Unknown1.ToString(), true),
                 (LocalizationService.Ui("Item ID"), row.Item.RowId.ToString(), true),
             ]
         });
@@ -179,7 +179,7 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
             5 => LocalizationService.Ui("Sack of Feeds"),
             6 => LocalizationService.Ui("Training Manuals"),
             7 => LocalizationService.Ui("Ability Reset Tonics"),
-            _ => "Unknown"
+            _ => LocalizationService.Ui("Unknown")
         };
     }
 }

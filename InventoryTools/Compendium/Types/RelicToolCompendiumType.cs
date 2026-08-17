@@ -103,7 +103,7 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
         {
             builder.AddStringColumn(new ()
             {
-                ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? "Unknown",
+                ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? LocalizationService.Ui("Unknown"),
                 Name = LocalizationService.Ui("Class/Job"),
                 Key = "class_job",
                 HelpText = LocalizationService.Ui("The class/job of the item"),
@@ -226,10 +226,10 @@ public class RelicToolCompendiumType : CompendiumType<RelicToolGroup>
                 {
                     var classJobId = (uint)row;
                     var name = _classJobSheet.GetRowOrDefault(classJobId)?.Name.ToImGuiString().FirstCharToUpper() ??
-                               "None";
+                               LocalizationService.Ui("None");
                     if (name == string.Empty)
                     {
-                        name = "Ungrouped";
+                        name = LocalizationService.Ui("Ungrouped");
                     }
 
                     return name;

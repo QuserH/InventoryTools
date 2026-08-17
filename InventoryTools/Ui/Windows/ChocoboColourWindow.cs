@@ -67,8 +67,8 @@ namespace InventoryTools.Ui
             IGameInteropService gameInteropService,
             ChocoboColourSolver colourSolver,
             IFont font,
-            string name = "Chocobo Colour Calculator")
-            : base(logger, mediator, imGuiService, configuration, name)
+            string name = "")
+            : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? LocalizationService.Ui("Chocobo Colour Calculator") : name)
         {
             _itemSheet = itemSheet;
             _clientState = clientState;
@@ -109,15 +109,15 @@ namespace InventoryTools.Ui
         private static string GetShadeName(byte shade) => shade switch
         {
             2 => LocalizationService.Ui("White / Grey"),
-            3 => "Red",
+            3 => LocalizationService.Ui("Red"),
             4 => LocalizationService.Ui("Pink / Red"),
             5 => LocalizationService.Ui("Orange / Brown"),
-            6 => "Yellow",
-            7 => "Green",
-            8 => "Blue",
-            9 => "Purple",
-            10 => "Metallic",
-            _ => $"Shade {shade}",
+            6 => LocalizationService.Ui("Yellow"),
+            7 => LocalizationService.Ui("Green"),
+            8 => LocalizationService.Ui("Blue"),
+            9 => LocalizationService.Ui("Purple"),
+            10 => LocalizationService.Ui("Metallic"),
+            _ => LocalizationService.Ui("Shade ") + shade,
         };
 
         public override string GenericKey => "chocobo_colour";

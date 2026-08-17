@@ -27,7 +27,7 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
 
     public override string Name
     {
-        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? "Slot" : LocalizationService.Ui("Class/Job"); }
+        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? LocalizationService.Ui("Slot") : LocalizationService.Ui("Class/Job"); }
         set { }
     }
 
@@ -44,21 +44,21 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
                 case EquipSlot.OffHand:
                     return LocalizationService.Ui("Off Hand");
                 case EquipSlot.Head:
-                    return "Head";
+                    return LocalizationService.Ui("Head");
                 case EquipSlot.Body:
-                    return "Body";
+                    return LocalizationService.Ui("Body");
                 case EquipSlot.Gloves:
-                    return "Gloves";
+                    return LocalizationService.Ui("Gloves");
                 case EquipSlot.Legs:
-                    return "Legs";
+                    return LocalizationService.Ui("Legs");
                 case EquipSlot.Feet:
-                    return "Feet";
+                    return LocalizationService.Ui("Feet");
                 case EquipSlot.Ears:
-                    return "Ears";
+                    return LocalizationService.Ui("Ears");
                 case EquipSlot.Neck:
-                    return "Neck";
+                    return LocalizationService.Ui("Neck");
                 case EquipSlot.Wrists:
-                    return "Wrists";
+                    return LocalizationService.Ui("Wrists");
                 case EquipSlot.FingerR:
                     return LocalizationService.Ui("Right Finger");
                 case EquipSlot.FingerL:
@@ -67,7 +67,7 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
                     return LocalizationService.Ui("Soul Crystal");
             }
 
-            return item.EquipmentSlot?.Humanize();
+            return LocalizationService.Ui(item.EquipmentSlot.Value.Humanize());
         }
 
         if (item.ClassJobRow != null)
@@ -75,7 +75,7 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
             return item.ClassJobRow.Base.Name.ToImGuiString().Humanize();
         }
 
-        return "Unknown";
+        return LocalizationService.Ui("Unknown");
     }
 
     public override string? RenderName { get; set; } = null;

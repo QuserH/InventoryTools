@@ -45,7 +45,7 @@ namespace InventoryTools.Ui
             TerritoryTypeSheet territoryTypeSheet,
             ItemSheet itemSheet,
             IListService listService,
-            string name = "Mob Window") : base(logger, mediator, imGuiService, configuration, name)
+            string name = "") : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? LocalizationService.Ui("Mob Window") : name)
         {
             _chatUtilities = chatUtilities;
             _clipboardService = clipboardService;
@@ -201,7 +201,7 @@ namespace InventoryTools.Ui
                             if (ImGui.IsItemHovered())
                             {
                                 using var tt = ImRaii.Tooltip();
-                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? "Unknown") + " - " +
+                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? LocalizationService.Ui("Unknown")) + " - " +
                                                       spawn.Position.X +
                                                       " : " + spawn.Position.Y);
                             }
@@ -337,7 +337,7 @@ namespace InventoryTools.Ui
             {
                 return;
             }
-            if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Shared Models - ")) + slot.Humanize() + " (" + relatedItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen))
+            if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Shared Models - ")) + EquipSlotName(slot) + " (" + relatedItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen))
             {
                 ImGuiStylePtr style = ImGui.GetStyle();
                 float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -397,5 +397,23 @@ namespace InventoryTools.Ui
         public override bool SavePosition => true;
 
         public override string GenericKey => "bNpc";
+
+        private static string EquipSlotName(EquipSlot slot) => slot switch
+        {
+            EquipSlot.MainHand => LocalizationService.Ui("Main Hand"),
+            EquipSlot.OffHand => LocalizationService.Ui("Off Hand"),
+            EquipSlot.Head => LocalizationService.Ui("Head"),
+            EquipSlot.Body => LocalizationService.Ui("Body"),
+            EquipSlot.Gloves => LocalizationService.Ui("Gloves"),
+            EquipSlot.Legs => LocalizationService.Ui("Legs"),
+            EquipSlot.Feet => LocalizationService.Ui("Feet"),
+            EquipSlot.Ears => LocalizationService.Ui("Ears"),
+            EquipSlot.Neck => LocalizationService.Ui("Neck"),
+            EquipSlot.Wrists => LocalizationService.Ui("Wrists"),
+            EquipSlot.FingerR => LocalizationService.Ui("Right Finger"),
+            EquipSlot.FingerL => LocalizationService.Ui("Left Finger"),
+            EquipSlot.SoulCrystal => LocalizationService.Ui("Soul Crystal"),
+            _ => LocalizationService.Ui(slot.Humanize()),
+        };
     }
 }

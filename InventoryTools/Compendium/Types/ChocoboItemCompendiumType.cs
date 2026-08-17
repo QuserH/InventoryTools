@@ -70,7 +70,7 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
 
     public override string? GetSubtitle(ChocoboItem row)
     {
-        return row.SourceType.ToString();
+        return _itemSourceTypeLocalizer.Format(row.SourceType);
     }
 
     public override (string?, uint?) GetIcon(ChocoboItem row)
@@ -147,7 +147,7 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
     {
         viewBuilder.Title = row.Item.NameString;
         viewBuilder.Icon = row.Item.Icon;
-        viewBuilder.Subtitle = row.SourceType.ToString();
+        viewBuilder.Subtitle = _itemSourceTypeLocalizer.Format(row.SourceType);
 
         var useTraining = row.BuddyItem?.Value.UseTraining;
         var useField = row.BuddyItem?.Value.UseField;
@@ -158,7 +158,7 @@ public class ChocoboItemCompendiumType : CompendiumType<ChocoboItem>
             SectionName = LocalizationService.Ui("Info"),
             Items =
             [
-                ("Source", _itemSourceTypeLocalizer.Format(row.SourceType), true),
+                (LocalizationService.Ui("Source"), _itemSourceTypeLocalizer.Format(row.SourceType), true),
                 (LocalizationService.Ui("Training Item?"), TriStateFormatted(useTraining), row.BuddyItem != null),
                 (LocalizationService.Ui("Field Item?"), TriStateFormatted(useField), row.BuddyItem != null),
                 (LocalizationService.Ui("Dye Item?"), TriStateFormatted(dyeField), row.BuddyItem != null),
