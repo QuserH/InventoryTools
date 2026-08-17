@@ -13,95 +13,95 @@ public class RelicWeaponTypeLocalizer : ILocalizer<RelicWeaponType>
             case RelicWeaponType.Unknown:
                 return LocalizationService.Ui("Unknown");
             case RelicWeaponType.ZodiacBase:
-                return LocalizationService.Ui("Base");
+                return LocalizationService.Ui("Relic Zodiac Base");
             case RelicWeaponType.ZodiacZenith:
-                return LocalizationService.Ui("Zenith");
+                return LocalizationService.Ui("Relic Zodiac Zenith");
             case RelicWeaponType.ZodiacAtma:
-                return LocalizationService.Ui("Atma");
+                return LocalizationService.Ui("Relic Zodiac Atma");
             case RelicWeaponType.ZodiacAnimus:
-                return LocalizationService.Ui("Animus");
+                return LocalizationService.Ui("Relic Zodiac Animus");
             case RelicWeaponType.ZodiacNovus:
-                return LocalizationService.Ui("Novus");
+                return LocalizationService.Ui("Relic Zodiac Novus");
             case RelicWeaponType.ZodiacNexus:
-                return LocalizationService.Ui("Nexus");
+                return LocalizationService.Ui("Relic Zodiac Nexus");
             case RelicWeaponType.ZodiacZodiac:
-                return LocalizationService.Ui("Zodiac");
+                return LocalizationService.Ui("Relic Zodiac Zodiac");
             case RelicWeaponType.ZodiacZeta:
-                return LocalizationService.Ui("Zeta");
+                return LocalizationService.Ui("Relic Zodiac Zeta");
             case RelicWeaponType.AnimaAnimated:
-                return LocalizationService.Ui("Animated");
+                return LocalizationService.Ui("Relic Anima Animated");
             case RelicWeaponType.AnimaAwoken:
-                return LocalizationService.Ui("Awoken");
+                return LocalizationService.Ui("Relic Anima Awoken");
             case RelicWeaponType.AnimaAnima:
-                return LocalizationService.Ui("Anima");
+                return LocalizationService.Ui("Relic Anima Anima");
             case RelicWeaponType.AnimaHyperconductive:
-                return LocalizationService.Ui("Hyperconductive");
+                return LocalizationService.Ui("Relic Anima Hyperconductive");
             case RelicWeaponType.AnimaReconditioned:
-                return LocalizationService.Ui("Reconditioned");
+                return LocalizationService.Ui("Relic Anima Reconditioned");
             case RelicWeaponType.AnimaSharpened:
-                return LocalizationService.Ui("Sharpened");
+                return LocalizationService.Ui("Relic Anima Sharpened");
             case RelicWeaponType.AnimaComplete:
-                return LocalizationService.Ui("Complete");
+                return LocalizationService.Ui("Relic Anima Complete");
             case RelicWeaponType.AnimaLux:
-                return LocalizationService.Ui("Lux");
+                return LocalizationService.Ui("Relic Anima Lux");
             case RelicWeaponType.EurekanAntiquated:
-                return LocalizationService.Ui("Antiquated");
+                return LocalizationService.Ui("Relic Eurekan Antiquated");
             case RelicWeaponType.EurekanBase:
-                return LocalizationService.Ui("Base");
+                return LocalizationService.Ui("Relic Eurekan Base");
             case RelicWeaponType.EurekanBase1:
-                return LocalizationService.Ui("Base + 1");
+                return LocalizationService.Ui("Relic Eurekan Base + 1");
             case RelicWeaponType.EurekanBase2:
-                return LocalizationService.Ui("Base + 2");
+                return LocalizationService.Ui("Relic Eurekan Base + 2");
             case RelicWeaponType.EurekanAnemos:
-                return LocalizationService.Ui("Anemos");
+                return LocalizationService.Ui("Relic Eurekan Anemos");
             case RelicWeaponType.EurekanPagos:
-                return LocalizationService.Ui("Pagos");
+                return LocalizationService.Ui("Relic Eurekan Pagos");
             case RelicWeaponType.EurekanPagos1:
-                return LocalizationService.Ui("Pagos + 1");
+                return LocalizationService.Ui("Relic Eurekan Pagos + 1");
             case RelicWeaponType.EurekanElemental:
-                return LocalizationService.Ui("Elemental");
+                return LocalizationService.Ui("Relic Eurekan Elemental");
             case RelicWeaponType.EurekanElemental1:
-                return LocalizationService.Ui("Elemental + 1");
+                return LocalizationService.Ui("Relic Eurekan Elemental + 1");
             case RelicWeaponType.EurekanElemental2:
-                return LocalizationService.Ui("Elemental + 2");
+                return LocalizationService.Ui("Relic Eurekan Elemental + 2");
             case RelicWeaponType.EurekanPyros:
-                return LocalizationService.Ui("Pyros");
+                return LocalizationService.Ui("Relic Eurekan Pyros");
             case RelicWeaponType.EurekanHydatos:
-                return LocalizationService.Ui("Hydatos");
+                return LocalizationService.Ui("Relic Eurekan Hydatos");
             case RelicWeaponType.EurekanHydatos1:
-                return LocalizationService.Ui("Hydatos + 1");
+                return LocalizationService.Ui("Relic Eurekan Hydatos + 1");
             case RelicWeaponType.EurekanBaseEureka:
-                return LocalizationService.Ui("Base");
+                return LocalizationService.Ui("Relic Eurekan Base Eureka");
             case RelicWeaponType.EurekanEureka:
-                return LocalizationService.Ui("Eureka");
+                return LocalizationService.Ui("Relic Eurekan Eureka");
             case RelicWeaponType.EurekanPhyseos:
-                return LocalizationService.Ui("Physeos");
+                return LocalizationService.Ui("Relic Eurekan Physeos");
             case RelicWeaponType.ResistanceResistance:
-                return LocalizationService.Ui("Resistance");
+                return LocalizationService.Ui("Relic Resistance Resistance");
             case RelicWeaponType.ResistanceAugmentedResistance:
-                return LocalizationService.Ui("Augmented Resistance");
+                return LocalizationService.Ui("Relic Resistance Augmented Resistance");
             case RelicWeaponType.ResistanceRecollection:
-                return LocalizationService.Ui("Recollection");
+                return LocalizationService.Ui("Relic Resistance Recollection");
             case RelicWeaponType.ResistanceLawsOrder:
-                return LocalizationService.Ui("Laws Order");
+                return LocalizationService.Ui("Relic Resistance Laws Order");
             case RelicWeaponType.ResistanceAugmentedLawsOrder:
-                return LocalizationService.Ui("Augmented Laws Order");
+                return LocalizationService.Ui("Relic Resistance Augmented Laws Order");
             case RelicWeaponType.ResistanceBlades:
-                return LocalizationService.Ui("Blades");
+                return LocalizationService.Ui("Relic Resistance Blades");
             case RelicWeaponType.MandervilleManderville:
-                return LocalizationService.Ui("Manderville");
+                return LocalizationService.Ui("Relic Manderville Manderville");
             case RelicWeaponType.MandervilleAmazing:
-                return LocalizationService.Ui("Amazing");
+                return LocalizationService.Ui("Relic Manderville Amazing");
             case RelicWeaponType.MandervilleMajestic:
-                return LocalizationService.Ui("Majestic");
+                return LocalizationService.Ui("Relic Manderville Majestic");
             case RelicWeaponType.MandervilleMandervillous:
-                return LocalizationService.Ui("Mandervillous");
+                return LocalizationService.Ui("Relic Manderville Mandervillous");
             case RelicWeaponType.PhantomPenumbrae:
-                return LocalizationService.Ui("Penumbrae");
+                return LocalizationService.Ui("Relic Phantom Penumbrae");
             case RelicWeaponType.PhantomUmbrae:
-                return LocalizationService.Ui("Umbrae");
+                return LocalizationService.Ui("Relic Phantom Umbrae");
             case RelicWeaponType.PhantomObscurum:
-                return LocalizationService.Ui("Obscurum");
+                return LocalizationService.Ui("Relic Phantom Obscurum");
         }
 
         return LocalizationService.Ui(relicWeaponType.ToString());
