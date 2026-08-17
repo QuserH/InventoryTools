@@ -39,6 +39,13 @@ namespace InventoryTools.Logic.Columns
                     return LocalizationService.Ui("Free Company Chest");
                 }
 
+                // Merged rows drop the specific slot but keep the container name, e.g.
+                // "Saddlebag Left" instead of "Saddlebag Left - 5" or the generic "背包".
+                if (searchResult.InventoryItem != null)
+                {
+                    return _itemLocalizer.SortedContainerName(searchResult.InventoryItem);
+                }
+
                 return LocalizationService.Ui("Merged Bag");
             }
 

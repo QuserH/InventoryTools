@@ -59,7 +59,9 @@ public static class MergedSearchResults
 
         var merged = new SearchResult(clone) { IsMerged = true };
         merged.MergedContainsMarket = IsMarket(first);
-        merged.MergedContainsFreeCompany = IsFreeCompany(first);
+        // The company-chest label is only shown when every combined stack lives in the Free
+        // Company chest; mixed rows fall back to the container name of the first stack.
+        merged.MergedContainsFreeCompany = list.All(IsFreeCompany);
         return merged;
     }
 
