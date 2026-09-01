@@ -15,7 +15,7 @@ public class MarketBoardLayout : ConfigLayout
                 Setting<MarketBoardUseHomeWorldSetting>(LocalizationService.Ui("Home world")),
                 Setting<MarketBoardUseActiveWorldSetting>(LocalizationService.Ui("Current world")),
                 Setting<MarketBoardExtraWorldsSetting>(LocalizationService.Ui("Additional worlds"))),
-            Section("Downloading",
+            Section(LocalizationService.Ui("Downloading"),
             Paragraph(LocalizationService.Ui("Should pricing data be downloaded automatically? If not-enabled the 'Refresh Market Prices' button must be pressed to download pricing for items.")),
                 Setting<AutomaticallyDownloadPricesSetting>(LocalizationService.Ui("Download prices automatically")),
                 Setting<MarketRefreshTimeHoursSetting>(LocalizationService.Ui("Keep prices for (hours)")),

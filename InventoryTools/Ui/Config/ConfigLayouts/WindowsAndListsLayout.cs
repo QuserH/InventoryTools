@@ -9,7 +9,7 @@ public class WindowsAndListsLayout : ConfigLayout
     public override PageLayout Build()
     {
         return Page("windows-lists", LocalizationService.Ui("Windows & Lists"),
-            Section("Layout",
+            Section(LocalizationService.Ui("Layout"),
                 Paragraph(LocalizationService.Ui("Control how various windows are laid out.")),
                 Setting<CraftWindowLayoutSetting>(LocalizationService.Ui("Craft window")),
                 Setting<FiltersWindowLayoutSetting>(LocalizationService.Ui("Items window")),

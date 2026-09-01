@@ -20,10 +20,10 @@ public class HighlightingLayout : ConfigLayout
                 Setting<HighlightWhenSetting>(),
                 Setting<InvertHighlightingSetting>(),
                 Setting<InvertTabHighlightingSetting>()),
-            Section("Colours",
+            Section(LocalizationService.Ui("Colours"),
                 Setting<HighlightColourSetting>(LocalizationService.Ui("Matched item colour")),
                 Setting<TabHighlightColourSetting>(LocalizationService.Ui("Matching tab colour"))),
-            Section("Destinations",
+            Section(LocalizationService.Ui("Destinations"),
                 Paragraph(LocalizationService.Ui("Sort lists know where items are meant to end up. The destination bag can be highlighted alongside the source so you can see both ends of a move at once.")),
                 Setting<HighlightDestinationSetting>(),
                 EnabledBy<HighlightDestinationSetting>(

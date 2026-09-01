@@ -10,9 +10,9 @@ public class EquipmentRecommendationLayout : ConfigLayout
     {
         return Page("equipment-recommendation", LocalizationService.Ui("Equipment Recommendation"),
             Paragraph(LocalizationService.Ui("Compares what you are wearing against what you could be wearing and suggests upgrades. These are the defaults the recommendation screen opens with.")),
-            Section("Defaults",
+            Section(LocalizationService.Ui("Defaults"),
                 Setting<EquipmentSuggestModeSetting>(LocalizationService.Ui("Recommend by")),
-                Setting<EquipmentSuggestViewModeSetting>("Layout"))
+                Setting<EquipmentSuggestViewModeSetting>(LocalizationService.Ui("Layout")))
         );
     }
 }

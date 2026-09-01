@@ -28,7 +28,7 @@ public class TooltipsLayout : ConfigLayout
                 EnabledBy<TooltipDisplayAmountOwnedSetting>(
                     Setting<TooltipLocationScopeLimitSetting>(LocalizationService.Ui("Search these locations")),
                     Setting<TooltipLocationDisplayModeSetting>(LocalizationService.Ui("Display mode")),
-                    Setting<TooltipAmountOwnedSortSetting>("Order"),
+                    Setting<TooltipAmountOwnedSortSetting>(LocalizationService.Ui("Order")),
                     Setting<ToolTipLocationLimitSetting>(LocalizationService.Ui("Maximum results")),
                     Setting<TooltipCurrentCharacterSetting>(LocalizationService.Ui("Current character only")),
                     Setting<TooltipAddCharacterNameSetting>(LocalizationService.Ui("Affix the character name")),
