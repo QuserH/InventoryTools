@@ -4,6 +4,7 @@ using CriticalCommonLib.Services;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -28,8 +29,8 @@ public class TooltipDisplayUnlockCharacterSetting : MultipleChoiceSetting<ulong>
     }
 
     public override string Key { get; set; } = "TooltipDisplayUnlockCharacter";
-    public override string Name { get; set; } = "Add Item Unlock Status (Characters)";
-    public override string HelpText { get; set; } = "When showing the unlock status on items, these characters will be displayed. Leave empty to display all characters.";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Unlock Status (Characters)"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When showing the unlock status on items, these characters will be displayed. Leave empty to display all characters."));
     public override string Version { get; } = "1.11.0.4";
     public override Dictionary<ulong, string> GetChoices(InventoryToolsConfiguration configuration)
     {
@@ -40,11 +41,11 @@ public class TooltipDisplayUnlockCharacterSetting : MultipleChoiceSetting<ulong>
     {
         if (items.Count == 0)
         {
-            return "All characters will be shown.";
+            return LocalizationService.Ui("All characters will be shown.");
         }
         else
         {
-            return $"{items.Count} characters will be shown..";
+            return LocalizationService.Format("{0} characters will be shown.", items.Count);
         }
     }
 

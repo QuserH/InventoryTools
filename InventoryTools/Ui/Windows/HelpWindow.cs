@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using System.Linq;
 using System.Numerics;
 using CriticalCommonLib.Services.Mediator;
@@ -50,7 +51,7 @@ public class HelpWindow : GenericWindow
 
     public override void Initialize()
     {
-        WindowName = "Help";
+        WindowName = LocalizationService.Ui("Help");
         Key = "help";
     }
 
@@ -59,7 +60,7 @@ public class HelpWindow : GenericWindow
     public override Vector2? MaxSize { get; } = new Vector2(2000, 2000);
     public override Vector2? MinSize { get; } = new Vector2(200, 200);
     public override string GenericKey { get; } = "help";
-    public override string GenericName { get; } = "Help";
+    public override string GenericName { get; } = LocalizationService.Ui("Help");
     public override bool DestroyOnClose => true;
 
     private PageLayout? SelectedPage()
@@ -86,7 +87,7 @@ public class HelpWindow : GenericWindow
 
         ImGui.SameLine();
 
-        using (var mainChild = ImRaii.Child("###ivHelpView", new Vector2(-1, -1), true))
+        using (var mainChild = ImRaii.Child(LocalizationService.Ui("###ivHelpView"), new Vector2(-1, -1), true))
         {
             if (mainChild.Success)
             {

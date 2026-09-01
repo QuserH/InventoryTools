@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using System.Linq;
 using InventoryTools.Logic.Filters;
 using InventoryTools.Logic.Settings.Abstract;
@@ -42,7 +43,7 @@ public class CraftNotificationsFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/craft-notifications", "Craft Notifications",
+        return Page("feature/craft-notifications", LocalizationService.Ui("Craft Notifications"),
             Paragraph("The plugin can tell you about your progress as you collect the items for a craft list. These notifications occur only while a craft list is active."),
             Setting<CraftNotificationsReportToChatSetting>("Report progress to the chat window"),
             Setting<CraftNotificationsPlaySoundSetting>("Play a sound when an item is complete"),

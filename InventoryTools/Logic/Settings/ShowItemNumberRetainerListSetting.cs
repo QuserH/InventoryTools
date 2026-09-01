@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -19,11 +20,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ShowItemNumberRetainerList";
-        public override string Name { get; set; } = "Show item number in retainer list?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Show item number in retainer list?"));
 
         public override string HelpText { get; set; } =
-            "Should the name of the retainer in the summoning bell list have the number of items to be sorted or are available in their inventory?";
-        
+            LocalizationService.Ui(LocalizationService.Ui("Should the name of the retainer in the summoning bell list have the number of items to be sorted or are available in their inventory?"));
+
         public override string Version => "1.7.0.0";
 
         public ShowItemNumberRetainerListSetting(ILogger<ShowItemNumberRetainerListSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

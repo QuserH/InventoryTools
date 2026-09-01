@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Ui.Config;
@@ -14,7 +15,7 @@ public class HotkeysFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/hotkeys", "Hotkeys",
+        return Page("feature/hotkeys", LocalizationService.Ui("Hotkeys"),
             Paragraph("These hotkeys are optional. If you leave a field empty, that action has no hotkey."),
             Section("Show or hide a window",
                 Setting<HotKeyListsWindowSetting>("Lists"),

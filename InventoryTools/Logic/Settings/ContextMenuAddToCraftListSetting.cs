@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -22,13 +23,13 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "addToCraftListContextMenu";
-        public override string Name { get; set; } = "Context Menu - Add to Craft List";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Add to Craft List"));
 
-        public override string WizardName { get; } = "Add to Craft List";
+        public override string WizardName { get; } = LocalizationService.Ui("Add to Craft List");
 
         public override string HelpText { get; set; } =
-            "Add a submenu to add the item to a craft list?";
-        
+            LocalizationService.Ui(LocalizationService.Ui("Add a submenu to add the item to a craft list?"));
+
         public override string Version => "1.7.0.0";
     }
 }

@@ -2,6 +2,7 @@ using CriticalCommonLib.MarketBoard;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -26,10 +27,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "AutomaticallyDownloadPrices";
-        public override string Name { get; set; } = "Automatically download prices?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Automatically download prices?"));
 
-        public override string WizardName { get; } = "Download Pricing Data";
-        public override string HelpText { get; set; } = "Should price data be automatically downloaded when it's viewed in a list?";
+        public override string WizardName { get; } = LocalizationService.Ui("Download Pricing Data");
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should price data be automatically downloaded when it's viewed in a list?"));
         public override string Version => "1.7.0.0";
     }
 }

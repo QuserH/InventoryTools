@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using CriticalCommonLib.Services.Mediator;
 using DalaMock.Host.Mediator;
 using Dalamud.Bindings.ImGui;
@@ -25,7 +26,7 @@ public class SeparatorPageItem : IConfigPage
 
     public string Key => "separator/" + (_headerName ?? string.Empty);
 
-    public string Name => "Separator";
+    public string Name => LocalizationService.Ui("Separator");
 
     public List<MessageBase>? Draw()
     {

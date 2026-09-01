@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Plugin.Services;
 using InventoryTools.Logic.Settings.Abstract;
@@ -19,10 +20,10 @@ public class CraftOverlayHideSetting : GenericEnumChoiceSetting<CraftOverlayHide
     private readonly IClientState _clientState;
     private readonly ICondition _condition;
 
-    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", "Hide during duties?", "Should the craft overlay be hidden during duties/cutscenes/chocobo racing/etc?", CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
+    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", LocalizationService.Ui("Hide during duties?"), LocalizationService.Ui("Should the craft overlay be hidden during duties/cutscenes/chocobo racing/etc?"), CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
     {
-        { CraftOverlayHide.AlwaysShow, "Always show" },
-        { CraftOverlayHide.HideDuringDuties, "Hide during duties" },
+        { CraftOverlayHide.AlwaysShow, LocalizationService.Ui("Always show") },
+        { CraftOverlayHide.HideDuringDuties, LocalizationService.Ui("Hide during duties") },
     }, "1.11.0.9", logger, imGuiService)
     {
         _clientState = clientState;

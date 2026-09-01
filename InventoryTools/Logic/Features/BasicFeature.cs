@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Ui.Config;
@@ -14,11 +15,11 @@ public class BasicFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/basic", "Basics",
-            Paragraph("These settings apply to the whole plugin. You can change all of them later in the settings window."),
-            Setting<AutoSaveSetting>("Save inventories automatically"),
-            Setting<HistoryEnabledSetting>("Enable historical item tracking"),
-            Setting<AddTitleMenuButtonSetting>("Add a button to the game's title menu")
+        return Page("feature/basic", LocalizationService.Ui("Basics"),
+            Paragraph(LocalizationService.Ui("These settings apply to the whole plugin. You can change all of them later in the settings window.")),
+            Setting<AutoSaveSetting>(LocalizationService.Ui("Save inventories automatically")),
+            Setting<HistoryEnabledSetting>(LocalizationService.Ui("Enable historical item tracking")),
+            Setting<AddTitleMenuButtonSetting>(LocalizationService.Ui("Add a button to the game's title menu"))
         );
     }
 }

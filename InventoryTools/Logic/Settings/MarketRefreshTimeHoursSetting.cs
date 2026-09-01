@@ -2,6 +2,7 @@ using CriticalCommonLib.MarketBoard;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -27,10 +28,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "MarketRefreshTime";
-        public override string Name { get; set; } = "Keep market prices for X hours";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Keep market prices for X hours"));
 
-        public override string WizardName { get; } = "Persist for X hours";
-        public override string HelpText { get; set; } = "How long should we store the market prices for before refreshing from universalis?";
+        public override string WizardName { get; } = LocalizationService.Ui("Persist for X hours");
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How long should we store the market prices for before refreshing from universalis?"));
         public override string Version => "1.7.0.0";
     }
 }

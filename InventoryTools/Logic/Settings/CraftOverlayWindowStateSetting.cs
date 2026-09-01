@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
@@ -11,7 +12,7 @@ public class CraftOverlayWindowStateSetting : GenericEnumChoiceSetting<CraftOver
 {
     public override bool AppearsInConfigWindow => false;
 
-    public CraftOverlayWindowStateSetting(ILogger<CraftOverlayWindowStateSetting> logger, ImGuiService imGuiService) : base("CraftOverlayWindowState", "Window State", "The current state of the craft overlay window.", CraftOverlayWindowState.Single, new Dictionary<CraftOverlayWindowState, string>()
+    public CraftOverlayWindowStateSetting(ILogger<CraftOverlayWindowStateSetting> logger, ImGuiService imGuiService) : base("CraftOverlayWindowState", LocalizationService.Ui("Window State"), LocalizationService.Ui("The current state of the craft overlay window."), CraftOverlayWindowState.Single, new Dictionary<CraftOverlayWindowState, string>()
     {
         { CraftOverlayWindowState.Collapsed, "Collapsed"},
         { CraftOverlayWindowState.Single, "Single"},

@@ -1,4 +1,5 @@
 using System;
+using InventoryTools.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -23,7 +24,7 @@ public class ConfigurationWizard : GenericWindow
     private readonly ConfigurationWizardService _configurationWizardService;
     private readonly InventoryToolsConfiguration _configuration;
 
-    public ConfigurationWizard(ILogger<ConfigurationWizard> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ConfigurationWizardService configurationWizardService, IEnumerable<IContentLayout> contentLayouts, IEnumerable<ISetting> settings, ConfigNavigationState navigationState, string name = "Configuration Wizard") : base(logger, mediator, imGuiService, configuration, name)
+    public ConfigurationWizard(ILogger<ConfigurationWizard> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ConfigurationWizardService configurationWizardService, IEnumerable<IContentLayout> contentLayouts, IEnumerable<ISetting> settings, ConfigNavigationState navigationState, string name = "Configuration Wizard") : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui(name))
     {
         _configurationWizardService = configurationWizardService;
         _configuration = configuration;
@@ -64,7 +65,7 @@ public class ConfigurationWizard : GenericWindow
 
     public override void Initialize()
     {
-        WindowName = "Configuration Wizard";
+        WindowName = LocalizationService.Ui("Configuration Wizard");
         Key = "wizard";
         _availableFeatures = _configurationWizardService.GetNewFeatures()
             .OrderBy(c => FeatureOrder.IndexOf(c.Content.Key) == -1
@@ -90,7 +91,7 @@ public class ConfigurationWizard : GenericWindow
     }
 
     public override string GenericKey => "wizard";
-    public override string GenericName => "Configuration Wizard";
+    public override string GenericName => LocalizationService.Ui("Configuration Wizard");
     public override bool DestroyOnClose => true;
     public override bool SaveState => false;
     public override Vector2? DefaultSize { get; } = new(800, 650);
@@ -219,7 +220,7 @@ public class ConfigurationWizard : GenericWindow
                 {
                     if (sideBarMenu)
                     {
-                        DrawSideBarItem("Welcome", 0);
+                        DrawSideBarItem(LocalizationService.Ui("Welcome"), 0);
 
                         var step = 0;
                         var intro = ActiveIntroPages;
@@ -273,10 +274,10 @@ public class ConfigurationWizard : GenericWindow
     {
         if (_configurationWizardService.ConfiguredOnce)
         {
-            ImGui.TextWrapped("Welcome back to the Allagan Tools configuration wizard.");
+            ImGui.TextWrapped(LocalizationService.Ui("Welcome back to the Allagan Tools configuration wizard."));
             ImGui.Separator();
             ImGui.TextWrapped(
-                "There are new features available to configure and you elected to show this window when that occurs.");
+                LocalizationService.Ui("There are new features available to configure and you elected to show this window when that occurs."));
             ImGui.NewLine();
 
             if (!_showIntro && _introPages.Count != 0)
@@ -292,14 +293,14 @@ public class ConfigurationWizard : GenericWindow
             return;
         }
 
-        ImGui.TextWrapped("Welcome to the Allagan Tools configuration wizard.");
+        ImGui.TextWrapped(LocalizationService.Ui("Welcome to the Allagan Tools configuration wizard."));
         ImGui.Separator();
         ImGui.TextWrapped(
             "This will guide you through what the plugin does and then help you set up the most commonly used features. It takes a couple of minutes, and everything here can be changed later in the settings window.");
         ImGui.NewLine();
         ImGui.TextWrapped("If you are a returning user, feel free to close this window.");
         ImGui.NewLine();
-        if (ImGui.Button("Open Help")) MediatorService.Publish(new ToggleGenericWindowMessage(typeof(HelpWindow)));
+        if (ImGui.Button(LocalizationService.Ui("Open Help"))) MediatorService.Publish(new ToggleGenericWindowMessage(typeof(HelpWindow)));
     }
 
     private void DrawStep()
@@ -342,23 +343,23 @@ public class ConfigurationWizard : GenericWindow
             buttons.Add(("Close", Close, true));
             if (StepCount == 0)
             {
-                buttons.Add(("Finish", Finish, true));
+                buttons.Add((LocalizationService.Ui("Finish"), Finish, true));
             }
             else
             {
-                buttons.Add(("Continue", NextStep, true));
+                buttons.Add((LocalizationService.Ui("Continue"), NextStep, true));
             }
         }
         else
         {
-            buttons.Add(("Previous", PreviousStep, CanGoPrevious));
+            buttons.Add((LocalizationService.Ui("Previous"), PreviousStep, CanGoPrevious));
             if (CanGoNext)
             {
-                buttons.Add(("Next", NextStep, true));
+                buttons.Add((LocalizationService.Ui("Next"), NextStep, true));
             }
             else
             {
-                buttons.Add(("Finish", Finish, true));
+                buttons.Add((LocalizationService.Ui("Finish"), Finish, true));
             }
         }
 

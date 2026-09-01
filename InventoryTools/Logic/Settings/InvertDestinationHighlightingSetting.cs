@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -18,11 +19,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "InvertDestinationHighlighting";
-        public override string Name { get; set; } = "Invert Destination Highlighting?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Invert Destination Highlighting?"));
 
         public override string HelpText { get; set; } =
-            "When highlighting destination items should the colour of the items be inverted?";
-        
+            LocalizationService.Ui(LocalizationService.Ui("When highlighting destination items should the colour of the items be inverted?"));
+
         public override string Version => "1.7.0.0";
 
         public InvertDestinationHighlightingSetting(ILogger<InvertDestinationHighlightingSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
@@ -17,7 +18,7 @@ public class CraftWindowViewSetting : GenericEnumChoiceSetting<CraftWindowView>
 {
     public override bool AppearsInConfigWindow => false;
 
-    public CraftWindowViewSetting(ILogger<CraftWindowViewSetting> logger, ImGuiService imGuiService) : base("CraftWindowView", "Craft Window View", "What view is the craft list currently in?",CraftWindowView.Crafts, new Dictionary<CraftWindowView, string>(){
+    public CraftWindowViewSetting(ILogger<CraftWindowViewSetting> logger, ImGuiService imGuiService) : base("CraftWindowView", LocalizationService.Ui("Craft Window View"), LocalizationService.Ui("What view is the craft list currently in?"),CraftWindowView.Crafts, new Dictionary<CraftWindowView, string>(){
         { CraftWindowView.Crafts , "Crafts"}, { CraftWindowView.Configuration, "Configuration"},
         { CraftWindowView.Tree, "Treeview"}}, "12.0.20", logger, imGuiService)
     {

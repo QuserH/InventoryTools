@@ -1,3 +1,4 @@
+using InventoryTools.Localization;
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InventoryTools.Logic.Settings.Abstract;
@@ -34,11 +35,12 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ActiveCraftList";
-        public override string Name { get; set; } = "Active Craft List";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Active Craft List"));
 
         public override string HelpText { get; set; } =
-            "This is the craft list that crafts will count towards.";
-        
+            LocalizationService.Ui(LocalizationService.Ui("This is the craft list that crafts will count towards."));
+
+
         public override Dictionary<string, string> Choices
         {
             get

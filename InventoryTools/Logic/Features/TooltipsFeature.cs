@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Ui.Config;
@@ -14,7 +15,7 @@ public class TooltipsFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/tooltips", "Tooltips",
+        return Page("feature/tooltips", LocalizationService.Ui("Tooltips"),
             Paragraph("Allagan Tools can add extra lines to the game's item tooltips."),
             Setting<TooltipDisplayAmountOwnedSetting>("Where you own the item"),
             Setting<TooltipDisplayRetrieveAmountSetting>("How many the active craft list still needs"),

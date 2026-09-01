@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Ui.Config;
@@ -14,7 +15,7 @@ public class LayoutFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/layout", "Layout",
+        return Page("feature/layout", LocalizationService.Ui("Layout"),
             Paragraph("The items window and the craft window can show your lists as tabs along the top, or in a side bar. A side bar is better when you have many lists. Tabs are better when you have only a few."),
             Setting<FiltersWindowLayoutSetting>("Items window"),
             Setting<CraftWindowLayoutSetting>("Craft window")

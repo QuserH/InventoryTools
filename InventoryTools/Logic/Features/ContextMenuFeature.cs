@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InventoryTools.Localization;
 using InventoryTools.Logic.Settings;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Ui.Config;
@@ -14,7 +15,7 @@ public class ContextMenuFeature : Feature
 
     public override PageLayout Build()
     {
-        return Page("feature/context-menu", "Context Menus",
+        return Page("feature/context-menu", LocalizationService.Ui("Context Menus"),
             Paragraph("The plugin can add these entries to item's right-click menus."),
             Section("More information",
                 Setting<ContextMenuMoreInformationSetting>("Items"),

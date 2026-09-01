@@ -1,20 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using InventoryTools.Extensions;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
-using Lumina.Excel;
-using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
 public class MarketBoardExtraWorldsSetting : MultipleChoiceSetting<uint>
 {
-    private readonly ExcelSheet<World> _worldSheet;
-
-    public MarketBoardExtraWorldsSetting(ILogger<MarketBoardExtraWorldsSetting> logger, ImGuiService imGuiService, ExcelSheet<World> worldSheet) : base(logger, imGuiService)
+    public MarketBoardExtraWorldsSetting(ILogger<MarketBoardExtraWorldsSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)
     {
-        _worldSheet = worldSheet;
     }
 
     public override List<uint> DefaultValue { get; set; } = new List<uint>();
@@ -29,16 +26,15 @@ public class MarketBoardExtraWorldsSetting : MultipleChoiceSetting<uint>
     }
 
     public override string Key { get; set; } = "MarketBoardExtraWorlds";
-    public override string Name { get; set; } = "Price Worlds";
-    public override string HelpText { get; set; } = "A list of extra worlds we should automatically price";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Price Worlds"));
+    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("A list of extra worlds we should automatically price"));
     public override string Version { get; } = "1.7.0.0";
     private Dictionary<uint, string>? _worldNames;
     public override Dictionary<uint, string> GetChoices(InventoryToolsConfiguration configuration)
     {
         if (_worldNames == null)
         {
-            _worldNames = _worldSheet.Where(c => c.IsPublic).OrderBy(c => c.Name.ExtractText())
-                .ToDictionary(c => c.RowId, c => c.Name.ExtractText());
+            _worldNames = CnWorlds.Names.ToDictionary(c => c.Key, c => $"{c.Value.DataCenter} · {c.Value.World}");
         }
 
         return _worldNames;

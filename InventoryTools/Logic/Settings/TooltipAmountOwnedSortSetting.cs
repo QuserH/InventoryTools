@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -23,20 +24,20 @@ public class TooltipAmountOwnedSortSetting : ChoiceSetting<TooltipAmountOwnedSor
     }
 
     public override string Key { get; set; } = "TooltipAmountOwnedSort";
-    public override string Name { get; set; } = "Add Item Locations (Order)";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Order)"));
 
     public override string HelpText { get; set; } =
-        "How should the items displayed in the tooltip that you own be ordered? None is included if you find the sorting to be non-performant.";
-    
+        LocalizationService.Ui(LocalizationService.Ui("How should the items displayed in the tooltip that you own be ordered? None is included if you find the sorting to be non-performant."));
+
     public override string Version { get; } = "1.7.0.17";
 
     public override Dictionary<TooltipAmountOwnedSort, string> Choices { get; } =
         new Dictionary<TooltipAmountOwnedSort, string>()
         {
-            { TooltipAmountOwnedSort.Alphabetically, "Alphabetical Order(Character/Retainer/etc)" },
-            { TooltipAmountOwnedSort.Categorically, "Alphabetical Order(Category)" },
-            { TooltipAmountOwnedSort.Quantity, "Item Quantity" },
-            { TooltipAmountOwnedSort.None, "No Order" },
+            { TooltipAmountOwnedSort.Alphabetically, LocalizationService.Ui("Alphabetical Order(Character/Retainer/etc)") },
+            { TooltipAmountOwnedSort.Categorically, LocalizationService.Ui("Alphabetical Order(Category)") },
+            { TooltipAmountOwnedSort.Quantity, LocalizationService.Ui("Item Quantity") },
+            { TooltipAmountOwnedSort.None, LocalizationService.Ui("No Order") },
         };
 }
 

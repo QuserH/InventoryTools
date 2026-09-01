@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -25,13 +26,13 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "AutoSave";
-        public override string Name { get; set; } = "Auto save inventories/configuration?";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Auto save inventories/configuration?"));
 
-        public override string WizardName { get; } = "Auto save inventories?";
+        public override string WizardName { get; } = LocalizationService.Ui("Auto save inventories?");
 
         public override string HelpText { get; set; } =
-            "Should the inventories/configuration be automatically saved on a defined interval? While the plugin does save when the game is closed and when configurations are altered, it is not saved in cases of crashing so this attempts to alleviate this.";
-        
+            LocalizationService.Ui(LocalizationService.Ui("Should the inventories/configuration be automatically saved on a defined interval? While the plugin does save when the game is closed and when configurations are altered, it is not saved in cases of crashing so this attempts to alleviate this."));
+
         public override string Version => "1.7.0.0";
     }
 }

@@ -1,6 +1,7 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -22,12 +23,12 @@ public class ContextMenuOpenCraftingLogSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "OpenCraftingLogContextMenu";
-    public override string Name { get; set; } = "Context Menu - Open Crafting Log";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Open Crafting Log"));
 
-    public override string WizardName { get; } = "Open Crafting Log";
+    public override string WizardName { get; } = LocalizationService.Ui("Open Crafting Log");
 
     public override string HelpText { get; set; } =
-        "Add a context menu item to open the crafting log for any item that can be crafted?";
-    
+        LocalizationService.Ui(LocalizationService.Ui("Add a context menu item to open the crafting log for any item that can be crafted?"));
+
     public override string Version { get; } = "1.11.0.2";
 }

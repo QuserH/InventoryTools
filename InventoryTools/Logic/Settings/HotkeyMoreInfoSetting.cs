@@ -3,6 +3,7 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Classes;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -21,11 +22,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "MoreInformationHotKey";
-        public override string Name { get; set; } = "More Information Hotkey";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("More Information Hotkey"));
 
         public override string HelpText { get; set; } =
-            "The hotkey to open the more information window for an item when hovering it.";
-        
+            LocalizationService.Ui(LocalizationService.Ui("The hotkey to open the more information window for an item when hovering it."));
+
         public override string Version => "1.7.0.0";
 
         public HotkeyMoreInfoSetting(ILogger<HotkeyMoreInfoSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

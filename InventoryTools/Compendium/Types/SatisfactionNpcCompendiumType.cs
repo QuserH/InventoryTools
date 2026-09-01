@@ -11,6 +11,7 @@ using AllaganLib.Shared.Misc;
 using InventoryTools.Compendium.Interfaces;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -58,7 +59,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             CompendiumType = this,
             Key = "custom_deliveries",
-            Name = "Custom Deliveries",
+            Name = LocalizationService.Ui("Custom Deliveries"),
             Columns = BuiltColumns
         });
     }
@@ -70,7 +71,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
 
     public override string? GetSubtitle(SatisfactionNpc row)
     {
-        return $"Level {row.LevelUnlock} Custom Delivery Client";
+        return LocalizationService.Format("Level {0} Custom Delivery Client", row.LevelUnlock);
     }
 
     public override (string?, uint?) GetIcon(SatisfactionNpc row)
@@ -119,8 +120,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = "##Icon",
-            HelpText = "The NPC icon",
+            Name = LocalizationService.Ui("##Icon"),
+            HelpText = LocalizationService.Ui("The NPC icon"),
             Version = "1.0.0",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -130,8 +131,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = "NPC",
-            HelpText = "The NPC name",
+            Name = LocalizationService.Ui("NPC"),
+            HelpText = LocalizationService.Ui("The NPC name"),
             Version = "1.0.0",
             ValueSelector = GetName
         });
@@ -139,8 +140,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "level",
-            Name = "Level",
-            HelpText = "Unlock level",
+            Name = LocalizationService.Ui("Level"),
+            HelpText = LocalizationService.Ui("Unlock level"),
             Version = "1.0.0",
             ValueSelector = row => row.LevelUnlock.ToString()
         });
@@ -148,8 +149,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "deliveries",
-            Name = "Deliveries / Week",
-            HelpText = "Max weekly deliveries",
+            Name = LocalizationService.Ui("Deliveries / Week"),
+            HelpText = LocalizationService.Ui("Max weekly deliveries"),
             Version = "1.0.0",
             ValueSelector = row => row.DeliveriesPerWeek.ToString()
         });
@@ -157,8 +158,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "unlock_quest",
-            Name = "Unlock Quest",
-            HelpText = "Required quest",
+            Name = LocalizationService.Ui("Unlock Quest"),
+            HelpText = LocalizationService.Ui("Required quest"),
             Version = "1.0.0",
             ValueSelector = row => row.QuestRequired.ValueNullable?.Name.ToImGuiString() ?? ""
         });
@@ -167,13 +168,13 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, SatisfactionNpc row)
     {
         viewBuilder.SetupDefaults(this, row);
-        viewBuilder.AddTag(() => $"{row.DeliveriesPerWeek}/week", () => "The number of times you can deliver to the client per week.");
+        viewBuilder.AddTag(() => $"{row.DeliveriesPerWeek}/week", () => LocalizationService.Ui("The number of times you can deliver to the client per week."));
 
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = (RowRef)row.QuestRequired,
             SectionKey = "unlock_quest",
-            SectionName = "Unlock Quest"
+            SectionName = LocalizationService.Ui("Unlock Quest")
         });
 
         var rankQuests = _satisfactionArbitrationSheet
@@ -188,7 +189,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             RelatedRefs = rankQuests,
             SectionKey = "rank_quests",
-            SectionName = "Rank Quests",
+            SectionName = LocalizationService.Ui("Rank Quests"),
             HideWhenEmpty = false
         });
 
@@ -211,7 +212,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
             {
                 Items = supplyItems,
                 SectionKey = $"requested_items_tier_{tierNumber}",
-                SectionName = $"Requested Items (Tier {tierNumber})",
+                SectionName = LocalizationService.Format("Requested Items (Tier {0})", tierNumber),
                 HideWhenEmpty = true
             });
         }
@@ -228,7 +229,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
                     location
                 ),
                 SectionKey = "location",
-                SectionName = "Location"
+                SectionName = LocalizationService.Ui("Location")
             });
         }
 
@@ -236,7 +237,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             RelatedRef = (RowRef)row.Npc,
             SectionKey = "related_npc",
-            SectionName = "Related NPC"
+            SectionName = LocalizationService.Ui("Related NPC")
         });
 
     }
@@ -247,7 +248,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         [
             new CompendiumGrouping<SatisfactionNpc>()
             {
-                Name = "Expansion",
+                Name = LocalizationService.Ui("Expansion"),
                 Key = "expansion",
                 GroupFunc = row => row.QuestRequired.ValueNullable?.Expansion.RowId ?? 0,
                 GroupMapping = row =>
@@ -258,17 +259,17 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
             },
             new CompendiumGrouping<SatisfactionNpc>()
             {
-                Name = "Level",
+                Name = LocalizationService.Ui("Level"),
                 Key = "level",
                 GroupFunc = row => row.LevelUnlock,
-                GroupMapping = row => $"Level {(byte)row}"
+                GroupMapping = row => LocalizationService.Format("Level {0}", (byte)row)
             }
         ];
     }
 
-    public override string Singular => "Custom Delivery";
-    public override string Plural => "Custom Deliveries";
-    public override string Description => "NPCs that accept Custom Deliveries.";
+    public override string Singular => LocalizationService.Ui("Custom Delivery");
+    public override string Plural => LocalizationService.Ui("Custom Deliveries");
+    public override string Description => LocalizationService.Ui("NPCs that accept Custom Deliveries (Satisfaction system).");
     public override string Key => "satisfaction_npc";
     public override (string?, uint?) Icon => (null, Icons.CustomDeliveriesIcon);
 }

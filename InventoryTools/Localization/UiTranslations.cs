@@ -194,6 +194,21 @@ public static partial class LocalizationService
             ["Use Active World?"] = "使用当前服务器？",
             ["Use Default"] = "使用默认值",
             ["Use Home World?"] = "使用所属服务器？",
+            ["Basics"] = "基础设置",
+            ["These settings apply to the whole plugin. You can change all of them later in the settings window."] = "这些设置适用于整个插件。你可以稍后在设置窗口中修改全部选项。",
+            ["Save inventories automatically"] = "自动保存库存",
+            ["Enable historical item tracking"] = "启用历史道具追踪",
+            ["Add a button to the game's title menu"] = "在游戏标题菜单添加按钮",
+            ["Sample Lists"] = "示例列表",
+            ["These lists show you what the plugin can do. If you select them, they'll be installed once you complete the wizard."] = "这些列表展示插件的功能。选中后将在完成向导时安装。",
+            ["Items worth 100 gil or less"] = "价值不超过 100 金币的道具",
+            ["Duplicate items in your inventory"] = "背包中的重复道具",
+            ["Crafting materials to move to storage"] = "需要移至仓库的制作材料",
+            ["Market Board"] = "市场布告板",
+            ["Prices come from Universalis, not from the game. The plugin downloads the prices and keeps a local copy. When this is on, prices are automatically downloaded. If not on, you must hit 'Refresh Market Prices' each time you want to get updated pricing on items."] = "价格来自 Universalis，而非游戏本身。插件会下载价格并保留本地副本。开启后价格自动下载；关闭时每次需要手动点击“刷新市场价格”来获取最新价格。",
+            ["Download prices automatically"] = "自动下载价格",
+            ["Keep prices for this many hours"] = "价格保留小时数",
+            ["Days of sale history to include"] = "包含的销售历史天数",
         };
 
     public static string Ui(string english)

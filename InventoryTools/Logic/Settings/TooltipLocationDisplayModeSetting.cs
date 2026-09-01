@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -20,29 +21,34 @@ public class TooltipLocationDisplayModeSetting : ChoiceSetting<TooltipLocationDi
     }
 
     public override string Key { get; set; } = "TooltipLocationDisplayMode";
-    public override string Name { get; set; } = "Add Item Locations (Display Mode)";
+    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Display Mode)"));
 
-    public override string WizardName { get; } = "Display Mode";
+    public override string WizardName { get; } = LocalizationService.Ui("Display Mode");
 
     public override string HelpText { get; set; } =
-        "How the locations of items should be presented in the tooltip. This requires 'Add Item Locations?' to be on.";
-    
+        LocalizationService.Ui(LocalizationService.Ui("How the locations of items should be presented in the tooltip. This requires 'Add Item Locations?' to be on."));
+
+
     public override Dictionary<TooltipLocationDisplayMode, string> Choices
     {
         get
         {
             return new Dictionary<TooltipLocationDisplayMode, string>()
             {
-                { TooltipLocationDisplayMode.CharacterQuantityQuality, "Character/Retainer - Quantity - Quality" },
-                { TooltipLocationDisplayMode.CharacterBagSlotQuality, "Character/Retainer - Bag - Slot - Quality" },
-                { TooltipLocationDisplayMode.CharacterBagSlotQuantity, "Character/Retainer - Bag - Slot - Quantity" },
+                { TooltipLocationDisplayMode.CharacterQuantityQuality, LocalizationService.Ui("Character/Retainer - Quantity - Quality") },
+                { TooltipLocationDisplayMode.CharacterBagSlotQuality, LocalizationService.Ui("Character/Retainer - Bag - Slot - Quality") },
+                { TooltipLocationDisplayMode.CharacterBagSlotQuantity, LocalizationService.Ui("Character/Retainer - Bag - Slot - Quantity") },
                 {
                     TooltipLocationDisplayMode.CharacterCategoryQuantityQuality,
-                    "Character/Retainer - Category - Quantity - Quality"
+                    LocalizationService.Ui("Character/Retainer - Category - Quantity - Quality")
                 },
                 {
                     TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality,
-                    "Character/Retainer - World - Category - Quantity - Quality"
+                    LocalizationService.Ui("Character/Retainer - World - Category - Quantity - Quality")
+                },
+                {
+                    TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality,
+                    LocalizationService.Ui("Character - Retainer - Category - Quantity - Quality")
                 },
             };
         }

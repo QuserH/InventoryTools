@@ -3,6 +3,7 @@ using InventoryTools.Services;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
 using Microsoft.Extensions.Logging;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -23,8 +24,8 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipColor";
-        public override string Name { get; set; } = "Text Colour";
-        public override string HelpText { get; set; } = "This is the colour of any text added to the item tooltip. You can give each tooltip module it's own colour by going into the tooltip's settings.";
+        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Text Colour"));
+        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("This is the colour of any text added to the item tooltip. You can give each tooltip module it's own colour by going into the tooltip's settings."));
         public override string Version => "1.7.0.0";
     }
 }

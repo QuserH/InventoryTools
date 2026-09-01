@@ -1,4 +1,5 @@
 using System;
+using InventoryTools.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -42,7 +43,7 @@ namespace InventoryTools.Ui.Pages
         }
 
         public override string Key { get; } = "data/characters";
-        public override string Name { get; } = "Characters/Retainers";
+        public override string Name { get; } = LocalizationService.Ui("Characters/Retainers");
 
         private ulong _selectedCharacter = 0;
         private uint _currentWorld = 0;
@@ -60,8 +61,8 @@ namespace InventoryTools.Ui.Pages
                 _popupMenus[character] = new PopupMenu("cm_" + character.CharacterId, PopupMenu.PopupMenuButtons.Right,
                     new List<PopupMenu.IPopupMenuItem>()
                     {
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Clear Inventories", "ci_" + character.CharacterId, "Are you sure you want to clear the inventories of this " + character.CharacterType.FormattedName() + "?", ClearInventories, "Clear the inventories of this " + character.CharacterType.FormattedName() + "?"),
-                        new PopupMenu.PopupMenuItemSelectableConfirm("Delete " + character.CharacterType.FormattedName(), "dc_" + character.CharacterId, "Are you sure you want to delete this " + character.CharacterType.FormattedName() + "?", DeleteCharacter, "Delete the " + character.CharacterType.FormattedName() + "?"),
+                        new PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Clear Inventories"), "ci_" + character.CharacterId, LocalizationService.Ui("Are you sure you want to clear the inventories of this ") + character.CharacterType.FormattedName() + "?", ClearInventories, LocalizationService.Ui("Clear the inventories of this ") + character.CharacterType.FormattedName() + "?"),
+                        new PopupMenu.PopupMenuItemSelectableConfirm(LocalizationService.Ui("Delete ") + character.CharacterType.FormattedName(), "dc_" + character.CharacterId, LocalizationService.Ui("Are you sure you want to delete this ") + character.CharacterType.FormattedName() + "?", DeleteCharacter, LocalizationService.Ui("Delete the ") + character.CharacterType.FormattedName() + "?"),
                     }
                 );
             }
@@ -97,7 +98,7 @@ namespace InventoryTools.Ui.Pages
                 {
                     var worldIds = _characterMonitor.GetWorldIds();
                     var characters = _characterMonitor.GetPlayerCharacters().Where(c => _currentWorld == 0 || _currentWorld == c.Value.WorldId).OrderBy(c => c.Value.FormattedName).ToList();
-                    ImGui.TextUnformatted("Characters (" + characters.Count + ")");
+                    ImGui.TextUnformatted(LocalizationService.Ui("Characters (") + characters.Count + ")");
                     ImGui.Separator();
                     for (var index = 0; index < characters.Count; index++)
                     {
@@ -122,7 +123,7 @@ namespace InventoryTools.Ui.Pages
                                 tooltip += "\n" + character.Value.ActualClassJob?.Base.Name.ExtractText().ToTitleCase();
                             }
 
-                            tooltip += "\n\nRight Click: Options";
+                            tooltip += LocalizationService.Ui("\n\nRight Click: Options");
                             ImGuiUtil.HoverTooltip(tooltip);
                             ImGui.SameLine();
                             if (character.Value.ActualClassJob != null)
@@ -135,7 +136,7 @@ namespace InventoryTools.Ui.Pages
                     ImGui.NewLine();
 
                     var freeCompanies = _characterMonitor.GetFreeCompanies().Where(c => _currentWorld == 0 || _currentWorld == c.Value.WorldId).OrderBy(c => c.Value.FormattedName).ToList();
-                    ImGui.TextUnformatted("Free Companies (" + freeCompanies.Count + ")");
+                    ImGui.TextUnformatted(LocalizationService.Ui("Free Companies (") + freeCompanies.Count + ")");
                     ImGui.Separator();
                     for (var index = 0; index < freeCompanies.Count; index++)
                     {
@@ -153,7 +154,7 @@ namespace InventoryTools.Ui.Pages
                         GetCharacterMenu(freeCompany.Value).Draw();
                         var tooltip = freeCompany.Value.FormattedName;
 
-                        tooltip += "\n\nRight Click: Options";
+                        tooltip += LocalizationService.Ui("\n\nRight Click: Options");
                         ImGuiUtil.HoverTooltip(tooltip);
                         if (freeCompany.Value.ActualClassJob != null)
                         {
@@ -165,7 +166,7 @@ namespace InventoryTools.Ui.Pages
                     ImGui.NewLine();
 
                     var houses = _characterMonitor.GetHouses().Where(c => _currentWorld == 0 || _currentWorld == c.Value.WorldId).OrderBy(c => c.Value.FormattedName).ToList();
-                    ImGui.TextUnformatted("Residences (" + houses.Count + ")");
+                    ImGui.TextUnformatted(LocalizationService.Ui("Residences (") + houses.Count + ")");
                     ImGui.Separator();
                     for (var index = 0; index < houses.Count; index++)
                     {
@@ -183,7 +184,7 @@ namespace InventoryTools.Ui.Pages
                         var tooltip = house.Value.FormattedName;
                         tooltip += "\n" + house.Value.GetPlotSize().ToString();
 
-                        tooltip += "\n\nRight Click: Options";
+                        tooltip += LocalizationService.Ui("\n\nRight Click: Options");
                         ImGuiUtil.HoverTooltip(tooltip);
 
                         if (house.Value.ActualClassJob != null)
@@ -196,7 +197,7 @@ namespace InventoryTools.Ui.Pages
                     ImGui.NewLine();
 
                     var retainers = _characterMonitor.GetRetainerCharacters().Where(c => _currentWorld == 0 || _currentWorld == c.Value.WorldId).OrderBy(c => c.Value.FormattedName).ToList();
-                    ImGui.TextUnformatted("Retainers (" + retainers.Count + ")");
+                    ImGui.TextUnformatted(LocalizationService.Ui("Retainers (") + retainers.Count + ")");
                     ImGui.Separator();
 
                     for (var index = 0; index < characters.Count; index++)
@@ -225,7 +226,7 @@ namespace InventoryTools.Ui.Pages
                                 tooltip += "\n" + characterRetainer.Value.ActualClassJob?.Base.Name.ExtractText().ToTitleCase();
                             }
 
-                            tooltip += "\n\nRight Click: Options";
+                            tooltip += LocalizationService.Ui("\n\nRight Click: Options");
                             ImGuiUtil.HoverTooltip(tooltip);
                             if (characterRetainer.Value.ActualClassJob != null)
                             {
@@ -239,7 +240,7 @@ namespace InventoryTools.Ui.Pages
 
                     if (retainers.Count != 0)
                     {
-                        ImGui.TextUnformatted("Orphaned Retainers:");
+                        ImGui.TextUnformatted(LocalizationService.Ui("Orphaned Retainers:"));
                         ImGui.Separator();
                         for (var index2 = 0; index2 < retainers.Count; index2++)
                         {
@@ -261,7 +262,7 @@ namespace InventoryTools.Ui.Pages
                                 tooltip += "\n" + characterRetainer.Value.ActualClassJob?.Base.Name.ExtractText().ToTitleCase();
                             }
 
-                            tooltip += "\n\nRight Click: Options";
+                            tooltip += LocalizationService.Ui("\n\nRight Click: Options");
                             ImGuiUtil.HoverTooltip(tooltip);
                             if (characterRetainer.Value.ActualClassJob != null)
                             {
@@ -280,11 +281,11 @@ namespace InventoryTools.Ui.Pages
                         selectedWorld = _worldSheet.GetRowOrDefault(_currentWorld);
                     }
 
-                    ImGui.Text("World: ");
-                    using var combo = ImRaii.Combo("##activeWorld", selectedWorld?.Name.ExtractText() ?? "All");
+                    ImGui.Text(LocalizationService.Ui("World: "));
+                    using var combo = ImRaii.Combo(LocalizationService.Ui("##activeWorld"), selectedWorld?.Name.ExtractText() ?? LocalizationService.Ui("All"));
                     if (combo.Success)
                     {
-                        if (ImGui.Selectable("All"))
+                        if (ImGui.Selectable(LocalizationService.Ui("All")))
                         {
                             _currentWorld = 0;
                         }
@@ -328,24 +329,24 @@ namespace InventoryTools.Ui.Pages
                                 _newName = character.AlternativeName ?? "";
                             }
 
-                            ImGuiUtil.HoverTooltip("Edit name, set the name to blank to return it to the original name.");
+                            ImGuiUtil.HoverTooltip(LocalizationService.Ui("Edit name, set the name to blank to return it to the original name."));
 
                             if (_editMode)
                             {
                                 var newName = _newName;
-                                ImGui.Text("Custom Name: ");
+                                ImGui.Text(LocalizationService.Ui("Custom Name: "));
                                 ImGui.SameLine();
-                                if (ImGui.InputText("##customName", ref newName, 100))
+                                if (ImGui.InputText(LocalizationService.Ui("##customName"), ref newName, 100))
                                 {
                                     _newName = newName;
                                 }
 
                                 if (character.AlternativeName != null && character.AlternativeName != character.Name)
                                 {
-                                    ImGui.Text("Original Name: " + character.Name);
+                                    ImGui.Text(LocalizationService.Ui("Original Name: ") + character.Name);
                                 }
 
-                                if (ImGui.Button("Save"))
+                                if (ImGui.Button(LocalizationService.Ui("Save")))
                                 {
                                     if (_newName == "" || _newName == character.Name)
                                     {
@@ -366,31 +367,31 @@ namespace InventoryTools.Ui.Pages
                             ImGui.Separator();
                             if (character.CharacterType is CharacterType.Character or CharacterType.Retainer )
                             {
-                                ImGui.Text("Level: " + character.Level);
-                                ImGui.Text("Gil: " + character.Gil);
-                                ImGui.Text("Gender: " + character.Gender);
-                                ImGui.Text("Free Company: " + character.FreeCompanyName);
-                                ImGui.Text("World: " + (character.World?.Name.ExtractText() ?? "Unknown"));
-                                ImGui.Text("Class/Job: " +
+                                ImGui.Text(LocalizationService.Ui("Level: ") + character.Level);
+                                ImGui.Text(LocalizationService.Ui("Gil: ") + character.Gil);
+                                ImGui.Text(LocalizationService.Ui("Gender: ") + character.Gender);
+                                ImGui.Text(LocalizationService.Ui("Free Company: ") + character.FreeCompanyName);
+                                ImGui.Text(LocalizationService.Ui("World: ") + (character.World?.Name.ExtractText() ?? "Unknown"));
+                                ImGui.Text(LocalizationService.Ui("Class/Job: ") +
                                            (character.ActualClassJob?.Base.Name.ExtractText().ToTitleCase() ?? "Unknown"));
                             }
                             else if (character.CharacterType is CharacterType.Housing)
                             {
-                                ImGui.Text("World: " + (character.World?.Name.ExtractText() ?? "Unknown"));
-                                ImGui.Text("Plot Size: " + character.GetPlotSize());
-                                ImGui.Text("Location: " + character.HousingName);
-                                ImGui.Text("Owners: ");
+                                ImGui.Text(LocalizationService.Ui("World: ") + (character.World?.Name.ExtractText() ?? "Unknown"));
+                                ImGui.Text(LocalizationService.Ui("Plot Size: ") + character.GetPlotSize());
+                                ImGui.Text(LocalizationService.Ui("Location: ") + character.HousingName);
+                                ImGui.Text(LocalizationService.Ui("Owners: "));
                                 foreach (var ownerId in character.Owners)
                                 {
                                     var owner = _characterMonitor.GetCharacterById(ownerId);
-                                    var ownerName = owner?.FormattedName ?? "Missing Character";
+                                    var ownerName = owner?.FormattedName ?? LocalizationService.Ui("Missing Character");
                                     ImGui.Text(ownerName);
                                 }
                             }
                             else if (character.CharacterType is CharacterType.FreeCompanyChest)
                             {
-                                ImGui.Text("World: " + (character.World?.Name.ExtractText() ?? "Unknown"));
-                                ImGui.Text("Related Characters: ");
+                                ImGui.Text(LocalizationService.Ui("World: ") + (character.World?.Name.ExtractText() ?? "Unknown"));
+                                ImGui.Text(LocalizationService.Ui("Related Characters: "));
                                 foreach (var relatedCharacter in _characterMonitor.GetFreeCompanyCharacters(character.CharacterId))
                                 {
                                     var relatedCharacterName = relatedCharacter.Value.FormattedName;
@@ -399,7 +400,7 @@ namespace InventoryTools.Ui.Pages
                             }
 
                             ImGui.NewLine();
-                            ImGui.Text("Inventories: ");
+                            ImGui.Text(LocalizationService.Ui("Inventories: "));
                             ImGui.Separator();
                             var inventories =
                                 _inventoryMonitor.Inventories.ContainsKey(character.CharacterId)
@@ -455,7 +456,7 @@ namespace InventoryTools.Ui.Pages
                                                                                     }
 
                                                                                     ImGuiUtil.HoverTooltip(item.FormattedName +
-                                                                                        " - " + item.Quantity + " in slot " +
+                                                                                        " - " + item.Quantity + LocalizationService.Ui(" in slot ") +
                                                                                         realSlot);
                                                                                     ImGui.SameLine();
 
@@ -505,13 +506,13 @@ namespace InventoryTools.Ui.Pages
                             }
                             else
                             {
-                                ImGui.Text("No inventories found.");
+                                ImGui.Text(LocalizationService.Ui("No inventories found."));
                             }
 
                         }
                         else
                         {
-                            ImGui.Text("Invalid character selected.");
+                            ImGui.Text(LocalizationService.Ui("Invalid character selected."));
                         }
                     }
                 }
