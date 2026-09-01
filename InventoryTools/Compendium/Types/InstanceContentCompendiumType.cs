@@ -280,7 +280,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         foreach (var (boss, bNpcName) in allBossSources)
         {
             var rawName = bNpcName.Base.Singular.ExtractText();
-            var bossName = string.IsNullOrEmpty(rawName) ? $"Boss {boss.FightNo + 1}" : rawName;
+            var bossName = string.IsNullOrEmpty(rawName) ? LocalizationService.Format("Boss {0}", boss.FightNo + 1) : rawName;
 
             var drops = bossDropSources
                 .Where(s => s.DungeonBoss.FightNo == boss.FightNo)
@@ -291,7 +291,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
                 bossChildSections.Add(viewBuilder.CreateItemListSection(new ItemListSectionOptions
                 {
                     SectionKey = $"boss_{boss.FightNo}_drops",
-                    SectionName = $"{bossName} - Drops",
+                    SectionName = bossName + LocalizationService.Ui(" - Drops"),
                     HideWhenEmpty = true,
                     Items = drops
                 }));
@@ -305,7 +305,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
                 bossChildSections.Add(viewBuilder.CreateItemListSection(new ItemListSectionOptions
                 {
                     SectionKey = $"boss_{boss.FightNo}_coffer_{coffer.Key}",
-                    SectionName = $"{bossName} - Coffer {coffer.Key}",
+                    SectionName = bossName + LocalizationService.Format(" - Coffer {0}", coffer.Key),
                     HideWhenEmpty = true,
                     Items = coffer.Select(s => new ItemInfo(s.Item, s.Quantity)).ToList()
                 }));
@@ -333,7 +333,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
             chestChildSections.Add(viewBuilder.CreateItemListSection(new ItemListSectionOptions
             {
                 SectionKey = $"chest_{chestGroup.Key}",
-                SectionName = $"Chest {chestGroup.Key}",
+                SectionName = LocalizationService.Format("Chest {0}", chestGroup.Key),
                 HideWhenEmpty = true,
                 Items = chestGroup.Select(s => new ItemInfo(s.Item)).ToList()
             }));

@@ -129,8 +129,8 @@ namespace InventoryTools.Ui
                 }
                 foreach (var dungeonBoss in DungeonBosses)
                 {
-                    if (ImGui.CollapsingHeader(_bNpcNameSheet.GetRowOrDefault(dungeonBoss.BNpcNameId)?.Base.Singular.ExtractText() + " - Fight " + (dungeonBoss.FightNo + 1) ??
-                            "Unknown Boss",
+                    var bossLabel = _bNpcNameSheet.GetRowOrDefault(dungeonBoss.BNpcNameId)?.Base.Singular.ExtractText();
+                    if (ImGui.CollapsingHeader((bossLabel ?? LocalizationService.Ui("Unknown Boss")) + LocalizationService.Ui(" - Fight ") + (dungeonBoss.FightNo + 1),
                             ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                     {
                         if (DungeonBossChests.ContainsKey(dungeonBoss.FightNo))

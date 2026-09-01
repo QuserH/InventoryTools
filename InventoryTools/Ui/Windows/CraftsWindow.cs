@@ -2415,7 +2415,7 @@ namespace InventoryTools.Ui
                                 var actualName = filterConfiguration.Name;
                                 if (filterConfiguration.IsEphemeralCraftList)
                                 {
-                                    actualName += " (*)";
+                                    actualName += LocalizationService.Ui("(*)");
                                 }
                                 if (ImGui.Selectable(actualName + LocalizationService.Ui("###fl") + filterConfiguration.Key,
                                         index == _selectedFilterTab))
@@ -2625,12 +2625,12 @@ namespace InventoryTools.Ui
             return (new RetainerRetrievalItemKey(itemId, (InventoryItem.ItemFlags)flags), quantity);
         }
 
-        private string ItemName(uint itemId) => _itemSheet.GetRow(itemId)?.NameString ?? $"Item #{itemId}";
+        private string ItemName(uint itemId) => _itemSheet.GetRow(itemId)?.NameString ?? LocalizationService.Format("Item #{0}", itemId);
 
         private static string RetrievalQualityLabel(InventoryItem.ItemFlags flags)
         {
             if (flags.HasFlag(InventoryItem.ItemFlags.Collectable))
-                return "Collectable";
+                return LocalizationService.Ui("Collectable");
             return flags.HasFlag(InventoryItem.ItemFlags.HighQuality) ? "HQ" : "NQ";
         }
 

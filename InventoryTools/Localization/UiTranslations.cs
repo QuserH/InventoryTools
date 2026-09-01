@@ -561,6 +561,23 @@ public static partial class LocalizationService
             ["Downloading"] = "下载",
             ["Tooltips"] = "悬浮提示",
             ["Order"] = "顺序",
+            [" - Fight "] = " - 战斗 ",
+            ["Boss {0}"] = "首领 {0}",
+            ["Chest {0}"] = "宝箱 {0}",
+            [" - Drops"] = " - 掉落",
+            [" - Coffer {0}"] = " - 宝箱 {0}",
+            ["Coffer {0}"] = "宝箱 {0}",
+            ["Items :"] = "物品：",
+            [" (HQ)"] = "（HQ）",
+            ["1x {0}"] = "1x {0}",
+            ["Item #{0}"] = "道具 #{0}",
+            ["(*)"] = "（*）",
+            [" - {0}"] = " - {0}",
+            ["({0}/{1})"] = "（{0}/{1}）",
+            ["Recipe ({0}): "] = "配方（{0}）：",
+            ["[Import] "] = "[导入] ",
+            ["Unknown Boss"] = "未知首领",
+            ["Collectable"] = "收藏品",
         };
 
     public static string Ui(string english)
