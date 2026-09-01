@@ -578,6 +578,12 @@ public static partial class LocalizationService
             ["[Import] "] = "[导入] ",
             ["Unknown Boss"] = "未知首领",
             ["Collectable"] = "收藏品",
+            ["All Items"] = "全部物品",
+            ["Try On"] = "试穿",
+            ["Open in Garland Tools"] = "在 Garland Tools 中打开",
+            ["Open in Teamcraft"] = "在 Teamcraft 中打开",
+            ["Open in Universalis"] = "在 Universalis 中打开",
+            ["Open in Console Games Wiki"] = "在 Console Games Wiki 中打开",
         };
 
     public static string Ui(string english)

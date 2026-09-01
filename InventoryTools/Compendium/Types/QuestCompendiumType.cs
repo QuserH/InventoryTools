@@ -146,7 +146,7 @@ public class QuestCompendiumType : CompendiumType<Quest>
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, Quest row)
     {
         viewBuilder.SetupDefaults(this, row);
-        viewBuilder.AddLink($"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(row.AsConsoleGamesWikiName())}", "Open in Console Games Wiki", "consolegameswiki");
+        viewBuilder.AddLink($"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(row.AsConsoleGamesWikiName())}", LocalizationService.Ui("Open in Console Games Wiki"), "consolegameswiki");
         var dialogueSheet = _questDialogueFactory.Invoke(row.Id.ToImGuiString());
         var dialogue = dialogueSheet.GetRowOrDefault(0);
         if (dialogue != null)

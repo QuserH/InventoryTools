@@ -192,15 +192,15 @@ public class ItemCompendiumType : CompendiumType<ItemRow>
             HideWhenEmpty = true
         });
 
-        viewBuilder.AddLink($"https://www.garlandtools.org/db/#item/{row.GarlandToolsId}", "Open in Garland Tools", "garlandtools");
-        viewBuilder.AddLink($"https://ffxivteamcraft.com/db/en/item/{row.RowId}", "Open in Teamcraft", "teamcraft");
+        viewBuilder.AddLink($"https://www.garlandtools.org/db/#item/{row.GarlandToolsId}", LocalizationService.Ui("Open in Garland Tools"), "garlandtools");
+        viewBuilder.AddLink($"https://ffxivteamcraft.com/db/en/item/{row.RowId}", LocalizationService.Ui("Open in Teamcraft"), "teamcraft");
         if (row.CanBePlacedOnMarket)
         {
-            viewBuilder.AddLink($"https://universalis.app/market/{row.RowId}", "Open in Universalis", "universalis");
+            viewBuilder.AddLink($"https://universalis.app/market/{row.RowId}", LocalizationService.Ui("Open in Universalis"), "universalis");
         }
 
         viewBuilder.AddLink($"https://ffxiv.gamerescape.com/wiki/{HttpUtility.UrlEncode(row.GamerEscapeName)}?useskin=Vector", LocalizationService.Ui("Open in Gamerescape"), "gamerescape");
-        viewBuilder.AddLink($"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(row.ConsoleGamesWikiName)}", "Open in Console Games Wiki", "consolegameswiki");
+        viewBuilder.AddLink($"https://ffxiv.consolegameswiki.com/wiki/{HttpUtility.UrlEncode(row.ConsoleGamesWikiName)}", LocalizationService.Ui("Open in Console Games Wiki"), "consolegameswiki");
     }
 
     private (List<ObtainabilityRequirement> AllRequirements, List<MetadataSectionOptions.Row> Rows) BuildObtainabilityRows(ItemRow row)

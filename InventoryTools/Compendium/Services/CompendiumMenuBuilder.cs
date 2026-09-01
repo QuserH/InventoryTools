@@ -88,7 +88,7 @@ public class CompendiumMenuBuilder
     public void GroupedItems(List<RowRef<Item>> items, string text = "All Items")
     {
         var actualItems = items.Where(c => c.IsValid && c.RowId != 0).Select(c => _itemSheet.GetRow(c.RowId)).ToList();
-        using (var menu = ImRaii.Menu(text))
+        using (var menu = ImRaii.Menu(LocalizationService.Ui(text)))
         {
             if (menu)
             {
@@ -100,7 +100,7 @@ public class CompendiumMenuBuilder
 
     public void TryOn(List<ItemInfo> items, string text = "Try On")
     {
-        if (ImGui.Selectable(text))
+        if (ImGui.Selectable(LocalizationService.Ui(text)))
         {
             _tryOn.TryOnItem(items.Select(c => c.ItemRow).ToList());
         }
@@ -109,7 +109,7 @@ public class CompendiumMenuBuilder
 
     public void TryOn(List<RowRef<Item>> items, string text = "Try On")
     {
-        if (ImGui.Selectable(text))
+        if (ImGui.Selectable(LocalizationService.Ui(text)))
         {
             _tryOn.TryOnItem(items);
         }
