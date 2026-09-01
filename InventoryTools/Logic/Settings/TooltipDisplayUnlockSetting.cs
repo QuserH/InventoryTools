@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -23,11 +22,7 @@ public class TooltipDisplayUnlockSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TooltipDisplayUnlockSetting";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Unlock Status"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("If an item can be unlocked/acquired, shows if your characters have unlocked/acquired said item. Can be configured to show specific characters inside the configuration window."));
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ItemUnlockStatus;
+    public override string Name { get; set; } = "Add Item Unlock Status";
+    public override string HelpText { get; set; } = "If an item can be unlocked/acquired, shows if your characters have unlocked/acquired said item. Can be configured to show specific characters inside the configuration window.";
     public override string Version { get; } = "1.11.0.4";
-
-    public override uint? Order => 0;
 }

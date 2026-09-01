@@ -3,7 +3,6 @@ using System.Numerics;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -21,12 +20,10 @@ public class FiltersWindowLayoutSetting : ChoiceSetting<WindowLayout>
     }
 
     public override string Key { get; set; } = "FilterWindowLayout";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Items Window Layout"));
-    public override string WizardName { get; } = LocalizationService.Ui("Items Window");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Set the layout of the items window"));
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.Windows;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.WindowLayout;
-
+    public override string Name { get; set; } = "Items Window Layout";
+    public override string WizardName { get; } = "Items Window";
+    public override string HelpText { get; set; } = "Set the layout of the items window";
+    
     public override string? Image { get; } = "items_display";
 
     public override Vector2? ImageSize { get; } = new Vector2(878, 393);

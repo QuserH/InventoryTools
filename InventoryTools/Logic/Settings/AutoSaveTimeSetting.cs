@@ -2,7 +2,6 @@ using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -33,14 +32,12 @@ namespace InventoryTools.Logic.Settings
             var currentX = ImGui.GetCursorPosX();
             currentX += ImGui.GetFontSize() + ImGui.GetStyle().FramePadding.X * 3.0f + ImGui.GetStyle().ItemInnerSpacing.X;
             ImGui.SetCursorPosX(currentX);
-            ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##NextAutoSave")),LocalizationService.Ui("Next Autosave: ") + (_pluginLogic.NextSaveTime?.ToString() ?? "N/A"));
+            ImGui.LabelText("##NextAutoSave","Next Autosave: " + (_pluginLogic.NextSaveTime?.ToString() ?? "N/A"));
         }
 
         public override string Key { get; set; } = "AutoSaveMinutes";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Auto save every"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How many minutes should there be between each auto save?"));
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.AutoSave;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+        public override string Name { get; set; } = "Auto save every";
+        public override string HelpText { get; set; } = "How many minutes should there be between each auto save?";
         public override string Version => "1.7.0.0";
     }
 }

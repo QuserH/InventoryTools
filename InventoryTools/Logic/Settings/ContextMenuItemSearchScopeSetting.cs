@@ -5,7 +5,6 @@ using InventoryTools.Logic.Editors;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -36,16 +35,16 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "Label", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "Label", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw(LocalizationService.Ui("##tooltipScope"), currentScopes))
+        if (_scopePicker.Draw("##tooltipScope", currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -55,7 +54,7 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("Reset##" + Key + "Reset"))
             {
                 Reset(configuration);
             }
@@ -68,11 +67,9 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
     }
 
     public override string Key { get; set; } = "ItemSearchScope";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Search Scope"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When searching for an item across the inventories AT knows about, which inventories should be searched?"));
+    public override string Name { get; set; } = "Context Menu - Search Scope";
+    public override string HelpText { get; set; } = "When searching for an item across the inventories AT knows about, which inventories should be searched?";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Search Scope");
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+    public override string WizardName { get; } = "Search Scope";
     public override string Version => "1.7.0.13";
 }

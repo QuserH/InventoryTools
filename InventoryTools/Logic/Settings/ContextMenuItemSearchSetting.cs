@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -23,15 +22,13 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ItemSearchContextMenu";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Search"));
+        public override string Name { get; set; } = "Context Menu - Search";
 
         public override string WizardName { get; } = "Search";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Performs a search covering either all inventories or the scope defined below?"));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+            "Performs a search covering either all inventories or the scope defined below?";
+        
         public override string Version => "1.7.0.13";
     }
 }

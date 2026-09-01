@@ -4,7 +4,6 @@ using DalaMock.Host.Mediator;
 using Dalamud.Bindings.ImGui;
 using InventoryTools.Logic;
 using InventoryTools.Ui.Pages;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.MenuItems;
 
@@ -24,24 +23,27 @@ public class SeparatorPageItem : IConfigPage
 
     }
 
-    public string Name => LocalizationService.Ui("Separator");
+    public string Key => "separator/" + (_headerName ?? string.Empty);
+
+    public string Name => "Separator";
 
     public List<MessageBase>? Draw()
     {
+        if (_includeNewLine)
+        {
+            ImGui.NewLine();
+        }
+
         if (_headerName != null)
         {
-            if (_includeNewLine)
-            {
-                ImGui.NewLine();
-            }
-
-            ImGui.TextUnformatted(LocalizationService.Ui(_headerName));
+            ImGui.TextUnformatted(_headerName);
         }
+
         ImGui.Separator();
         return null;
     }
 
     public bool IsMenuItem => true;
-    public IEnumerable<Page>? ChildPages { get; set; } = null;
+    public IEnumerable<IConfigPage>? ChildPages { get; set; } = null;
     public bool DrawBorder { get; }
 }

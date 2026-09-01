@@ -17,7 +17,6 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Ui;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -55,9 +54,9 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
             LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
-    public override string Singular => LocalizationService.Ui("Master Recipe Book");
-    public override string Plural => LocalizationService.Ui("Master Recipe Books");
-    public override string Description => LocalizationService.Ui("Master recipe books that unlock additional crafting recipes when read.");
+    public override string Singular => "Master Recipe Book";
+    public override string Plural => "Master Recipe Books";
+    public override string Description => "Master recipe books unlock additional crafting recipes.";
     public override string Key => "secret_recipe_books";
     public override (string?, uint?) Icon => (null, Icons.MasterBookIcon);
 
@@ -105,8 +104,8 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("The icon of the master recipe book"),
+            Name = "##Icon",
+            HelpText = "The icon of the master recipe book",
             Version = "15.0.6",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -115,24 +114,24 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the master recipe book"),
+            Name = "Name",
+            HelpText = "The name of the master recipe book",
             Version = "15.0.6",
             ValueSelector = GetName,
         });
         builder.AddBooleanColumn(new()
         {
             Key = "unlocked",
-            Name = LocalizationService.Ui("Unlocked?"),
-            HelpText = LocalizationService.Ui("Has the player unlocked this master recipe book?"),
+            Name = "Unlocked?",
+            HelpText = "Has the player unlocked this master recipe book?",
             Version = "15.0.6",
             ValueSelector = row => _unlockState.IsItemUnlocked(row.Item.Value),
         });
         builder.AddItemsColumn(new()
         {
             Key = "recipes_unlocked",
-            Name = LocalizationService.Ui("Recipes Unlocked"),
-            HelpText = LocalizationService.Ui("The recipes unlocked by this master recipe book"),
+            Name = "Recipes Unlocked",
+            HelpText = "The recipes unlocked by this master recipe book",
             Version = "15.0.6",
             ValueSelector = row => GetBookUse(row)?.Recipes
                 .Select(r => r.ItemResult)
@@ -147,8 +146,8 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
         viewBuilder.SetupDefaults(this, row);
 
         viewBuilder.AddTag(
-            () => _unlockState.IsItemUnlocked(row.Item.Value) ? "Read" : LocalizationService.Ui("Not Read"),
-            () => LocalizationService.Ui("Whether the player has read this master recipe book."),
+            () => _unlockState.IsItemUnlocked(row.Item.Value) ? "Read" : "Not Read",
+            () => "Whether the player has read this master recipe book.",
             () => _unlockState.IsItemUnlocked(row.Item.Value) ? Dalamud.Interface.Colors.ImGuiColors.HealerGreen : Dalamud.Interface.Colors.ImGuiColors.DalamudRed);
 
         var bookUse = GetBookUse(row);
@@ -156,12 +155,12 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
 
         var info = new List<(string Header, string Value, bool IsVisible)>
         {
-            (LocalizationService.Ui("Recipes Unlocked"), recipeCount.ToString(), true),
+            ("Recipes Unlocked", recipeCount.ToString(), true),
         };
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "Info",
             Items = info,
         });
 
@@ -176,7 +175,7 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
                 viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
                 {
                     SectionKey = "class_job",
-                    SectionName = LocalizationService.Ui("Class"),
+                    SectionName = "Class",
                     RelatedRef = (RowRef)craftSoulCrystalUse.ClassJob.RowRef,
                 });
             }
@@ -187,7 +186,7 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "book_item",
-                SectionName = LocalizationService.Ui("Book Item"),
+                SectionName = "Book Item",
                 RelatedRef = (RowRef)row.Item,
             });
 
@@ -195,7 +194,7 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
             viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
             {
                 SectionKey = "book_item_sources",
-                SectionName = LocalizationService.Ui("Book Sources"),
+                SectionName = "Book Sources",
                 Sources = itemSources ?? [],
                 SourceType = SourceType.Source,
             });
@@ -207,7 +206,7 @@ public class SecretRecipeBookCompendiumType : CompendiumType<SecretRecipeBook>
             viewBuilder.AddItemListSection(new ItemListSectionOptions()
             {
                 SectionKey = "recipes_unlocked",
-                SectionName = LocalizationService.Ui("Recipes Unlocked"),
+                SectionName = "Recipes Unlocked",
                 Items = recipeItems,
             });
         }

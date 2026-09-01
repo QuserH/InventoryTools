@@ -27,9 +27,5 @@ public class MergeCraftListNqHqSetting : BooleanSetting
     public override string HelpText { get; set; } =
         LocalizationService.Ui(LocalizationService.Ui("When the same character, source and item name have both NQ and HQ stacks, should they be merged into one row without showing quality? When disabled, different qualities are kept separate."));
 
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
-    public override uint? Order => 4;
-    public override string? ParentKey => "MergeCraftListSameSource";
     public override string Version => "1.7.0.0";
 }

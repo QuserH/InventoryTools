@@ -13,8 +13,6 @@ public class CraftOverlayRememberStateSetting : GenericBooleanSetting
         LocalizationService.Ui("Remember State"),
         LocalizationService.Ui("Should the craft overlay stay open between plugin reloads/game reloads?"),
         true,
-        SettingCategory.CraftOverlay,
-        SettingSubCategory.General,
         "1.11.0.8",
         logger,
         imGuiService)

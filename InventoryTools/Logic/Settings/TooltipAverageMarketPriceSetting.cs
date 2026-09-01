@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -20,17 +19,13 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipDisplayMBAverage";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Market Average NQ/HQ Price"));
+        public override string Name { get; set; } = "Add Market Average NQ/HQ Price";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("When hovering an item, should the tooltip contain the average market price for both NQ and HQ. Please make sure 'Automatically download prices' is enabled."));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.MarketPricing;
+            "When hovering an item, should the tooltip contain the average market price for both NQ and HQ. Please make sure 'Automatically download prices' is enabled.";
+        
         public override string Version => "1.7.0.0";
-
-        public override uint? Order => 0;
-
+        
         public TooltipAverageMarketPriceSetting(ILogger<TooltipAverageMarketPriceSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)
         {
         }

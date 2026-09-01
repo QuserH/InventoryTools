@@ -1,13 +1,12 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
     public class SwitchCraftListsAutomaticallySetting : BooleanSetting
     {
-        public override bool DefaultValue { get; set; } = false;
+        public override bool DefaultValue { get; set; } = true;
         public override bool CurrentValue(InventoryToolsConfiguration configuration)
         {
             return configuration.SwitchCraftListsAutomatically;
@@ -19,12 +18,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "SwitchCraftListsAutomatically";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Switch craft lists automatically?"));
+        public override string Name { get; set; } = "Switch craft lists automatically?";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Should the active craft list automatically change when moving between each craft list? The active craft list will only change if there is an active craft list already selected."));
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+            "Should the active craft list automatically change when moving between each craft list? The active craft list will only change if there is an active craft list already selected.";
+
         public override string Version => "1.7.0.0";
 
         public SwitchCraftListsAutomaticallySetting(ILogger<SwitchCraftListsAutomaticallySetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

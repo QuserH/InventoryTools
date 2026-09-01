@@ -13,8 +13,6 @@ public class ContextMenuCopyNameSetting : GenericBooleanSetting
         LocalizationService.Ui("Context Menu - Copy Name"),
         LocalizationService.Ui("Copies the item's name to the clipboard."),
         false,
-        SettingCategory.ContextMenu,
-        SettingSubCategory.General,
         "15.0.6",
         logger,
         imGuiService)

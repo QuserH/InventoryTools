@@ -143,7 +143,6 @@ public class MigrationManagerService : IHostedService
         {
             _logger.LogInformation(LocalizationService.Ui("Migrating to version 6"));
             config.TooltipDisplayAmountOwned = true;
-            config.TooltipDisplayMarketAveragePrice = true;
             config.InternalVersion++;
         }
 

@@ -8,6 +8,8 @@ namespace InventoryTools.Logic.WizardSettings;
 
 public class CraftNotificationsReportToChatSetting : GenericBooleanSetting
 {
+    public override bool AppearsInConfigWindow => false;
+
     private bool _shouldAdd;
 
     public CraftNotificationsReportToChatSetting(ILogger<CraftNotificationsReportToChatSetting> logger,
@@ -15,8 +17,6 @@ public class CraftNotificationsReportToChatSetting : GenericBooleanSetting
         LocalizationService.Ui("Report acquisition to chat"),
         LocalizationService.Ui("When acquiring items that are part of a craft list, print progress to chat. The craft list must be active for notifications to occur."),
         true,
-        SettingCategory.None,
-        SettingSubCategory.None,
         "15.0.8",
         logger,
         imGuiService)

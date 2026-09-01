@@ -12,31 +12,28 @@ using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
 
 public class TooltipUseInformationEnabledSetting : GenericBooleanSetting
 {
-    public TooltipUseInformationEnabledSetting(ILogger<TooltipUseInformationEnabledSetting> logger, ImGuiService imGuiService) : base("TooltipUseInformationEnabled", LocalizationService.Ui("Use Information Enabled"), LocalizationService.Ui("Should use information be shown in the tooltip? For example, the item is used in a recipe or as currency at a shop, etc"), false, SettingCategory.ToolTips, SettingSubCategory.UseInformation, "1.11.0.11", logger, imGuiService)
+    public TooltipUseInformationEnabledSetting(ILogger<TooltipUseInformationEnabledSetting> logger, ImGuiService imGuiService) : base("TooltipUseInformationEnabled", "Use Information Enabled", "Should use information be shown in the tooltip? For example, the item is used in a recipe or as currency at a shop, etc", true, "1.11.0.11", logger, imGuiService)
     {
     }
-    public override string WizardName { get; } = LocalizationService.Ui("Show Use Information");
-    public override uint? Order { get; } = 0;
+    public override string WizardName { get; } = "Show Use Information";
 }
 
 public class TooltipUseInformationModifierSetting : GenericEnumChoiceSetting<TooltipSourceModifier>
 {
-    public TooltipUseInformationModifierSetting(ILogger<TooltipUseInformationModifierSetting> logger, ImGuiService imGuiService) : base("TooltipUseInformationModifier", LocalizationService.Ui("Use Information Modifier Key"), LocalizationService.Ui("Should the tooltip only be shown if a modifier key is pressed?"), TooltipSourceModifier.Always, new()
+    public TooltipUseInformationModifierSetting(ILogger<TooltipUseInformationModifierSetting> logger, ImGuiService imGuiService) : base("TooltipUseInformationModifier", "Use Information Modifier Key", "Should the tooltip only be shown if a modifier key is pressed?", TooltipSourceModifier.Always, new()
     {
         {TooltipSourceModifier.Always, "Always"},
         {TooltipSourceModifier.Control, "Control"},
         {TooltipSourceModifier.Shift, "Shift"},
-    }, SettingCategory.ToolTips, SettingSubCategory.UseInformation, "1.11.0.11", logger, imGuiService)
+    }, "1.11.0.11", logger, imGuiService)
     {
     }
-    public override uint? Order { get; } = 2;
 }
 
 public class TooltipUseInformationSetting : Setting<Dictionary<ItemInfoType, TooltipSourceSetting>>
@@ -67,7 +64,7 @@ public class TooltipUseInformationSetting : Setting<Dictionary<ItemInfoType, Too
 
     public override void Draw(InventoryToolsConfiguration configuration, string? customName, bool? disableReset, bool? disableColouring)
     {
-        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+        ImGui.LabelText("##" + Key + "Label", customName ?? Name);
 
         using (var table = ImRaii.Table("UseConfiguration", 4, ImGuiTableFlags.SizingFixedFit))
         {
@@ -103,10 +100,10 @@ public class TooltipUseInformationSetting : Setting<Dictionary<ItemInfoType, Too
                 }
 
 
-                ImGui.TableSetupColumn(LocalizationService.Ui("Settings"), ImGuiTableColumnFlags.NoHeaderLabel);
-                ImGui.TableSetupColumn(LocalizationService.Ui("Name"));
-                ImGui.TableSetupColumn(LocalizationService.Ui("Show"));
-                ImGui.TableSetupColumn(LocalizationService.Ui(LocalizationService.Ui("Group Mode")));
+                ImGui.TableSetupColumn("Settings", ImGuiTableColumnFlags.NoHeaderLabel);
+                ImGui.TableSetupColumn("Name");
+                ImGui.TableSetupColumn("Show");
+                ImGui.TableSetupColumn("Group Mode");
 
                 ImGui.TableHeadersRow();
 
@@ -186,7 +183,7 @@ public class TooltipUseInformationSetting : Setting<Dictionary<ItemInfoType, Too
                     ImGui.TableNextColumn();
                     ImGui.TextUnformatted(sourceRenderer.SingularName);
                     ImGui.TableNextColumn();
-                    if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("##Show")), ref show))
+                    if (ImGui.Checkbox("##Show", ref show))
                     {
                         tooltipSourceSetting.Show = show;
                         UpdateFilterConfiguration(configuration, currentValue);
@@ -258,14 +255,10 @@ public class TooltipUseInformationSetting : Setting<Dictionary<ItemInfoType, Too
     }
 
     public override string Key { get; set; } = "TooltipUseInformation";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Use Information Configuration"));
-
-    public override uint? Order { get; } = 3;
+    public override string Name { get; set; } = "Use Information Configuration";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("If the use information tooltip is enabled, how should the various uses be ordered/displayed/etc?"));
+        "If the use information tooltip is enabled, how should the various uses be ordered/displayed/etc?";
 
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.UseInformation;
     public override string Version { get; } = "1.11.0.11";
 }

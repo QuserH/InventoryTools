@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -20,17 +19,13 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipDisplayOwned";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations"));
+        public override string Name { get; set; } = "Add Item Locations";
 
-        public override string WizardName { get; } = LocalizationService.Ui("Add Item Locations");
+        public override string WizardName { get; } = "Add Item Locations";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("When hovering an item, should the tooltip show the locations of any copies of the item you currently own?"));
-
-        public override uint? Order { get; } = 0;
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;
+            "When hovering an item, should the tooltip show the locations of any copies of the item you currently own?";
+        
         public override string Version => "1.7.0.0";
 
         public TooltipDisplayAmountOwnedSetting(ILogger<TooltipDisplayAmountOwnedSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

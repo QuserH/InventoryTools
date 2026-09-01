@@ -4,7 +4,6 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -35,14 +34,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "WindowFilter";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Window List Highlighting"));
+        public override string Name { get; set; } = "Window List Highlighting";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is the list that will be highlighted when any of the allagan tools windows are visible."));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ActiveLists;
-
+            "This is the list that will be highlighted when any of the allagan tools windows are visible.";
+        
         public override Dictionary<string, string> Choices
         {
             get

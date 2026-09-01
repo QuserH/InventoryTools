@@ -27,7 +27,5 @@ public class ShowForeignWikiLinksSetting : BooleanSetting
     public override string HelpText { get; set; } =
         LocalizationService.Ui(LocalizationService.Ui("Should the item right-click menu show links to foreign wiki sites (Garland Tools, Teamcraft, Universalis, Gamer Escape, Console Games Wiki)?"));
 
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     public override string Version => "1.7.0.0";
 }

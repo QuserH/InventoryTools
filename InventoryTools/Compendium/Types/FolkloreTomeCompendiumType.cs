@@ -17,7 +17,6 @@ using InventoryTools.Compendium.Types.Extra;
 using InventoryTools.Ui;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -56,9 +55,9 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
         _staticIcon = new Lazy<(string?, uint?)>(BuildStaticIcon, LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
-    public override string Singular => LocalizationService.Ui("Folklore Tome");
-    public override string Plural => LocalizationService.Ui("Folklore Tomes");
-    public override string Description => LocalizationService.Ui("Folklore tomes that unlock hidden gathering nodes when read.");
+    public override string Singular => "Folklore Tome";
+    public override string Plural => "Folklore Tomes";
+    public override string Description => "Folklore tomes unlock hidden gathering nodes.";
     public override string Key => "folklore_tomes";
     public override (string?, uint?) Icon => _staticIcon.Value;
 
@@ -142,8 +141,8 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("The icon of the folklore tome"),
+            Name = "##Icon",
+            HelpText = "The icon of the folklore tome",
             Version = "15.0.6",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -152,48 +151,48 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the folklore tome"),
+            Name = "Name",
+            HelpText = "The name of the folklore tome",
             Version = "15.0.6",
             ValueSelector = GetName,
         });
         builder.AddStringColumn(new()
         {
             Key = "gathering_types",
-            Name = LocalizationService.Ui("Gathering Types"),
-            HelpText = LocalizationService.Ui("The gathering types unlocked by this tome"),
+            Name = "Gathering Types",
+            HelpText = "The gathering types unlocked by this tome",
             Version = "15.0.6",
             ValueSelector = row => FormatGatheringTypes(row),
         });
         builder.AddStringColumn(new()
         {
             Key = "class_job",
-            Name = LocalizationService.Ui("Class/Job"),
-            HelpText = LocalizationService.Ui("The classes or jobs this tome applies to"),
+            Name = "Class/Job",
+            HelpText = "The classes or jobs this tome applies to",
             Version = "15.0.6",
             ValueSelector = row => FormatClassJobs(row),
         });
         builder.AddStringColumn(new()
         {
             Key = "unlock_quest",
-            Name = LocalizationService.Ui("Unlock Quest"),
-            HelpText = LocalizationService.Ui("The quest required to unlock this tome"),
+            Name = "Unlock Quest",
+            HelpText = "The quest required to unlock this tome",
             Version = "15.0.6",
             ValueSelector = row => row.UnlockQuest?.ValueNullable?.Name.ToImGuiString() ?? "",
         });
         builder.AddBooleanColumn(new()
         {
             Key = "unlocked",
-            Name = LocalizationService.Ui("Unlocked?"),
-            HelpText = LocalizationService.Ui("Has the player unlocked this folklore tome?"),
+            Name = "Unlocked?",
+            HelpText = "Has the player unlocked this folklore tome?",
             Version = "15.0.6",
             ValueSelector = row => _unlockState.IsItemUnlocked(row.TomeItem!.Value.Value),
         });
         builder.AddItemColumn(new()
         {
             Key = "tome_item",
-            Name = LocalizationService.Ui("Tome Item"),
-            HelpText = LocalizationService.Ui("The folklore tome item itself"),
+            Name = "Tome Item",
+            HelpText = "The folklore tome item itself",
             Version = "15.0.6",
             ValueSelector = row => row.TomeItem?.RowId,
         });
@@ -204,19 +203,19 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
         viewBuilder.SetupDefaults(this, row);
 
         viewBuilder.AddTag(
-            () => _unlockState.IsItemUnlocked(row.TomeItem!.Value.Value) ? "Read" : LocalizationService.Ui("Not Read"),
-            () => LocalizationService.Ui("Whether the player has read this folklore tome."),
+            () => _unlockState.IsItemUnlocked(row.TomeItem!.Value.Value) ? "Read" : "Not Read",
+            () => "Whether the player has read this folklore tome.",
             () => _unlockState.IsItemUnlocked(row.TomeItem!.Value.Value) ? Dalamud.Interface.Colors.ImGuiColors.HealerGreen : Dalamud.Interface.Colors.ImGuiColors.DalamudRed);
 
         var info = new List<(string Header, string Value, bool IsVisible)>
         {
-            (LocalizationService.Ui("Gathering Types"), FormatGatheringTypes(row), row.GatheringTypes.Count > 0),
-            (LocalizationService.Ui("Class/Job"), FormatClassJobs(row), row.ClassJobs.Count > 0),
+            ("Gathering Types", FormatGatheringTypes(row), row.GatheringTypes.Count > 0),
+            ("Class/Job", FormatClassJobs(row), row.ClassJobs.Count > 0),
         };
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "Info",
             Items = info,
         });
 
@@ -225,7 +224,7 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = $"class_job_{classJob.RowId}",
-                SectionName = LocalizationService.Ui("Class/Job"),
+                SectionName = "Class/Job",
                 RelatedRef = (RowRef)classJob,
             });
         }
@@ -235,7 +234,7 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "tome_item",
-                SectionName = LocalizationService.Ui("Tome Item"),
+                SectionName = "Tome Item",
                 RelatedRef = (RowRef)row.TomeItem.Value,
             });
 
@@ -243,7 +242,7 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
             viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
             {
                 SectionKey = "tome_item_sources",
-                SectionName = LocalizationService.Ui("Tome Item Sources"),
+                SectionName = "Tome Item Sources",
                 Sources = itemSources ?? [],
                 SourceType = SourceType.Source,
             });
@@ -256,7 +255,7 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
         viewBuilder.AddItemListSection(new ItemListSectionOptions()
         {
             SectionKey = "unlocked_items",
-            SectionName = LocalizationService.Ui("Items Unlocked"),
+            SectionName = "Items Unlocked",
             Items = unlockedItems.Select(i => new ItemInfo(i)),
         });
 
@@ -265,7 +264,7 @@ public class FolkloreTomeCompendiumType : CompendiumType<FolkloreTome>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlock_quest",
-                SectionName = LocalizationService.Ui("Unlock Quest"),
+                SectionName = "Unlock Quest",
                 RelatedRef = (RowRef)row.UnlockQuest.Value,
             });
         }

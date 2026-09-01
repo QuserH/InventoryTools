@@ -27,8 +27,6 @@ public class ImGuiTooltipModeSetting : GenericEnumChoiceSetting<ImGuiTooltipMode
             {ImGuiTooltipMode.Icons, "Icons"},
             {ImGuiTooltipMode.Everywhere, "Everywhere"},
         },
-        SettingCategory.General,
-        SettingSubCategory.General,
         "1.11.0.8",
         logger,
         imGuiService)

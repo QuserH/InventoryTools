@@ -14,8 +14,6 @@ public class ShopHighlightingNpcNameplateIconSetting : GenericBooleanSetting
             LocalizationService.Ui("Shop Highlighting - Nameplate Icon"),
             LocalizationService.Ui("When highlighting shop items, show a small vendor icon on the nameplate of related NPCs in the world."),
             true,
-            SettingCategory.Highlighting,
-            SettingSubCategory.ShopHighlighting,
             "15.0.4",
             logger,
             imGuiService)

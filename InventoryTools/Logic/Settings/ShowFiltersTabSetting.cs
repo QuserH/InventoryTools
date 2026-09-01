@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -19,13 +18,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ShowFiltersTab";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Show 'All Lists' Tab?"));
+        public override string Name { get; set; } = "Show 'All Lists' Tab?";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Should the main window show the tab called 'All Lists' containing all available lists in one tab?"));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.Windows;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+            "Should the main window show the tab called 'All Lists' containing all available lists in one tab?";
+        
         public override string Version => "1.7.0.0";
 
         public ShowFiltersTabSetting(ILogger<ShowFiltersTabSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

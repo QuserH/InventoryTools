@@ -3,7 +3,6 @@ using System.Numerics;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -21,13 +20,11 @@ public class CraftWindowLayoutSetting : ChoiceSetting<WindowLayout>
     }
 
     public override string Key { get; set; } = "CraftWindowLayout";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Window Layout"));
+    public override string Name { get; set; } = "Craft Window Layout";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Craft Window");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Set the layout of the craft window"));
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.Windows;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.WindowLayout;
-
+    public override string WizardName { get; } = "Craft Window";
+    public override string HelpText { get; set; } = "Set the layout of the craft window";
+    
     public override string? Image { get; } = "craft_display";
 
     public override Vector2? ImageSize { get; } = new Vector2(878, 393);

@@ -41,6 +41,14 @@ namespace InventoryTools.Ui.Pages
             Initialize();
         }
 
+        public override string Key
+        {
+            get
+            {
+                return "list/" + FilterConfiguration.Key;
+            }
+        }
+
         public override string Name
         {
             get

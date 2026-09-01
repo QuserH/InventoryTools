@@ -9,7 +9,6 @@ using InventoryTools.Compendium.Services;
 using InventoryTools.Ui;
 using Lumina.Excel;
 using Lumina.Excel.Sheets;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -27,9 +26,9 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         _racingChocoboItemSheet = racingChocoboItemSheet;
     }
 
-    public override string Singular => LocalizationService.Ui("Racing Chocobo Item");
-    public override string Plural => LocalizationService.Ui("Racing Chocobo Items");
-    public override string Description => LocalizationService.Ui("Items used for Racing Chocobo training and breeding.");
+    public override string Singular => "Racing Chocobo Item";
+    public override string Plural => "Racing Chocobo Items";
+    public override string Description => "Items for Racing Chocobo training and breeding.";
     public override string Key => "racingChocoboItems";
 
     public override (string?, uint?) Icon => (null, 72);
@@ -89,8 +88,8 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         builder.AddItemColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("Item icon"),
+            Name = "##Icon",
+            HelpText = "Item icon",
             Version = "1.0",
             ValueSelector = row => row.Item.RowId,
         });
@@ -98,27 +97,27 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
+            Name = "Name",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The name of the item"),
+            HelpText = "The name of the item",
             ValueSelector = r => r.Item.ValueNullable?.Name.ToImGuiString()
         });
 
         builder.AddStringColumn(new()
         {
             Key = "category",
-            Name = LocalizationService.Ui("Category"),
+            Name = "Category",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The category of the item"),
+            HelpText = "The category of the item",
             ValueSelector = r => GetCategoryName(r.Category)
         });
 
         builder.AddIntegerColumn(new()
         {
             Key = "rank",
-            Name = LocalizationService.Ui("Rank"),
+            Name = "Rank",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The rank of the item"),
+            HelpText = "The rank of the item",
             ValueSelector = r => r.Unknown1.ToString()
         });
     }
@@ -130,19 +129,19 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
     {
         var item = row.Item.ValueNullable;
 
-        viewBuilder.Title = item?.Name.ToImGuiString() ?? LocalizationService.Ui("Unknown");
+        viewBuilder.Title = item?.Name.ToImGuiString() ?? "Unknown";
         viewBuilder.Subtitle = GetCategoryName(row.Category);
         viewBuilder.Icon = item?.Icon ?? 0;
 
         viewBuilder.AddInfoTableSection(new()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "Info",
             Items =
             [
-                (LocalizationService.Ui("Category"), GetCategoryName(row.Category), true),
-                (LocalizationService.Ui("Rank"), row.Unknown1.ToString(), true),
-                (LocalizationService.Ui("Item ID"), row.Item.RowId.ToString(), true),
+                ("Category", GetCategoryName(row.Category), true),
+                ("Rank", row.Unknown1.ToString(), true),
+                ("Item ID", row.Item.RowId.ToString(), true),
             ]
         });
     }
@@ -159,7 +158,7 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
             new CompendiumGrouping<RacingChocoboItem>()
             {
                 Key = "category",
-                Name = LocalizationService.Ui("Category"),
+                Name = "Category",
                 GroupFunc = r => r.Category,
                 GroupMapping = r => GetCategoryName((byte)r)
             }
@@ -172,14 +171,14 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
     {
         return category switch
         {
-            1 => LocalizationService.Ui("Proof of Coverings"),
-            2 => LocalizationService.Ui("Registration Forms"),
-            3 => LocalizationService.Ui("Retired Registration Forms"),
-            4 => LocalizationService.Ui("Covering Permission Forms"),
-            5 => LocalizationService.Ui("Sack of Feeds"),
-            6 => LocalizationService.Ui("Training Manuals"),
-            7 => LocalizationService.Ui("Ability Reset Tonics"),
-            _ => LocalizationService.Ui("Unknown")
+            1 => "Proof of Coverings",
+            2 => "Registration Forms",
+            3 => "Retired Registration Forms",
+            4 => "Covering Permission Forms",
+            5 => "Sack of Feeds",
+            6 => "Training Manuals",
+            7 => "Ability Reset Tonics",
+            _ => "Unknown"
         };
     }
 }

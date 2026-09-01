@@ -8,6 +8,8 @@ namespace InventoryTools.Logic.WizardSettings;
 
 public class CraftNotificationsCompletionOnlySetting : GenericBooleanSetting
 {
+    public override bool AppearsInConfigWindow => false;
+
     private bool _shouldAdd;
 
     public CraftNotificationsCompletionOnlySetting(ILogger<CraftNotificationsCompletionOnlySetting> logger,
@@ -15,8 +17,6 @@ public class CraftNotificationsCompletionOnlySetting : GenericBooleanSetting
         LocalizationService.Ui("Only report when an item is complete?"),
         LocalizationService.Ui("Instead of reporting every acquisition, only print a message when an item reaches its required quantity. The craft list must be active for notifications to occur."),
         false,
-        SettingCategory.None,
-        SettingSubCategory.None,
         "15.0.8",
         logger,
         imGuiService)

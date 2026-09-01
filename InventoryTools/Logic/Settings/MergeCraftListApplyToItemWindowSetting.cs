@@ -27,9 +27,5 @@ public class MergeCraftListApplyToItemWindowSetting : BooleanSetting
     public override string HelpText { get; set; } =
         LocalizationService.Ui(LocalizationService.Ui("Should the merge apply to the item window opened by /atools?"));
 
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
-    public override uint? Order => 3;
-    public override string? ParentKey => "MergeCraftListSameSource";
     public override string Version => "1.7.0.0";
 }

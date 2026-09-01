@@ -14,7 +14,6 @@ using InventoryTools.Compendium.Models;
 using InventoryTools.Compendium.Sections.Options;
 using InventoryTools.Compendium.Services;
 using InventoryTools.Ui;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Compendium.Types;
 
@@ -40,9 +39,9 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         _staticIcon = new Lazy<(string?, uint?)>(BuildStaticIcon, LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
-    public override string Singular => LocalizationService.Ui("Craft Soul Crystal");
-    public override string Plural => LocalizationService.Ui("Craft Soul Crystals");
-    public override string Description => LocalizationService.Ui("Soul crystals that allow specialization in a crafting class.");
+    public override string Singular => "Craft Soul Crystal";
+    public override string Plural => "Craft Soul Crystals";
+    public override string Description => "Crystals allow specialization in a crafting class.";
     public override string Key => "craft_soul_crystals";
     public override (string?, uint?) Icon => _staticIcon.Value;
 
@@ -71,8 +70,8 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("The icon of the soul crystal"),
+            Name = "##Icon",
+            HelpText = "The icon of the soul crystal",
             Version = "15.0.6",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -81,16 +80,16 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the soul crystal"),
+            Name = "Name",
+            HelpText = "The name of the soul crystal",
             Version = "15.0.6",
             ValueSelector = row => row.Item.NameString,
         });
         builder.AddStringColumn(new()
         {
             Key = "class",
-            Name = LocalizationService.Ui("Class"),
-            HelpText = LocalizationService.Ui("The crafting class this soul crystal specializes"),
+            Name = "Class",
+            HelpText = "The crafting class this soul crystal specializes",
             Version = "15.0.6",
             ValueSelector = row => row.ClassJob.Base.Name.ToImGuiString().FirstCharToUpper(),
         });
@@ -103,7 +102,7 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "Info",
             Items =
             [
                 ("Class", row.ClassJob.Base.Name.ToImGuiString(), true),
@@ -113,14 +112,14 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = LocalizationService.Ui("Class"),
+            SectionName = "Class",
             RelatedRef = (RowRef)row.ClassJob.RowRef,
         });
 
         viewBuilder.AddItemListSection(new ItemListSectionOptions()
         {
             SectionKey = "soul_crystal_item",
-            SectionName = LocalizationService.Ui("Soul Crystal"),
+            SectionName = "Soul Crystal",
             Items = [new ItemInfo(row.Item)],
         });
 
@@ -128,7 +127,7 @@ public class CraftSoulCrystalCompendiumType : CompendiumType<ItemCraftSoulCrysta
         viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
         {
             SectionKey = "soul_crystal_sources",
-            SectionName = LocalizationService.Ui("Obtain"),
+            SectionName = "Obtain",
             Sources = itemSources ?? [],
             SourceType = SourceType.Source,
         });

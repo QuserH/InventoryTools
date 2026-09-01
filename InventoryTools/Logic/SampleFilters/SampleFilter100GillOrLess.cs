@@ -6,7 +6,6 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using InventoryTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Features;
 
@@ -36,17 +35,17 @@ public class SampleFilter100GillOrLess : BooleanSetting, ISampleFilter
         _shouldAdd = newValue;
     }
 
+    public override bool AppearsInConfigWindow => false;
+
     public override string Key { get; set; } = "sample1";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("100 gil or less"));
-    public string SampleDefaultName => LocalizationService.Ui("100 gil or less");
+    public override string Name { get; set; } = "100 gil or less";
+    public string SampleDefaultName => "100 gil or less";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will show all items that can be purchased from gil shops under 100 gil. It will look in both character and retainer inventories.");
+        "This will add a list that will show all items that can be purchased from gil shops under 100 gil. It will look in both character and retainer inventories.";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Sample;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows you any items that sell for under 100 gil at shops."));
-    public override SettingCategory SettingCategory { get; set; } = SettingCategory.None;
-    public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.None;
+    public override string HelpText { get; set; } = "Shows you any items that sell for under 100 gil at shops.";
     public override string Version => "1.7.0.0";
     public bool ShouldAdd => _shouldAdd;
     public FilterConfiguration AddFilter()

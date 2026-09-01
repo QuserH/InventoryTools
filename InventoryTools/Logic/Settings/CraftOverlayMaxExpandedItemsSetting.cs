@@ -13,8 +13,6 @@ public class CraftOverlayMaxExpandedItemsSetting : GenericIntegerSetting
         LocalizationService.Ui("Max items when expanded"),
         LocalizationService.Ui("When the craft overlay is expanded, how many items should be shown?"),
         5,
-        SettingCategory.CraftOverlay,
-        SettingSubCategory.General,
         "1.11.0.8",
         logger,
         imGuiService)

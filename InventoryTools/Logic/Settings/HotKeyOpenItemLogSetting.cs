@@ -3,7 +3,6 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
 using OtterGui.Classes;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -26,13 +25,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "OpenItemLogHotKey";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Open Item Log Hotkey"));
+        public override string Name { get; set; } = "Open Item Log Hotkey";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The hotkey to open the relevant log entry(gathering, crafting, fishing) for an item when hovering it."));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
+            "The hotkey to open the relevant log entry(gathering, crafting, fishing) for an item when hovering it.";
+        
         public override string Version => "1.11.0.2";
     }
 }

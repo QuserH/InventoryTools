@@ -5,7 +5,6 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
@@ -20,11 +19,11 @@ public class CraftOverlayHideSetting : GenericEnumChoiceSetting<CraftOverlayHide
     private readonly IClientState _clientState;
     private readonly ICondition _condition;
 
-    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", LocalizationService.Ui("Hide during duties?"), LocalizationService.Ui("Should the craft overlay be hidden during duties/cutscenes/chocobo racing/etc?"), CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
+    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", "Hide during duties?", "Should the craft overlay be hidden during duties/cutscenes/chocobo racing/etc?", CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
     {
-        { CraftOverlayHide.AlwaysShow, LocalizationService.Ui("Always show") },
-        { CraftOverlayHide.HideDuringDuties, LocalizationService.Ui("Hide during duties") },
-    }, SettingCategory.CraftOverlay, SettingSubCategory.General, "1.11.0.9", logger, imGuiService)
+        { CraftOverlayHide.AlwaysShow, "Always show" },
+        { CraftOverlayHide.HideDuringDuties, "Hide during duties" },
+    }, "1.11.0.9", logger, imGuiService)
     {
         _clientState = clientState;
         _condition = condition;

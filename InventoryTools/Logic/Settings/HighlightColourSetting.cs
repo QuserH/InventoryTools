@@ -2,7 +2,6 @@ using System.Numerics;
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -21,10 +20,8 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "HighlightColour";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Colour"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The color to set the highlighted items to."));
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Colours;
+        public override string Name { get; set; } = "Highlight Colour";
+        public override string HelpText { get; set; } = "The color to set the highlighted items to.";
         public override string Version => "1.7.0.0";
 
         public HighlightColourSetting(ILogger<HighlightColourSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)

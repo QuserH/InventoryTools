@@ -2,13 +2,12 @@ using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Logic.Settings.Abstract.Generic;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings;
 
 public class ShopHighlightingDisableItemsSetting : GenericBooleanSetting
 {
-    public ShopHighlightingDisableItemsSetting(ILogger<ShopHighlightingDisableItemsSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingDisableItems", LocalizationService.Ui("Shop Highlighting - Disable Items"), LocalizationService.Ui("When highlighting items in a shop, should the not highlighted items be disabled?"), false, SettingCategory.Highlighting, SettingSubCategory.ShopHighlighting, "15.0.4", logger, imGuiService)
+    public ShopHighlightingDisableItemsSetting(ILogger<ShopHighlightingDisableItemsSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingDisableItems", "Shop Highlighting - Disable Items", "When highlighting items in a shop, should the not highlighted items be disabled?", false, "15.0.4", logger, imGuiService)
     {
     }
 }

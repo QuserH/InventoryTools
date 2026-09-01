@@ -1,7 +1,6 @@
 using InventoryTools.Logic.Settings.Abstract;
 using InventoryTools.Services;
 using Microsoft.Extensions.Logging;
-using InventoryTools.Localization;
 
 namespace InventoryTools.Logic.Settings
 {
@@ -20,13 +19,11 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipCharacterName";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Affix with Character Name)"));
+        public override string Name { get; set; } = "Add Item Locations (Affix with Character Name)";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("When hovering an item and you have an amount owned by a retainer, should the owner of that retainer be affixed to that item?"));
-
-        public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
-        public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;
+            "When hovering an item and you have an amount owned by a retainer, should the owner of that retainer be affixed to that item?";
+        
         public override string Version => "1.7.0.0";
 
         public TooltipAddCharacterNameSetting(ILogger<TooltipAddCharacterNameSetting> logger, ImGuiService imGuiService) : base(logger, imGuiService)
