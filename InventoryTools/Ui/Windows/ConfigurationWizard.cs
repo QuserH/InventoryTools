@@ -226,13 +226,13 @@ public class ConfigurationWizard : GenericWindow
                         var intro = ActiveIntroPages;
                         if (intro.Count != 0)
                         {
-                            DrawSideBarGroup("Introduction");
+        DrawSideBarGroup(LocalizationService.Ui("Introduction"));
                             foreach (var introPage in intro) DrawSideBarItem(introPage.Name, ++step);
                         }
 
                         if (_availableFeatures.Count != 0)
                         {
-                            DrawSideBarGroup("Set up");
+        DrawSideBarGroup(LocalizationService.Ui("Set up"));
                             foreach (var feature in _availableFeatures) DrawSideBarItem(feature.Name, ++step);
                         }
                     }
@@ -282,8 +282,8 @@ public class ConfigurationWizard : GenericWindow
 
             if (!_showIntro && _introPages.Count != 0)
             {
-                ImGui.TextWrapped("You can also go back through the introduction covering what the plugin does.");
-                if (ImGui.Button("Show me around again"))
+            ImGui.TextWrapped(LocalizationService.Ui("You can also go back through the introduction covering what the plugin does."));
+            if (ImGui.Button(LocalizationService.Ui("Show me around again")))
                 {
                     _showIntro = true;
                     NextStep();
@@ -296,9 +296,9 @@ public class ConfigurationWizard : GenericWindow
         ImGui.TextWrapped(LocalizationService.Ui("Welcome to the Allagan Tools configuration wizard."));
         ImGui.Separator();
         ImGui.TextWrapped(
-            "This will guide you through what the plugin does and then help you set up the most commonly used features. It takes a couple of minutes, and everything here can be changed later in the settings window.");
+            LocalizationService.Ui("This will guide you through what the plugin does and then help you set up the most commonly used features. It takes a couple of minutes, and everything here can be changed later in the settings window."));
         ImGui.NewLine();
-        ImGui.TextWrapped("If you are a returning user, feel free to close this window.");
+            ImGui.TextWrapped(LocalizationService.Ui("If you are a returning user, feel free to close this window."));
         ImGui.NewLine();
         if (ImGui.Button(LocalizationService.Ui("Open Help"))) MediatorService.Publish(new ToggleGenericWindowMessage(typeof(HelpWindow)));
     }
@@ -329,7 +329,7 @@ public class ConfigurationWizard : GenericWindow
         if (isWelcome || isLast)
         {
             var showOnNewFeatures = _configuration.ShowWizardNewFeatures;
-            if (ImGui.Checkbox("Show this wizard when new features are released", ref showOnNewFeatures))
+            if (ImGui.Checkbox(LocalizationService.Ui("Show this wizard when new features are released"), ref showOnNewFeatures))
             {
                 _configuration.ShowWizardNewFeatures = showOnNewFeatures;
             }
@@ -340,7 +340,7 @@ public class ConfigurationWizard : GenericWindow
         var buttons = new List<(string Label, Action OnClick, bool Enabled)>();
         if (isWelcome)
         {
-            buttons.Add(("Close", Close, true));
+            buttons.Add((LocalizationService.Ui("Close"), Close, true));
             if (StepCount == 0)
             {
                 buttons.Add((LocalizationService.Ui("Finish"), Finish, true));

@@ -16,23 +16,23 @@ public class HotkeysFeature : Feature
     public override PageLayout Build()
     {
         return Page("feature/hotkeys", LocalizationService.Ui("Hotkeys"),
-            Paragraph("These hotkeys are optional. If you leave a field empty, that action has no hotkey."),
-            Section("Show or hide a window",
-                Setting<HotKeyListsWindowSetting>("Lists"),
-                Setting<HotkeyCraftWindowSetting>("Crafts"),
-                Setting<HotkeyConfigWindowSetting>("Configuration"),
-                Setting<HotkeyMobWindowSetting>("Mobs"),
-                Setting<HotkeyDutiesWindowSetting>("Duties"),
-                Setting<HotkeyAirshipWindowSetting>("Airships"),
-                Setting<HotkeySubmarinesWindowSetting>("Submarines"),
-                Setting<HotkeyRetainerTasksWindowSetting>("Retainer ventures")),
-            Section("While the cursor is over an item",
-                Paragraph("These hotkeys apply to the item under the cursor. If there is no item under the cursor, they do nothing."),
-                Setting<HotkeyMoreInfoSetting>("More information"),
-                Setting<HotkeyOpenItemLogSetting>("The log that applies to the item"),
-                Setting<HotkeyOpenCraftingLogSetting>("Crafting log"),
-                Setting<HotkeyOpenGatheringLogSetting>("Gathering log"),
-                Setting<HotkeyOpenFishingLogSetting>("Fishing log"))
+            Paragraph(LocalizationService.Ui("These hotkeys are optional. If you leave a field empty, that action has no hotkey.")),
+            Section(LocalizationService.Ui("Show or hide a window"),
+                Setting<HotKeyListsWindowSetting>(LocalizationService.Ui("Lists")),
+                Setting<HotkeyCraftWindowSetting>(LocalizationService.Ui("Crafts")),
+                Setting<HotkeyConfigWindowSetting>(LocalizationService.Ui("Configuration")),
+                Setting<HotkeyMobWindowSetting>(LocalizationService.Ui("Mobs")),
+                Setting<HotkeyDutiesWindowSetting>(LocalizationService.Ui("Duties")),
+                Setting<HotkeyAirshipWindowSetting>(LocalizationService.Ui("Airships")),
+                Setting<HotkeySubmarinesWindowSetting>(LocalizationService.Ui("Submarines")),
+                Setting<HotkeyRetainerTasksWindowSetting>(LocalizationService.Ui("Retainer ventures"))),
+            Section(LocalizationService.Ui("While the cursor is over an item"),
+                Paragraph(LocalizationService.Ui("These hotkeys apply to the item under the cursor. If there is no item under the cursor, they do nothing.")),
+                Setting<HotkeyMoreInfoSetting>(LocalizationService.Ui("More information")),
+                Setting<HotkeyOpenItemLogSetting>(LocalizationService.Ui("The log that applies to the item")),
+                Setting<HotkeyOpenCraftingLogSetting>(LocalizationService.Ui("Crafting log")),
+                Setting<HotkeyOpenGatheringLogSetting>(LocalizationService.Ui("Gathering log")),
+                Setting<HotkeyOpenFishingLogSetting>(LocalizationService.Ui("Fishing log")))
         );
     }
 }

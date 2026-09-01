@@ -44,11 +44,11 @@ public class CraftNotificationsFeature : Feature
     public override PageLayout Build()
     {
         return Page("feature/craft-notifications", LocalizationService.Ui("Craft Notifications"),
-            Paragraph("The plugin can tell you about your progress as you collect the items for a craft list. These notifications occur only while a craft list is active."),
-            Setting<CraftNotificationsReportToChatSetting>("Report progress to the chat window"),
-            Setting<CraftNotificationsPlaySoundSetting>("Play a sound when an item is complete"),
-            Setting<CraftNotificationsCompletionOnlySetting>("Report only completed items, not each item that you collect"),
-            Paragraph("When you complete the wizard, the plugin applies these settings to your craft lists and to the default craft list. Each list then keeps its own copy, which you can change in the settings for that list.")
+            Paragraph(LocalizationService.Ui("The plugin can tell you about your progress as you collect the items for a craft list. These notifications occur only while a craft list is active.")),
+            Setting<CraftNotificationsReportToChatSetting>(LocalizationService.Ui("Report progress to the chat window")),
+            Setting<CraftNotificationsPlaySoundSetting>(LocalizationService.Ui("Play a sound when an item is complete")),
+            Setting<CraftNotificationsCompletionOnlySetting>(LocalizationService.Ui("Report only completed items, not each item that you collect")),
+            Paragraph(LocalizationService.Ui("When you complete the wizard, the plugin applies these settings to your craft lists and to the default craft list. Each list then keeps its own copy, which you can change in the settings for that list."))
         );
     }
 

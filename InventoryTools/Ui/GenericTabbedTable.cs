@@ -6,6 +6,7 @@ using DalaMock.Host.Mediator;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using InventoryTools.Services;
+using InventoryTools.Localization;
 using Microsoft.Extensions.Logging;
 using InventoryTools.Localization;
 
@@ -43,7 +44,7 @@ public abstract class GenericTabbedTable<T> : GenericWindow, IGenericTabbedTable
         {
             if (tabBar.Success)
             {
-                using (var tabItem = ImRaii.TabItem("All"))
+                using (var tabItem = ImRaii.TabItem(LocalizationService.Ui("All")))
                 {
                     if (tabItem.Success)
                     {

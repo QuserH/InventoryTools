@@ -1,5 +1,6 @@
 using InventoryTools.Logic.Settings;
 using InventoryTools.Ui.Config.Layouts;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Config.ConfigLayouts;
 
@@ -7,23 +8,23 @@ public class WindowsAndListsLayout : ConfigLayout
 {
     public override PageLayout Build()
     {
-        return Page("windows-lists", "Windows & Lists",
+        return Page("windows-lists", LocalizationService.Ui("Windows & Lists"),
             Section("Layout",
-                Paragraph("Control how various windows are laid out."),
-                Setting<CraftWindowLayoutSetting>("Craft window"),
-                Setting<FiltersWindowLayoutSetting>("Items window"),
+                Paragraph(LocalizationService.Ui("Control how various windows are laid out.")),
+                Setting<CraftWindowLayoutSetting>(LocalizationService.Ui("Craft window")),
+                Setting<FiltersWindowLayoutSetting>(LocalizationService.Ui("Items window")),
                 Setting<ShowFiltersTabSetting>(),
-                Setting<CompendiumRowHeightSetting>("Compendium row height")),
+                Setting<CompendiumRowHeightSetting>(LocalizationService.Ui("Compendium row height"))),
             Section("Auto-Switch",
-                Paragraph("When switching between lists in the UI, if highlighting is on should we automatically switch highlighting to that list?"),
+                Paragraph(LocalizationService.Ui("When switching between lists in the UI, if highlighting is on should we automatically switch highlighting to that list?")),
                 Setting<SwitchFiltersAutomaticallySetting>(),
                 Setting<SwitchCraftListsAutomaticallySetting>()),
-            Section("Ignore escape",
-                Paragraph("Windows that should stay open when you press escape."),
-                Setting<CraftWindowIgnoreEscapeSetting>("Craft window"),
-                Setting<FiltersWindowIgnoreEscapeSetting>("Items window"),
-                Setting<ItemWindowIgnoreEscapeSetting>("Item window"),
-                Setting<FilterWindowIgnoreEscapeSetting>("List window"))
+            Section(LocalizationService.Ui("Ignore escape"),
+                Paragraph(LocalizationService.Ui("Windows that should stay open when you press escape.")),
+                Setting<CraftWindowIgnoreEscapeSetting>(LocalizationService.Ui("Craft window")),
+                Setting<FiltersWindowIgnoreEscapeSetting>(LocalizationService.Ui("Items window")),
+                Setting<ItemWindowIgnoreEscapeSetting>(LocalizationService.Ui("Item window")),
+                Setting<FilterWindowIgnoreEscapeSetting>(LocalizationService.Ui("List window")))
         );
     }
 }

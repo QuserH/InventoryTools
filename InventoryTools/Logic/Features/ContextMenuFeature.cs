@@ -16,22 +16,22 @@ public class ContextMenuFeature : Feature
     public override PageLayout Build()
     {
         return Page("feature/context-menu", LocalizationService.Ui("Context Menus"),
-            Paragraph("The plugin can add these entries to item's right-click menus."),
-            Section("More information",
-                Setting<ContextMenuMoreInformationSetting>("Items"),
-                Setting<ContextMenuMoreInformationNpcsSetting>("NPCs"),
-                Setting<ContextMenuMoreInformationMonstersSetting>("Monsters")),
-            Section("Open a game log",
-                Setting<ContextMenuOpenCraftingLogSetting>("Crafting log"),
-                Setting<ContextMenuOpenGatheringLogSetting>("Gathering log"),
-                Setting<ContextMenuOpenFishingLogSetting>("Fishing log")),
-            Section("Lists",
-                Setting<ContextMenuAddToCraftListSetting>("Add to a craft list"),
-                Setting<ContextMenuAddToActiveCraftListSetting>("Add to the active craft list"),
-                Setting<ContextMenuAddToCuratedListSetting>("Add to a curated list"),
-                Setting<ContextMenuAddToFavouritesSetting>("Add to or remove from favourites")),
-            Section("Other",
-                Setting<ContextMenuCopyNameSetting>("Copy the item name"))
+            Paragraph(LocalizationService.Ui("The plugin can add these entries to item's right-click menus.")),
+            Section(LocalizationService.Ui("More information"),
+                Setting<ContextMenuMoreInformationSetting>(LocalizationService.Ui("Items")),
+                Setting<ContextMenuMoreInformationNpcsSetting>(LocalizationService.Ui("NPCs")),
+                Setting<ContextMenuMoreInformationMonstersSetting>(LocalizationService.Ui("Monsters"))),
+            Section(LocalizationService.Ui("Open a game log"),
+                Setting<ContextMenuOpenCraftingLogSetting>(LocalizationService.Ui("Crafting log")),
+                Setting<ContextMenuOpenGatheringLogSetting>(LocalizationService.Ui("Gathering log")),
+                Setting<ContextMenuOpenFishingLogSetting>(LocalizationService.Ui("Fishing log"))),
+            Section(LocalizationService.Ui("Lists"),
+                Setting<ContextMenuAddToCraftListSetting>(LocalizationService.Ui("Add to a craft list")),
+                Setting<ContextMenuAddToActiveCraftListSetting>(LocalizationService.Ui("Add to the active craft list")),
+                Setting<ContextMenuAddToCuratedListSetting>(LocalizationService.Ui("Add to a curated list")),
+                Setting<ContextMenuAddToFavouritesSetting>(LocalizationService.Ui("Add to or remove from favourites"))),
+            Section(LocalizationService.Ui("Other"),
+                Setting<ContextMenuCopyNameSetting>(LocalizationService.Ui("Copy the item name")))
         );
     }
 }

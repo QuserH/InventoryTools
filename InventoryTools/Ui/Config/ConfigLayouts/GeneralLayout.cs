@@ -1,5 +1,6 @@
 using InventoryTools.Logic.Settings;
 using InventoryTools.Ui.Config.Layouts;
+using InventoryTools.Localization;
 
 namespace InventoryTools.Ui.Config.ConfigLayouts;
 
@@ -9,17 +10,17 @@ public class GeneralLayout : ConfigLayout
     {
         return Page("general", "General",
             Section("Saving",
-                Paragraph("Allagan Tools keeps its own record of your inventories. These control how often that record is written to disk."),
-                Setting<AutoSaveSetting>("Save automatically"),
+                Paragraph(LocalizationService.Ui("Allagan Tools keeps its own record of your inventories. These control how often that record is written to disk.")),
+                Setting<AutoSaveSetting>(LocalizationService.Ui("Save automatically")),
                 EnabledBy<AutoSaveSetting>(
-                    Setting<AutoSaveTimeSetting>("How often")),
+                    Setting<AutoSaveTimeSetting>(LocalizationService.Ui("How often"))),
                 Setting<PersistDataSetting>()),
             Section("Integrations",
-                Paragraph("Ways to reach Allagan Tools from outside its own windows."),
-                Setting<AddTitleMenuButtonSetting>("Add a button to the title menu"),
-                Setting<CompendiumWotsitSetting>("List compendium windows in Wotsit")),
+                Paragraph(LocalizationService.Ui("Ways to reach Allagan Tools from outside its own windows.")),
+                Setting<AddTitleMenuButtonSetting>(LocalizationService.Ui("Add a button to the title menu")),
+                Setting<CompendiumWotsitSetting>(LocalizationService.Ui("List compendium windows in Wotsit"))),
             Section("Integrations",
-                Paragraph("Ways to reach Allagan Tools from outside its own windows."),
+                Paragraph(LocalizationService.Ui("Ways to reach Allagan Tools from outside its own windows.")),
                 Setting<ActiveCraftListSetting>())
         );
     }
