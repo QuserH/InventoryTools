@@ -31,10 +31,24 @@ jobs:
           path: OtterGui
           submodules: recursive
 
-      - name: Setup Dalamud
-        uses: Blooym/setup-dalamud@v1
-        with:
-          branch: release
+      - name: Setup Dalamud (CN)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          # 国服 Dalamud 分发（ottercorp）。不要用国际服 goatcorp 的包，
+          # 国服版本可能滞后，用国际服 SDK 编出来的插件可能与国服客户端不兼容。
+          $archive = Join-Path $env:RUNNER_TEMP 'dalamud-cn.7z'
+          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/ottercorp/dalamud-distrib/main/latest.7z' -OutFile $archive
+          $out = Join-Path $env:GITHUB_WORKSPACE 'dalamud'
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          $sevenZip = (Get-Command 7z -ErrorAction SilentlyContinue).Source
+          if (-not $sevenZip) { $sevenZip = 'C:\Program Files\7-Zip\7z.exe' }
+          & $sevenZip x $archive "-o$out" -y | Out-Null
+          $dalamudAssembly = Get-ChildItem -Path $out -Recurse -Filter 'Dalamud.dll' | Select-Object -First 1
+          if ($null -eq $dalamudAssembly) { throw 'Dalamud.dll was not found in the CN distrib archive.' }
+          $dalamudRoot = $dalamudAssembly.Directory.FullName
+          "DALAMUD_HOME=$dalamudRoot" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Output "Using CN Dalamud SDK at $dalamudRoot"
 
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
@@ -46,8 +60,8 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           dotnet restore OtterGui/OtterGui.sln --nologo -v q
-          dotnet build OtterGui/OtterGui.sln -c Release --nologo -v q --no-restore
-          dotnet build InventoryTools/InventoryTools.csproj -c Release --nologo -v q
+          dotnet build OtterGui/OtterGui.sln -c Release --nologo -v q --no-restore -p:DalamudLibPath="$env:DALAMUD_HOME\"
+          dotnet build InventoryTools/InventoryTools.csproj -c Release --nologo -v q -p:DalamudLibPath="$env:DALAMUD_HOME\"
 
           $output = 'InventoryTools/bin/Release'
           $manifest = Get-Content (Join-Path $output 'InventoryTools.json') -Raw | ConvertFrom-Json
