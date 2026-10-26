@@ -161,8 +161,8 @@ namespace InventoryTools.IPC
                     try
                     {
                         var guid = _wotsitRegister.InvokeFunc(IpcDisplayName,
-                            LocalizationService.Format("Toggle Filter - {0}", filter.Name),
-                            LocalizationService.Format("Toggle {0} as a background filter.", filter.Name), WotsitIconId);
+                            string.Format("切换筛选器 - {0}", filter.Name),
+                            string.Format("将 {0} 作为后台筛选器启用或停用。", filter.Name), WotsitIconId);
                         _wotsitToggleFilterGuids.Add(guid, filter.Key);
                         _wotsitFilterNames.Add(filter.Key, filter.Name);
                     }

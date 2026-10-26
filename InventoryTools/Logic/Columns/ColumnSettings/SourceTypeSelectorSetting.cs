@@ -48,8 +48,8 @@ public class SourceTypeSelectorSetting : MultiChoiceColumnSetting<(ItemInfoType,
 
 
     public override string Key { get; set; } = "SourceTypes";
-    public override string Name { get; set; } = LocalizationService.Ui("Types");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which source types should this display?"));
+    public override string Name { get; set; } = "类型";
+    public override string HelpText { get; set; } = "显示哪些来源类型？";
     public override List<(ItemInfoType,string)>? DefaultValue { get; set; } = null;
     public override List<(ItemInfoType,string)> GetChoices(ColumnConfiguration configuration)
     {

@@ -20,10 +20,10 @@ public class ItemFilter : UintMultipleChoiceFilter
     }
 
     public override string Key { get; set; } = "ItemFilter";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Name (Selector)"));
+    public override string Name { get; set; } = "名称（选择器）";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Select a list of items and the filter will only display these items. You are better served using a Curated List but this filter will still work."));
+        "选择一组物品后，筛选器将仅显示这些物品。建议使用精选列表，但此筛选器仍可用。";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
     public override List<uint> DefaultValue { get; set; } = new();

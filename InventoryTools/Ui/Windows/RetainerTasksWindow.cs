@@ -30,7 +30,7 @@ public class RetainerTasksWindow : GenericTabbedTable<RetainerTaskRow>, IMenuWin
     }
     public override void Initialize()
     {
-        WindowName = LocalizationService.Ui(LocalizationService.Ui("Retainer Ventures"));
+        WindowName = "雇员探险";
         Key = "retainerTasks";
         _columns = new List<TableColumn<RetainerTaskRow>>()
         {
@@ -70,7 +70,7 @@ public class RetainerTasksWindow : GenericTabbedTable<RetainerTaskRow>, IMenuWin
                     ImGui.TextUnformatted(ex.FormattedName.ToString());
                 }
             },
-            new(LocalizationService.Ui("Task Type"), 200, ImGuiTableColumnFlags.WidthFixed)
+            new("任务类型", 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -167,7 +167,7 @@ public class RetainerTasksWindow : GenericTabbedTable<RetainerTaskRow>, IMenuWin
                     ImGui.TextUnformatted(ex.ExperienceString.ToString());
                 }
             },
-            new(LocalizationService.Ui("Venture Cost"), 200, ImGuiTableColumnFlags.WidthFixed)
+            new("委托消耗", 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -191,7 +191,7 @@ public class RetainerTasksWindow : GenericTabbedTable<RetainerTaskRow>, IMenuWin
                     ImGui.TextUnformatted(ex.Base.VentureCost.ToString());
                 }
             },
-            new(LocalizationService.Ui("Average iLvl"), 200, ImGuiTableColumnFlags.WidthFixed)
+            new("平均品级", 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -286,7 +286,7 @@ public class RetainerTasksWindow : GenericTabbedTable<RetainerTaskRow>, IMenuWin
     }
 
     public override string GenericKey { get; } = "retainerTasks";
-    public override string GenericName { get; } = LocalizationService.Ui("Retainer Tasks");
+    public override string GenericName { get; } = "雇员任务";
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

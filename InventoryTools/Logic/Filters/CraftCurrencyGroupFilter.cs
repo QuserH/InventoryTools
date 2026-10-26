@@ -41,10 +41,10 @@ public class CraftCurrencyGroupFilter : ChoiceFilter<CurrencyGroupSetting>
     }
 
     public override string Key { get; set; } = "CraftCurrencyGroupFilter";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Group Currency By"));
+    public override string Name { get; set; } = "货币分组方式";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the currency be grouped together or show up in the Gather/Buy list?"));
+        "货币应分组显示还是显示在采集/购买列表中？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CurrencyGroupSetting DefaultValue { get; set; } = CurrencyGroupSetting.Separate;

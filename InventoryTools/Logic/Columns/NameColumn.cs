@@ -27,9 +27,9 @@ namespace InventoryTools.Logic.Columns
                 name,
                 searchResult.InventoryItem?.ItemColour ?? ImGuiColors.DalamudWhite);
         }
-        public override string Name { get; set; } = LocalizationService.Ui("Name");
+        public override string Name { get; set; } = "名称";
         public override float Width { get; set; } = 250.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The name of the item."));
+        public override string HelpText { get; set; } = "物品的名称。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

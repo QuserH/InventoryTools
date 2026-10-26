@@ -39,7 +39,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
             else
             {
                 var world = _worldSheet.GetRowOrDefault(c);
-                worldName = world != null ? world.Value.Name.ExtractText() : LocalizationService.Ui(" (Unknown World)");
+                worldName = world != null ? world.Value.Name.ExtractText() : "（未知服务器）";
             }
             return (worldName, null);
         }
@@ -60,10 +60,10 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
     }
 
     public override string Key { get; set; } = "CraftWorldPricePreference";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("World Price Preference"));
+    public override string Name { get; set; } = "服务器价格偏好";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Which worlds should prices be sourced from?"));
+        "价格应来源于哪些服务器？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override Dictionary<uint, (string, string?)> DefaultValue { get; set; } = new();
@@ -113,15 +113,15 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
 
         var currentValue = CurrentValue(configuration);
         ImGui.SetNextItemWidth(LabelSize);
-        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", LocalizationService.Ui("Add new world: "));
+        ImGui.LabelText("##" + Key + "标签", "添加新服务器：");
         ImGui.SameLine();
         var currentAddItem = "";
-        using (var combo = ImRaii.Combo(LocalizationService.Ui("##AddWorld") + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo("##AddWorld" + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
+                ImGui.InputText("##ItemSearch", ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
@@ -130,7 +130,7 @@ public class CraftWorldPricePreference : SortedListFilter<uint, uint>
                 ImGui.Separator();
                 if (_searchString == "")
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
+                    ImGui.TextUnformatted("输入文字进行搜索……");
                 }
                 foreach (var item in SearchWorlds.Where(c => !currentValue.ContainsKey(c.RowId)))
                 {

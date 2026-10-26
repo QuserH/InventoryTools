@@ -26,8 +26,8 @@ public class ItemWoodlandExplorationVentureSourceRenderer : ItemVentureSourceRen
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Woodland Exploration Venture (Botany)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from botany exploration ventures?"));
+    public override string SingularName => "林地探索委托（园艺）";
+    public override string HelpText => "该物品是否可由雇员通过园艺工探索委托带回？";
 }
 public class ItemWatersideExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemWatersideExplorationVentureSource>
 {
@@ -37,8 +37,8 @@ public class ItemWatersideExplorationVentureSourceRenderer : ItemVentureSourceRe
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Waterside Exploration Venture (Fishing)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from fishing exploration ventures?"));
+    public override string SingularName => "水边探索委托（钓鱼）";
+    public override string HelpText => "该物品是否可由雇员通过捕鱼人探索委托带回？";
 }
 public class ItemHighlandExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemHighlandExplorationVentureSource>
 {
@@ -48,8 +48,8 @@ public class ItemHighlandExplorationVentureSourceRenderer : ItemVentureSourceRen
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Highland Exploration Venture (Mining)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from mining exploration ventures?"));
+    public override string SingularName => "高地探索委托（采矿）";
+    public override string HelpText => "该物品是否可由雇员通过采矿工探索委托带回？";
 }
 
 public class ItemFieldExplorationVentureSourceRenderer : ItemVentureSourceRenderer<ItemFieldExplorationVentureSource>
@@ -60,8 +60,8 @@ public class ItemFieldExplorationVentureSourceRenderer : ItemVentureSourceRender
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Field Exploration Venture (Combat)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from combat exploration ventures?"));
+    public override string SingularName => "野外探索委托（战斗）";
+    public override string HelpText => "该物品是否可由雇员通过战斗探索委托带回？";
 }
 
 public class ItemBotanistVentureSourceRenderer : ItemVentureSourceRenderer<ItemBotanistVentureSource>
@@ -71,8 +71,8 @@ public class ItemBotanistVentureSourceRenderer : ItemVentureSourceRenderer<ItemB
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Venture (Botany)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from botany ventures?"));
+    public override string SingularName => "委托（园艺）";
+    public override string HelpText => "该物品是否可由雇员通过园艺工委托带回？";
 }
 public class ItemFishingVentureSourceRenderer : ItemVentureSourceRenderer<ItemFishingVentureSource>
 {
@@ -81,8 +81,8 @@ public class ItemFishingVentureSourceRenderer : ItemVentureSourceRenderer<ItemFi
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Venture (Fishing)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from fishing ventures?"));
+    public override string SingularName => "委托（钓鱼）";
+    public override string HelpText => "该物品是否可由雇员通过捕鱼人委托带回？";
 }
 public class ItemMiningVentureSourceRenderer : ItemVentureSourceRenderer<ItemMiningVentureSource>
 {
@@ -91,8 +91,8 @@ public class ItemMiningVentureSourceRenderer : ItemVentureSourceRenderer<ItemMin
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Venture (Mining)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from mining ventures?"));
+    public override string SingularName => "委托（采矿）";
+    public override string HelpText => "该物品是否可由雇员通过采矿工委托带回？";
 }
 
 public class ItemHuntingVentureSourceRenderer : ItemVentureSourceRenderer<ItemHuntingVentureSource>
@@ -102,8 +102,8 @@ public class ItemHuntingVentureSourceRenderer : ItemVentureSourceRenderer<ItemHu
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Venture (Combat)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be returned by retainers from combat ventures?"));
+    public override string SingularName => "委托（战斗）";
+    public override string HelpText => "该物品是否可由雇员通过战斗委托带回？";
 }
 
 public abstract class ItemVentureSourceRenderer<T> : ItemInfoRenderer<T> where T : ItemVentureSource
@@ -123,26 +123,26 @@ public abstract class ItemVentureSourceRenderer<T> : ItemInfoRenderer<T> where T
     {
         var asSource = AsSource(source);
 
-        ImGui.Text(LocalizationService.Format("{0}", asSource.RetainerTaskRow.FormattedName));
+        ImGui.Text(string.Format("{0}", asSource.RetainerTaskRow.FormattedName));
         using (ImRaii.PushIndent())
         {
-            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Venture Cost: {0}"), asSource.RetainerTaskRow.Base.VentureCost));
-            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Required Level: {0}"), asSource.RetainerTaskRow.Base.RetainerLevel));
+            ImGui.Text(string.Format("委托消耗：{0}", asSource.RetainerTaskRow.Base.VentureCost));
+            ImGui.Text(string.Format("所需等级：{0}", asSource.RetainerTaskRow.Base.RetainerLevel));
             if (asSource.RetainerTaskRow.Base.RequiredGathering != 0)
             {
                 ImGui.Text(
-                    LocalizationService.Ui("Required Gathering: ") + asSource.RetainerTaskRow.Base.RequiredGathering);
+                    "所需采集力：" + asSource.RetainerTaskRow.Base.RequiredGathering);
             }
 
             if (asSource.RetainerTaskRow.Base.RequiredItemLevel != 0)
             {
                 ImGui.Text(
-                    LocalizationService.Ui("Required Item Level: ") + asSource.RetainerTaskRow.Base.RequiredItemLevel);
+                    "所需品级：" + asSource.RetainerTaskRow.Base.RequiredItemLevel);
             }
 
-            ImGui.Text(LocalizationService.Ui("Experience: ") + asSource.RetainerTaskRow.Base.Experience);
+            ImGui.Text("经验：" + asSource.RetainerTaskRow.Base.Experience);
             ImGui.Text(
-                LocalizationService.Ui("Time: ") + asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString());
+                "耗时：" + asSource.RetainerTaskRow.Base.MaxTimemin.Minutes().ToHumanReadableString());
         }
     };
 

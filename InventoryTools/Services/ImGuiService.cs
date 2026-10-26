@@ -187,7 +187,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
         }
         else
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Invalid Icon ID")));
+            ImGui.Text("无效图标 ID");
         }
     }
 
@@ -239,7 +239,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void HelpMarker(string helpText, string? imagePath = null, System.Numerics.Vector2? imageSize = null)
     {
-        ImGui.TextDisabled(LocalizationService.Ui("(?)"));
+        ImGui.TextDisabled("(?)");
         if (ImGui.IsItemHovered())
         {
             using (ImRaii.Tooltip())
@@ -261,7 +261,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void HelpMarker(List<string> helpText, string? imagePath = null, System.Numerics.Vector2? imageSize = null)
     {
-        ImGui.TextDisabled(LocalizationService.Ui("(?)"));
+        ImGui.TextDisabled("(?)");
         if (ImGui.IsItemHovered())
         {
             using (ImRaii.Tooltip())
@@ -645,7 +645,7 @@ public class ImGuiService : AllaganLib.Interface.Services.ImGuiService
 
                 ImGui.SetCursorPosX(cursorX);
 
-                if (ImGui.SmallButton(LocalizationService.Ui("...")))
+                if (ImGui.SmallButton("..."))
                 {
                     ImGui.OpenPopup(popupId);
                 }

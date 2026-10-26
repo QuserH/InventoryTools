@@ -25,10 +25,10 @@ using InventoryTools.Localization;
          }
 
          public override string Key { get; set; } = "PurchaseWithCurrency";
-         public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Purchased with Currency"));
+         public override string Name { get; set; } = "以货币购买";
 
          public override string HelpText { get; set; } =
-             LocalizationService.Ui(LocalizationService.Ui("Filter items based on the currency they can be purchased with."));
+             "按可购买物品所使用的货币筛选。";
 
          public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 

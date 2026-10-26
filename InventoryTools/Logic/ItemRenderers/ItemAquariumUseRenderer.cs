@@ -22,23 +22,23 @@ public class ItemAquariumUseRenderer : ItemInfoRenderer<ItemAquariumSource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.Aquarium;
-    public override string SingularName => LocalizationService.Ui("Aquarium");
-    public override string PluralName => LocalizationService.Ui("Aquariums");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in aquariums?"));
+    public override string SingularName => "水族箱";
+    public override string PluralName => "水族箱";
+    public override string HelpText => "该物品是否可放入水族箱？";
     public override bool ShouldGroup => false;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var aquariumSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Size: ")) + aquariumSource.AquariumFish.Size);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Water Type: ")) + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText());
+        ImGui.Text("大小：" + aquariumSource.AquariumFish.Size);
+        ImGui.Text("水域类型：" + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText());
     };
 
     public override Func<ItemSource, string> GetName => source =>
     {
         var aquariumSource = AsSource(source);
 
-        return LocalizationService.Ui("Aquarium: ") + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText() + " (" +
+        return "水族箱：" + aquariumSource.AquariumFish.Base.AquariumWater.Value.Name.ExtractText() + " (" +
                aquariumSource.AquariumFish.Size + " )";
     };
 
@@ -54,7 +54,7 @@ public class ItemAquariumUseRenderer : ItemInfoRenderer<ItemAquariumSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return LocalizationService.Format("Can be placed in {0} aquariums with {1}",
+        return string.Format("可放入 {0} 水族箱（水质：{1}）",
             asSource.AquariumFish.Size, asSource.AquariumFish.Base.AquariumWater.Value.Name);
     };
 }

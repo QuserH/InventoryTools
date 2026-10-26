@@ -16,8 +16,8 @@ public class PhysicalDamageFilter : StringFilter
     }
 
     public override string Key { get; set; } = "PhysicalDamageFilter";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Physical Damage"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The physical damage of the item"));
+    public override string Name { get; set; } = "物理伤害";
+    public override string HelpText { get; set; } = "物品的物理伤害";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

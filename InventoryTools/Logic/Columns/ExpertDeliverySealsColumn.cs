@@ -28,9 +28,9 @@ public class ExpertDeliverySealsColumn : IntegerColumn
         return null;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Expert Delivery Reward Seal Count"));
+    public override string Name { get; set; } = "稀有品筹备军票奖励";
     public override float Width { get; set; } = 90;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("The number of seals that are rewarded when handing this item in as an expert delivery."));
+        "将此物品作为稀有品筹备交付时奖励的军票数量。";
 }

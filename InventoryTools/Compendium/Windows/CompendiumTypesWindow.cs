@@ -25,7 +25,7 @@ public class CompendiumTypesWindow : GenericWindow
     private readonly IFramework _framework;
     private string _search = string.Empty;
 
-    public CompendiumTypesWindow(IEnumerable<ICompendiumType> compendiumTypes, ITextureProvider textureProvider, IFramework framework, ILogger<CompendiumTypesWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui("Compendium"))
+    public CompendiumTypesWindow(IEnumerable<ICompendiumType> compendiumTypes, ITextureProvider textureProvider, IFramework framework, ILogger<CompendiumTypesWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration) : base(logger, mediator, imGuiService, configuration, "图鉴")
     {
         _compendiumTypes = compendiumTypes.Where(c => c.ShowInListing).OrderBy(c => c.Plural);
         _textureProvider = textureProvider;
@@ -42,7 +42,7 @@ public class CompendiumTypesWindow : GenericWindow
         var style = ImGui.GetStyle();
 
         ImGui.SetNextItemWidth(-1);
-        ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##compendium_search")), LocalizationService.Ui("Search compendium..."), ref _search, 100);
+        ImGui.InputTextWithHint("##compendium_search", "搜索图鉴……", ref _search, 100);
 
         ImGui.Spacing();
         ImGui.Separator();
@@ -133,7 +133,7 @@ public class CompendiumTypesWindow : GenericWindow
 
     public override FilterConfiguration? SelectedConfiguration => null;
     public override string GenericKey => "compendium_types";
-    public override string GenericName => LocalizationService.Ui("Compendium");
+    public override string GenericName => "图鉴";
     public override bool DestroyOnClose => true;
     public override bool SaveState => true;
     public override Vector2? DefaultSize => new Vector2(600, 600);

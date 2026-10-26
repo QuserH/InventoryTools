@@ -29,5 +29,5 @@ public class QueueDebuggerPane : IDebugPane
         }
     }
 
-    public string Name => LocalizationService.Ui("Queue Debugger");
+    public string Name => "队列调试器";
 }

@@ -18,8 +18,8 @@ public class DesynthesisClassFilter : StringFilter
     }
 
     public override string Key { get; set; } = "DesynthesisClass";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Desynth Class"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("What class is related to de-synthesising this item?"));
+    public override string Name { get; set; } = "分解职业";
+    public override string HelpText { get; set; } = "该物品关联哪个分解职业？";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

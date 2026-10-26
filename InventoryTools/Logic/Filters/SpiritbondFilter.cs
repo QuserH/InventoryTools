@@ -13,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class SpiritBondFilter : StringFilter
     {
         public override string Key { get; set; } = "SB";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Spirit Bond"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The spirit bond of the item."));
+        public override string Name { get; set; } = "精炼度";
+        public override string HelpText { get; set; } = "物品的精炼度。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
         public override bool? FilterItem(FilterConfiguration configuration,InventoryItem item)

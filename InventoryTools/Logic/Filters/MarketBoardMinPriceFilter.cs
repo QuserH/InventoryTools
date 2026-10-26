@@ -19,8 +19,8 @@ namespace InventoryTools.Logic.Filters
             ShowOperatorTooltip = true;
         }
         public override string Key { get; set; } = "MBMinPrice";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Marketboard Minimum Price"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The market board minimum price of the item. For this to work you need to have automatic pricing enabled and also note that any background price updates will not be evaluated until an event that refreshes the inventory occurs(this happens fairly often)."));
+        public override string Name { get; set; } = "市场布告板最低价";
+        public override string HelpText { get; set; } = "物品的市场布告板最低价。使用此功能需要启用自动定价，另请注意，后台价格更新需在触发背包刷新事件后才会生效（该事件相当频繁）。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Market;
 
 

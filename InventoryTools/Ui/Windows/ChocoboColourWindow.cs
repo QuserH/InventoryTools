@@ -68,7 +68,7 @@ namespace InventoryTools.Ui
             ChocoboColourSolver colourSolver,
             IFont font,
             string name = "")
-            : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? LocalizationService.Ui("Chocobo Colour Calculator") : name)
+            : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? "陆行鸟颜色计算器" : name)
         {
             _itemSheet = itemSheet;
             _clientState = clientState;
@@ -108,20 +108,20 @@ namespace InventoryTools.Ui
 
         private static string GetShadeName(byte shade) => shade switch
         {
-            2 => LocalizationService.Ui("White / Grey"),
-            3 => LocalizationService.Ui("Red"),
-            4 => LocalizationService.Ui("Pink / Red"),
-            5 => LocalizationService.Ui("Orange / Brown"),
-            6 => LocalizationService.Ui("Yellow"),
-            7 => LocalizationService.Ui("Green"),
-            8 => LocalizationService.Ui("Blue"),
-            9 => LocalizationService.Ui("Purple"),
-            10 => LocalizationService.Ui("Metallic"),
-            _ => LocalizationService.Ui("Shade ") + shade,
+            2 => "白色 / 灰色",
+            3 => "红色",
+            4 => "粉色 / 红色",
+            5 => "橙色 / 棕色",
+            6 => "黄色",
+            7 => "绿色",
+            8 => "蓝色",
+            9 => "紫色",
+            10 => "金属色",
+            _ => "色度 " + shade,
         };
 
         public override string GenericKey => "chocobo_colour";
-        public override string GenericName => LocalizationService.Ui("Chocobo Colour Calculator");
+        public override string GenericName => "陆行鸟颜色计算器";
         public override bool DestroyOnClose => false;
         public override bool SaveState => true;
         public override Vector2? DefaultSize => new(950, 560);
@@ -156,7 +156,7 @@ namespace InventoryTools.Ui
             float panelHeight = ImGui.GetContentRegionAvail().Y;
             float panelWidth = (totalWidth - spacing * 2f) / 3f;
 
-            using (var child = ImRaii.Child(LocalizationService.Ui("##ccCurrent"), new Vector2(panelWidth, panelHeight), true))
+            using (var child = ImRaii.Child("##ccCurrent", new Vector2(panelWidth, panelHeight), true))
             {
                 if (child.Success)
                 {
@@ -166,7 +166,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            using (var child = ImRaii.Child(LocalizationService.Ui("##ccTarget"), new Vector2(panelWidth, panelHeight), true))
+            using (var child = ImRaii.Child("##ccTarget", new Vector2(panelWidth, panelHeight), true))
             {
                 if (child.Success)
                 {
@@ -176,7 +176,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            using (var child = ImRaii.Child(LocalizationService.Ui("##ccResult"), new Vector2(panelWidth, panelHeight), true))
+            using (var child = ImRaii.Child("##ccResult", new Vector2(panelWidth, panelHeight), true))
             {
                 if (child.Success)
                 {
@@ -187,7 +187,7 @@ namespace InventoryTools.Ui
 
         private void DrawCurrentPanel(float panelWidth)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Current Colour")));
+            ImGui.TextUnformatted("当前颜色");
             ImGui.Separator();
             ImGui.Spacing();
 
@@ -200,7 +200,7 @@ namespace InventoryTools.Ui
 
             var disabled = ImRaii.Disabled(_clientState.IsLoggedIn);
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Copy from your Chocobo"))))
+            if (ImGui.Button("从陆行鸟复制"))
             {
                 var stainId = _gameInteropService.GetChocoboStainId();
                 if (stainId.HasValue && stainId.Value > 0)
@@ -212,8 +212,8 @@ namespace InventoryTools.Ui
                 else
                 {
                     _statusMessage = stainId is null
-                        ? LocalizationService.Ui("Not logged in.")
-                        : LocalizationService.Ui("No companion summoned (colour = 0 defaults to Desert Yellow).");
+                        ? "未登录。"
+                        : "未召唤伙伴（颜色0时默认沙黄色）。";
                 }
             }
 
@@ -222,7 +222,7 @@ namespace InventoryTools.Ui
             {
                 using (ImRaii.Tooltip())
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Log in first.")));
+                    ImGui.TextUnformatted("请先登录。");
                 }
             }
 
@@ -234,18 +234,18 @@ namespace InventoryTools.Ui
 
             ImGui.Spacing();
             ImGui.Separator();
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Or pick manually:")));
+            ImGui.TextUnformatted("或手动选择：");
             ImGui.Spacing();
 
             ImGui.SetNextItemWidth(-1);
-            ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ccCurFilter")), ref _currentFilter, 64);
+            ImGui.InputText("##ccCurFilter", ref _currentFilter, 64);
             ImGui.Spacing();
 
             var curFiltered = string.IsNullOrWhiteSpace(_currentFilter)
                 ? _allStains
                 : _allStains.Where(s => s.Name.Contains(_currentFilter, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            using (var scroll = ImRaii.Child(LocalizationService.Ui("##ccCurGrid"), new Vector2(-1, -1), false,
+            using (var scroll = ImRaii.Child("##ccCurGrid", new Vector2(-1, -1), false,
                        ImGuiWindowFlags.HorizontalScrollbar))
             {
                 if (scroll.Success)
@@ -257,13 +257,13 @@ namespace InventoryTools.Ui
 
         private void DrawTargetPanel(float panelWidth)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Target Colour")));
+            ImGui.TextUnformatted("目标颜色");
             ImGui.Separator();
             ImGui.Spacing();
 
             if (_targetStainId == 0)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("(none selected)")));
+                ImGui.TextUnformatted("（未选择）");
             }
             else
             {
@@ -275,22 +275,22 @@ namespace InventoryTools.Ui
 
             ImGui.Spacing();
             ImGui.Separator();
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Pick a target colour:")));
+            ImGui.TextUnformatted("选择目标颜色：");
             ImGui.Spacing();
 
             ImGui.SetNextItemWidth(-1);
-            ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ccTgtFilter")), ref _targetFilter, 64);
+            ImGui.InputText("##ccTgtFilter", ref _targetFilter, 64);
 
             ImGui.Spacing();
 
-            using var scroll = ImRaii.Child(LocalizationService.Ui("##ccTgtGrid"), new Vector2(-1, -1), false,
+            using var scroll = ImRaii.Child("##ccTgtGrid", new Vector2(-1, -1), false,
                 ImGuiWindowFlags.HorizontalScrollbar);
             if (!scroll.Success) return;
             if (string.IsNullOrWhiteSpace(_targetFilter))
             {
                 foreach (var (shade, label, stains) in _stainsByShade)
                 {
-                    bool open = ImGui.CollapsingHeader(LocalizationService.Format(LocalizationService.Ui("{0}##shade{1}"), label, shade),
+                    bool open = ImGui.CollapsingHeader(string.Format("{0}##shade{1}", label, shade),
                         ImGuiTreeNodeFlags.DefaultOpen);
                     if (open)
                     {
@@ -313,18 +313,18 @@ namespace InventoryTools.Ui
 
         private void DrawResultPanel()
         {
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Fruit Sequence")));
+            ImGui.TextUnformatted("果实序列");
             ImGui.SameLine();
             ImGuiService.HelpMarker(
-                LocalizationService.Ui("The fruit sequence is an estimate based on RGB colour math.\n") +
-                LocalizationService.Ui("Due to in-game rounding, the result may occasionally differ\n") +
-                LocalizationService.Ui("by a fruit or two, if you don't land on the target colour,\n") +
-                LocalizationService.Ui("feed a Han Lemon to reset to Desert Yellow and try again."));
+                "水果序列基于 RGB 颜色计算估算。\n" +
+                "由于游戏内取整，结果偶尔会有差异\n" +
+                "如果未达到目标颜色，可能偏差一两个水果。\n" +
+                "喂食汉柠檬重置为沙黄色并重试。");
             ImGui.Separator();
             ImGui.Spacing();
 
             float footerHeight = ImGui.GetFrameHeightWithSpacing() + ImGui.GetStyle().ItemSpacing.Y;
-            using (var body = ImRaii.Child(LocalizationService.Ui("##ccResultBody"), new Vector2(-1, -footerHeight), false))
+            using (var body = ImRaii.Child("##ccResultBody", new Vector2(-1, -footerHeight), false))
             {
                 if (body.Success)
                 {
@@ -346,11 +346,11 @@ namespace InventoryTools.Ui
 
             DrawColourSwatch(_currentStainId, "ccResFrom", 20f);
             ImGui.SameLine();
-            ImGui.TextUnformatted(LocalizationService.Ui("→"));
+            ImGui.TextUnformatted("→");
             ImGui.SameLine();
             if (_targetStainId == 0)
             {
-                ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("(no target)")));
+                ImGui.TextDisabled("（无目标）");
             }
             else
             {
@@ -367,7 +367,7 @@ namespace InventoryTools.Ui
                 ImGui.BeginDisabled();
             }
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Lock In##ccLockIn"))))
+            if (ImGui.Button("锁定##ccLockIn"))
             {
                 LockInSolverResult();
             }
@@ -381,8 +381,8 @@ namespace InventoryTools.Ui
             {
                 using (ImRaii.Tooltip())
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Lock in this sequence to track feeding progress.")));
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Check off each fruit as you feed it to your chocobo.")));
+                    ImGui.TextUnformatted("锁定此序列以追踪喂食进度。");
+                    ImGui.TextUnformatted("每喂食一个果实，就勾选它。");
                 }
             }
 
@@ -393,33 +393,33 @@ namespace InventoryTools.Ui
             if (_pathNotFound)
             {
                 ImGui.TextColoredWrapped(new Vector4(1f, 0.4f, 0.4f, 1f),
-                    LocalizationService.Ui("No path found between these two colours. They may be one of the rare pairs that cannot be reached from one another by feeding fruits."));
+                    "未找到这两种颜色之间的路径。它们可能是无法通过喂食果实互相到达的罕见颜色对之一。");
                 return;
             }
 
             if (_currentStainId == _targetStainId)
             {
                 ImGui.TextColoredWrapped(new Vector4(0.4f, 1f, 0.4f, 1f),
-                    LocalizationService.Ui("Already at target colour!"));
+                    "已处于目标颜色！");
                 return;
             }
 
             if (_solverResult == null)
             {
-                ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("Select a target colour to generate the fruit sequence.")));
+                ImGui.TextDisabled("选择目标颜色以生成果实序列。");
                 return;
             }
 
             if (_solverResult.Count == 0)
             {
-                ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("No fruits needed (already at target).")));
+                ImGui.TextDisabled("无需果实（已达目标颜色）。");
                 return;
             }
 
-            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("{0} fruit(s) to feed:"), _solverResult.Count));
+            ImGui.TextUnformatted(string.Format("需要喂食的果实：{0}", _solverResult.Count));
             ImGui.Spacing();
 
-            using (var scroll = ImRaii.Child(LocalizationService.Ui("##ccFruits"), new Vector2(-1, -60f), false))
+            using (var scroll = ImRaii.Child("##ccFruits", new Vector2(-1, -60f), false))
             {
                 if (scroll.Success)
                 {
@@ -429,7 +429,7 @@ namespace InventoryTools.Ui
 
             ImGui.Spacing();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add to List##ccAddList"))))
+            if (ImGui.Button("加入列表##ccAddList"))
             {
                 ImGui.OpenPopup("ccAddToList");
             }
@@ -438,14 +438,14 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Copy to Clipboard##ccCopy"))))
+            if (ImGui.Button("复制到剪贴板##ccCopy"))
             {
                 CopyResultToClipboard();
             }
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Clear##ccClear"))))
+            if (ImGui.Button("清除##ccClear"))
             {
                 _solverResult = null;
                 _pathNotFound = false;
@@ -456,7 +456,7 @@ namespace InventoryTools.Ui
         {
             float qCursorX = ImGui.GetCursorPosX();
             if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.QuestionCircle, ref qCursorX,
-                    LocalizationService.Ui("Han Lemon / Guide")))
+                    "汉柠檬 / 指南"))
             {
                 _openFooterMenu = true;
             }
@@ -470,22 +470,22 @@ namespace InventoryTools.Ui
                 return;
             }
 
-            using (var hanLemonMenu = ImRaii.Menu(LocalizationService.Ui("Han Lemon")))
+            using (var hanLemonMenu = ImRaii.Menu("汉柠檬"))
             {
                 if (ImGui.IsItemHovered())
                 {
                     using (ImRaii.Tooltip())
                     {
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Feed to your chocobo to reset its colour")));
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("back to Desert Yellow (default),")));
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("so you can begin recolouring again.")));
+                        ImGui.TextUnformatted("喂食陆行鸟以重置颜色");
+                        ImGui.TextUnformatted("返回沙黄色（默认），");
+                        ImGui.TextUnformatted("以便你重新开始染色。");
                     }
                 }
 
                 if (hanLemonMenu)
                 {
-                    ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("Resets chocobo colour to Desert Yellow.")));
-                    ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("Feed before recolouring to start fresh.")));
+                    ImGui.TextDisabled("将陆行鸟颜色重置为沙黄色。");
+                    ImGui.TextDisabled("染色前先喂食以重新开始。");
                     ImGui.Separator();
 
                     var items = new List<(uint ItemId, uint Quantity)> { (HanLemonItemId, 1u) };
@@ -494,7 +494,7 @@ namespace InventoryTools.Ui
                         .Where(c => c.FilterType == FilterType.CraftFilter && !c.CraftListDefault).ToArray();
                     if (craftLists.Length != 0)
                     {
-                        using var craftMenu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
+                        using var craftMenu = ImRaii.Menu("添加到制作列表");
                         if (craftMenu)
                         {
                             foreach (var filter in craftLists)
@@ -509,12 +509,12 @@ namespace InventoryTools.Ui
                         }
                     }
 
-                    if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
+                    if (ImGui.Selectable("添加到新制作列表"))
                     {
                         AddFruitsToCraftList(_listService.AddNewCraftList(), items);
                     }
 
-                    if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
+                    if (ImGui.Selectable("添加到新制作列表（临时）"))
                     {
                         AddFruitsToCraftList(_listService.AddNewCraftList(null, true), items);
                     }
@@ -525,7 +525,7 @@ namespace InventoryTools.Ui
                         .Where(c => c.FilterType == FilterType.CuratedList).ToArray();
                     if (curatedLists.Length != 0)
                     {
-                        using var curatedMenu = ImRaii.Menu(LocalizationService.Ui("Add to Curated List"));
+                        using var curatedMenu = ImRaii.Menu("添加到精选列表");
                         if (curatedMenu)
                         {
                             foreach (var filter in curatedLists)
@@ -540,7 +540,7 @@ namespace InventoryTools.Ui
                         }
                     }
 
-                    if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Curated List"))))
+                    if (ImGui.Selectable("添加到新精选列表"))
                     {
                         AddFruitsToCuratedList(_listService.AddNewCuratedList(), items);
                     }
@@ -549,7 +549,7 @@ namespace InventoryTools.Ui
 
             ImGui.Separator();
 
-            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Learn More"))))
+            if (ImGui.MenuItem("了解更多"))
             {
                 ChocoboGuideUrl.OpenBrowser();
             }
@@ -558,7 +558,7 @@ namespace InventoryTools.Ui
             {
                 using (ImRaii.Tooltip())
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Chocobo colour data provided by Lulu.")));
+                    ImGui.TextUnformatted("陆行鸟颜色数据由 Lulu 提供。");
                     ImGui.TextDisabled(ChocoboGuideUrl);
                 }
             }
@@ -575,7 +575,7 @@ namespace InventoryTools.Ui
             var fruits = GetRequiredFruits();
             if (fruits.Count == 0)
             {
-                ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("No fruits to add.")));
+                ImGui.TextDisabled("没有可添加的果实。");
                 return;
             }
 
@@ -583,7 +583,7 @@ namespace InventoryTools.Ui
                 .Where(c => c.FilterType == FilterType.CraftFilter && !c.CraftListDefault).ToArray();
             if (craftLists.Length != 0)
             {
-                using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
+                using var menu = ImRaii.Menu("添加到制作列表");
                 if (menu)
                 {
                     foreach (var filter in craftLists)
@@ -598,12 +598,12 @@ namespace InventoryTools.Ui
                 }
             }
 
-            if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
+            if (ImGui.Selectable("添加到新制作列表"))
             {
                 AddFruitsToCraftList(_listService.AddNewCraftList(), fruits);
             }
 
-            if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
+            if (ImGui.Selectable("添加到新制作列表（临时）"))
             {
                 AddFruitsToCraftList(_listService.AddNewCraftList(null, true), fruits);
             }
@@ -614,7 +614,7 @@ namespace InventoryTools.Ui
                 .Where(c => c.FilterType == FilterType.CuratedList).ToArray();
             if (curatedLists.Length != 0)
             {
-                using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Curated List"));
+                using var menu = ImRaii.Menu("添加到精选列表");
                 if (menu)
                 {
                     foreach (var filter in curatedLists)
@@ -629,7 +629,7 @@ namespace InventoryTools.Ui
                 }
             }
 
-            if (ImGui.Selectable(LocalizationService.Ui(LocalizationService.Ui("Add to new Curated List"))))
+            if (ImGui.Selectable("添加到新精选列表"))
             {
                 AddFruitsToCuratedList(_listService.AddNewCuratedList(), fruits);
             }
@@ -780,7 +780,7 @@ namespace InventoryTools.Ui
             {
                 return stain.Name;
             }
-            return stainId == ChocoboColourSolver.DefaultStainId ? LocalizationService.Ui("Desert Yellow (default)") : LocalizationService.Ui("(unknown)");
+            return stainId == ChocoboColourSolver.DefaultStainId ? "沙黄色（默认）" : "（未知）";
         }
 
         private void RunSolver()
@@ -845,7 +845,7 @@ namespace InventoryTools.Ui
             uint toId = IsLocked ? Configuration.ChocoboLockedTargetStainId : _targetStainId;
 
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine(LocalizationService.Format("Chocobo recolour: {0} -> {1}", GetStainName(fromId),
+            sb.AppendLine(string.Format("陆行鸟羽毛颜色：{0} -> {1}", GetStainName(fromId),
                 GetStainName(toId)));
             for (int i = 0; i < fruits.Count; i++)
             {
@@ -885,7 +885,7 @@ namespace InventoryTools.Ui
 
             DrawColourSwatch(Configuration.ChocoboLockedCurrentStainId, "ccLockedFrom", 20f);
             ImGui.SameLine();
-            ImGui.TextUnformatted(LocalizationService.Ui("→"));
+            ImGui.TextUnformatted("→");
             ImGui.SameLine();
             DrawColourSwatch(Configuration.ChocoboLockedTargetStainId, "ccLockedTo", 20f);
             ImGui.SameLine();
@@ -896,11 +896,11 @@ namespace InventoryTools.Ui
             if (checkedCount >= _lockedFruits.Count)
             {
                 ImGui.TextColoredWrapped(new Vector4(0.4f, 1f, 0.4f, 1f),
-                    LocalizationService.Ui("All fruits fed! Check your chocobo's colour."));
+                    "所有果实已喂食！请检查陆行鸟的颜色。");
             }
             else
             {
-                ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Progress: {0} / {1} fruit(s) fed"), checkedCount, _lockedFruits.Count));
+                ImGui.TextUnformatted(string.Format("进度：已喂食 {0} / {1} 个果实", checkedCount, _lockedFruits.Count));
             }
 
             ImGui.Spacing();
@@ -908,7 +908,7 @@ namespace InventoryTools.Ui
             ImGui.Spacing();
 
             float footerHeight = ImGui.GetFrameHeightWithSpacing() + ImGui.GetStyle().ItemSpacing.Y;
-            using (var scroll = ImRaii.Child(LocalizationService.Ui("##ccTrackFruits"), new Vector2(-1, -footerHeight), false))
+            using (var scroll = ImRaii.Child("##ccTrackFruits", new Vector2(-1, -footerHeight), false))
             {
                 if (scroll.Success)
                 {
@@ -918,7 +918,7 @@ namespace InventoryTools.Ui
 
             ImGui.Separator();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##ccReset"))))
+            if (ImGui.Button("重置##ccReset"))
             {
                 _openConfirmReset = true;
             }
@@ -927,13 +927,13 @@ namespace InventoryTools.Ui
             {
                 using (ImRaii.Tooltip())
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Clear the locked sequence and reset all feeding progress.")));
+                    ImGui.TextUnformatted("清除锁定的序列并重置所有喂食进度。");
                 }
             }
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add to List##ccTrackAddList"))))
+            if (ImGui.Button("加入列表##ccTrackAddList"))
             {
                 ImGui.OpenPopup("ccAddToList");
             }
@@ -942,7 +942,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Copy to Clipboard##ccTrackCopy"))))
+            if (ImGui.Button("复制到剪贴板##ccTrackCopy"))
             {
                 CopyResultToClipboard();
             }
@@ -964,7 +964,7 @@ namespace InventoryTools.Ui
                     ImGui.BeginDisabled();
                 }
 
-                if (ImGui.Checkbox(LocalizationService.Format(LocalizationService.Ui("##{0}ccTrackChk"), i), ref isChecked))
+                if (ImGui.Checkbox(string.Format("##{0}ccTrackChk", i), ref isChecked))
                 {
                     Configuration.ChocoboFruitsCheckedCount = isChecked ? i + 1 : i;
                     Configuration.IsDirty = true;
@@ -999,11 +999,11 @@ namespace InventoryTools.Ui
                 return;
             }
 
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Reset tracking progress?")));
-            ImGui.TextDisabled(LocalizationService.Ui(LocalizationService.Ui("This will clear the locked colour and all progress.")));
+            ImGui.TextUnformatted("重置追踪进度？");
+            ImGui.TextDisabled("这将清除锁定的颜色和所有进度。");
             ImGui.Spacing();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##ccResetYes"))))
+            if (ImGui.Button("重置##ccResetYes"))
             {
                 Configuration.ChocoboLockedFruitIds = new List<uint>();
                 Configuration.ChocoboLockedCurrentStainId = 0;
@@ -1016,7 +1016,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Cancel##ccResetCancel"))))
+            if (ImGui.Button("取消##ccResetCancel"))
             {
                 ImGui.CloseCurrentPopup();
             }

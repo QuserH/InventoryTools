@@ -148,7 +148,7 @@ public class ShopHighlighting : IDisposable
             {
                 var listNode = (AtkComponentList*)atkComponentBase;
                 var listItemIndex = listNode->ItemRendererList->AtkComponentListItemRenderer->ListItemIndex;
-                ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("List Item Index: {0}"), listItemIndex));
+                ImGui.TextUnformatted(string.Format("列表项索引：{0}", listItemIndex));
                 if (_itemIndexMap != null)
                 {
                     foreach (var item in _itemIndexMap)
@@ -157,7 +157,7 @@ public class ShopHighlighting : IDisposable
                     }
                 }
 
-                if (ImGui.InputText(LocalizationService.Ui("Item"), ref itemIdString, 128))
+                if (ImGui.InputText("物品", ref itemIdString, 128))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {
@@ -165,14 +165,14 @@ public class ShopHighlighting : IDisposable
                     }
                     itemIdString = itemId.ToString();
                 }
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add Item"))))
+                if (ImGui.Button("添加物品"))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {
                         _highlightedItems.Add(itemId);
                     }
                 }
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Remove Item"))))
+                if (ImGui.Button("移除物品"))
                 {
                     if (uint.TryParse(itemIdString, out itemId))
                     {

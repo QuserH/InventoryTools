@@ -26,9 +26,9 @@ namespace InventoryTools.Logic.Columns
             return false;
 
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("In Gearset?"));
+        public override string Name { get; set; } = "套装中？";
         public override float Width { get; set; } = 80;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item part of a gearset?"));
+        public override string HelpText { get; set; } = "该物品属于套装？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

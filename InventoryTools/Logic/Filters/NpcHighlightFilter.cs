@@ -28,8 +28,8 @@ namespace InventoryTools.Logic.Filters
         public override NpcHighlight DefaultValue { get; set; } = NpcHighlight.UseGlobalConfiguration;
 
         public override string Key { get; set; } = "NpcHighlight";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight NPCs?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should items required by this list highlight NPCs that sell them?"));
+        public override string Name { get; set; } = "高亮 NPC？";
+        public override string HelpText { get; set; } = "列表中所需物品是否高亮出售它们的 NPC？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
@@ -52,7 +52,7 @@ namespace InventoryTools.Logic.Filters
             switch (choice)
             {
                 case NpcHighlight.UseGlobalConfiguration:
-                    return LocalizationService.Ui("Use Global Configuration");
+                    return "使用全局配置";
                 case NpcHighlight.Yes:
                     return "Yes";
                 case NpcHighlight.No:

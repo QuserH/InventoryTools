@@ -28,10 +28,10 @@ namespace InventoryTools.Logic.Columns
             return "";
         }
         
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gearset Number"));
-        public override string RenderName => LocalizationService.Ui("Gearsets");
+        public override string Name { get; set; } = "套装编号";
+        public override string RenderName => "套装";
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Provides the gearsets that an item is part of."));
+        public override string HelpText { get; set; } = "提供物品所属的套装。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

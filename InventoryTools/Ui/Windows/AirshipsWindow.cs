@@ -74,7 +74,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted(ex.Base.NameShort.ExtractText().ToString());
                 }
             },
-            new(LocalizationService.Ui("Unlock Zone"), 150, ImGuiTableColumnFlags.WidthFixed)
+            new("解锁区域", 150, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -101,7 +101,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     }
                 }
             },
-            new(LocalizationService.Ui("Rank Required"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("所需等级", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -125,7 +125,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.RankReq.ToString() ?? "").ToString());
                 }
             },
-            new(LocalizationService.Ui("Ceruleum Required"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("所需青磷水", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -149,7 +149,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.CeruleumTankReq.ToString() ?? "").ToString());
                 }
             },
-            new(LocalizationService.Ui("Survey Duration (minutes)"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("勘探时长（分钟）", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -173,7 +173,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
                     ImGui.TextUnformatted((ex.Base.SurveyDurationmin.ToString() ?? "").ToString());
                 }
             },
-            new(LocalizationService.Ui("Surveillance Required"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("所需监视性能", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -270,7 +270,7 @@ public class AirshipsWindow : GenericTabbedTable<AirshipExplorationPointRow>, IM
     }
 
     public override string GenericKey => "airships";
-    public override string GenericName => LocalizationService.Ui("Airships");
+    public override string GenericName => "飞空艇";
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

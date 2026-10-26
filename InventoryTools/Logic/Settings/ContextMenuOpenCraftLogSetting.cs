@@ -23,12 +23,12 @@ public class ContextMenuOpenCraftingLogSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "OpenCraftingLogContextMenu";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Open Crafting Log"));
+    public override string Name { get; set; } = "快捷菜单 - 打开制作笔记";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Open Crafting Log");
+    public override string WizardName { get; } = "打开制作笔记";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Add a context menu item to open the crafting log for any item that can be crafted?"));
+        "是否为可制作物品添加快捷菜单项以打开制作笔记？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

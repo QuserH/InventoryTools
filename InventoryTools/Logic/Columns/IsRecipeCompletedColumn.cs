@@ -34,7 +34,7 @@ public class IsRecipeCompletedColumn : CheckboxColumn
         return searchResult.Item.Recipes.All(c => _questManagerService.IsRecipeComplete(c.RowId));
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Are Recipes Completed?"));
+    public override string Name { get; set; } = "配方全部已完成？";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Have the recipes that make this item been completed?"));
+    public override string HelpText { get; set; } = "此物品的配方是否全部完成？";
 }

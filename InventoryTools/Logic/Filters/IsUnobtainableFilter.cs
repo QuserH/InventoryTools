@@ -10,7 +10,7 @@ namespace InventoryTools.Logic.Filters;
 
 public class IsUnobtainableFilter : GenericBooleanFilter
 {
-    public IsUnobtainableFilter(ILogger<IsUnobtainableFilter> logger, ImGuiService imGuiService) : base("IsUnobtainable", LocalizationService.Ui("Is the item unobtainable?"), LocalizationService.Ui("Has the item been made unobtainable?"), FilterCategory.Basic, item => item.Item.IsUnobtainable, item => item.IsUnobtainable,  logger, imGuiService)
+    public IsUnobtainableFilter(ILogger<IsUnobtainableFilter> logger, ImGuiService imGuiService) : base("IsUnobtainable", "该物品是否已绝版？", "该物品已绝版？", FilterCategory.Basic, item => item.Item.IsUnobtainable, item => item.IsUnobtainable,  logger, imGuiService)
     {
     }
 }

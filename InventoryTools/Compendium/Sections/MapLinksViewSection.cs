@@ -103,8 +103,8 @@ public sealed class MapLinksViewSection : ViewSection
                     {
                         ImGui.TextUnformatted(loc.FormattedName);
                         ImGui.Separator();
-                        ImGui.Text(LocalizationService.Format("X: {0:0.0}", loc.MapX));
-                        ImGui.Text(LocalizationService.Format("Y: {0:0.0}", loc.MapY));
+                        ImGui.Text(string.Format("X: {0:0.0}", loc.MapX));
+                        ImGui.Text(string.Format("Y: {0:0.0}", loc.MapY));
                     }
                 }
             }

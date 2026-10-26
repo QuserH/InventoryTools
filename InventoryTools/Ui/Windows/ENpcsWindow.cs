@@ -46,7 +46,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
     public override void Initialize()
     {
-        WindowName = LocalizationService.Ui("NPCs");
+        WindowName = "NPCs";
         Key = "enpcs";
          _columns = new List<TableColumn<ENpcResidentRow>>()
         {
@@ -118,7 +118,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
                 }
             },
-            new(LocalizationService.Ui("Is Vendor"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new("是否为商人", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 FilterBool = (s, exes) =>
                 {
@@ -134,15 +134,15 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
                 {
                     if (ex.ENpcBase.IsVendor)
                     {
-                        ImGui.Text(LocalizationService.Ui("Yes"));
+                        ImGui.Text("是");
                     }
                     else
                     {
-                        ImGui.Text(LocalizationService.Ui("No"));
+                        ImGui.Text("否");
                     }
                 }
             },
-            new(LocalizationService.Ui("Vendor Items"), 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
+            new("出售物品", 200, ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort)
             {
                 Sort = (specs, exes) =>
                 {
@@ -303,7 +303,7 @@ public class ENpcsWindow : GenericTabbedTable<ENpcResidentRow>, IMenuWindow
 
     public override bool UseClipper => _useClipper;
     public override string GenericKey => "npcs";
-    public override string GenericName => LocalizationService.Ui("Npcs");
+    public override string GenericName => "Npcs";
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

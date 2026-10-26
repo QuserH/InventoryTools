@@ -23,9 +23,9 @@ public class MergeCraftListSameSourceSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MergeCraftListSameSource";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Merge same source items in craft list?"));
+    public override string Name { get; set; } = "合并角色、来源、道具名称均一致的数量？";
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should stacks of the same item held by the same character and retainer be merged into a single row in the craft list inventory panel?"));
+        "是否将制作列表下方“雇员/背包中的物品”面板中，同一角色同一雇员持有的同种道具堆叠合并为一行？合并后不再显示具体背包位置；是否连同NQ和HQ一起合并由下一项决定。";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

@@ -22,10 +22,10 @@ public class HistoryChangeAmountColumn : TextColumn
         return null;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("History Event Amount"));
-    public override string RenderName => LocalizationService.Ui("Amount");
+    public override string Name { get; set; } = "历史事件数量";
+    public override string RenderName => "数量";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The amount that changed(if applicable)"));
+    public override string HelpText { get; set; } = "变动数量（如适用）";
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     public override FilterType AvailableIn { get; } = Logic.FilterType.HistoryFilter;

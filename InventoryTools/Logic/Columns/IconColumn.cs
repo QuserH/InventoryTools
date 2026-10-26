@@ -87,10 +87,10 @@ namespace InventoryTools.Logic.Columns
         }
 
 
-        public override string Name { get; set; } = LocalizationService.Ui("Icon");
+        public override string Name { get; set; } = "图标";
         public override bool HideHeaderLabel => true;
         public override float Width { get; set; } = 60.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the icon of the item, pressing it will open the more information window for the item."));
+        public override string HelpText { get; set; } = "显示物品图标，点击将打开物品详情窗口。";
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

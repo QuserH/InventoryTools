@@ -19,8 +19,8 @@ public class MarketBoardUseActiveWorldSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MarketBoardUseActiveWorld";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Price Active World?"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should the currently active world be automatically priced?"));
+    public override string Name { get; set; } = "使用当前服务器价格？";
+    public override string HelpText { get; set; } = "是否自动为当前所在服务器定价？";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.MarketBoard;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Market;
     public override string Version { get; } = "1.7.0.0";

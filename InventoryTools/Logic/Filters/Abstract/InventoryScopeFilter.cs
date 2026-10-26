@@ -63,12 +63,12 @@ public abstract class InventoryScopeFilter : Filter<List<InventorySearchScope>?>
         if (HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), GetName(configuration) + ":");
+            ImGui.LabelText("##Label", GetName(configuration) + ":");
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), GetName(configuration) + ":");
+            ImGui.LabelText("##Label", GetName(configuration) + ":");
         }
         ImGui.Indent();
         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -85,7 +85,7 @@ public abstract class InventoryScopeFilter : Filter<List<InventorySearchScope>?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##Reset"))))
+            if (ImGui.Button("重置##Reset"))
             {
                 ResetFilter(configuration);
             }

@@ -44,11 +44,11 @@ namespace InventoryTools.Logic.Columns
             _itemInfoRenderService = itemInfoRenderService;
             _stringColumnFactory = stringColumnFactory;
             _useCategorySelectorSetting = useCategorySelectorSetting;
-            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", LocalizationService.Ui("Search for a source that requires a specific item."),
+            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", "搜索需要特定物品的来源。",
                 null);
-            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", LocalizationService.Ui("Search for a source that rewards a specific item. While this might seem redundant, certain sources provide more than one item."),
+            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", "搜索奖励特定物品的来源。虽然这可能看起来多余，但某些来源会提供多种物品。",
                 null);
-            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", LocalizationService.Ui("Search for a source in a specific map."),
+            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", "搜索特定地图中的来源。",
                 null);
             _mapSheet = mapSheet;
 
@@ -139,10 +139,10 @@ namespace InventoryTools.Logic.Columns
         }
 
         public override float Width { get; set; } = 250;
-        public override string Name { get; set; } = LocalizationService.Ui("Uses");
+        public override string Name { get; set; } = "用途";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows icons indicating what the items drop/can be used for"));
+            "显示表示物品掉落物/用途的图标";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 public override IEnumerable<SearchResult> Filter(ColumnConfiguration columnConfiguration,

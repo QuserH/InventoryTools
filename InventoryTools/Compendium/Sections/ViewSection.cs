@@ -48,8 +48,8 @@ public abstract class ViewSection : ICompendiumViewSection
                 _headerButtons.Add(new ImGuiService.HeaderButton()
                 {
                     Id = "Settings",
-                    Image = LocalizationService.Ui("wrench-icon"),
-                    Label = "Settings",
+                    Image = "wrench-icon",
+                    Label = "设置",
                     Callback = () => { },
                 });
             }

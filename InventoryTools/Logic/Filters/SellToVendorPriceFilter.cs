@@ -13,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class SellToVendorPriceFilter : StringFilter
     {
         public override string Key { get; set; } = "GSSalePrice";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Sell to Shop Price"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The price when bought from shops."));
+        public override string Name { get; set; } = "商店出售价格";
+        public override string HelpText { get; set; } = "在商店购买时的价格。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
 

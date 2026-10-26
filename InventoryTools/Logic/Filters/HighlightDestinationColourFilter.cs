@@ -14,10 +14,10 @@ namespace InventoryTools.Logic.Filters
         public override FilterType AvailableIn { get; set; } =
             FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
         public override string Key { get; set; } = "HighlightDestinationColor";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Destination Color"));
+        public override string Name { get; set; } = "目标高亮颜色";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The color to set any items in the destination that match your source filter(assuming highlight destination duplicates is on)."));
+            "目标中与来源筛选器匹配的物品颜色（假设已启用高亮目标重复项）。";
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 

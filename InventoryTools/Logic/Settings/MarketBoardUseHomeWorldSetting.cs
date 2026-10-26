@@ -19,8 +19,8 @@ public class MarketBoardUseHomeWorldSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MarketBoardUseHomeWorld";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Price Home World?"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should your character's home world be automatically priced?"));
+    public override string Name { get; set; } = "使用所属服务器价格？";
+    public override string HelpText { get; set; } = "是否自动为角色的所属服务器定价？";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.MarketBoard;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Market;
     public override string Version { get; } = "1.7.0.0";

@@ -72,29 +72,29 @@ namespace InventoryTools.Logic.Filters.Abstract
         {
             if (CanRemove && CanRemoveItem(configuration, item.Key))
             {
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("X##Column")) + index))
+                if (ImGui.Button("X##Column" + index))
                 {
                     RemoveItem(configuration, item.Key);
                 }
                 ImGui.SameLine();
             }
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Top##Column")) + index))
+            if (ImGui.Button("顶部##Column" + index))
             {
                 MoveItemTop(configuration, item.Key);
             }
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Up##Column")) + index))
+            if (ImGui.Button("上##Column" + index))
             {
                 MoveItemUp(configuration, item.Key);
             }
 
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Down##Column")) + index))
+            if (ImGui.Button("下##Column" + index))
             {
                 MoveItemDown(configuration, item.Key);
             }
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Bottom##Column")) + index))
+            if (ImGui.Button("底部##Column" + index))
             {
                 MoveItemBottom(configuration, item.Key);
             }
@@ -120,7 +120,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                         DrawButtons(configuration, item, index);
                         index++;
                         ImGui.TableNextColumn();
-                        ImGui.Selectable(LocalizationService.Ui(""), false, ImGuiSelectableFlags.SpanAllColumns,
+                        ImGui.Selectable("", false, ImGuiSelectableFlags.SpanAllColumns,
                             new Vector2(0, 16) * ImGui.GetIO().FontGlobalScale);
                         if (helpText != null)
                         {
@@ -139,7 +139,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                 }

@@ -24,7 +24,7 @@ public class PhysicalDamageColumn : IntegerColumn
         return searchResult.Item.Base.DamagePhys;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Physical Damage"));
+    public override string Name { get; set; } = "物理伤害";
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The physical damage of the item"));
+    public override string HelpText { get; set; } = "物品的物理伤害";
 }

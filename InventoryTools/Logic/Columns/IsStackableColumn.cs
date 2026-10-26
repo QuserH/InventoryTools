@@ -18,9 +18,9 @@ namespace InventoryTools.Logic.Columns
             return searchResult.Item.Base.StackSize > 1;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Stackable?"));
+        public override string Name { get; set; } = "是否可堆叠？";
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is the item stackable (can hold more than 1 in a stack)?"));
+        public override string HelpText { get; set; } = "该物品是否可堆叠（一组可超过 1 个）？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

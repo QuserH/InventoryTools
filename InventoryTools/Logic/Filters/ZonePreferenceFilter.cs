@@ -35,7 +35,7 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
             }
             else
             {
-                itemName = LocalizationService.Ui(" (Unknown Item)");
+                itemName = "（未知物品）";
             }
             return (itemName, null);
         }
@@ -56,10 +56,10 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
     }
 
     public override string Key { get; set; } = "CraftZonePreference";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Zone Order"));
+    public override string Name { get; set; } = "默认区域顺序";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("When grouping items by zone, which zones should take preference?"));
+        "按区域分组物品时，哪些区域应优先？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.ZonePreference;
     public override Dictionary<uint, (string, string?)> DefaultValue { get; set; } = new();
@@ -123,15 +123,15 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
 
         var currentValue = CurrentValue(configuration);
         ImGui.SetNextItemWidth(LabelSize);
-        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", LocalizationService.Ui("Add new zone: "));
+        ImGui.LabelText("##" + Key + "标签", "添加新区域：");
         ImGui.SameLine();
         var currentAddItem = "";
-        using (var combo = ImRaii.Combo(LocalizationService.Ui("##AddZone") + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
+        using (var combo = ImRaii.Combo("##AddZone" + Key, currentAddItem, ImGuiComboFlags.HeightLarge))
         {
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
+                ImGui.InputText("##ItemSearch", ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
@@ -140,7 +140,7 @@ public class ZonePreferenceFilter : SortedListFilter<uint, uint>
                 ImGui.Separator();
                 if (_searchString == "")
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
+                    ImGui.TextUnformatted("输入文字进行搜索……");
                 }
                 foreach (var item in SearchTerritories.Where(c => !currentValue.ContainsKey(c.RowId)))
                 {

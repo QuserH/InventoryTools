@@ -42,11 +42,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Missing Quantity"));
-        public override string RenderName => LocalizationService.Ui("Missing");
+        public override string Name { get; set; } = "缺少数量";
+        public override string RenderName => "缺少";
         public override float Width { get; set; } = 60;
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The quantity of this material still missing after retrieving from retainers. Empty when nothing is missing."));
+            "从雇员取回后该材料仍缺少的数量；不缺货时留空。";
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

@@ -8,7 +8,7 @@ namespace InventoryTools.Logic.Settings;
 
 public class AcquisitionTrackerPersistStateSetting : GenericIntegerSetting
 {
-    public AcquisitionTrackerPersistStateSetting(ILogger<AcquisitionTrackerPersistStateSetting> logger, ImGuiService imGuiService) : base("AcquisitionTrackerPersistState", LocalizationService.Ui("Persist State Time (seconds)"), LocalizationService.Ui("The acquisition tracker will track your current state(crafting, gathering, etc). It will keep this state by default for 2 seconds after it changes back to doing nothing. This is to catch any delays in the tracker, set this number higher if you find the tracker is not picking up items you craft/gather/etc"), 2, SettingCategory.Troubleshooting, SettingSubCategory.AcquisitionTracker,"1.12.0.8", logger, imGuiService)
+    public AcquisitionTrackerPersistStateSetting(ILogger<AcquisitionTrackerPersistStateSetting> logger, ImGuiService imGuiService) : base("AcquisitionTrackerPersistState", "状态保留时间（秒）", "获取追踪器会记录你的当前状态（制作、采集等）。状态变回无操作后默认保持 2 秒，用于捕捉追踪器延迟。如果追踪器未能记录你制作/采集的物品，请调高此数值。", 2, SettingCategory.Troubleshooting, SettingSubCategory.AcquisitionTracker,"1.12.0.8", logger, imGuiService)
     {
     }
 }

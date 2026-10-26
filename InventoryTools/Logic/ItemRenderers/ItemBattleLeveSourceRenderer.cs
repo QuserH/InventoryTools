@@ -33,9 +33,9 @@ public class ItemBattleLeveSourceRenderer : ItemInfoRenderer<ItemBattleLeveSourc
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.BattleLeve;
-    public override string SingularName => LocalizationService.Ui("Battle Leve");
-    public override string PluralName => LocalizationService.Ui("Battle Leves");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item obtained from a battle leve?"));
+    public override string SingularName => "战斗理符";
+    public override string PluralName => "战斗理符";
+    public override string HelpText => "该物品是否通过战斗理符获得？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -49,13 +49,13 @@ public class ItemBattleLeveSourceRenderer : ItemInfoRenderer<ItemBattleLeveSourc
     {
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Loot Chance: ")) + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
+        ImGui.TextUnformatted("理符：" + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted("职业：" + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted("经验奖励：" + asSource.ExpReward);
+        ImGui.TextUnformatted("允许消耗：" + leveRow.AllowanceCost);
+        ImGui.TextUnformatted("掉落几率：" + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
 
-        DrawItems(LocalizationService.Ui("Possible Reward Items: "), asSource.RewardItems);
+        DrawItems("可能的奖励物品：", asSource.RewardItems);
         DrawMaps(asSource);
     };
 

@@ -21,8 +21,8 @@ public class ItemGearsetUseRenderer : ItemInfoRenderer<ItemGearsetSource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.Gearset;
-    public override string SingularName => LocalizationService.Ui("Gearset");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item part of a gearset?"));
+    public override string SingularName => "套装";
+    public override string HelpText => "该物品属于套装？";
 
     public override bool ShouldGroup => true;
 
@@ -37,8 +37,8 @@ public class ItemGearsetUseRenderer : ItemInfoRenderer<ItemGearsetSource>
         var asSource = AsSource(source);
         if (asSource.SetItems.Count > 1)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Set Name: ")) +  asSource.Gearset.Name);
-            this.DrawItems(LocalizationService.Ui("Set Items:"), asSource.RelatedItems.First().Value);
+            ImGui.Text("套装名称：" +  asSource.Gearset.Name);
+            this.DrawItems("套装物品：", asSource.RelatedItems.First().Value);
         }
     };
 
@@ -48,6 +48,6 @@ public class ItemGearsetUseRenderer : ItemInfoRenderer<ItemGearsetSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return LocalizationService.Ui("Contains ") + string.Join(", ", asSource.SetItems.Select(c => c.NameString));
+        return "包含 " + string.Join(", ", asSource.SetItems.Select(c => c.NameString));
     };
 }

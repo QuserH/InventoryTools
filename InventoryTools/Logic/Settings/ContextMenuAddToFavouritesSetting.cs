@@ -10,8 +10,8 @@ public class ContextMenuAddToFavouritesSetting : GenericBooleanSetting
 {
     public ContextMenuAddToFavouritesSetting(ILogger<ContextMenuAddToFavouritesSetting> logger,
         ImGuiService imGuiService) : base("AddToFavouritesContextMenu",
-        LocalizationService.Ui("Context Menu - Add/Remove to Favourites"),
-        LocalizationService.Ui("Add a submenu to add/remove the item to/from your favourites?"),
+        "快捷菜单 - 添加/取消收藏",
+        "是否添加子菜单以添加/取消物品的收藏？",
         false,
         SettingCategory.ContextMenu,
         SettingSubCategory.General,
@@ -21,6 +21,6 @@ public class ContextMenuAddToFavouritesSetting : GenericBooleanSetting
     {
     }
 
-    public override string WizardName { get; } = LocalizationService.Ui("Add/Remove to Favourites");
+    public override string WizardName { get; } = "添加/取消收藏";
 
 }

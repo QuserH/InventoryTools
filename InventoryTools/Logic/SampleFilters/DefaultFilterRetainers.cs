@@ -40,11 +40,11 @@ public class DefaultFilterRetainers : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui("Retainers");
-    public string SampleDefaultName => LocalizationService.Ui("Retainers");
+    public string Name => "雇员";
+    public string SampleDefaultName => "雇员";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be preconfigured to show items across all retainer inventories.");
+        "将添加一个预配置的列表，显示全部雇员背包中的物品。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

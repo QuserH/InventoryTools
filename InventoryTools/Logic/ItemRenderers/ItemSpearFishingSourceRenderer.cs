@@ -27,8 +27,8 @@ public class ItemSpearfishingSourceRenderer : ItemInfoRenderer<ItemSpearfishingS
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Spearfishing;
-    public override string SingularName => LocalizationService.Ui("Spearfishing");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be gathered via spearfishing?"));
+    public override string SingularName => "捕鱼";
+    public override string HelpText => "该物品是否可通过刺鱼获得？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Gathering, ItemInfoRenderCategory.Fishing];
 
@@ -37,7 +37,7 @@ public class ItemSpearfishingSourceRenderer : ItemInfoRenderer<ItemSpearfishingS
         var asSources = AsSource(sources);
 
         var level = asSources.First().SpearfishingItemRow.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
+        ImGui.Text("等级：" + (level == 0 ? "N/A" : level));
 
         DrawMaps(sources);
     };
@@ -47,7 +47,7 @@ public class ItemSpearfishingSourceRenderer : ItemInfoRenderer<ItemSpearfishingS
         var asSource = AsSource(source);
 
         var level = asSource.SpearfishingItemRow.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
+        ImGui.Text("等级：" + (level == 0 ? "N/A" : level));
 
         DrawMaps(source);
     };

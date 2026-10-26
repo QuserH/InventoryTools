@@ -33,11 +33,11 @@ public class DefaultFilterFavourites : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui("Favourites");
-    public string SampleDefaultName => LocalizationService.Ui("Favourites");
+    public string Name => "收藏";
+    public string SampleDefaultName => "收藏";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will show all the items you have favourited.");
+        "将显示你收藏的全部物品。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

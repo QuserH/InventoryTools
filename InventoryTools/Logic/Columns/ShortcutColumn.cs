@@ -26,11 +26,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui("Shortcuts");
+        public override string Name { get; set; } = "快捷操作";
         public override float Width { get; set; } = 32.0f;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Provides a series of small buttons that allow opening garland tools and trying on items."));
+            "提供一系列小按钮，用于打开 Garland Tools 和试穿物品。";
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 
@@ -41,7 +41,7 @@ namespace InventoryTools.Logic.Columns
             ImGui.TableNextColumn();
             if (ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled))
             {
-                if (ImGui.SmallButton(LocalizationService.Ui(LocalizationService.Ui("GT##GT")) + rowIndex))
+                if (ImGui.SmallButton("大于##GT" + rowIndex))
                 {
                     $"https://www.garlandtools.org/db/#item/{searchResult.Item.GarlandToolsId}".OpenBrowser();
                 }
@@ -49,7 +49,7 @@ namespace InventoryTools.Logic.Columns
                 if (searchResult.Item.CanTryOn)
                 {
                     ImGui.SameLine();
-                    if (ImGui.SmallButton(LocalizationService.Ui("Try On##TO") + rowIndex))
+                    if (ImGui.SmallButton("试穿##TO" + rowIndex))
                     {
                         if (_tryOn.CanUseTryOn)
                         {
@@ -58,7 +58,7 @@ namespace InventoryTools.Logic.Columns
                         }
                         else
                         {
-                            Logger.LogError(LocalizationService.Ui("Something went wrong while attempting to try on ") +
+                            Logger.LogError("尝试试穿时出现问题：" +
                                             searchResult.Item.NameString);
                         }
                     }

@@ -10,8 +10,8 @@ public class CraftOverlayRememberStateSetting : GenericBooleanSetting
 {
     public CraftOverlayRememberStateSetting(ILogger<CraftOverlayRememberStateSetting> logger,
         ImGuiService imGuiService) : base("CraftOverlayRememberState",
-        LocalizationService.Ui("Remember State"),
-        LocalizationService.Ui("Should the craft overlay stay open between plugin reloads/game reloads?"),
+        "记住状态",
+        "制作悬浮窗是否应在插件重载/游戏重载之间保持打开？",
         true,
         SettingCategory.CraftOverlay,
         SettingSubCategory.General,

@@ -20,9 +20,9 @@ public class ItemCraftSoulCrystalUseRenderer : ItemInfoRenderer<ItemCraftSoulCry
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.CraftSoulCrystal;
-    public override string SingularName => LocalizationService.Ui("Craft Soul Crystal");
-    public override string PluralName => LocalizationService.Ui("Craft Soul Crystals");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this soul crystal equipped to specialize in a crafting class?"));
+    public override string SingularName => "制作特职水晶";
+    public override string PluralName => "制作特职水晶";
+    public override string HelpText => "该特职水晶是否用于专精制作职业？";
     public override bool ShouldGroup => false;
 
     public override IReadOnlyList<ItemInfoRenderCategory> Categories =>
@@ -31,7 +31,7 @@ public class ItemCraftSoulCrystalUseRenderer : ItemInfoRenderer<ItemCraftSoulCry
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Equip to specialize as ")) + asSource.ClassJob.Base.Name.ExtractText());
+        ImGui.Text("装备以特化为" + asSource.ClassJob.Base.Name.ExtractText());
     };
 
     public override Func<ItemSource, string> GetName => source =>
@@ -49,6 +49,6 @@ public class ItemCraftSoulCrystalUseRenderer : ItemInfoRenderer<ItemCraftSoulCry
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return LocalizationService.Ui("Equip to specialize as ") + asSource.ClassJob.Base.Name.ExtractText();
+        return "装备以特化为" + asSource.ClassJob.Base.Name.ExtractText();
     };
 }

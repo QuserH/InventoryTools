@@ -30,7 +30,7 @@ namespace InventoryTools.Logic.Columns
                 var value = searchResult.CuratedItem.ItemFlags.FormattedName();
                 ImGuiUtil.VerticalAlignButton(configuration.TableHeight);
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
-                using (var combo = ImRaii.Combo("##"+rowIndex+"Type", value))
+                using (var combo = ImRaii.Combo("##"+rowIndex+"类型", value))
                 {
                     if (combo)
                     {
@@ -84,9 +84,9 @@ namespace InventoryTools.Logic.Columns
 
             return null;
         }
-        public override string Name { get; set; } = LocalizationService.Ui("Type");
+        public override string Name { get; set; } = "类型";
         public override float Width { get; set; } = 80.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The type of the item."));
+        public override string HelpText { get; set; } = "物品的类型。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

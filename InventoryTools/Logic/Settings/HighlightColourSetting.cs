@@ -21,8 +21,8 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "HighlightColour";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Highlight Colour"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The color to set the highlighted items to."));
+        public override string Name { get; set; } = "高亮颜色";
+        public override string HelpText { get; set; } = "高亮物品的颜色。";
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Colours;
         public override string Version => "1.7.0.0";

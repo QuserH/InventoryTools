@@ -28,10 +28,10 @@ public class CraftCraftCompletionModeFilter : ChoiceFilter<CraftCompletionMode>
     }
 
     public override string Key { get; set; } = "HideCompletedMode";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Completion Mode"));
+    public override string Name { get; set; } = "完成模式";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("When an output reaches 0, should it be deleted or just be hidden(when Hide Completed is checked)."));
+        "当成品数量达到 0 时，应删除还是仅隐藏（勾选隐藏已完成项时）。";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CraftCompletionMode DefaultValue { get; set; } = CraftCompletionMode.Delete;
@@ -62,7 +62,7 @@ public class CraftCraftCompletionModeFilter : ChoiceFilter<CraftCompletionMode>
             case(CraftCompletionMode.Delete):
                 return "Delete";
             case(CraftCompletionMode.DoNothing):
-                return LocalizationService.Ui("Do Nothing");
+                return "不执行任何操作";
         }
 
         return choice.ToString();

@@ -13,10 +13,10 @@ namespace InventoryTools.Logic.Settings
 
         public static string AsKey => "HotkeyListsWindow";
         public override string Key { get; set; } = AsKey;
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Toggle Lists Window"));
+        public override string Name { get; set; } = "切换列表窗口";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The hotkey to toggle the lists window."));
+            "切换列表窗口的快捷键。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

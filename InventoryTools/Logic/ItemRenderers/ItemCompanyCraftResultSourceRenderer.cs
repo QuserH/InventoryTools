@@ -29,16 +29,16 @@ public class ItemCompanyCraftResultSourceRenderer : ItemInfoRenderer<ItemCompany
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.FreeCompanyCraftRecipe;
-    public override string SingularName => LocalizationService.Ui("Company Craft");
+    public override string SingularName => "部队制作";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Crafting];
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is the item crafted at the company workshop as a company craft recipe?"));
+    public override string HelpText => "该物品是否在部队工房以部队制作工程配方制作？";
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Craft Type: {0}"), asSource.CompanyCraftSequence.Base.CompanyCraftType.Value.Name));
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Parts: {0}"), asSource.CompanyCraftSequence.CompanyCraftParts.Length));
-        DrawItems(LocalizationService.Ui("Ingredients: "), asSource.CostItems);
+        ImGui.Text(string.Format("制作类型：{0}", asSource.CompanyCraftSequence.Base.CompanyCraftType.Value.Name));
+        ImGui.Text(string.Format("部件：{0}", asSource.CompanyCraftSequence.CompanyCraftParts.Length));
+        DrawItems("素材：", asSource.CostItems);
     };
 
     public override Func<ItemSource, string> GetName => source =>

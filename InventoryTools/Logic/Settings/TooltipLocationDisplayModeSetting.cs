@@ -21,12 +21,12 @@ public class TooltipLocationDisplayModeSetting : ChoiceSetting<TooltipLocationDi
     }
 
     public override string Key { get; set; } = "TooltipLocationDisplayMode";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Display Mode)"));
+    public override string Name { get; set; } = "添加物品位置（显示模式）";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Display Mode");
+    public override string WizardName { get; } = "显示模式";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("How the locations of items should be presented in the tooltip. This requires 'Add Item Locations?' to be on."));
+        "物品位置在悬浮提示中的呈现方式。需要启用添加物品位置？。";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;
@@ -37,20 +37,20 @@ public class TooltipLocationDisplayModeSetting : ChoiceSetting<TooltipLocationDi
         {
             return new Dictionary<TooltipLocationDisplayMode, string>()
             {
-                { TooltipLocationDisplayMode.CharacterQuantityQuality, LocalizationService.Ui("Character/Retainer - Quantity - Quality") },
-                { TooltipLocationDisplayMode.CharacterBagSlotQuality, LocalizationService.Ui("Character/Retainer - Bag - Slot - Quality") },
-                { TooltipLocationDisplayMode.CharacterBagSlotQuantity, LocalizationService.Ui("Character/Retainer - Bag - Slot - Quantity") },
+                { TooltipLocationDisplayMode.CharacterQuantityQuality, "角色/雇员 - 数量 - 品质" },
+                { TooltipLocationDisplayMode.CharacterBagSlotQuality, "角色/雇员 - 背包 - 栏位 - 品质" },
+                { TooltipLocationDisplayMode.CharacterBagSlotQuantity, "角色/雇员 - 背包 - 栏位 - 数量" },
                 {
                     TooltipLocationDisplayMode.CharacterCategoryQuantityQuality,
-                    LocalizationService.Ui("Character/Retainer - Category - Quantity - Quality")
+                    "角色/雇员 - 分类 - 数量 - 品质"
                 },
                 {
                     TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality,
-                    LocalizationService.Ui("Character/Retainer - World - Category - Quantity - Quality")
+                    "角色/雇员 - 服务器 - 分类 - 数量 - 品质"
                 },
                 {
                     TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality,
-                    LocalizationService.Ui("Character - Retainer - Category - Quantity - Quality")
+                    "角色 - 雇员 - 分类 - 数量 - 品质"
                 },
             };
         }

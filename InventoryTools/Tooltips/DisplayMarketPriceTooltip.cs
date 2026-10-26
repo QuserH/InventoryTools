@@ -90,7 +90,7 @@ public class DisplayMarketPriceTooltip : BaseTooltip
                             var marketData = _marketCache.GetPricing((uint)hoverItemId, activeCharacter.WorldId, false);
                             if (marketData != null)
                             {
-                                textLines.Add(LocalizationService.Ui("Market Board Data:\n"));
+                                textLines.Add("市场板数据：\n");
                                 if (Configuration.TooltipDisplayMarketAveragePrice)
                                 {
                                     textLines.Add(

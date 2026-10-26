@@ -27,9 +27,9 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         _racingChocoboItemSheet = racingChocoboItemSheet;
     }
 
-    public override string Singular => LocalizationService.Ui("Racing Chocobo Item");
-    public override string Plural => LocalizationService.Ui("Racing Chocobo Items");
-    public override string Description => LocalizationService.Ui("Items used for Racing Chocobo training and breeding.");
+    public override string Singular => "竞速陆行鸟物品";
+    public override string Plural => "竞速陆行鸟物品";
+    public override string Description => "用于竞速陆行鸟训练和培育的物品。";
     public override string Key => "racingChocoboItems";
 
     public override (string?, uint?) Icon => (null, 72);
@@ -89,8 +89,8 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         builder.AddItemColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("Item icon"),
+            Name = "##Icon",
+            HelpText = "物品图标",
             Version = "1.0",
             ValueSelector = row => row.Item.RowId,
         });
@@ -98,27 +98,27 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
+            Name = "名称",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The name of the item"),
+            HelpText = "物品的名称",
             ValueSelector = r => r.Item.ValueNullable?.Name.ToImGuiString()
         });
 
         builder.AddStringColumn(new()
         {
             Key = "category",
-            Name = LocalizationService.Ui("Category"),
+            Name = "分类",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The category of the item"),
+            HelpText = "物品的分类",
             ValueSelector = r => GetCategoryName(r.Category)
         });
 
         builder.AddIntegerColumn(new()
         {
             Key = "rank",
-            Name = LocalizationService.Ui("Rank"),
+            Name = "等级",
             Version = "1.0",
-            HelpText = LocalizationService.Ui("The rank of the item"),
+            HelpText = "物品的等级",
             ValueSelector = r => r.Unknown1.ToString()
         });
     }
@@ -130,19 +130,19 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
     {
         var item = row.Item.ValueNullable;
 
-        viewBuilder.Title = item?.Name.ToImGuiString() ?? LocalizationService.Ui("Unknown");
+        viewBuilder.Title = item?.Name.ToImGuiString() ?? "未知";
         viewBuilder.Subtitle = GetCategoryName(row.Category);
         viewBuilder.Icon = item?.Icon ?? 0;
 
         viewBuilder.AddInfoTableSection(new()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "信息",
             Items =
             [
-                (LocalizationService.Ui("Category"), GetCategoryName(row.Category), true),
-                (LocalizationService.Ui("Rank"), row.Unknown1.ToString(), true),
-                (LocalizationService.Ui("Item ID"), row.Item.RowId.ToString(), true),
+                ("分类", GetCategoryName(row.Category), true),
+                ("等级", row.Unknown1.ToString(), true),
+                ("物品 ID", row.Item.RowId.ToString(), true),
             ]
         });
     }
@@ -159,7 +159,7 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
             new CompendiumGrouping<RacingChocoboItem>()
             {
                 Key = "category",
-                Name = LocalizationService.Ui("Category"),
+                Name = "分类",
                 GroupFunc = r => r.Category,
                 GroupMapping = r => GetCategoryName((byte)r)
             }
@@ -172,14 +172,14 @@ public class RacingChocoboItemCompendiumType : CompendiumType<RacingChocoboItem>
     {
         return category switch
         {
-            1 => LocalizationService.Ui("Proof of Coverings"),
-            2 => LocalizationService.Ui("Registration Forms"),
-            3 => LocalizationService.Ui("Retired Registration Forms"),
-            4 => LocalizationService.Ui("Covering Permission Forms"),
-            5 => LocalizationService.Ui("Sack of Feeds"),
-            6 => LocalizationService.Ui("Training Manuals"),
-            7 => LocalizationService.Ui("Ability Reset Tonics"),
-            _ => LocalizationService.Ui("Unknown")
+            1 => "骑乘许可证明",
+            2 => "注册表",
+            3 => "退役注册表",
+            4 => "骑乘许可表",
+            5 => "饲料袋",
+            6 => "训练手册",
+            7 => "能力重置药",
+            _ => "未知"
         };
     }
 }

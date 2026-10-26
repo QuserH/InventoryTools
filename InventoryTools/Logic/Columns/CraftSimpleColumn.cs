@@ -64,7 +64,7 @@ namespace InventoryTools.Logic.Columns
                     configuration.CraftList.RemoveCraftItem(searchResult.CraftItem.ItemId);
                     configuration.NeedsRefresh = true;
                 }
-                OtterGui.ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Delete item")));
+                OtterGui.ImGuiUtil.HoverTooltip("删除物品");
 
             }
 
@@ -89,14 +89,14 @@ namespace InventoryTools.Logic.Columns
                                 ImGui.SameLine();
                                 ImGui.Image(ImGuiService.GetIconTexture(Icons.QuestionMarkIcon).Handle, new Vector2(16, 16));
                                 OtterGui.ImGuiUtil.HoverTooltip(
-                                    LocalizationService.Ui(LocalizationService.Ui("The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.")));
+                                    "该物品的市场价格比从商店购买更便宜，且你更喜欢商店而不是当前的素材偏好。");
                             }
                         }
                     }
                 }
                 else
                 {
-                    ImGui.Text(LocalizationService.Ui("N/A"));
+                    ImGui.Text("不适用");
                 }
 
                 var craftPrices = searchResult.CraftItem.CraftPrices;
@@ -114,18 +114,18 @@ namespace InventoryTools.Logic.Columns
                                 var world = _worldSheet.GetRowOrDefault(price.WorldId);
                                 if (world != null)
                                 {
-                                    ImGui.Text(price.Left + LocalizationService.Ui(" available at ") + price.UnitPrice +
-                                               (price.IsHq ? LocalizationService.Ui(" (HQ)") : "") + " (" + world.Value.Name.ExtractText() + ")");
+                                    ImGui.Text(price.Left + " 可在 " + price.UnitPrice +
+                                               (price.IsHq ? " (HQ)" : "") + " (" + world.Value.Name.ExtractText() + ")");
                                 }
 
                                 totalAvailable += price.Left;
                             }
 
-                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) + totalAvailable);
+                            ImGui.Text("可用：" + totalAvailable);
 
                             if (searchResult.CraftItem.MarketAvailable != searchResult.CraftItem.QuantityNeeded)
                             {
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing: ")) + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
+                                ImGui.Text("缺少：" + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
                             }
                         }
                     }
@@ -142,7 +142,7 @@ namespace InventoryTools.Logic.Columns
                 if (ImGui.IsItemHovered(ImGuiHoveredFlags.None))
                 {
                     using var tt = ImRaii.Tooltip();
-                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing Ingredients: ")));
+                    ImGui.Text("缺少的素材：");
                     foreach (var missingIngredient in searchResult.CraftItem.MissingIngredients)
                     {
                         var itemId = missingIngredient.Key.Item1;
@@ -160,14 +160,14 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Next Step in Craft"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Next Step"));
+        public override string Name { get; set; } = "制作下一步";
+        public override string RenderName => "下一步";
 
         public override float Width { get; set; } = 200;
         public override bool? CraftOnly => true;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows a simplified version of what you should do next in your craft"));
+            "显示制作下一步的简化提示";
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;

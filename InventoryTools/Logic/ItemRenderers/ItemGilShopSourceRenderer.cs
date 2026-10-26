@@ -21,7 +21,7 @@ public class ItemGilShopUseRenderer : ItemGilShopSourceRenderer
 {
     private readonly MapSheet _mapSheet;
     private readonly ItemSheet _itemSheet;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a gil shop?"));
+    public override string HelpText => "该物品是否可在金币商店使用？";
 
     public ItemGilShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
@@ -38,7 +38,7 @@ public class ItemGilShopUseRenderer : ItemGilShopSourceRenderer
             ? new List<string>()
             : shopSource.MapIds.Select(c => _mapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("{0} items available for purchase with gil in {1} zones"), allGilShops.Count, maps.Count));
+        ImGui.Text(string.Format("可在 {1} 个区域用金币购买 {0} 件物品", allGilShops.Count, maps.Count));
     };
 
     public override RendererType RendererType => RendererType.Use;
@@ -60,9 +60,9 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.GilShop;
-    public override string SingularName => LocalizationService.Ui("Gil Shop");
-    public override string PluralName => LocalizationService.Ui("Gil Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased at a gil shop?"));
+    public override string SingularName => "金币商店";
+    public override string PluralName => "金币商店";
+    public override string HelpText => "该物品是否可在金币商店购买？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
 
@@ -73,7 +73,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
         var asSources = AsSource(sources);
         var firstItem = asSources[0];
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Costs:")));
+        ImGui.Text("花费：");
 
         using (ImRaii.PushIndent())
         {
@@ -86,7 +86,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
 
             if (firstItem.GilShopItem.Base.AchievementRequired.RowId != 0)
             {
-                ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+                ImGui.Text(string.Format("所需成就：{0}",
                     firstItem.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
             }
 
@@ -94,7 +94,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
             {
                 if (quest.RowId != 0)
                 {
-                    ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
+                    ImGui.Text(string.Format("所需任务：{0}", quest.Value.Name.ExtractText()));
                 }
             }
         }
@@ -107,7 +107,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
         var asSource = AsSource(source);
         var maps = source.MapIds?.Select(c => _mapSheet.GetRow(c).FormattedName).ToList() ?? new List<string>();
 
-        ImGui.Text(LocalizationService.Ui("Costs:"));
+        ImGui.Text("花费：");
 
         using (ImRaii.PushIndent())
         {
@@ -120,7 +120,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
 
             if (asSource.GilShopItem.Base.AchievementRequired.RowId != 0)
             {
-                ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+                ImGui.Text(string.Format("所需成就：{0}",
                     asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
             }
 
@@ -128,7 +128,7 @@ public class ItemGilShopSourceRenderer : ItemInfoRenderer<ItemGilShopSource>
             {
                 if (quest.RowId != 0 && quest.IsValid)
                 {
-                    ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
+                    ImGui.Text(string.Format("所需任务：{0}", quest.Value.Name.ExtractText()));
                 }
             }
         }

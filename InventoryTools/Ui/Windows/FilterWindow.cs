@@ -58,31 +58,31 @@ namespace InventoryTools.Ui
             if (SelectedConfiguration != null)
             {
                 Key = "filter_" + filterKey;
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - ")) + SelectedConfiguration.Name;
+                WindowName = "亚拉戈工具箱 - " + SelectedConfiguration.Name;
             }
             else
             {
                 Key = "filter_invalid";
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Invalid List"));
+                WindowName = "无效列表";
             }
 
             _settingsMenu = new PopupMenu("configMenu", PopupMenu.PopupMenuButtons.All,
                 new List<PopupMenu.IPopupMenuItem>()
                 {
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Mob Window"), "mobs", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(BNpcsWindow))),
-                        LocalizationService.Ui("Open the mobs window.")),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Npcs Window"), "npcs", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(ENpcsWindow))),
-                        LocalizationService.Ui("Open the npcs window.")),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Duties Window"), "duties", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(DutiesWindow))),
-                        LocalizationService.Ui("Open the duties window.")),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Airships Window"), "airships", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(AirshipsWindow))),
-                        LocalizationService.Ui("Open the airships window.")),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Submarines Window"), "submarines", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(SubmarinesWindow))),
-                        LocalizationService.Ui("Open the submarines window.")),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Retainer Ventures Window"), "ventures",_ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(RetainerTasksWindow))),
-                        LocalizationService.Ui("Open the retainer ventures window.")),
+                    new PopupMenu.PopupMenuItemSelectable("怪物窗口", "mobs", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(BNpcsWindow))),
+                        "打开怪物窗口。"),
+                    new PopupMenu.PopupMenuItemSelectable("NPC 窗口", "npcs", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(ENpcsWindow))),
+                        "打开 NPC 窗口。"),
+                    new PopupMenu.PopupMenuItemSelectable("副本窗口", "duties", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(DutiesWindow))),
+                        "打开副本窗口。"),
+                    new PopupMenu.PopupMenuItemSelectable("飞空艇窗口", "airships", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(AirshipsWindow))),
+                        "打开飞空艇窗口。"),
+                    new PopupMenu.PopupMenuItemSelectable("潜水艇窗口", "submarines", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(SubmarinesWindow))),
+                        "打开潜水艇窗口。"),
+                    new PopupMenu.PopupMenuItemSelectable("雇员探险窗口", "ventures",_ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(RetainerTasksWindow))),
+                        "打开雇员探险窗口。"),
                     new PopupMenu.PopupMenuItemSeparator(),
-                    new PopupMenu.PopupMenuItemSelectable(LocalizationService.Ui("Help"), "help", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow))), LocalizationService.Ui("Open the help window.")),
+                    new PopupMenu.PopupMenuItemSelectable("帮助", "help", _ => MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow))), "打开帮助窗口。"),
                 });
         }
 
@@ -101,7 +101,7 @@ namespace InventoryTools.Ui
             _listService.GetListByKey(_filterKey);
 
         public override string GenericKey { get; } = "filter";
-        public override string GenericName { get; } = LocalizationService.Ui("Filter");
+        public override string GenericName { get; } = "筛选器";
         public override bool DestroyOnClose => true;
         public override bool SaveState => true;
 
@@ -184,7 +184,7 @@ namespace InventoryTools.Ui
                 {
                     var highlightItems = itemTable.HighlightItems;
                     ImGuiService.CenterElement(20 * ImGui.GetIO().FontGlobalScale);
-                    ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("Highlight?")) + "###" + itemTable.Key + "VisibilityCheckbox",
+                    ImGui.Checkbox("高亮？" + "###" + itemTable.Key + "VisibilityCheckbox",
                         ref highlightItems);
                     if (highlightItems != itemTable.HighlightItems)
                     {
@@ -202,7 +202,7 @@ namespace InventoryTools.Ui
                         itemTable.ClearFilters();
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Clear the current search.")));
+                    ImGuiUtil.HoverTooltip("清除当前搜索。");
 
                 }
             }
@@ -245,17 +245,17 @@ namespace InventoryTools.Ui
                         }
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Refresh Market Prices")));
+                    ImGuiUtil.HoverTooltip("刷新市场价格");
                     ImGui.SameLine();
                     ImGuiService.CenterElement(24 * ImGui.GetIO().FontGlobalScale);
                     var csvCursorX = ImGui.GetCursorPosX();
                     if (ImGuiService.DrawIconButton(_font, FontAwesomeIcon.FileExport, ref csvCursorX))
                     {
-                        _fileDialogManager.SaveFileDialog(LocalizationService.Ui("Save to csv"), "*.csv", "export.csv", ".csv",
+                        _fileDialogManager.SaveFileDialog("保存为 CSV", "*.csv", "export.csv", ".csv",
                             (b, s) => { SaveCallback(itemTable, b, s); }, null, true);
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Export to CSV")));
+                    ImGuiUtil.HoverTooltip("导出为 CSV");
                     if (filterConfiguration.FilterType == FilterType.CraftFilter &&
                         _gameUiManager.IsWindowVisible(
                             CriticalCommonLib.Services.Ui.WindowName.SubmarinePartsMenu))
@@ -264,7 +264,7 @@ namespace InventoryTools.Ui
                         if (subMarinePartsMenu != null)
                         {
                             ImGui.SameLine();
-                            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add Company Craft to List"))))
+                            if (ImGui.Button("将部队制作工程加入列表"))
                             {
                                 var subAddon = (SubmarinePartsMenuAddon*)subMarinePartsMenu;
                                 for (byte i = 0; i < 6; i++)
@@ -288,13 +288,13 @@ namespace InventoryTools.Ui
                     }
 
                     ImGui.SameLine();
-                    ImGuiService.VerticalCenter(LocalizationService.Ui("Pending Market Requests: ") + _universalis.QueuedCount);
+                    ImGuiService.VerticalCenter("待处理的市场请求：" + _universalis.QueuedCount);
                     if (filterConfiguration.FilterType == FilterType.CraftFilter)
                     {
                         ImGui.SameLine();
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Total Cost NQ: ")) + filterConfiguration.CraftList.MinimumNQCost);
+                        ImGui.TextUnformatted("NQ总花费：" + filterConfiguration.CraftList.MinimumNQCost);
                         ImGui.SameLine();
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Total Cost HQ: ")) + filterConfiguration.CraftList.MinimumHQCost);
+                        ImGui.TextUnformatted("HQ总花费：" + filterConfiguration.CraftList.MinimumHQCost);
                     }
 
                     if (filterConfiguration.FilterType == FilterType.CraftFilter)
@@ -323,7 +323,7 @@ namespace InventoryTools.Ui
                         MediatorService.Publish(new ToggleGenericWindowMessage(typeof(ConfigurationWindow)));
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Open the configuration window.")));
+                    ImGuiUtil.HoverTooltip("打开设置窗口。");
 
                     ImGui.SetCursorPosY(0);
                     width -= 30 * ImGui.GetIO().FontGlobalScale;
@@ -333,7 +333,7 @@ namespace InventoryTools.Ui
                         MediatorService.Publish(new ToggleGenericWindowMessage(typeof(FiltersWindow)));
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Open the items window.")));
+                    ImGuiUtil.HoverTooltip("打开物品窗口。");
 
                     ImGui.SetCursorPosY(0);
                     width -= 30 * ImGui.GetIO().FontGlobalScale;
@@ -343,18 +343,18 @@ namespace InventoryTools.Ui
                         MediatorService.Publish(new ToggleGenericWindowMessage(typeof(CraftsWindow)));
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Open the craft window.")));
+                    ImGuiUtil.HoverTooltip("打开制作窗口。");
 
-                    var totalItems =  itemTable.RenderSearchResults.Count + LocalizationService.Ui(" items");
+                    var totalItems =  itemTable.RenderSearchResults.Count + " 件物品";
 
                     if (SelectedConfiguration != null && SelectedConfiguration.FilterType == FilterType.GameItemFilter)
                     {
-                        totalItems =  itemTable.RenderSearchResults.Count + LocalizationService.Ui(" items");
+                        totalItems =  itemTable.RenderSearchResults.Count + " 件物品";
                     }
 
                     if (SelectedConfiguration != null && SelectedConfiguration.FilterType == FilterType.HistoryFilter)
                     {
-                        totalItems =  itemTable.RenderSearchResults.Count + LocalizationService.Ui(" historical records");
+                        totalItems =  itemTable.RenderSearchResults.Count + " 条历史记录";
                     }
 
                     var calcTextSize = ImGui.CalcTextSize(totalItems);

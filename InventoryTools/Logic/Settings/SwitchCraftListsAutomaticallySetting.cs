@@ -19,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "SwitchCraftListsAutomatically";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Switch craft lists automatically?"));
+        public override string Name { get; set; } = "自动切换制作列表？";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Should the active craft list automatically change when moving between each craft list? The active craft list will only change if there is an active craft list already selected."));
+            "在制作列表之间切换时，是否自动更改当前制作列表？仅当已选择当前制作列表时才会更改。";
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
         public override string Version => "1.7.0.0";

@@ -19,9 +19,9 @@ namespace InventoryTools.Logic.Filters
         }
         public override int LabelSize { get; set; } = 240;
         public override string Key { get; set; } = "DestinationInventories";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Destination Inventories"));
+        public override string Name { get; set; } = "目标背包";
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Define which inventories you want as destinations, the plugin will attempt try to take the items found in your 'Source Inventories' and sort them into your 'Destination Inventories'. You can see which inventories have been found based on the scope configuration below."));
+            "定义目标背包，插件会尝试将来源背包中的物品整理到目标背包中。你可以根据下方范围配置查看已找到的背包。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
         public override List<InventorySearchScope>? DefaultValue { get; set; } = null;
         public override FilterType AvailableIn { get; set; } = FilterType.SortingFilter;

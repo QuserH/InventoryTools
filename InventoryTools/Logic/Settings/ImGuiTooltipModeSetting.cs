@@ -18,8 +18,8 @@ public class ImGuiTooltipModeSetting : GenericEnumChoiceSetting<ImGuiTooltipMode
 {
     public ImGuiTooltipModeSetting(ILogger<ImGuiTooltipModeSetting> logger,
         ImGuiService imGuiService) : base("ImGuiTooltipMode",
-        LocalizationService.Ui("Item Tooltip Mode"),
-        LocalizationService.Ui("Should a tooltip for items be shown, never, when hovering an item's icon or when hovering any row within an item table?"),
+        "物品悬浮提示模式",
+        "物品悬浮提示是否应显示？从不、悬停物品图标时、还是悬停物品表格中的任意行时？",
         ImGuiTooltipMode.Icons,
         new Dictionary<ImGuiTooltipMode, string>()
         {

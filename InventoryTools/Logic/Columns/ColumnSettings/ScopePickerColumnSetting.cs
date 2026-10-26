@@ -59,8 +59,8 @@ public class ScopePickerColumnSetting : ColumnSetting<List<InventorySearchScope>
     }
 
     public override string Key { get; set; } = "ScopePicker";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Inventory Search Scope"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Select the inventories you want to search inside."));
+    public override string Name { get; set; } = "背包搜索范围";
+    public override string HelpText { get; set; } = "选择要搜索的背包。";
     public override List<InventorySearchScope>? DefaultValue { get; set; } = null;
 
     public override bool DrawFilter(ColumnConfiguration configuration, string? helpText)
@@ -72,7 +72,7 @@ public class ScopePickerColumnSetting : ColumnSetting<List<InventorySearchScope>
     {
         var success = false;
         var inventorySearchScopes = CurrentValue(configuration) ?? new();
-        if (_scopePicker.Draw(LocalizationService.Ui("##ScopePicker") + configuration.Key, inventorySearchScopes))
+        if (_scopePicker.Draw("##ScopePicker" + configuration.Key, inventorySearchScopes))
         {
             this.UpdateColumnConfiguration(configuration, inventorySearchScopes);
             success = true;
@@ -83,14 +83,14 @@ public class ScopePickerColumnSetting : ColumnSetting<List<InventorySearchScope>
             ImGui.SameLine();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudWhite))
             {
-                ImGui.Text(LocalizationService.Ui("?"));
+                ImGui.Text("?");
             }
-            ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Please make sure you include at least one inventory that contains crystals otherwise the craft calculator will not work.")));
+            ImGuiUtil.HoverTooltip("请确保至少包含一个装有水晶的背包，否则制作计算器将无法工作。");
         }
 
         var currentValue = CurrentValue(configuration);
         using var disabled = ImRaii.Disabled(currentValue == null);
-        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Test Scopes"))))
+        if (ImGui.Button("测试范围"))
         {
             if (currentValue != null)
             {
@@ -102,10 +102,10 @@ public class ScopePickerColumnSetting : ColumnSetting<List<InventorySearchScope>
         if (_categories is not null)
         {
             ImGui.Separator();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("The following inventories will be searched in: ")));
+            ImGui.Text("将搜索以下背包：");
             foreach (var s in _categories)
             {
-                ImGui.TextUnformatted((s.Character?.Name ?? LocalizationService.Ui("Unknown Character")) + " - " + (string.Join(", ", s.Category.Select(c => c.FormattedDetailedName()).ToList())));
+                ImGui.TextUnformatted((s.Character?.Name ?? "未知角色") + " - " + (string.Join(", ", s.Category.Select(c => c.FormattedDetailedName()).ToList())));
             }
         }
 

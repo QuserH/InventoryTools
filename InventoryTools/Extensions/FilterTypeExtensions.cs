@@ -9,14 +9,14 @@ public static class FilterTypeExtensions
     {
         return filterType switch
         {
-            FilterType.None => LocalizationService.Ui("None"),
-            FilterType.SearchFilter => LocalizationService.Ui("Search List"),
-            FilterType.SortingFilter => LocalizationService.Ui("Sort List"),
-            FilterType.GameItemFilter => LocalizationService.Ui("Game Item List"),
-            FilterType.CraftFilter => LocalizationService.Ui("Craft List"),
-            FilterType.HistoryFilter => LocalizationService.Ui("History List"),
-            FilterType.CuratedList => LocalizationService.Ui("Curated List"),
-            _ => LocalizationService.Ui("Unknown")
+            FilterType.None => "无",
+            FilterType.SearchFilter => "搜索列表",
+            FilterType.SortingFilter => "排序列表",
+            FilterType.GameItemFilter => "游戏物品列表",
+            FilterType.CraftFilter => "制作列表",
+            FilterType.HistoryFilter => "历史记录列表",
+            FilterType.CuratedList => "精选列表",
+            _ => "未知"
         };
     }
 }

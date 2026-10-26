@@ -19,12 +19,12 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "moreInfoContextMenu";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - More Information (Items)"));
+        public override string Name { get; set; } = "快捷菜单 - 更多信息（物品）";
 
-        public override string WizardName { get; } = LocalizationService.Ui("More Information");
+        public override string WizardName { get; } = "更多信息";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Add the more information menu item to the right click/context menu for items?"));
+            "是否在物品的右键/快捷菜单中添加更多信息菜单项？";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

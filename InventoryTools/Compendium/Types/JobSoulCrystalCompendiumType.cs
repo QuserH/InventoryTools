@@ -40,9 +40,9 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         _staticIcon = new Lazy<(string?, uint?)>(BuildStaticIcon, LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
-    public override string Singular => LocalizationService.Ui("Job Soul Crystal");
-    public override string Plural => LocalizationService.Ui("Job Soul Crystals");
-    public override string Description => LocalizationService.Ui("Soul crystals that enable or convert a class into a job.");
+    public override string Singular => "特职水晶";
+    public override string Plural => "特职水晶";
+    public override string Description => "启用或将基础职业转换为特职的水晶。";
     public override string Key => "job_soul_crystals";
     public override (string?, uint?) Icon => _staticIcon.Value;
 
@@ -71,8 +71,8 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("The icon of the soul crystal"),
+            Name = "##Icon",
+            HelpText = "该特职水晶的图标",
             Version = "15.0.6",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -81,24 +81,24 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the soul crystal"),
+            Name = "名称",
+            HelpText = "该特职水晶的名称",
             Version = "15.0.6",
             ValueSelector = row => row.Item.NameString,
         });
         builder.AddStringColumn(new()
         {
             Key = "job",
-            Name = LocalizationService.Ui("Job"),
-            HelpText = LocalizationService.Ui("The job this soul crystal enables"),
+            Name = "职业",
+            HelpText = "该特职水晶启用的特职",
             Version = "15.0.6",
             ValueSelector = row => row.ClassJob.Base.Name.ToImGuiString().FirstCharToUpper(),
         });
         builder.AddStringColumn(new()
         {
             Key = "parent_class",
-            Name = LocalizationService.Ui("Parent Class"),
-            HelpText = LocalizationService.Ui("The base class this soul crystal converts, if any"),
+            Name = "基础职业",
+            HelpText = "该特职水晶转换的基础职业（如有）",
             Version = "15.0.6",
             ValueSelector = row => row.ParentClassJob?.Base.Name.ToImGuiString().FirstCharToUpper() ?? "",
         });
@@ -111,25 +111,25 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "信息",
             Items =
             [
                 ("Job", row.ClassJob.Base.Name.ToImGuiString(), true),
-                (LocalizationService.Ui("Converts From"), row.ParentClassJob?.Base.Name.ToImGuiString() ?? "", row.ParentClassJob != null),
+                ("由以下职业转换", row.ParentClassJob?.Base.Name.ToImGuiString() ?? "", row.ParentClassJob != null),
             ],
         });
 
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = LocalizationService.Ui("Job"),
+            SectionName = "职业",
             RelatedRef = (RowRef)row.ClassJob.RowRef,
         });
 
         viewBuilder.AddItemListSection(new ItemListSectionOptions()
         {
             SectionKey = "soul_crystal_item",
-            SectionName = LocalizationService.Ui("Soul Crystal"),
+            SectionName = "特职水晶",
             Items = [new ItemInfo(row.Item)],
         });
 
@@ -137,7 +137,7 @@ public class JobSoulCrystalCompendiumType : CompendiumType<ItemJobSoulCrystalUse
         viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
         {
             SectionKey = "soul_crystal_sources",
-            SectionName = LocalizationService.Ui("Obtain"),
+            SectionName = "获取方式",
             Sources = itemSources ?? [],
             SourceType = SourceType.Source,
         });

@@ -108,7 +108,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                 .Select(i => i.SortedCategory)
                 .Distinct();
             return string.Concat(categories.Select(c =>
-                LocalizationService.Format("Already in {0}", c.FormattedDetailedName()) + "\n"));
+                string.Format("已在 {0} 中", c.FormattedDetailedName()) + "\n"));
         }
 
         var newText = "";
@@ -139,7 +139,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                         }
                     }
 
-                    newText += "\n" + LocalizationService.Format("Outfit Glamour: {0}/{1} {2}", ownedCount,
+                    newText += "\n" + string.Format("投影套装：{0}/{1} {2}", ownedCount,
                         source.SetItems.Count, visualizer) + "\n";
                     newText += ownershipLine;
                 }
@@ -148,7 +148,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                     var acquiredColor = (ushort)(_acquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     var notAcquiredColor = (ushort)(_notAcquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     detailedPayloads = new List<Payload>();
-                    var header = LocalizationService.Ui("\nOutfit Glamour\n") + ownershipLine;
+                    var header = "\n外观幻化\n" + ownershipLine;
                     detailedPayloads.Add(new UIForegroundPayload(baseColor));
                     detailedPayloads.Add(new UIGlowPayload(0));
                     detailedPayloads.Add(new TextPayload(header.TrimEnd('\n')));
@@ -189,7 +189,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                         }
                     }
 
-                    newText += "\n" + LocalizationService.Format("Part of: {0} ({1}/{2} {3})",
+                    newText += "\n" + string.Format("属于：{0}（{1}/{2} {3}）",
                         source.ConvertedItem.NameString, ownedCount, source.SetItems.Count, visualizer) + "\n";
                     newText += ownershipLine;
                 }
@@ -198,7 +198,7 @@ public class GlamourReadySetTooltip : BaseTooltip
                     var acquiredColor = (ushort)(_acquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     var notAcquiredColor = (ushort)(_notAcquiredColorSetting.CurrentValue(Configuration) ?? baseColor);
                     detailedPayloads = new List<Payload>();
-                    var header = LocalizationService.Ui("\nPart of: ") + source.ConvertedItem.NameString + "\n" + ownershipLine;
+                    var header = "\n属于套装：" + source.ConvertedItem.NameString + "\n" + ownershipLine;
                     detailedPayloads.Add(new UIForegroundPayload(baseColor));
                     detailedPayloads.Add(new UIGlowPayload(0));
                     detailedPayloads.Add(new TextPayload(header.TrimEnd('\n')));

@@ -55,7 +55,7 @@ public class SingleRowRefSection : ViewSection
         }
     }
 
-    public override string SectionName => _options.SectionName ?? LocalizationService.Ui("Related ") + (_relatedCompendiumType?.Singular ?? "Object");
+    public override string SectionName => _options.SectionName ?? "相关 " + (_relatedCompendiumType?.Singular ?? "Object");
     public override bool IsEmpty(SectionState sectionState)
     {
         if (_relatedCompendiumType == null)
@@ -80,11 +80,11 @@ public class SingleRowRefSection : ViewSection
         {
             if (_refType == null)
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown related row type.")));
+                ImGui.Text("未知的关联数据类型。");
             }
             else
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No matching compendium type for ")) + _refType.Name);
+                ImGui.Text("没有匹配的图鉴类型：" + _refType.Name);
             }
         }
         else

@@ -26,7 +26,7 @@ public class GatheredByColumn : TextColumn
         return string.Join(",", currentValue);
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gathered By?"));
+    public override string Name { get; set; } = "采集方式";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How is this item gathered?"));
+    public override string HelpText { get; set; } = "该物品如何采集？";
 }

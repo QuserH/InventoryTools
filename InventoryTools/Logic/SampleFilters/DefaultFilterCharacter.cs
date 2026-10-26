@@ -40,11 +40,11 @@ public class DefaultFilterCharacter : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui("Character");
-    public string SampleDefaultName => LocalizationService.Ui("Character");
+    public string Name => "角色";
+    public string SampleDefaultName => "角色";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be preconfigured to show the items in your character's bags.");
+        "将添加一个预配置的列表，显示角色背包中的物品。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

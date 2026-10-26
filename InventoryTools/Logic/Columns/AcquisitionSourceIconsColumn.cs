@@ -47,11 +47,11 @@ namespace InventoryTools.Logic.Columns
             _sourceCategorySelectorSetting = sourceCategorySelectorSetting;
             _itemInfoRenderService = itemInfoRenderService;
             _stringColumnFactory = stringColumnFactory;
-            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", LocalizationService.Ui("Search for a source that requires a specific item."),
+            this.requirementSetting = _stringColumnFactory.Invoke("requirement", "Requires", "搜索需要特定物品的来源。",
                 null);
-            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", LocalizationService.Ui("Search for a source that rewards a specific item. While this might seem redundant, certain sources provide more than one item."),
+            this.rewardsSetting = _stringColumnFactory.Invoke("rewards", "Rewards", "搜索奖励特定物品的来源。虽然这可能看起来多余，但某些来源会提供多种物品。",
                 null);
-            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", LocalizationService.Ui("Search for a source in a specific map."),
+            this.mapSetting = _stringColumnFactory.Invoke("maps", "Maps", "搜索特定地图中的来源。",
                 null);
             _mapSheet = mapSheet;
 
@@ -142,11 +142,11 @@ namespace InventoryTools.Logic.Columns
             return String.Join(", ", itemSources.Select(c => _itemInfoRenderService.GetSourceDescription(c)));
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui("Acquisition");
+        public override string Name { get; set; } = "获取来源";
         public override float Width { get; set; } = 250;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows icons indicating what items can be obtained with(gathering, crafting, currency, etc)"));
+            "显示图标，表示物品的获取方式（采集、制作、货币等）";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override IEnumerable<SearchResult> Filter(ColumnConfiguration columnConfiguration,

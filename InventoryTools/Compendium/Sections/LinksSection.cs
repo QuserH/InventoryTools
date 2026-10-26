@@ -21,7 +21,7 @@ public class LinksSection : ViewSection
         _options = options;
     }
 
-    public override string SectionName => "Links";
+    public override string SectionName => "链接";
     public override void DrawSection(SectionState sectionState)
     {
         for (var index = 0; index < _options.Links.Count; index++)

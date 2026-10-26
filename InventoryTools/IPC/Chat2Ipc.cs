@@ -97,7 +97,7 @@ public class Chat2Ipc : IChat2Ipc
 
         if (payload is ItemPayload itemPayload)
         {
-            using(var menu = ImRaii.Menu(LocalizationService.Ui("Allagan Tools")))
+            using(var menu = ImRaii.Menu("亚拉戈工具箱"))
             {
                 if (menu)
                 {

@@ -28,19 +28,19 @@ public class EquipmentSuggestToolModeCategorySetting : EnumFormField<EquipmentSu
 
     public override Enum DefaultValue { get; set; } = EquipmentSuggestToolModeCategory.Crafting;
     public override string Key { get; set; } = "ToolModeCategory";
-    public override string Name { get; set; } = LocalizationService.Ui("Category");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The category to use when in tool mode"));
+    public override string Name { get; set; } = "分类";
+    public override string HelpText { get; set; } = "工具模式下使用的类别";
     public override string Version { get; set; } = "12.0.10";
 
     public override Dictionary<Enum, string> Choices { get; } = new()
     {
-        { EquipmentSuggestToolModeCategory.Crafting, LocalizationService.Ui("Crafting") },
-        { EquipmentSuggestToolModeCategory.Gathering, LocalizationService.Ui("Gathering") },
-        { EquipmentSuggestToolModeCategory.Combat, LocalizationService.Ui("Combat") },
-        { EquipmentSuggestToolModeCategory.CombatTank, LocalizationService.Ui("Combat (Tank)") },
-        { EquipmentSuggestToolModeCategory.CombatHealer, LocalizationService.Ui("Combat (Healer)") },
-        { EquipmentSuggestToolModeCategory.CombatMelee, LocalizationService.Ui("Combat (Melee)") },
-        { EquipmentSuggestToolModeCategory.CombatRanged, LocalizationService.Ui("Combat (Ranged)") },
+        { EquipmentSuggestToolModeCategory.Crafting, "制作" },
+        { EquipmentSuggestToolModeCategory.Gathering, "采集" },
+        { EquipmentSuggestToolModeCategory.Combat, "战斗" },
+        { EquipmentSuggestToolModeCategory.CombatTank, "战斗（坦克）" },
+        { EquipmentSuggestToolModeCategory.CombatHealer, "战斗（治疗）" },
+        { EquipmentSuggestToolModeCategory.CombatMelee, "战斗（近战）" },
+        { EquipmentSuggestToolModeCategory.CombatRanged, "战斗（远程）" },
 
     };
 

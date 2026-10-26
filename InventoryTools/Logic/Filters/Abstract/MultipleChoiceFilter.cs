@@ -84,12 +84,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
             }
 
             ImGui.Indent();
@@ -109,14 +109,14 @@ namespace InventoryTools.Logic.Filters.Abstract
                 if (combo.Success)
                 {
                     var searchString = SearchString;
-                    ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("Start typing to search..##ItemSearch")), ref searchString, 50);
+                    ImGui.InputText("输入文字开始搜索……##ItemSearch", ref searchString, 50);
                     if (_searchString != searchString)
                     {
                         SearchString = searchString;
                     }
                     var activeChoices = GetActiveChoices(configuration);
                     ImGui.SameLine();
-                    if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add All"))))
+                    if (ImGui.Button("全部添加"))
                     {
                         foreach (var item in activeChoices)
                         {
@@ -155,7 +155,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                     _cachedChoices = null;

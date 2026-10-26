@@ -35,8 +35,8 @@ public abstract class ItemRelicWeaponSourceRenderer<T> : ItemInfoRenderer<T> whe
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = this.AsSource(source);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + asSource.RelicWeapon.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
-        this.DrawForms(LocalizationService.Ui("Forms:"), asSource.Forms);
+        ImGui.TextUnformatted("职业：" + asSource.RelicWeapon.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
+        this.DrawForms("形态：", asSource.Forms);
     };
 
     public void DrawForms(string sectionName, IReadOnlyList<RelicWeapon> items)
@@ -117,8 +117,8 @@ public class ItemZodiacWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Item
     }
 
     public override ItemInfoType Type => ItemInfoType.ZodiacWeapon;
-    public override string SingularName => LocalizationService.Ui("Zodiac Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Zodiac Weapon?"));
+    public override string SingularName => "古武武器";
+    public override string HelpText => "是古武吗？";
 }
 
 public class ItemAnimaWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemAnimaWeaponSource>
@@ -128,8 +128,8 @@ public class ItemAnimaWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemA
     }
 
     public override ItemInfoType Type => ItemInfoType.AnimaWeapon;
-    public override string SingularName => LocalizationService.Ui("Anima Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Anima Weapon?"));
+    public override string SingularName => "元灵武器";
+    public override string HelpText => "是元灵武器吗？";
 }
 
 public class ItemEurekanWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemEurekanWeaponSource>
@@ -139,8 +139,8 @@ public class ItemEurekanWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.EurekanWeapon;
-    public override string SingularName => LocalizationService.Ui("Eurekan Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Eurekan Weapon?"));
+    public override string SingularName => "优雷卡武器";
+    public override string HelpText => "是优雷卡武器吗？";
 }
 
 public class ItemResistanceWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemResistanceWeaponSource>
@@ -150,8 +150,8 @@ public class ItemResistanceWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<
     }
 
     public override ItemInfoType Type => ItemInfoType.ResistanceWeapon;
-    public override string SingularName => LocalizationService.Ui("Resistance Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Resistance Weapon?"));
+    public override string SingularName => "义军武器";
+    public override string HelpText => "是义军武器吗？";
 }
 
 public class ItemMandervilleWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemMandervilleWeaponSource>
@@ -161,8 +161,8 @@ public class ItemMandervilleWeaponSourceRenderer : ItemRelicWeaponSourceRenderer
     }
 
     public override ItemInfoType Type => ItemInfoType.MandervilleWeapon;
-    public override string SingularName => LocalizationService.Ui("Manderville Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Manderville Weapon?"));
+    public override string SingularName => "曼德维尔武器";
+    public override string HelpText => "是曼德维尔武器吗？";
 }
 
 public class ItemPhantomWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<ItemPhantomWeaponSource>
@@ -172,6 +172,6 @@ public class ItemPhantomWeaponSourceRenderer : ItemRelicWeaponSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.PhantomWeapon;
-    public override string SingularName => LocalizationService.Ui("Phantom Weapon");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Phantom Weapon?"));
+    public override string SingularName => "幻影武器";
+    public override string HelpText => "是幻影武器吗？";
 }

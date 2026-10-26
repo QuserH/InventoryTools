@@ -41,7 +41,7 @@ public class CompendiumListWindow : CompendiumWindow
 
     public delegate Owned<CompendiumListWindow> Factory(ICompendiumType compendiumType);
 
-    public CompendiumListWindow(ILogger<CompendiumListWindow> logger, WindowState windowState, CompendiumSectionStateService sectionStateService, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ICompendiumType compendiumType, IPluginLog pluginLog, IEnumerable<IMenuWindow> menuWindows, IEnumerable<ICompendiumType> compendiumTypes) : base(logger, mediator, imGuiService, configuration, compendiumType.Plural + LocalizationService.Ui(LocalizationService.Ui(" Window")))
+    public CompendiumListWindow(ILogger<CompendiumListWindow> logger, WindowState windowState, CompendiumSectionStateService sectionStateService, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ICompendiumType compendiumType, IPluginLog pluginLog, IEnumerable<IMenuWindow> menuWindows, IEnumerable<ICompendiumType> compendiumTypes) : base(logger, mediator, imGuiService, configuration, compendiumType.Plural + " 窗口")
     {
         _windowState = windowState;
         _sectionStateService = sectionStateService;
@@ -159,26 +159,26 @@ public class CompendiumListWindow : CompendiumWindow
             {
                 if (menuBar)
                 {
-                    using (var menu = ImRaii.Menu(LocalizationService.Ui("File")))
+                    using (var menu = ImRaii.Menu("文件"))
                     {
                         if (menu)
                         {
-                            if (ImGui.MenuItem(LocalizationService.Ui("Configuration")))
+                            if (ImGui.MenuItem("设置"))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(ConfigurationWindow)));
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui("Changelog")))
+                            if (ImGui.MenuItem("更新日志"))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(ChangelogWindow)));
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui("Help")))
+                            if (ImGui.MenuItem("帮助"))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow)));
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Enable Verbose Logging")), "",
+                            if (ImGui.MenuItem("启用详细日志", "",
                                     this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose))
                             {
                                 if (this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose)
@@ -191,22 +191,22 @@ public class CompendiumListWindow : CompendiumWindow
                                 }
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"))))
+                            if (ImGui.MenuItem("生成支持信息包"))
                             {
                                 this.MediatorService.Publish(new OpenGenericWindowMessage(typeof(SupportDumpWindow)));
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Report a Issue"))))
+                            if (ImGui.MenuItem("报告问题"))
                             {
                                 "https://github.com/Critical-Impact/InventoryTools".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Ko-Fi"))))
+                            if (ImGui.MenuItem("Ko-Fi"))
                             {
                                 "https://ko-fi.com/critical_impact".OpenBrowser();
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui("Close")))
+                            if (ImGui.MenuItem("关闭"))
                             {
                                 this.IsOpen = false;
                             }
@@ -217,11 +217,11 @@ public class CompendiumListWindow : CompendiumWindow
                     var groupings = _compendiumType.GetGroupings();
                     if (groupings != null)
                     {
-                        using (var groupingMenu = ImRaii.Menu(LocalizationService.Ui("Group By")))
+                        using (var groupingMenu = ImRaii.Menu("分组方式"))
                         {
                             if (groupingMenu)
                             {
-                                if (ImGui.MenuItem(LocalizationService.Ui("None"), _compendiumGrouping == null))
+                                if (ImGui.MenuItem("无", _compendiumGrouping == null))
                                 {
                                     _compendiumGrouping = null;
                                     _table.Value.ClearGrouping();
@@ -239,7 +239,7 @@ public class CompendiumListWindow : CompendiumWindow
                         }
                     }
 
-                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Windows")))
+                    using (var menu = ImRaii.Menu("窗口"))
                     {
                         if (menu)
                         {
@@ -253,7 +253,7 @@ public class CompendiumListWindow : CompendiumWindow
                         }
                     }
 
-                    using (var menu = ImRaii.Menu(LocalizationService.Ui("Compendium")))
+                    using (var menu = ImRaii.Menu("图鉴"))
                     {
                         if (menu)
                         {
@@ -271,7 +271,7 @@ public class CompendiumListWindow : CompendiumWindow
                     {
                         using (ImRaii.Tooltip())
                         {
-                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Compendium is a WIP feature, expect more here soon!")));
+                            ImGui.Text("图鉴是开发中的功能，敬请期待更多内容！");
                         }
                     }
 
@@ -286,7 +286,7 @@ public class CompendiumListWindow : CompendiumWindow
 
     public override FilterConfiguration? SelectedConfiguration => null;
     public override string GenericKey => CompendiumType.Plural.ToLower();
-    public override string GenericName => CompendiumType.Plural + LocalizationService.Ui(" Window");
+    public override string GenericName => CompendiumType.Plural + " 窗口";
     public override bool DestroyOnClose => true;
     public override bool SaveState => false;
     public override Vector2? DefaultSize => new Vector2(800, 500);

@@ -21,18 +21,18 @@ public class ItemGlamourReadySetItemSourceRenderer : ItemInfoRenderer<ItemGlamou
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.GlamourReadySetItem;
-    public override string SingularName => LocalizationService.Ui("Outfit Glamour Item");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is the item part of a 'Outfit Glamour' set?"));
+    public override string SingularName => "套装幻化物品";
+    public override string HelpText => "该物品是否属于幻化套装？";
 
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Transforms into: ")) + asSource.ConvertedItem.NameString);
+        ImGui.Text("转换为：" + asSource.ConvertedItem.NameString);
         if (asSource.SetItems.Count > 1)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Set Items:")));
+            ImGui.Text("套装物品：");
             using (ImRaii.PushIndent())
             {
                 foreach (var item in asSource.SetItems)
@@ -49,7 +49,7 @@ public class ItemGlamourReadySetItemSourceRenderer : ItemInfoRenderer<ItemGlamou
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return LocalizationService.Format("Part of {0} which contains {1}", asSource.ConvertedItem.NameString,
+        return string.Format("属于 {0}，其中包含：{1}", asSource.ConvertedItem.NameString,
             string.Join(", ", asSource.SetItems.Select(c => c.NameString)));
     };
 }

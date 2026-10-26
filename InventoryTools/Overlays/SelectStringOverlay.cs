@@ -39,13 +39,13 @@ namespace InventoryTools.Overlays
         {
             if (!HasState || !AtkOverlay.HasAddon)
             {
-                Logger.LogTrace(LocalizationService.Ui("no state and no addon"));
+                Logger.LogTrace("无状态且无 Addon");
                 return false;
             }
             var atkUnitBase = AtkOverlay.AtkUnitBase;
             if (atkUnitBase != null)
             {
-                Logger.LogTrace(LocalizationService.Ui("has atk base, setting colors"));
+                Logger.LogTrace("有 ATK 基座，正在设置颜色");
                 this.AtkOverlay.SetColors(SelectItems);
                 return true;
             }
@@ -75,7 +75,7 @@ namespace InventoryTools.Overlays
                 var filterResult = newState.FilterResult;
                 if (filterResult != null)
                 {
-                    Logger.LogTrace(LocalizationService.Ui("Attempting to update state for SelectString"));
+                    Logger.LogTrace("正在尝试更新 SelectString 状态");
                     var currentShopTypes = _shopMonitorService.GetCurrentShopType();
                     if (currentShopTypes != null)
                     {
@@ -93,7 +93,7 @@ namespace InventoryTools.Overlays
 
             if (HasState)
             {
-                Logger.LogTrace(LocalizationService.Ui("Clearing select items"));
+                Logger.LogTrace("正在清除选中的物品");
                 SelectItems = new List<Vector4?>();
                 Clear();
             }

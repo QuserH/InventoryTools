@@ -20,10 +20,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ShowItemNumberRetainerList";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Show item number in retainer list?"));
+        public override string Name { get; set; } = "在雇员列表中显示道具种类数？";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Should the name of the retainer in the summoning bell list have the number of items to be sorted or are available in their inventory?"));
+            "传唤铃列表中雇员名称旁是否显示待整理或背包中符合筛选条件的道具种类数？";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

@@ -33,7 +33,7 @@ public abstract class GameOverlay<T> : IGameOverlay where T : AtkOverlay
 
     private void AtkOverlayOnAtkUpdated()
     {
-        Logger.LogTrace(LocalizationService.Ui("ATK overlay event received, requesting state refresh."));
+        Logger.LogTrace("收到 ATK 悬浮层事件，请求刷新状态。");
         NeedsStateRefresh = true;
     }
 

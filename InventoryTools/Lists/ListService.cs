@@ -120,7 +120,7 @@ namespace InventoryTools.Lists
                 ValidateAndInjectListColumns(list);
                 if (list.Name == string.Empty)
                 {
-                    list.Name = LocalizationService.Ui("Untitled List");
+                    list.Name = "未命名列表";
                 }
             }
             return new ConcurrentDictionary<string, FilterConfiguration>(savedLists.ToDictionary(c => c.Key, c => c));
@@ -405,7 +405,7 @@ namespace InventoryTools.Lists
         public FilterConfiguration AddNewCraftList(string? newName = null, bool? isEphemeral = false)
         {
             var isEphemeralNN = isEphemeral ?? false;
-            var newNameNN = newName ?? (isEphemeralNN ? LocalizationService.Ui("New Ephemeral List") : LocalizationService.Ui("New Craft List"));
+            var newNameNN = newName ?? (isEphemeralNN ? "新建临时列表" : "新建制作列表");
 
             var names = Lists.Where(c =>
                 c.FilterType == FilterType.CraftFilter && !c.CraftListDefault &&
@@ -432,7 +432,7 @@ namespace InventoryTools.Lists
 
         public FilterConfiguration AddNewCuratedList(string? name = null)
         {
-            name ??= LocalizationService.Ui("New Curated List");
+            name ??= "新建精选列表";
 
             var names = Lists.Where(c =>
                 c.FilterType == FilterType.CuratedList).Select(c => c.Name).Distinct().ToHashSet();
@@ -916,7 +916,7 @@ namespace InventoryTools.Lists
 
         public void InvalidateLists(FilterType? filterType = null)
         {
-            _chatUtilities.PrintLog(LocalizationService.Ui("Filters invalidated"));
+            _chatUtilities.PrintLog("筛选器已失效");
             foreach (var filter in _lists)
             {
                 if(filterType != null && filter.Value.FilterType != filterType) continue;
@@ -990,7 +990,7 @@ namespace InventoryTools.Lists
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
+            Logger.LogTrace("正在启动服务{type}（{this}）", GetType().Name, this);
             _lists = LoadListsFromConfiguration();
             return Task.CompletedTask;
         }
@@ -1016,7 +1016,7 @@ namespace InventoryTools.Lists
         public FilterConfiguration GenerateDefaultCraftList()
         {
             var defaultFilter = _filterConfigFactory.Invoke();
-            defaultFilter.Name = LocalizationService.Ui("Default Craft List");
+            defaultFilter.Name = "默认制作列表";
             defaultFilter.FilterType = FilterType.CraftFilter;
             AddDefaultColumns(defaultFilter);
             defaultFilter.ApplyDefaultCraftFilterConfiguration();
@@ -1137,7 +1137,7 @@ namespace InventoryTools.Lists
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
             _framework.Update -= OnUpdate;
             _configurationManagerService.ConfigurationChanged -= ConfigOnConfigurationChanged;
             _characterMonitor.OnCharacterUpdated -= CharacterMonitorOnOnCharacterUpdated;
@@ -1147,7 +1147,7 @@ namespace InventoryTools.Lists
             _characterMonitor.OnCharacterLoggedIn -= CharacterLoggedIn;
             _characterMonitor.OnCharacterLoggedOut -= CharacterLoggedOut;
             _history.OnHistoryLogged -= HistoryOnOnHistoryLogged;
-            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
             return Task.CompletedTask;
         }
     }

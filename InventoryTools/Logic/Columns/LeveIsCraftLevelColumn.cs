@@ -18,10 +18,10 @@ namespace InventoryTools.Logic.Columns
         {
             return searchResult.Item.HasSourcesByType(ItemInfoType.CraftLeve);
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Leve(Craft) Item?"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Leve (Craft)"));
+        public override string Name { get; set; } = "是否为制作理符物品？";
+        public override string RenderName => "制作理符";
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item used in a craft leve?"));
+        public override string HelpText { get; set; } = "该物品用于制作理符？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

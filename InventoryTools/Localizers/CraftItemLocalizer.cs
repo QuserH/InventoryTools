@@ -27,7 +27,7 @@ public class CraftItemLocalizer
     {
         return craftItem.IngredientPreference.Type switch
         {
-            IngredientPreferenceType.Crafting => craftItem.Recipe?.CraftType?.FormattedName ?? (craftItem.Item.CompanyCraftSequence != null ? LocalizationService.Ui("Company Craft") : "Unknown"),
+            IngredientPreferenceType.Crafting => craftItem.Recipe?.CraftType?.FormattedName ?? (craftItem.Item.CompanyCraftSequence != null ? "部队制作" : "Unknown"),
             IngredientPreferenceType.None => "N/A",
             _ => _ingredientPreferenceLocalizer.FormattedName(craftItem.IngredientPreference)
         };

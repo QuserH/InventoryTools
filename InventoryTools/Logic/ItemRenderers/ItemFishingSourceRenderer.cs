@@ -27,8 +27,8 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Fishing;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be gathered via fishing?"));
-    public override string SingularName => LocalizationService.Ui("Fishing");
+    public override string HelpText => "该物品是否可通过钓鱼获得？";
+    public override string SingularName => "钓鱼";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Gathering, ItemInfoRenderCategory.Fishing];
 
@@ -37,7 +37,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
         var asSources = AsSource(sources);
 
         var level = asSources.First().FishParameter.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
+        ImGui.Text("等级：" + (level == 0 ? "N/A" : level));
 
         DrawMaps(sources);
     };
@@ -47,7 +47,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
         var asSource = AsSource(source);
 
         var level = asSource.FishParameter.Base.GatheringItemLevel.Value.GatheringItemLevel;
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Level:")) + (level == 0 ? "N/A" : level));
+        ImGui.Text("等级：" + (level == 0 ? "N/A" : level));
 
         DrawMaps(source);
     };

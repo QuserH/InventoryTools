@@ -43,11 +43,11 @@ public class CraftCalculatorColumn : IntegerColumn, IDisposable
         return (int?)(_craftable.ContainsKey(searchResult.Item.RowId) ? _craftable[searchResult.Item.RowId] : 0);
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Calculator"));
+    public override string Name { get; set; } = "制作计算器";
     public override float Width { get; set; } = 80;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("This will calculate the total amount of an item that could be crafted based on the items within your character and retainers. You can override which inventories are looked in by selecting a custom scope below."));
+        "根据你角色与雇员的物品计算可制作的总数量。可在下方选择自定义范围来覆盖检查的背包。";
 
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
@@ -59,10 +59,10 @@ public class CraftCalculatorColumn : IntegerColumn, IDisposable
         ImGui.NewLine();
         ImGui.Separator();
         ImGui.SetNextItemWidth(220);
-        ImGui.LabelText(LocalizationService.Ui("##") + configuration.Key + "Search", LocalizationService.Ui("Inventories to search in:"));
+        ImGui.LabelText("##" + configuration.Key + "搜索", "要搜索的背包：");
         ImGui.SetNextItemWidth(250);
         ImGui.SameLine();
-        _scopePickerColumnSetting.Draw(columnConfiguration, LocalizationService.Ui("Please make sure you include at least one inventory that contains crystals otherwise the craft calculator will not work. If no scopes are picked, the craft calculator will look in your active characters inventories and their retainers."));
+        _scopePickerColumnSetting.Draw(columnConfiguration, "请确保至少包含一个装有水晶的背包，否则制作计算器将无法工作。若未选择范围，制作计算器将检查当前角色的背包及其雇员。");
         base.DrawEditor(columnConfiguration, configuration);
         return null;
     }
@@ -74,7 +74,7 @@ public class CraftCalculatorColumn : IntegerColumn, IDisposable
 
         if (_craftCalculator == null || !_craftCalculator.IsRunning)
         {
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Calculate Crafts"))))
+            if (ImGui.Button("计算制作"))
             {
                 if (_craftCalculator == null)
                 {
@@ -147,7 +147,7 @@ public class CraftCalculatorColumn : IntegerColumn, IDisposable
         }
         else if (_craftCalculator.IsRunning)
         {
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Stop Calculating Crafts"))))
+            if (ImGui.Button("停止计算制作"))
             {
                 _craftCalculator.CancelProcessing();
             }

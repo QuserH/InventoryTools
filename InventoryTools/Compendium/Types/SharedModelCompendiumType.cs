@@ -41,12 +41,12 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
 
     public override string? GetName(SharedModelCache.SharedModelGroup row)
     {
-        return LocalizationService.Ui("Shared Model #") + _sharedModelCache.IndexOf(row);
+        return "共享模型 #" + _sharedModelCache.IndexOf(row);
     }
 
     public override string? GetSubtitle(SharedModelCache.SharedModelGroup row)
     {
-        return row.Items.Count + LocalizationService.Ui(" items");
+        return row.Items.Count + " 件物品";
     }
 
     public override (string?, uint?) GetIcon(SharedModelCache.SharedModelGroup row)
@@ -76,29 +76,29 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
 
     public override void BuildColumns(CompendiumColumnBuilder<SharedModelCache.SharedModelGroup> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the shared model"), Version = "14.0.3", ValueSelector = row => ("armor", null), CompendiumType = this, RowIdSelector = row => (uint)_sharedModelCache.IndexOf(row)});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "该共享模型的图标", Version = "14.0.3", ValueSelector = row => ("armor", null), CompendiumType = this, RowIdSelector = row => (uint)_sharedModelCache.IndexOf(row)});
         builder.AddStringColumn(new StringColumnOptions<SharedModelCache.SharedModelGroup>
         {
-            ValueSelector = row => row.Items.First().ClassJobCategory?.Base.Name.ExtractText() ?? LocalizationService.Ui("Unknown"),
-            Name = LocalizationService.Ui("Class/Job"),
+            ValueSelector = row => row.Items.First().ClassJobCategory?.Base.Name.ExtractText() ?? "未知",
+            Name = "职业",
             Key = "class_job",
-            HelpText = LocalizationService.Ui("The class/job of the item"),
+            HelpText = "物品的职业",
             Version = "14.0.3"
         });
         builder.AddStringColumn(new StringColumnOptions<SharedModelCache.SharedModelGroup>
         {
             ValueSelector = row => string.Join(", ", row.Items.First().EquipSlotCategory?.PossibleSlots.Select(EquipSlotName) ?? []),
-            Name = LocalizationService.Ui("Equip Slots"),
+            Name = "装备栏位",
             Key = "equip_slots",
-            HelpText = LocalizationService.Ui("The equipment slots of the item"),
+            HelpText = "物品的装备栏位",
             Version = "14.0.3"
         });
         builder.AddItemsColumn(new ItemsColumnOptions<SharedModelCache.SharedModelGroup>
         {
             ValueSelector = row => row.Items.ToList(),
-            Name = LocalizationService.Ui("Items"),
+            Name = "物品",
             Key = "items",
-            HelpText = LocalizationService.Ui("The items that share this model"),
+            HelpText = "共享此模型的物品",
             Version = "14.0.3",
             ColumnFlags = ImGuiTableColumnFlags.WidthStretch
         });
@@ -107,37 +107,37 @@ public class SharedModelCompendiumType : CompendiumType<SharedModelCache.SharedM
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, SharedModelCache.SharedModelGroup row)
     {
         viewBuilder.Icon = row.Items.First().Icon;
-        viewBuilder.Title = LocalizationService.Ui("Shared Model #") + _sharedModelCache.IndexOf(row);
-        viewBuilder.Subtitle = row.Items.Count + LocalizationService.Ui(" items");
+        viewBuilder.Title = "共享模型 #" + _sharedModelCache.IndexOf(row);
+        viewBuilder.Subtitle = row.Items.Count + " 件物品";
         viewBuilder.AddItemListSection(new ItemListSectionOptions()
         {
             Items = row.Items.Select(c => new ItemInfo(c)),
             SectionKey = "items",
-            SectionName = LocalizationService.Ui("Items"),
+            SectionName = "物品",
         });
     }
 
-    public override string Singular => LocalizationService.Ui("Shared Model Set");
-    public override string Plural => LocalizationService.Ui("Shared Model Sets");
-    public override string Description => LocalizationService.Ui("Items that share the same model.");
+    public override string Singular => "共享模型套装";
+    public override string Plural => "共享模型套装";
+    public override string Description => "共享同一模型的物品。";
     public override string Key => "shared_models";
     public override (string?, uint?) Icon => (null, Icons.CombinedClothingIcon);
 
     private static string EquipSlotName(EquipSlot slot) => slot switch
     {
-        EquipSlot.MainHand => LocalizationService.Ui("Main Hand"),
-        EquipSlot.OffHand => LocalizationService.Ui("Off Hand"),
-        EquipSlot.Head => LocalizationService.Ui("Head"),
-        EquipSlot.Body => LocalizationService.Ui("Body"),
-        EquipSlot.Gloves => LocalizationService.Ui("Gloves"),
-        EquipSlot.Legs => LocalizationService.Ui("Legs"),
-        EquipSlot.Feet => LocalizationService.Ui("Feet"),
-        EquipSlot.Ears => LocalizationService.Ui("Ears"),
-        EquipSlot.Neck => LocalizationService.Ui("Neck"),
-        EquipSlot.Wrists => LocalizationService.Ui("Wrists"),
-        EquipSlot.FingerR => LocalizationService.Ui("Right Finger"),
-        EquipSlot.FingerL => LocalizationService.Ui("Left Finger"),
-        EquipSlot.SoulCrystal => LocalizationService.Ui("Soul Crystal"),
+        EquipSlot.MainHand => "主手",
+        EquipSlot.OffHand => "副手",
+        EquipSlot.Head => "头部",
+        EquipSlot.Body => "身体",
+        EquipSlot.Gloves => "手部",
+        EquipSlot.Legs => "腿部",
+        EquipSlot.Feet => "脚部",
+        EquipSlot.Ears => "耳部",
+        EquipSlot.Neck => "颈部",
+        EquipSlot.Wrists => "腕部",
+        EquipSlot.FingerR => "右手戒指",
+        EquipSlot.FingerL => "左手戒指",
+        EquipSlot.SoulCrystal => "特职水晶",
         _ => LocalizationService.Ui(slot.Humanize()),
     };
 }

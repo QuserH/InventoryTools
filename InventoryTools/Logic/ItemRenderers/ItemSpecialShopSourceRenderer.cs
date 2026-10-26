@@ -26,7 +26,7 @@ public class ItemSpecialShopUseRenderer : ItemSpecialShopSourceRenderer
 
     public override RendererType RendererType => RendererType.Use;
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a special currency shop?"));
+    public override string HelpText => "该物品是否可在特殊货币商店使用？";
 
     public override Func<ItemSource, int> GetIcon => source =>
     {
@@ -50,9 +50,9 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.SpecialShop;
-    public override string SingularName => LocalizationService.Ui("Special Shop");
-    public override string PluralName => LocalizationService.Ui("Special Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a special currency shop?"));
+    public override string SingularName => "特殊商店";
+    public override string PluralName => "特殊商店";
+    public override string HelpText => "该物品是否可在特殊货币商店购买？";
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 3;
@@ -67,9 +67,9 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
     {
         var asSource = AsSource(source);
 
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Shop: {0}"), asSource.Shop.Name));
+        ImGui.Text(string.Format("商店：{0}", asSource.Shop.Name));
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Rewards:")));
+        ImGui.Text("奖励：");
         using (ImRaii.PushIndent())
         {
             foreach (var reward in asSource.ShopListing.Rewards)
@@ -88,7 +88,7 @@ public class ItemSpecialShopSourceRenderer : ItemInfoRenderer<ItemSpecialShopSou
                 }
             }
         }
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Costs:")));
+        ImGui.Text("花费：");
         using (ImRaii.PushIndent())
         {
             foreach (var cost in asSource.ShopListing.Costs)

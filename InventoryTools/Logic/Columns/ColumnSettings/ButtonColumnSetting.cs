@@ -38,8 +38,8 @@ public class ButtonColumnSetting : MultiChoiceColumnSetting<ButtonType?>
     }
 
     public override string Key { get; set; } = "ButtonTypes";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Button Types"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The buttons to display"));
+    public override string Name { get; set; } = "按钮类型";
+    public override string HelpText { get; set; } = "要显示的按钮";
 
     public override List<ButtonType?> DefaultValue { get; set; } = new();
     public override List<ButtonType?> GetChoices(ColumnConfiguration configuration)
@@ -52,13 +52,13 @@ public class ButtonColumnSetting : MultiChoiceColumnSetting<ButtonType?>
         switch (choice)
         {
             case ButtonType.CraftLog:
-                return LocalizationService.Ui("Craft Log");
+                return "制作笔记";
             case ButtonType.Buy:
                 return "Buy";
             case ButtonType.Gather:
-                return LocalizationService.Ui("Gather Log");
+                return "采集笔记";
             case ButtonType.Action:
-                return LocalizationService.Ui("Action Button");
+                return "操作按钮";
         }
 
         return choice.ToString() ?? "";

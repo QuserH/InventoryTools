@@ -13,8 +13,8 @@ namespace InventoryTools.Logic.Filters
     public class RequiredLevelFilter : StringFilter
     {
         public override string Key { get; set; } = "ItemLvl";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Required Level"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The required level to equip the item."));
+        public override string Name { get; set; } = "所需等级";
+        public override string HelpText { get; set; } = "装备该物品所需等级。";
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
 

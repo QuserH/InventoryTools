@@ -20,9 +20,9 @@ public class ItemCompanyLeveSourceRenderer : ItemInfoRenderer<ItemCompanyLeveSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CompanyLeve;
-    public override string SingularName => LocalizationService.Ui("Company Leve");
-    public override string PluralName => LocalizationService.Ui("Company Leves");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item obtained from a company leve?"));
+    public override string SingularName => "部队理符";
+    public override string PluralName => "部队理符";
+    public override string HelpText => "该物品是否通过部队理符获得？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -36,11 +36,11 @@ public class ItemCompanyLeveSourceRenderer : ItemInfoRenderer<ItemCompanyLeveSou
     {
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Seals Rewarded: ")) + asSource.SealsRewarded);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
+        ImGui.TextUnformatted("理符：" + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted("职业：" + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted("经验奖励：" + asSource.ExpReward);
+        ImGui.TextUnformatted("军票奖励：" + asSource.SealsRewarded);
+        ImGui.TextUnformatted("允许消耗：" + leveRow.AllowanceCost);
     };
 
     public override Func<ItemSource, string> GetName => source =>

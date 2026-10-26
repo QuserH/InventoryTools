@@ -23,9 +23,9 @@ public class MergeCraftListNqHqApplyToItemWindowSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MergeCraftListNqHqApplyToItemWindow";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Apply NQ/HQ merge to item window?"));
+    public override string Name { get; set; } = "物品窗口生效";
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the NQ/HQ merge apply to the item window opened by /atools?"));
+        "是否在物品窗口中合并NQ和HQ？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

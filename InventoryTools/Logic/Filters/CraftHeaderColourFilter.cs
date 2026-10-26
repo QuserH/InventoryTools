@@ -12,8 +12,8 @@ namespace InventoryTools.Logic.Filters;
 public class CraftHeaderColourFilter : ColorFilter
 {
     public override string Key { get; set; } = "CraftHeaderColour";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Header Text Colour"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The colour of the header text in the craft list."));
+    public override string Name { get; set; } = "标题文字颜色";
+    public override string HelpText { get; set; } = "制作列表中标题文字的颜色。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     public override Vector4? DefaultValue { get; set; } = new Vector4(0, 0.439f, 1, 1);

@@ -22,7 +22,7 @@ public class TooltipsFeature : Feature
     {
     }
 
-    public override string Name { get; } = LocalizationService.Ui("Tooltips");
+    public override string Name { get; } = "悬浮提示";
     public override string Description { get; } =
-        LocalizationService.Ui("Allagan Tools can add extra information to the tooltips for items. Select which you would like to show in the tooltip. For further configuration including the ability to change each tooltips colour and settings specific to each tooltip please open the configuration window.");
+        "亚拉戈工具箱可为物品悬浮提示添加额外信息。选择要在悬浮提示中显示的内容。如需进一步配置（包括更改各悬浮提示的颜色和专属设置），请打开设置窗口。";
 }

@@ -24,7 +24,7 @@ public class SeparatorPageItem : IConfigPage
 
     }
 
-    public string Name => LocalizationService.Ui("Separator");
+    public string Name => "分隔符";
 
     public List<MessageBase>? Draw()
     {

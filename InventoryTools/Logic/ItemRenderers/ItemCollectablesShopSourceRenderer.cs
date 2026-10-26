@@ -19,7 +19,7 @@ namespace InventoryTools.Logic.ItemRenderers;
 public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRenderer
 {
     private readonly ItemSheet _itemSheet;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a collectables exchange shop?"));
+    public override string HelpText => "该物品是否可在收藏品兑换商店使用？";
     public ItemCollectablesShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
     {
@@ -34,7 +34,7 @@ public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRendere
             ? new List<string>()
             : shopSource.MapIds.Select(c => MapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items that can be purchased:")));
+        ImGui.Text("可购买物品：");
 
         using (ImRaii.PushIndent())
         {
@@ -64,9 +64,9 @@ public class ItemCollectablesShopSourceRenderer : ItemInfoRenderer<ItemCollectab
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CollectablesShop;
-    public override string SingularName => LocalizationService.Ui("Collectables Exchange Shop");
-    public override string PluralName => LocalizationService.Ui("Collectables Exchange Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a collectables exchange shop?"));
+    public override string SingularName => "收藏品兑换商店";
+    public override string PluralName => "收藏品兑换商店";
+    public override string HelpText => "该物品是否可在收藏品兑换商店购买？";
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 1;
@@ -76,8 +76,8 @@ public class ItemCollectablesShopSourceRenderer : ItemInfoRenderer<ItemCollectab
     {
         var asSource = AsSource(source);
 
-        DrawItems(LocalizationService.Ui("Costs: "), asSource.CostItems);
-        DrawItems(LocalizationService.Ui("Rewards: "), asSource.RewardItems);
+        DrawItems("花费：", asSource.CostItems);
+        DrawItems("奖励：", asSource.RewardItems);
 
         DrawMaps(source);
     };

@@ -15,10 +15,10 @@ public class PatchColumn : DecimalColumn
     {
         return searchResult.Item.Patch;
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Patch Added"));
-    public override string RenderName => LocalizationService.Ui("Patch");
+    public override string Name { get; set; } = "新增于版本";
+    public override string RenderName => "版本";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the patch in which the item was added."));
+    public override string HelpText { get; set; } = "显示物品加入游戏的版本。";
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 }

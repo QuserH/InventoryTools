@@ -23,9 +23,9 @@ public class MergeCraftListApplyToCraftWindowSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MergeCraftListApplyToCraftWindow";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Apply merge to craft list?"));
+    public override string Name { get; set; } = "制作列表生效";
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the merge apply to the craft list inventory panel?"));
+        "是否在制作列表的“雇员/背包中的物品”面板中应用合并？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

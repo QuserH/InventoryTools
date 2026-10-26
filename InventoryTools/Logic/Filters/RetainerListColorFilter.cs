@@ -12,10 +12,10 @@ namespace InventoryTools.Logic.Filters
     public class RetainerListColorFilter : ColorFilter
     {
         public override string Key { get; set; } = "RetainerColor";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer List Color"));
+        public override string Name { get; set; } = "雇员列表颜色";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The color to set the retainers in the retainer list to for this specific filter."));
+            "此筛选器在雇员列表中高亮雇员所使用的颜色。";
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 

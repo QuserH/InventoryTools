@@ -30,10 +30,10 @@ namespace InventoryTools.Logic.Filters
         }
         public override int Order { get; set; } = 1;
         public override string Key { get; set; } = "Sources";
-        public override string Name { get; set; } = LocalizationService.Ui("Sources");
+        public override string Name { get; set; } = "来源";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This lists all the sources that are applicable given the sources picked above."));
+            "列出根据上方所选来源而适用的所有来源。";
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 
@@ -49,7 +49,7 @@ namespace InventoryTools.Logic.Filters
             ImGui.NewLine();
             ImGui.Separator();
             ImGui.NewLine();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Source Information: ")));
+            ImGui.Text("来源信息：");
             ImGui.SameLine();
             ImGuiService.HelpMarker(GetHelpText(configuration));
             var allCharacters = _characterMonitor.Characters;
@@ -89,7 +89,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "RetainerLabel", LocalizationService.Ui("Retainer Sources") + ":");
+            ImGui.LabelText("##" + Key + "RetainerLabel", "雇员来源" + ":");
             if (sources.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -126,7 +126,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Character Sources") + ":");
+            ImGui.LabelText("##" + Key + "CharacterLabel", "角色来源" + ":");
             if (sources.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -164,7 +164,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Free Company Sources") + ":");
+            ImGui.LabelText("##" + Key + "CharacterLabel", "部队来源" + ":");
             if (sources.Count != 0)
             {
                 ImGui.PopStyleColor();
@@ -202,7 +202,7 @@ namespace InventoryTools.Logic.Filters
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
             }
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "CharacterLabel", LocalizationService.Ui("Housing Sources") + ":");
+            ImGui.LabelText("##" + Key + "CharacterLabel", "房屋来源" + ":");
             if (sources.Count != 0)
             {
                 ImGui.PopStyleColor();

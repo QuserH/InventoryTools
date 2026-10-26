@@ -77,7 +77,7 @@ public class IngredientPatchTooltip : BaseTooltip
             seStr.Payloads.Add(GetLinkPayload());
             seStr.Payloads.Add(RawPayload.LinkTerminator);
 
-            var newText = "\n" + LocalizationService.Format("Ingredient Patch: {0}",
+            var newText = "\n" + string.Format("素材版本：{0}",
                 patch.ToString(CultureInfo.InvariantCulture));
 
             newText = newText.TrimEnd('\n');

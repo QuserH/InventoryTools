@@ -11,8 +11,8 @@ namespace InventoryTools.Logic.Filters
     public class CanBePlacedOnMarketFilter : BooleanFilter
     {
         public override string Key { get; set; } = "CanBePlacedOnMarket";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Placed on Market?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be placed on the market?"));
+        public override string Name { get; set; } = "可上架市场？";
+        public override string HelpText { get; set; } = "该物品是否可上架市场？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
 

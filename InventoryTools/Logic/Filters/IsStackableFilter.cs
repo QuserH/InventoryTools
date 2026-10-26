@@ -9,7 +9,7 @@ namespace InventoryTools.Logic.Filters;
 
 public class IsStackableFilter : GenericBooleanFilter
 {
-    public IsStackableFilter(ILogger<IsStackableFilter> logger, ImGuiService imGuiService) : base("IsStackable", LocalizationService.Ui("Is Stackable?"), LocalizationService.Ui("Is the item stackable (can hold more than 1 in a stack)?"), FilterCategory.Basic, item => item.Item.Base.StackSize > 1, item => item.Base.StackSize > 1, logger, imGuiService)
+    public IsStackableFilter(ILogger<IsStackableFilter> logger, ImGuiService imGuiService) : base("IsStackable", "是否可堆叠？", "该物品是否可堆叠（一组可超过 1 个）？", FilterCategory.Basic, item => item.Item.Base.StackSize > 1, item => item.Base.StackSize > 1, logger, imGuiService)
     {
     }
 }

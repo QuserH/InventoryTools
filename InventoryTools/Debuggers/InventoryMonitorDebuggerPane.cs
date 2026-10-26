@@ -16,7 +16,7 @@ public class InventoryMonitorDebuggerPane : IDebugPane
     {
         _inventoryMonitor = inventoryMonitor;
     }
-    public string Name => LocalizationService.Ui("Inventory Monitor");
+    public string Name => "背包监控";
     public void Draw()
     {
         foreach (var character in _inventoryMonitor.Inventories)

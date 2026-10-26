@@ -51,8 +51,8 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
     }
 
     public override string Key { get; set; } = "CraftItemIngredientOverrides";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Per-Item Ingredient Source Overrides"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Override the ingredient source for specific items. Overrides set here take precedence over the list's default ingredient sourcing order."));
+    public override string Name { get; set; } = "每物品素材来源覆盖";
+    public override string HelpText { get; set; } = "为特定物品覆盖素材来源。此处设置的覆盖优先于列表的默认素材获取顺序。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.ItemIngredientOverrides;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     public override bool DefaultValue { get; set; } = false;
@@ -102,20 +102,20 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
         ImGuiService.HelpMarker(HelpText);
         ImGui.Separator();
 
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Add Override:")));
+        ImGui.TextUnformatted("添加覆盖：");
         ImGui.SameLine();
 
         var selectedItemName = _selectedItemId != null
             ? _itemSheet.GetRowOrDefault(_selectedItemId.Value)?.NameString ?? "Unknown"
-            : LocalizationService.Ui("Select Item...");
+            : "选择物品……";
 
         ImGui.SetNextItemWidth(LabelSize);
-        using (var itemCombo = ImRaii.Combo(LocalizationService.Ui("##ItemOverrideItemSearch"), selectedItemName, ImGuiComboFlags.HeightLarge))
+        using (var itemCombo = ImRaii.Combo("##ItemOverrideItemSearch", selectedItemName, ImGuiComboFlags.HeightLarge))
         {
             if (itemCombo.Success)
             {
                 var search = _itemSearchString;
-                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemOverrideSearch")), ref search, 100);
+                ImGui.InputText("##ItemOverrideSearch", ref search, 100);
                 if (search != _itemSearchString)
                 {
                     ItemSearchString = search;
@@ -124,7 +124,7 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
                 ImGui.Separator();
                 if (_itemSearchString == "")
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
+                    ImGui.TextUnformatted("输入文字进行搜索……");
                 }
                 foreach (var item in SearchItems)
                 {
@@ -141,12 +141,12 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
 
         var previewSource = _selectedPreference != null
             ? _localizer.FormattedName(_selectedPreference)
-            : LocalizationService.Ui("Select Source...");
+            : "选择来源……";
 
         using (ImRaii.Disabled(_selectedItemId == null))
         {
             ImGui.SetNextItemWidth(LabelSize);
-            using (var sourceCombo = ImRaii.Combo(LocalizationService.Ui("##ItemOverrideSourcePref"), previewSource, ImGuiComboFlags.HeightLarge))
+            using (var sourceCombo = ImRaii.Combo("##ItemOverrideSourcePref", previewSource, ImGuiComboFlags.HeightLarge))
             {
                 if (sourceCombo.Success && _selectedItemId != null)
                 {
@@ -170,7 +170,7 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
 
         using (ImRaii.Disabled(_selectedItemId == null || _selectedPreference == null))
         {
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add##ItemOverride"))))
+            if (ImGui.Button("添加##ItemOverride"))
             {
                 configuration.CraftList.UpdateIngredientPreference(_selectedItemId!.Value, _selectedPreference);
                 configuration.NeedsRefresh = true;
@@ -183,12 +183,12 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
 
         if (configuration.CraftList.IngredientPreferences.Count > 0)
         {
-            var clearButtonWidth = ImGui.CalcTextSize(LocalizationService.Ui("Clear All")).X + ImGui.GetStyle().FramePadding.X * 2;
+            var clearButtonWidth = ImGui.CalcTextSize("全部清除").X + ImGui.GetStyle().FramePadding.X * 2;
             ImGui.SameLine(ImGui.GetContentRegionMax().X - clearButtonWidth);
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Clear All##ItemOverrides"))))
+            if (ImGui.Button("全部清除##ItemOverrides"))
             {
                 _popupService.AddPopup(new ConfirmPopup(typeof(CraftsWindow), "clearAllItemOverrides",
-                    LocalizationService.Ui("Are you sure you want to clear all per-item overrides?"),
+                    "确定要清除所有按物品覆盖吗？",
                     confirmed =>
                     {
                         if (!confirmed)
@@ -211,19 +211,19 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
         var overrides = configuration.CraftList.IngredientPreferences;
         if (overrides.Count == 0)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("No per-item overrides set.")));
+            ImGui.TextUnformatted("未设置按物品覆盖。");
             return;
         }
 
         uint? toRemove = null;
-        using (var table = ImRaii.Table(LocalizationService.Ui("##ItemOverridesTable"), 3,
+        using (var table = ImRaii.Table("##ItemOverridesTable", 3,
                 ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.SizingStretchSame))
         {
             if (table.Success)
             {
-            ImGui.TableSetupColumn(LocalizationService.Ui("Item"), ImGuiTableColumnFlags.WidthStretch);
-            ImGui.TableSetupColumn(LocalizationService.Ui(LocalizationService.Ui("Source Preference")), ImGuiTableColumnFlags.WidthStretch);
-            ImGui.TableSetupColumn(LocalizationService.Ui(""), ImGuiTableColumnFlags.WidthFixed, 24);
+            ImGui.TableSetupColumn("物品", ImGuiTableColumnFlags.WidthStretch);
+            ImGui.TableSetupColumn("来源偏好", ImGuiTableColumnFlags.WidthStretch);
+            ImGui.TableSetupColumn("", ImGuiTableColumnFlags.WidthFixed, 24);
             ImGui.TableHeadersRow();
 
             foreach (var (itemId, preference) in overrides)
@@ -242,14 +242,14 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
                 }
                 else
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Unknown Item (")) + itemId + ")");
+                    ImGui.TextUnformatted("未知物品（" + itemId + ")");
                 }
 
                 ImGui.TableNextColumn();
                 if (_editingItemId == itemId)
                 {
                     ImGui.SetNextItemWidth(-1);
-                    using (var editCombo = ImRaii.Combo(LocalizationService.Ui("##EditSourcePref") + itemId, _localizer.FormattedName(preference), ImGuiComboFlags.HeightLarge))
+                    using (var editCombo = ImRaii.Combo("##EditSourcePref" + itemId, _localizer.FormattedName(preference), ImGuiComboFlags.HeightLarge))
                     {
                         if (editCombo.Success)
                         {
@@ -274,7 +274,7 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
                     ImGui.SameLine();
                     using (ImRaii.PushFont(_font.IconFont))
                     {
-                        if (ImGui.SmallButton(FontAwesomeIcon.Edit.ToIconString() + LocalizationService.Ui("##Edit") + itemId))
+                        if (ImGui.SmallButton(FontAwesomeIcon.Edit.ToIconString() + "##Edit" + itemId))
                         {
                             _editingItemId = itemId;
                         }
@@ -284,7 +284,7 @@ public class CraftItemIngredientOverridesFilter : Filter<bool>
                 ImGui.TableNextColumn();
                 using (ImRaii.PushFont(_font.IconFont))
                 {
-                    if (ImGui.SmallButton(FontAwesomeIcon.Times.ToIconString() + LocalizationService.Ui("##Remove") + itemId))
+                    if (ImGui.SmallButton(FontAwesomeIcon.Times.ToIconString() + "##Remove" + itemId))
                     {
                         toRemove = itemId;
                     }

@@ -27,11 +27,11 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
 
     public override string Name
     {
-        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? LocalizationService.Ui("Slot") : LocalizationService.Ui("Class/Job"); }
+        get { return _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class ? "栏位" : "职业"; }
         set { }
     }
 
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The slot to fill"));
+    public override string HelpText { get; set; } = "要填充的栏位";
     public override string Version { get; set; } = "1.12.0.10";
     public override string? CurrentValue(EquipmentSuggestItem item)
     {
@@ -40,31 +40,31 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
             switch (item.EquipmentSlot)
             {
                 case EquipSlot.MainHand:
-                    return LocalizationService.Ui("Main Hand");
+                    return "主手";
                 case EquipSlot.OffHand:
-                    return LocalizationService.Ui("Off Hand");
+                    return "副手";
                 case EquipSlot.Head:
-                    return LocalizationService.Ui("Head");
+                    return "头部";
                 case EquipSlot.Body:
-                    return LocalizationService.Ui("Body");
+                    return "身体";
                 case EquipSlot.Gloves:
-                    return LocalizationService.Ui("Gloves");
+                    return "手部";
                 case EquipSlot.Legs:
-                    return LocalizationService.Ui("Legs");
+                    return "腿部";
                 case EquipSlot.Feet:
-                    return LocalizationService.Ui("Feet");
+                    return "脚部";
                 case EquipSlot.Ears:
-                    return LocalizationService.Ui("Ears");
+                    return "耳部";
                 case EquipSlot.Neck:
-                    return LocalizationService.Ui("Neck");
+                    return "颈部";
                 case EquipSlot.Wrists:
-                    return LocalizationService.Ui("Wrists");
+                    return "腕部";
                 case EquipSlot.FingerR:
-                    return LocalizationService.Ui("Right Finger");
+                    return "右手戒指";
                 case EquipSlot.FingerL:
-                    return LocalizationService.Ui("Left Finger");
+                    return "左手戒指";
                 case EquipSlot.SoulCrystal:
-                    return LocalizationService.Ui("Soul Crystal");
+                    return "特职水晶";
             }
 
             return LocalizationService.Ui(item.EquipmentSlot.Value.Humanize());
@@ -75,7 +75,7 @@ public class EquipmentSuggestSlotColumn : AllaganLib.Interface.Grid.StringColumn
             return item.ClassJobRow.Base.Name.ToImGuiString().Humanize();
         }
 
-        return LocalizationService.Ui("Unknown");
+        return "未知";
     }
 
     public override string? RenderName { get; set; } = null;

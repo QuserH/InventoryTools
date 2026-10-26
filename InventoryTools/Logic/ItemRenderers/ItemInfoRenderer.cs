@@ -60,22 +60,22 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                 ImGui.SameLine();
                 if (itemInfo.Count == null)
                 {
-                    ImGui.TextUnformatted(LocalizationService.Format("{0}", item.NameString) + (itemInfo.IsOptional ?? false ? LocalizationService.Ui(" (Optional)") : ""));
+                    ImGui.TextUnformatted(string.Format("{0}", item.NameString) + (itemInfo.IsOptional ?? false ? "（可选）" : ""));
                 }
                 else
                 {
-                    ImGui.TextUnformatted(LocalizationService.Format("{0} x {1}", item.NameString, itemInfo.Count) + (itemInfo.IsOptional ?? false ? LocalizationService.Ui(" (Optional)") : ""));
+                    ImGui.TextUnformatted(string.Format("{0} x {1}", item.NameString, itemInfo.Count) + (itemInfo.IsOptional ?? false ? "（可选）" : ""));
                 }
                 if (itemInfo.Min != null && itemInfo.Max != null)
                 {
                     ImGui.SameLine();
                     if (itemInfo.Min == itemInfo.Max)
                     {
-                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops 1)")));
+                        ImGui.Text("（掉落 1）");
                     }
                     else
                     {
-                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops ")) + itemInfo.Min.Value + " - " + itemInfo.Max.Value + ")");
+                        ImGui.Text("（掉落" + itemInfo.Min.Value + " - " + itemInfo.Max.Value + ")");
                     }
                 }
             }
@@ -102,7 +102,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                     new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale
                 );
                 ImGui.SameLine();
-                ImGui.TextUnformatted(LocalizationService.Format("{0}", item.NameString));
+                ImGui.TextUnformatted(string.Format("{0}", item.NameString));
             }
         }
     }
@@ -120,7 +120,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
 
         if (maps.Count != 0)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Maps:")));
+            ImGui.Text("地图：");
             using (ImRaii.PushIndent())
             {
                 foreach (var map in maps)
@@ -142,7 +142,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
 
         if (maps.Count != 0)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Maps:")));
+            ImGui.Text("地图：");
             using (ImRaii.PushIndent())
             {
                 foreach (var map in maps)
@@ -169,7 +169,7 @@ public abstract class ItemInfoRenderer<T> : IItemInfoRenderer where T : ItemSour
                 if (map != null)
                 {
                     var spawns = string.Join(", ", groupedMaps.Select(location => $"{location.MapX.ToString("N2", CultureInfo.InvariantCulture)}/{location.MapY.ToString("N2", CultureInfo.InvariantCulture)}"));
-                    ImGui.Text(LocalizationService.Format("{0}", map.FormattedName));
+                    ImGui.Text(string.Format("{0}", map.FormattedName));
                     using (ImRaii.PushIndent())
                     {
                         ImGui.PushTextWrapPos();

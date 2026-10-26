@@ -18,9 +18,9 @@ namespace InventoryTools.Logic.Columns
         }
 
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Dyeable?"));
+        public override string Name { get; set; } = "是否可染色？";
         public override float Width { get; set; } = 80.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can the item be dyed?"));
+        public override string HelpText { get; set; } = "该物品是否可染色？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

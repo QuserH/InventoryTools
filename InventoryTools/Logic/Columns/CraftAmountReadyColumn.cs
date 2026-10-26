@@ -50,13 +50,13 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount in Character Inventory"));
-        public override string RenderName => LocalizationService.Ui("Inventory");
+        public override string Name { get; set; } = "角色背包数量";
+        public override string RenderName => "物品栏";
         public override float Width { get; set; } = 60;
         public override bool? CraftOnly => true;
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is the amount available within your filtered inventories available to complete the craft."));
+            "在你的筛选背包范围内可用于完成制作的数量。";
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

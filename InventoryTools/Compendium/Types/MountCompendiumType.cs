@@ -89,7 +89,7 @@ public class MountCompendiumType : CompendiumType<Mount>
     {
         return Factory.Invoke(new CompendiumTableOptions<Mount>()
         {
-            Name = LocalizationService.Ui("Mounts"),
+            Name = "坐骑",
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "mounts",
@@ -135,8 +135,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("Mount icon"),
+            Name = "##Icon",
+            HelpText = "坐骑图标",
             Version = "14.1.2",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -146,8 +146,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("Mount name"),
+            Name = "名称",
+            HelpText = "坐骑名称",
             Version = "14.1.2",
             ValueSelector = GetName
         });
@@ -155,8 +155,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddBooleanColumn(new()
         {
             Key = "unlocked",
-            Name = LocalizationService.Ui("Unlocked"),
-            HelpText = LocalizationService.Ui("Is unlocked"),
+            Name = "已解锁",
+            HelpText = "已解锁",
             Version = "14.1.2",
             ValueSelector = r => _unlockState.IsMountUnlocked(r)
         });
@@ -165,8 +165,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddIntegerColumn(new()
         {
             Key = "seats",
-            Name = LocalizationService.Ui("Seats"),
-            HelpText = LocalizationService.Ui("How many people does this mount seat?"),
+            Name = "座位",
+            HelpText = "该坐骑可乘坐几人？",
             Version = "14.1.2",
             ValueSelector = r => (r.ExtraSeats + 1).ToString()
         });
@@ -174,8 +174,8 @@ public class MountCompendiumType : CompendiumType<Mount>
         builder.AddItemSourcesColumn(new()
         {
             Key = "sources",
-            Name = LocalizationService.Ui("Sources"),
-            HelpText = LocalizationService.Ui("Mount sources"),
+            Name = "来源",
+            HelpText = "坐骑来源",
             Version = "14.1.2",
             ValueSelector = r =>
             {
@@ -199,11 +199,11 @@ public class MountCompendiumType : CompendiumType<Mount>
             transient.Description.ToImGuiString();
 
         viewBuilder.AddTag(
-            () => _unlockState.IsMountUnlocked(row) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
-            () => LocalizationService.Ui("Is unlocked"),
+            () => _unlockState.IsMountUnlocked(row) ? "Unlocked" : "未解锁",
+            () => "已解锁",
             () => _unlockState.IsMountUnlocked(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
 
-        viewBuilder.AddTag(() => LocalizationService.Ui("Seats ") + (row.ExtraSeats + 1), () => LocalizationService.Ui("How many people does this mount seat?"));
+        viewBuilder.AddTag(() => "座位 " + (row.ExtraSeats + 1), () => "该坐骑可乘坐几人？");
 
         var relatedItem = GetRelatedItem(row.RowId);
 
@@ -212,7 +212,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "related_item",
-                SectionName = LocalizationService.Ui("Related Item"),
+                SectionName = "关联物品",
                 RelatedRef = relatedItem.Value.AsUntypedRowRef()
             });
             var sources =
@@ -222,7 +222,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddItemSourcesSection(new ItemSourcesSectionOptions()
                 {
                     SectionKey = "sources",
-                    SectionName = LocalizationService.Ui("Sources"),
+                    SectionName = "来源",
                     Sources = sources ?? [],
                     SourceType = SourceType.Source
                 });
@@ -233,7 +233,7 @@ public class MountCompendiumType : CompendiumType<Mount>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "bgm",
-                SectionName = LocalizationService.Ui("BGM"),
+                SectionName = "背景音乐",
                 RelatedRef = row.RideBGM.Value.AsUntypedRowRef(),
             });
         }
@@ -252,11 +252,11 @@ public class MountCompendiumType : CompendiumType<Mount>
         return null;
     }
 
-    public override string Singular => LocalizationService.Ui("Mount");
-    public override string Plural => LocalizationService.Ui("Mounts");
+    public override string Singular => "坐骑";
+    public override string Plural => "坐骑";
 
     public override string Description =>
-        LocalizationService.Ui("Unlockable mounts usable by the player.");
+        "玩家可使用的坐骑。";
 
     public override string Key => "mounts";
 

@@ -18,10 +18,10 @@ public class CraftTrackerTrackShoppingFilter : BooleanFilter
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     
     public override string Key { get; set; } = "CraftTrackerTrackShopping";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Track Shopping?"));
+    public override string Name { get; set; } = "追踪商店购买？";
     
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("When an item is purchased from a shop and it matches one of the output items in this craft list, should it reduce the quantity of that item? The craft list must be active for this to count."));
+        "从商店购买且与制作列表中的成品匹配时，是否扣除该物品的数量？制作列表必须处于启用状态才会计入。";
     
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.CompletionTracking;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

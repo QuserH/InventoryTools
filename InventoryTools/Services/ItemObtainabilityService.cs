@@ -63,7 +63,7 @@ public class ItemObtainabilityService : IItemObtainabilityService
             {
                 var craftTypeId = recipe.Base.CraftType.RowId;
                 var playerLevel = _classJobService.GetPlayerLevelByCraftTypeId(craftTypeId);
-                var jobName = recipe.CraftType?.FormattedName ?? LocalizationService.Ui("Crafter");
+                var jobName = recipe.CraftType?.FormattedName ?? "制作系";
                 var craftJob = _classJobService.GetClassJobListFromCraftTypeId(craftTypeId);
                 RowRef? classJobRowRef = craftJob.HasValue ? _classJobService.GetClassJobRowRef(craftJob.Value) : null;
                 if (classJobRowRef != null)
@@ -125,7 +125,7 @@ public class ItemObtainabilityService : IItemObtainabilityService
                 ? ClassJobService.ClassJobList.Miner
                 : ClassJobService.ClassJobList.Botanist;
             var playerLevel = _classJobService.GetPlayerLevel(job);
-            var jobName = preferenceType == IngredientPreferenceType.Mining ? LocalizationService.Ui("Miner") : LocalizationService.Ui("Botanist");
+            var jobName = preferenceType == IngredientPreferenceType.Mining ? "矿工" : "园艺工";
             requirements.Add(new ObtainabilityRequirement(
                 ObtainabilityRequirementType.JobLevel,
                 playerLevel >= minLevel,

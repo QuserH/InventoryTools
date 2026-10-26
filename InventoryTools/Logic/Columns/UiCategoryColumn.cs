@@ -23,10 +23,10 @@ namespace InventoryTools.Logic.Columns
             return itemItemUiCategory?.Name.ExtractText() ?? "";
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Category (Basic)"));
-        public override string RenderName => LocalizationService.Ui("Category");
+        public override string Name { get; set; } = "分类（基本）";
+        public override string RenderName => "分类";
         public override float Width { get; set; } = 200.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The category of the item."));
+        public override string HelpText { get; set; } = "物品的分类。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.GameItemFilter;

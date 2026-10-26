@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using AllaganLib.GameSheets.Extensions;
@@ -66,9 +66,9 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
         return row.RowId;
     }
 
-    public override string Singular => LocalizationService.Ui("Achievement");
-    public override string Plural => LocalizationService.Ui("Achievements");
-    public override string Description => LocalizationService.Ui("Achievements earned by the player.");
+    public override string Singular => "成就";
+    public override string Plural => "成就";
+    public override string Description => "玩家获得的成就。";
     public override string Key => "achievements";
     public override (string?, uint?) Icon => (null, Icons.AchievementCertIcon);
 
@@ -90,14 +90,14 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<AchievementRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("Icon"), HelpText = LocalizationService.Ui("The icon of the achievement"), Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
-        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "category", Name = LocalizationService.Ui("Category"), HelpText = LocalizationService.Ui("The category of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.AchievementCategory.Value.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "description", Name = LocalizationService.Ui("Description"), HelpText = LocalizationService.Ui("The description of the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Description.ToImGuiString()});
-        builder.AddIntegerColumn(new (){Key = "points", Name = LocalizationService.Ui("Points"), HelpText = LocalizationService.Ui("The points earned for the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Points.ToString()});
-        builder.AddBooleanColumn(new (){Key = "completed", Name = LocalizationService.Ui("Completed"), HelpText = LocalizationService.Ui("Is the achievement completed?"), Version = "14.0.3", ValueSelector = item => _characterMonitor.ActiveCharacter?.IsAchievementCompleted(item.RowId)
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "图标", HelpText = "该成就的图标", Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
+        builder.AddStringColumn(new (){Key = "name", Name = "名称", HelpText = "该成就的名称", Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "category", Name = "分类", HelpText = "该成就的分类", Version = "14.0.3", ValueSelector = row => row.Base.AchievementCategory.Value.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "description", Name = "说明", HelpText = "该成就的说明", Version = "14.0.3", ValueSelector = row => row.Base.Description.ToImGuiString()});
+        builder.AddIntegerColumn(new (){Key = "points", Name = "点数", HelpText = "该成就获得的点数", Version = "14.0.3", ValueSelector = row => row.Base.Points.ToString()});
+        builder.AddBooleanColumn(new (){Key = "completed", Name = "已完成", HelpText = "该成就是否已完成？", Version = "14.0.3", ValueSelector = item => _characterMonitor.ActiveCharacter?.IsAchievementCompleted(item.RowId)
         });
-        builder.AddIntegerColumn(new (){Key = "title", Name = LocalizationService.Ui("Title"), HelpText = LocalizationService.Ui("The title unlocked for earning this achievement"), Version = "14.0.3", ValueSelector =
+        builder.AddIntegerColumn(new (){Key = "title", Name = "头衔", HelpText = "获得该成就解锁的头衔", Version = "14.0.3", ValueSelector =
             item =>
             {
                 if (item.Base.Title.RowId == 0 || item.Base.Title.ValueNullable == null)
@@ -106,7 +106,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
                 }
                 return item.Base.Title.ValueNullable.Value.Masculine.ToImGuiString() + "/" + item.Base.Title.ValueNullable.Value.Feminine.ToImGuiString();
             }});
-        builder.AddItemColumn(new(){Key = "reward", Name = LocalizationService.Ui("Reward Item"), HelpText = LocalizationService.Ui("The reward item for the achievement"), Version = "14.0.3", ValueSelector = row => row.Base.Item.RowId});
+        builder.AddItemColumn(new(){Key = "reward", Name = "奖励物品", HelpText = "该成就的奖励物品", Version = "14.0.3", ValueSelector = row => row.Base.Item.RowId});
     }
 
     public override List<ICompendiumGrouping>? GetGroupings()
@@ -116,7 +116,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             new CompendiumGrouping<AchievementRow>()
             {
                 Key = "category",
-                Name = LocalizationService.Ui("Category"),
+                Name = "分类",
                 GroupFunc = row => row.Base.AchievementCategory.RowId,
                 GroupMapping = row =>
                 {
@@ -150,7 +150,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "information",
-            SectionName = LocalizationService.Ui("Information"),
+            SectionName = "信息",
             Items = information.AsReadOnly()
         });
 
@@ -162,7 +162,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             RelatedRefs = items,
             Filter = typeof(Achievement),
             SectionKey = "required_achievements",
-            SectionName = LocalizationService.Ui("Required Achievements")
+            SectionName = "前置成就"
         });
 
         var relatedAchievements = _achievementSheet.Where(c => c.Base.Key.RowType == typeof(Achievement) && c.Base.Key.RowId == row.RowId || c.Base.Data.Any(d => d.RowType == typeof(Achievement) && d.RowId == row.RowId)).Select(c => c.Base.AsUntypedRowRef()).ToList();
@@ -173,7 +173,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
                 RelatedRefs = relatedAchievements,
                 Filter = typeof(Achievement),
                 SectionKey = "related_achievements",
-                SectionName = LocalizationService.Ui("Related Achievements")
+                SectionName = "相关成就"
             });
         }
 
@@ -182,7 +182,7 @@ public class AchievementCompendiumType : CompendiumType<AchievementRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlocked_item",
-                SectionName = LocalizationService.Ui("Unlocked Item"),
+                SectionName = "解锁物品",
                 RelatedRef = row.Base.Item.Value.AsUntypedRowRef()
             });
         }

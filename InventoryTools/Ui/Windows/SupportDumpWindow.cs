@@ -27,7 +27,7 @@ namespace InventoryTools.Ui
 
         public override void Initialize()
         {
-            WindowName = LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"));
+            WindowName = "生成支持信息包";
             Key = "supportdump";
         }
 
@@ -36,20 +36,20 @@ namespace InventoryTools.Ui
         public override Vector2? MaxSize { get; } = new Vector2(800, 400);
         public override Vector2? MinSize { get; } = new Vector2(300, 150);
         public override string GenericKey { get; } = "supportdump";
-        public override string GenericName { get; } = LocalizationService.Ui("Generate Support Dump");
+        public override string GenericName { get; } = "生成支持信息包";
         public override bool DestroyOnClose => true;
 
         public override void DrawWindow()
         {
             ImGui.PushTextWrapPos();
             ImGui.TextWrapped(
-                LocalizationService.Ui(LocalizationService.Ui("Only press this if you have been instructed to, it will generate a zip file containing your inventory, the allagan tools configuration, and your logs. If you are attempting to provide this information to help fix a bug, turn on Verbose Logging in File, replicate the bug and then generate this dump. Proceed?")));
+                "仅在收到指示时才按此按钮，它将生成包含你的背包、亚拉戈工具箱配置和日志的 zip 文件。如果你想提供此信息以帮助修复 BUG，请在文件中启用详细日志，复现 BUG，然后生成此信息包。继续？");
             ImGui.PopTextWrapPos();
             ImGui.NewLine();
 
-            if (ImGui.Button(LocalizationService.Ui("Proceed")))
+            if (ImGui.Button("继续"))
             {
-                _fileDialogManager.SaveFileDialog(LocalizationService.Ui("Save support dump"), "*.zip", "support_dump.zip", ".zip",
+                _fileDialogManager.SaveFileDialog("保存支持信息包", "*.zip", "support_dump.zip", ".zip",
                     (success, path) =>
                     {
                         if (success)
@@ -61,7 +61,7 @@ namespace InventoryTools.Ui
 
             ImGui.SameLine();
 
-            if (ImGui.Button(LocalizationService.Ui("Cancel")))
+            if (ImGui.Button("取消"))
             {
                 this.IsOpen = false;
             }
@@ -72,19 +72,17 @@ namespace InventoryTools.Ui
             var result = _supportDumpService.GenerateDump(path);
             if (result.Success)
             {
-                var included = result.IncludedFiles.Any() ? string.Join(", ", result.IncludedFiles) : LocalizationService.Ui("no files");
-                _chatUtilities.Print(LocalizationService.Format("Support dump saved to {0} ({1}).", result.ZipPath, included));
+                var included = result.IncludedFiles.Any() ? string.Join(", ", result.IncludedFiles) : "无文件";
+                _chatUtilities.Print(string.Format("支持信息包已保存至 {0}（{1}）。", result.ZipPath, included));
                 if (result.MissingFiles.Any())
                 {
-                    _chatUtilities.PrintError(LocalizationService.Format(
-                        "The following files could not be included in the support dump: {0}.",
+                    _chatUtilities.PrintError(string.Format("以下文件未能包含在支持信息包中：{0}。",
                         string.Join(", ", result.MissingFiles)));
                 }
             }
             else
             {
-                _chatUtilities.PrintError(LocalizationService.Ui(
-                    "Failed to generate the support dump. Please check your Dalamud log for details."));
+                _chatUtilities.PrintError("生成支持信息包失败。请查看 Dalamud 日志了解详情。");
             }
 
             this.IsOpen = false;

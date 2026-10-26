@@ -11,65 +11,65 @@ namespace InventoryTools.Extensions
             switch (settingSubCategory)
             {
                 case SettingSubCategory.Experimental:
-                    return LocalizationService.Ui("Experimental");
+                    return "实验性";
                 case SettingSubCategory.Fun:
-                    return LocalizationService.Ui("Fun");
+                    return "娱乐";
                 case SettingSubCategory.Highlighting:
-                    return LocalizationService.Ui("Highlighting");
+                    return "高亮显示";
                 case SettingSubCategory.DestinationHighlighting:
-                    return LocalizationService.Ui("Destination Highlighting");
+                    return "目标高亮";
                 case SettingSubCategory.RetainerHighlighting:
-                    return LocalizationService.Ui("Retainer Highlighting");
+                    return "雇员高亮";
                 case SettingSubCategory.Market:
-                    return LocalizationService.Ui("Market");
+                    return "市场";
                 case SettingSubCategory.General:
-                    return LocalizationService.Ui("General");
+                    return "常规";
                 case SettingSubCategory.Subsetting:
-                    return LocalizationService.Ui("Settings");
+                    return "设置";
                 case SettingSubCategory.Visuals:
-                    return LocalizationService.Ui("Visuals");
+                    return "外观";
                 case SettingSubCategory.WindowLayout:
-                    return LocalizationService.Ui("Window Layout");
+                    return "窗口布局";
                 case SettingSubCategory.AutoSave:
-                    return LocalizationService.Ui("Auto Save");
+                    return "自动保存";
                 case SettingSubCategory.FilterSettings:
-                    return LocalizationService.Ui("List Settings");
+                    return "列表设置";
                 case SettingSubCategory.ActiveLists:
-                    return LocalizationService.Ui("Active Lists");
+                    return "启用的列表";
                 case SettingSubCategory.ContextMenus:
-                    return LocalizationService.Ui("Context/Right Click Menu");
+                    return "右键菜单";
                 case SettingSubCategory.Hotkeys:
-                    return LocalizationService.Ui("Hotkeys");
+                    return "快捷键";
                 case SettingSubCategory.IgnoreEscape:
-                    return LocalizationService.Ui("Ignore Escape Key");
+                    return "忽略 Esc 键";
                 case SettingSubCategory.SourceGrouping:
-                    return LocalizationService.Ui("Source Grouping");
+                    return "来源分组";
                 case SettingSubCategory.UseGrouping:
-                    return LocalizationService.Ui("Use Grouping");
+                    return "用途分组";
                 case SettingSubCategory.Colours:
-                    return LocalizationService.Ui("Colours");
+                    return "颜色";
                 case SettingSubCategory.AddItemLocations:
-                    return LocalizationService.Ui("Add Item Locations");
+                    return "添加物品位置";
                 case SettingSubCategory.MarketPricing:
-                    return LocalizationService.Ui("Market Pricing");
+                    return "市场价格";
                 case SettingSubCategory.AmountToRetrieve:
-                    return LocalizationService.Ui("Amount To Retrieve");
+                    return "取回数量";
                 case SettingSubCategory.ItemUnlockStatus:
-                    return LocalizationService.Ui("Item Unlock Status");
+                    return "物品解锁状态";
                 case SettingSubCategory.SourceInformation:
-                    return LocalizationService.Ui("Source Information");
+                    return "来源信息";
                 case SettingSubCategory.UseInformation:
-                    return LocalizationService.Ui("Use Information");
+                    return "用途信息";
                 case SettingSubCategory.AcquisitionTracker:
-                    return LocalizationService.Ui("Acquisition Tracker");
+                    return "获取追踪器";
                 case SettingSubCategory.IngredientPatch:
-                    return LocalizationService.Ui("Ingredient Patch");
+                    return "素材版本";
                 case SettingSubCategory.GlamourReadySet:
-                    return LocalizationService.Ui("Outfit Glamours");
+                    return "套装幻化";
                 case SettingSubCategory.CofferLoot:
-                    return LocalizationService.Ui("Coffer Loot");
+                    return "宝箱战利品";
                 case SettingSubCategory.ShopHighlighting:
-                    return LocalizationService.Ui("Shop Highlighting");
+                    return "商店高亮";
             }
             return settingSubCategory.ToString();
         }

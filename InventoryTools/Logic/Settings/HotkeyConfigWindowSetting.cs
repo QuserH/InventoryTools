@@ -12,8 +12,8 @@ public class HotkeyConfigWindowSetting : HotKeySetting
     public override ModifiableHotkey DefaultValue { get; set; } = new ModifiableHotkey(VirtualKey.NO_KEY);
     public static string AsKey { get; } = "HotkeyConfigWindow";
     public override string Key { get; set; } = AsKey;
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Toggle Configuration Window"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The hotkey to toggle the configuration window."));
+    public override string Name { get; set; } = "切换设置窗口";
+    public override string HelpText { get; set; } = "切换设置窗口的快捷键。";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     public override string Version => "1.7.0.0";

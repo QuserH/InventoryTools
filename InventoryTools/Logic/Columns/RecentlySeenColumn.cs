@@ -20,10 +20,10 @@ namespace InventoryTools.Logic.Columns
         {
             return _pluginLogic.GetLastSeenTime(searchResult.Item.RowId)?.ToHumanReadableString() ?? "";
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Last Seen Date/Time"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Last Seen"));
+        public override string Name { get; set; } = "最近出现日期/时间";
+        public override string RenderName => "最近出现";
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Displays the last time an item was seen."));
+        public override string HelpText { get; set; } = "显示物品最近一次出现的时间。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
     }

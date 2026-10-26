@@ -61,7 +61,7 @@ public class GearsetCompendiumType : CompendiumType<Gearset>
 
     public override string? GetSubtitle(Gearset row)
     {
-        return row.Items.Count + LocalizationService.Ui(" items");
+        return row.Items.Count + " 件物品";
     }
 
     public override (string?, uint?) GetIcon(Gearset row)
@@ -77,17 +77,17 @@ public class GearsetCompendiumType : CompendiumType<Gearset>
     private List<MessageBase> BuildContextMenu(Gearset arg)
     {
         _menuBuilder.Header(arg.Name);
-        _menuBuilder.TryOn(arg.Items, LocalizationService.Ui("Try on Gearset"));
+        _menuBuilder.TryOn(arg.Items, "试穿套装");
         _menuBuilder.NewLine();
-        _menuBuilder.Header(LocalizationService.Ui("Gear Pieces"));
+        _menuBuilder.Header("套装部件");
         _menuBuilder.Items(arg.Items);
-        _menuBuilder.GroupedItems(arg.Items, LocalizationService.Ui("All Gear Pieces"));
+        _menuBuilder.GroupedItems(arg.Items, "全部套装部件");
         return [];
     }
 
-    public override string Singular => LocalizationService.Ui("Gearset");
-    public override string Plural => LocalizationService.Ui("Gearsets");
-    public override string Description => LocalizationService.Ui("Gearsets based on Eorzea Collection's organizing.");
+    public override string Singular => "套装";
+    public override string Plural => "套装";
+    public override string Description => "基于 Eorzea Collection 整理的套装。";
     public override string Key => "gearsets";
     public override (string?, uint?) Icon => (null, Icons.ArmorIcon);
 
@@ -109,16 +109,16 @@ public class GearsetCompendiumType : CompendiumType<Gearset>
 
     public override void BuildColumns(CompendiumColumnBuilder<Gearset> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the gearset"), Version = "14.0.3", ValueSelector = row => (null, Icons.ArmorIcon), CompendiumType = this, RowIdSelector = row => (uint)_gearsets.IndexOf(row)});
-        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the gearset"), Version = "14.0.3", ValueSelector = row => row.Name});
-        builder.AddItemSourcesColumn(new() { Key = "sources", Name = LocalizationService.Ui("Sources"), HelpText = LocalizationService.Ui("The combined sources for the gearset."), Version = "14.0.3", ValueSelector = gearset => gearset.Items.Where(c => c.RowId != 0).SelectMany(c => _itemInfoCache.GetItemSources(c.RowId) ?? []).ToList()});
-        builder.AddStringColumn(new (){Key = "patch", Name = LocalizationService.Ui("Patch"), HelpText = LocalizationService.Ui("The patch the gearset was added."), Version = "14.0.3", ValueSelector = gearset => string.Join(", ", gearset.Items.Where(c => c.RowId != 0).Select(c => _itemSheet.GetRow(c.RowId).Patch.ToString(CultureInfo.InvariantCulture)).Distinct())});
-        builder.AddIntegerColumn(new (){Key = "ilvl", Name = LocalizationService.Ui("Item Level"), HelpText = LocalizationService.Ui("The highest item level (iLvl) across all pieces in the gearset."), Version = "15.0.6", Width = 60, ValueSelector = gearset => { var max = gearset.Items.Where(c => c.RowId != 0).Select(c => (int)_itemSheet.GetRow(c.RowId).Base.LevelItem.RowId).DefaultIfEmpty(0).Max(); return max == 0 ? null : max.ToString(); }});
-        builder.AddIntegerColumn(new (){Key = "equip_level", Name = LocalizationService.Ui("Equip Level"), HelpText = LocalizationService.Ui("The highest required equip level across all pieces in the gearset."), Version = "15.0.6", Width = 60, ValueSelector = gearset => { var max = gearset.Items.Where(c => c.RowId != 0).Select(c => (int)_itemSheet.GetRow(c.RowId).Base.LevelEquip).DefaultIfEmpty(0).Max(); return max == 0 ? null : max.ToString(); }});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "该套装的图标", Version = "14.0.3", ValueSelector = row => (null, Icons.ArmorIcon), CompendiumType = this, RowIdSelector = row => (uint)_gearsets.IndexOf(row)});
+        builder.AddStringColumn(new (){Key = "name", Name = "名称", HelpText = "该套装的名称", Version = "14.0.3", ValueSelector = row => row.Name});
+        builder.AddItemSourcesColumn(new() { Key = "sources", Name = "来源", HelpText = "该套装综合的来源。", Version = "14.0.3", ValueSelector = gearset => gearset.Items.Where(c => c.RowId != 0).SelectMany(c => _itemInfoCache.GetItemSources(c.RowId) ?? []).ToList()});
+        builder.AddStringColumn(new (){Key = "patch", Name = "版本", HelpText = "该套装加入的版本。", Version = "14.0.3", ValueSelector = gearset => string.Join(", ", gearset.Items.Where(c => c.RowId != 0).Select(c => _itemSheet.GetRow(c.RowId).Patch.ToString(CultureInfo.InvariantCulture)).Distinct())});
+        builder.AddIntegerColumn(new (){Key = "ilvl", Name = "品级", HelpText = "套装所有部件中最高的品级（iLvl）。", Version = "15.0.6", Width = 60, ValueSelector = gearset => { var max = gearset.Items.Where(c => c.RowId != 0).Select(c => (int)_itemSheet.GetRow(c.RowId).Base.LevelItem.RowId).DefaultIfEmpty(0).Max(); return max == 0 ? null : max.ToString(); }});
+        builder.AddIntegerColumn(new (){Key = "equip_level", Name = "装备等级", HelpText = "该套装所有部件中所需的最高装备等级。", Version = "15.0.6", Width = 60, ValueSelector = gearset => { var max = gearset.Items.Where(c => c.RowId != 0).Select(c => (int)_itemSheet.GetRow(c.RowId).Base.LevelEquip).DefaultIfEmpty(0).Max(); return max == 0 ? null : max.ToString(); }});
         for (int i = 0; i < 12; i++)
         {
             var index = i;
-            builder.AddItemColumn(new(){Key = "item" + i, Name = LocalizationService.Ui("Item ") + (i + 1), HelpText = LocalizationService.Ui("The item"), Version = "14.0.3", ValueSelector = row => row.Items[index].RowId});
+            builder.AddItemColumn(new(){Key = "item" + i, Name = "物品 " + (i + 1), HelpText = "该物品", Version = "14.0.3", ValueSelector = row => row.Items[index].RowId});
         }
     }
 
@@ -128,7 +128,7 @@ public class GearsetCompendiumType : CompendiumType<Gearset>
         viewBuilder.Title = row.Name;
         viewBuilder.Icon = Icons.ArmorIcon;
         viewBuilder.Subtitle = itemCount + " " + LocalizationService.Ui(row.Items.Count == 1 ? " item" : " items");
-        viewBuilder.AddLink("https://ffxiv.eorzeacollection.com/gearset/" + row.Key, LocalizationService.Ui("Open in Eorzea Collection"), "ec");
-        viewBuilder.AddSection(_itemListSectionFactory.Invoke(new(){SectionKey = "set_items", SectionName = LocalizationService.Ui("Set Items"), Items = row.Items.Where(c => c.RowId != 0).Select(c => ItemInfo.Create(_itemSheet.GetRow(c.RowId)))}));
+        viewBuilder.AddLink("https://ffxiv.eorzeacollection.com/gearset/" + row.Key, "在 Eorzea Collection 中打开", "ec");
+        viewBuilder.AddSection(_itemListSectionFactory.Invoke(new(){SectionKey = "set_items", SectionName = "套装物品", Items = row.Items.Where(c => c.RowId != 0).Select(c => ItemInfo.Create(_itemSheet.GetRow(c.RowId)))}));
     }
 }

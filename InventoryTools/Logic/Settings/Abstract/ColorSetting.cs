@@ -25,25 +25,25 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (HasValueSet(configuration) && value.W == 0)
             {
                 ImGui.SameLine();
-                ImGui.TextColored(ImGuiColors.DalamudRed, LocalizationService.Ui(LocalizationService.Ui("The alpha is currently set to 0, this will be invisible.")));
+                ImGui.TextColored(ImGuiColors.DalamudRed, "透明度当前设置为 0，将不可见。");
             }
             ImGui.SameLine();
             if (disableColouring != true && HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+                ImGui.LabelText("##" + Key + "标签", customName ?? Name);
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+                ImGui.LabelText("##" + Key + "标签", customName ?? Name);
             }
             ImGui.SameLine();
             ImGuiService.HelpMarker(HelpText, Image, ImageSize);
             if (disableReset != true && HasValueSet(configuration))
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     Reset(configuration);
                 }

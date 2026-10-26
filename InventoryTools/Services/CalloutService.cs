@@ -53,7 +53,7 @@ public class CalloutService : ICalloutService
                 ImGui.TextUnformatted(body);
                 ImGui.PopTextWrapPos();
                 ImGui.Spacing();
-                if (ImGui.Button(LocalizationService.Ui("Got it")))
+                if (ImGui.Button("知道了"))
                 {
                     MarkSeen(popup);
                     ImGui.CloseCurrentPopup();

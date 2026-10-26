@@ -19,10 +19,10 @@ public class TooltipFooterLinesSetting : IntegerSetting
     }
 
     public override string Key { get; set; } = "TooltipFooterLines";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Footer New Lines"));
+    public override string Name { get; set; } = "底部空行数";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("How many new lines should be added below any tooltip modifications made by this plugin?"));
+        "插件对悬浮提示的修改内容下方应添加多少空行？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Visuals;

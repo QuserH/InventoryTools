@@ -12,9 +12,9 @@ public class FromCalamitySalvagerColumn : CheckboxColumn
     {
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is from Calamity Salvager?"));
+    public override string Name { get; set; } = "失物管理人？";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item available at a calmity salvager?"));
+    public override string HelpText { get; set; } = "该物品是否可从失物管理人处获取？";
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Basic;
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;

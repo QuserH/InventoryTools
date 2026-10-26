@@ -31,8 +31,8 @@ public class DefaultSortColumnDirectionFilter : ChoiceFilter<ImGuiSortDirection?
     }
 
     public override string Key { get; set; } = "DefaultSortColumnOrder";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Sort Column Order"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The direction to sort the list in by default."));
+    public override string Name { get; set; } = "默认排序列顺序";
+    public override string HelpText { get; set; } = "列表默认的排序方向。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Columns;
 
     public override ImGuiSortDirection? DefaultValue { get; set; } = null;

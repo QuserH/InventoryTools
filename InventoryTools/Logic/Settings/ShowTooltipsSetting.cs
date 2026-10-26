@@ -19,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ShowTooltips";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Enable Tooltip Tweaks?"));
+        public override string Name { get; set; } = "启用悬浮提示调整？";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Disable/enable the entire tooltip modification system for the plugin. If this is off, no changes will be made to your item's tooltips."));
+            "启用/禁用插件的整个悬浮提示修改系统。关闭后不会对你的物品悬浮提示进行任何更改。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

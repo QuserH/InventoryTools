@@ -33,19 +33,19 @@ public class IngredientPreferenceLocalizer
                         {
                             itemName3 =
                                 (_itemSheet.GetRow(ingredientPreference.LinkedItem3Id.Value)
-                                    ?.NameString ?? LocalizationService.Ui("Unknown Item")) + " - " +
+                                    ?.NameString ?? "未知物品") + " - " +
                                 ingredientPreference.LinkedItem3Quantity.Value;
                         }
 
                         itemName2 =
                             (_itemSheet.GetRow(ingredientPreference.LinkedItem2Id.Value)
-                                ?.NameString ?? LocalizationService.Ui("Unknown Item")) + " - " +
+                                ?.NameString ?? "未知物品") + " - " +
                             ingredientPreference.LinkedItem2Quantity.Value;
                     }
 
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        LocalizationService.Ui("Unknown Item");
+                        "未知物品";
                     if (itemName3 != null)
                     {
                         itemName = itemName + "," + itemName2 + "," + itemName3;
@@ -58,27 +58,27 @@ public class IngredientPreferenceLocalizer
                     return itemName + " - " + ingredientPreference.LinkedItemQuantity.Value;
                 }
 
-                return LocalizationService.Ui("No item selected");
+                return "未选择物品";
             case IngredientPreferenceType.Reduction:
                 if (ingredientPreference.LinkedItemId != null && ingredientPreference.LinkedItemQuantity != null)
                 {
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        LocalizationService.Ui("Unknown Item");
-                    return LocalizationService.Ui("Reduction (") + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
+                        "未知物品";
+                    return "精制（" + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
                 }
 
-                return LocalizationService.Ui("No item selected");
+                return "未选择物品";
             case IngredientPreferenceType.Desynthesis:
                 if (ingredientPreference.LinkedItemId != null && ingredientPreference.LinkedItemQuantity != null)
                 {
                     var itemName =
                         _itemSheet.GetRow(ingredientPreference.LinkedItemId.Value)?.NameString ??
-                        LocalizationService.Ui("Unknown Item");
-                    return LocalizationService.Ui("Desynthesis (") + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
+                        "未知物品";
+                    return "分解（" + itemName + " - " + ingredientPreference.LinkedItemQuantity.Value + ")";
                 }
 
-                return LocalizationService.Ui("No item selected");
+                return "未选择物品";
         }
 
         return ingredientPreference.Type.FormattedName();

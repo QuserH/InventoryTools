@@ -24,7 +24,7 @@ public class ItemCalamitySalvagerShopUseRenderer : ItemCalamitySalvagerShopSourc
     private readonly ItemSheet _itemSheet;
     private readonly ITextureProvider _textureProvider;
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at the calamity salvager?"));
+    public override string HelpText => "该物品是否可在失物管理人处使用？";
 
     public ItemCalamitySalvagerShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
@@ -42,7 +42,7 @@ public class ItemCalamitySalvagerShopUseRenderer : ItemCalamitySalvagerShopSourc
             ? new List<string>()
             : shopSource.MapIds.Select(c => _mapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("{0} items available for purchase with gil in {1} zones"), allGilShops.Count, maps.Count));
+        ImGui.Text(string.Format("可在 {1} 个区域用金币购买 {0} 件物品", allGilShops.Count, maps.Count));
     };
 
 
@@ -59,10 +59,10 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CalamitySalvagerShop;
-    public override string SingularName => LocalizationService.Ui("Calamity Salvager");
-    public override string PluralName => LocalizationService.Ui("Calamity Salvagers");
+    public override string SingularName => "失物管理人";
+    public override string PluralName => "失物管理人";
     public override bool ShouldGroup => true;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from the Calamity Salvager?"));
+    public override string HelpText => "该物品是否可在失物管理人处购买？";
 
     public override byte MaxColumns => 1;
 
@@ -72,13 +72,13 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
         var firstItem = asSources[0];
 
         var costItems = asSources.SelectMany(c => c.CostItems).DistinctBy(d => d.ItemId).ToList();
-        DrawItems(LocalizationService.Ui("Costs: "), costItems);
+        DrawItems("花费：", costItems);
         var rewardItems = asSources.SelectMany(c => c.RewardItems).DistinctBy(d => d.ItemId).ToList();
-        DrawItems(LocalizationService.Ui("Rewards: "), rewardItems);
+        DrawItems("奖励：", rewardItems);
 
         if (firstItem.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+            ImGui.Text(string.Format("所需成就：{0}",
                 firstItem.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
         }
 
@@ -86,7 +86,7 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
         {
             if (quest.RowId != 0)
             {
-                ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
+                ImGui.Text(string.Format("所需任务：{0}", quest.Value.Name.ExtractText()));
             }
         }
 
@@ -102,7 +102,7 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
 
         if (asSource.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            ImGui.Text(LocalizationService.Format("Achievement Required: {0}",
+            ImGui.Text(string.Format("所需成就：{0}",
                 asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText()));
         }
 
@@ -110,7 +110,7 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
         {
             if (quest.RowId != 0)
             {
-                ImGui.Text(LocalizationService.Format("Quest Required: {0}", quest.Value.Name.ExtractText()));
+                ImGui.Text(string.Format("所需任务：{0}", quest.Value.Name.ExtractText()));
             }
         }
 
@@ -140,7 +140,7 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
 
         if (asSource.GilShopItem.Base.AchievementRequired.RowId != 0)
         {
-            description += LocalizationService.Format(" (Requires achievement: {0})",
+            description += string.Format("（需要成就：{0}）",
                 asSource.GilShopItem.Base.AchievementRequired.Value.Name.ExtractText());
         }
 
@@ -148,7 +148,7 @@ public class ItemCalamitySalvagerShopSourceRenderer : ItemInfoRenderer<ItemCalam
         {
             if (quest.RowId != 0)
             {
-                description += LocalizationService.Format(" (Requires quest: {0})", quest.Value.Name.ExtractText());
+                description += string.Format("（需要任务：{0}）", quest.Value.Name.ExtractText());
             }
         }
 

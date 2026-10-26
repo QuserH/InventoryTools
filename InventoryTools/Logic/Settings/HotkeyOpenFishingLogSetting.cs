@@ -26,10 +26,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "OpenFishingLogHotKey";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Open Fishing Log Hotkey"));
+        public override string Name { get; set; } = "打开钓鱼笔记快捷键";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The hotkey to open the fishing log for an item when hovering it."));
+            "鼠标悬停物品时打开钓鱼笔记的快捷键。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

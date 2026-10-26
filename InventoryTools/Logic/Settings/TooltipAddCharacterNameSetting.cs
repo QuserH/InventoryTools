@@ -20,10 +20,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipCharacterName";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Affix with Character Name)"));
+        public override string Name { get; set; } = "添加物品位置（附角色名称）";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("When hovering an item and you have an amount owned by a retainer, should the owner of that retainer be affixed to that item?"));
+            "鼠标悬停物品且雇员持有该物品时，是否在提示中附上雇员持有者的名称？";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;

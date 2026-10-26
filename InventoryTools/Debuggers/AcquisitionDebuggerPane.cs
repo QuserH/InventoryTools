@@ -17,7 +17,7 @@ public class AcquisitionDebuggerPane : DebugLogPane
         _acquisitionMonitorService = acquisitionMonitorService;
     }
 
-    public override string Name => LocalizationService.Ui("Item Acquisition Monitor");
+    public override string Name => "物品获取监控";
 
     public override void SubscribeToEvents()
     {
@@ -41,13 +41,13 @@ public class AcquisitionDebuggerPane : DebugLogPane
 
     public override void DrawInfo()
     {
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Configuration")))
+        if (ImGui.CollapsingHeader("设置"))
         {
             var config = _acquisitionMonitorService.Configuration;
 
             if (config == null)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui("<no configuration>"));
+                ImGui.TextUnformatted("<未配置>");
             }
             else
             {
@@ -56,10 +56,10 @@ public class AcquisitionDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Recent Activity")))
+        if (ImGui.CollapsingHeader("最近活动"))
         {
             ImGui.TextUnformatted(
-                LocalizationService.Ui("See the log pane below for a chronological list of acquisition events.")
+                "参见下方日志面板查看按时间排序的获取事件列表。"
             );
         }
     }

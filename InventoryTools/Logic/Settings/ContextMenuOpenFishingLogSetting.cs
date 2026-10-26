@@ -23,12 +23,12 @@ public class ContextMenuOpenFishingLogSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "OpenFishingLogContextMenu";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Open Fishing Log"));
+    public override string Name { get; set; } = "快捷菜单 - 打开钓鱼笔记";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Open Fishing Log");
+    public override string WizardName { get; } = "打开钓鱼笔记";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Add a context menu item to open the fishing log for any item that can be fished?"));
+        "是否为可钓鱼物品添加快捷菜单项以打开钓鱼笔记？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

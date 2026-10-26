@@ -92,8 +92,8 @@ public class LevelViewSection : ViewSection
                 {
                     ImGui.TextUnformatted(_levelRow.FormattedName);
                     ImGui.Separator();
-                    ImGui.Text(LocalizationService.Format("X: {0:0.0}", _levelRow.MapX));
-                    ImGui.Text(LocalizationService.Format("Y: {0:0.0}", _levelRow.MapY));
+                    ImGui.Text(string.Format("X: {0:0.0}", _levelRow.MapX));
+                    ImGui.Text(string.Format("Y: {0:0.0}", _levelRow.MapY));
                 }
             }
         }

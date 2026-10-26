@@ -32,7 +32,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
     }
     public override void Initialize()
     {
-        WindowName = LocalizationService.Ui("Duties");
+        WindowName = "副本";
         Key = "duties";
 
         _columns = new List<TableColumn<ContentFinderConditionRow>>()
@@ -121,7 +121,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     ImGui.TextUnformatted(ex.Base.ClassJobLevelRequired.ToString());
                 }
             },
-            new(LocalizationService.Ui("Sync Level"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("同步等级", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -145,7 +145,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     ImGui.TextUnformatted(ex.Base.ClassJobLevelSync.ToString());
                 }
             },
-            new(LocalizationService.Ui("Item Level"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("品级", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -169,7 +169,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     ImGui.TextUnformatted(ex.Base.ItemLevelRequired.ToString());
                 }
             },
-            new(LocalizationService.Ui("Item Level Sync"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("品级同步", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -193,7 +193,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     ImGui.TextUnformatted(ex.Base.ItemLevelSync.ToString());
                 }
             },
-            new(LocalizationService.Ui("Allows Undersized"), 80, ImGuiTableColumnFlags.WidthFixed)
+            new("允许少人", 80, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -218,7 +218,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     _imGuiService.DrawUldIcon(ex.Base.AllowUndersized ? _imGuiService.TickIcon : _imGuiService.CrossIcon, new Vector2(RowSize, RowSize));
                 }
             },
-            new(LocalizationService.Ui("Allows Explorer Mode"), 80, ImGuiTableColumnFlags.WidthFixed)
+            new("允许探索模式", 80, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -268,7 +268,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                     _imGuiService.DrawUldIcon(ex.Base.PvP ? _imGuiService.TickIcon : _imGuiService.CrossIcon, new Vector2(RowSize, RowSize));
                 }
             },
-            new(LocalizationService.Ui("Accepted Classes"), 100, ImGuiTableColumnFlags.WidthFixed)
+            new("可进入的职业", 100, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -289,7 +289,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
                 },
                 Draw = (ex, contentTypeId) =>
                 {
-                    ImGui.TextUnformatted(ex.AcceptClassJobCategory?.Base.Name.ExtractText() ?? "Unknown");
+                    ImGui.TextUnformatted(ex.AcceptClassJobCategory?.Base.Name.ExtractText() ?? "未知");
                 }
             },
         };
@@ -352,7 +352,7 @@ public class DutiesWindow : GenericTabbedTable<ContentFinderConditionRow>, IMenu
 
     public override bool UseClipper => _useClipper;
     public override string GenericKey => "duties";
-    public override string GenericName => LocalizationService.Ui("Duties");
+    public override string GenericName => "副本";
     public override bool DestroyOnClose => false;
     public override bool SaveState => true;
     public override Vector2? MaxSize { get; } = new(2000, 2000);

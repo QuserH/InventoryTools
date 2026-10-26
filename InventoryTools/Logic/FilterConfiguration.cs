@@ -1082,27 +1082,27 @@ namespace InventoryTools.Logic
             {
                 if (FilterType.HasFlag(FilterType.SearchFilter))
                 {
-                    return LocalizationService.Ui("Search Filter");
+                    return "搜索筛选器";
                 }
                 else if (FilterType.HasFlag(FilterType.SortingFilter))
                 {
-                    return LocalizationService.Ui("Sort Filter");
+                    return "排序筛选";
                 }
                 else if (FilterType.HasFlag(FilterType.GameItemFilter))
                 {
-                    return LocalizationService.Ui("Game Item Filter");
+                    return "游戏物品筛选";
                 }
                 else if (FilterType.HasFlag(FilterType.CraftFilter))
                 {
-                    return LocalizationService.Ui("Craft List");
+                    return "制作列表";
                 }
                 else if (FilterType.HasFlag(FilterType.HistoryFilter))
                 {
-                    return LocalizationService.Ui("History List");
+                    return "历史记录列表";
                 }
                 else if (FilterType.HasFlag(FilterType.CuratedList))
                 {
-                    return LocalizationService.Ui("Curated List");
+                    return "精选列表";
                 }
                 return "";
             }

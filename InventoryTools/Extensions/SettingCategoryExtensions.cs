@@ -10,45 +10,45 @@ namespace InventoryTools.Extensions
             switch (settingCategory)
             {
                 case SettingCategory.General:
-                    return LocalizationService.Ui("General");
+                    return "常规";
                 case SettingCategory.Visuals:
-                    return LocalizationService.Ui("Visuals");
+                    return "外观";
                 case SettingCategory.MarketBoard:
-                    return LocalizationService.Ui("Marketboard");
+                    return "市场布告板";
                 case SettingCategory.CraftOverlay:
-                    return LocalizationService.Ui("Craft Overlay");
+                    return "制作进度悬浮窗";
                 case SettingCategory.CraftTracker:
-                    return LocalizationService.Ui("Craft Tracker (Legacy)");
+                    return "制作追踪（旧版）";
                 case SettingCategory.ToolTips:
-                    return LocalizationService.Ui("Tooltips");
+                    return "悬浮提示";
                 case SettingCategory.Hotkeys:
-                    return LocalizationService.Ui("Hotkeys");
+                    return "快捷键";
                 case SettingCategory.History:
-                    return LocalizationService.Ui("History");
+                    return "历史";
                 case SettingCategory.Windows:
-                    return LocalizationService.Ui("Windows");
+                    return "窗口";
                 case SettingCategory.Lists:
-                    return LocalizationService.Ui("Lists");
+                    return "列表";
                 case SettingCategory.ContextMenu:
-                    return LocalizationService.Ui("Context Menu");
+                    return "快捷菜单";
                 case SettingCategory.MobSpawnTracker:
-                    return LocalizationService.Ui("Mob Spawn Tracker");
+                    return "怪物刷新追踪器";
                 case SettingCategory.TitleMenuButtons:
-                    return LocalizationService.Ui("Title Menu Button");
+                    return "标题菜单按钮";
                 case SettingCategory.AutoSave:
-                    return LocalizationService.Ui("Auto Save");
+                    return "自动保存";
                 case SettingCategory.Items:
-                    return LocalizationService.Ui("Items");
+                    return "物品";
                 case SettingCategory.Highlighting:
-                    return LocalizationService.Ui("Highlighting");
+                    return "高亮显示";
                 case SettingCategory.EquipmentRecommendation:
-                    return LocalizationService.Ui("Equipment Recommendations");
+                    return "装备推荐";
                 case SettingCategory.Misc:
-                    return LocalizationService.Ui("Misc");
+                    return "杂项";
                 case SettingCategory.Troubleshooting:
-                    return LocalizationService.Ui("Troubleshooting");
+                    return "疑难解答";
                 case SettingCategory.Compendium:
-                    return LocalizationService.Ui("Compendium");
+                    return "图鉴";
             }
             return settingCategory.ToString();
         }

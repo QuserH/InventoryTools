@@ -15,10 +15,10 @@ public class CraftDestinationInventoriesFilter : InventoryScopeFilter
     }
 
     public override string Key { get; set; } = "CraftDestinationInventories";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Inventories to Retrieve To"));
+    public override string Name { get; set; } = "取回至背包";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Which inventories should the crafting list attempt to sort the items found in 'Inventories to Retrieve From' to? "));
+        "制作列表应将待取回背包中的物品整理到哪些背包？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 

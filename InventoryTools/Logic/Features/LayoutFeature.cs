@@ -16,7 +16,7 @@ public class LayoutFeature : Feature
     {
     }
 
-    public override string Name { get; } = LocalizationService.Ui("Layout");
+    public override string Name { get; } = "布局";
     public override string Description { get; } =
-        LocalizationService.Ui("How should the main items window and craft windows be laid out? Should we display your lists as tabs or in a side bar?");
+        "主物品窗口和制作窗口应如何布局？以标签页还是侧边栏显示你的列表？";
 }

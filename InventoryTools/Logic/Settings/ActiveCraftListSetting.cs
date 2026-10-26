@@ -35,10 +35,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "ActiveCraftList";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Active Craft List"));
+        public override string Name { get; set; } = "当前制作列表";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is the craft list that crafts will count towards."));
+            "这是制作完成会计入的制作列表。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ActiveLists;

@@ -36,16 +36,16 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw(LocalizationService.Ui("##tooltipScope"), currentScopes))
+        if (_scopePicker.Draw("##tooltipScope", currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -55,7 +55,7 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 Reset(configuration);
             }
@@ -68,8 +68,8 @@ public class TooltipLocationScopeLimitSetting : Setting<List<InventorySearchScop
     }
 
     public override string Key { get; set; } = "TooltipLocationScopeLimit";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Locations (Search Locations)"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When showing the locations of the items you own in the tooltip, which inventories should be included in the search?"));
+    public override string Name { get; set; } = "添加物品位置（搜索位置）";
+    public override string HelpText { get; set; } = "在悬浮提示中显示你持有物品的位置时，搜索应包括哪些背包？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.AddItemLocations;

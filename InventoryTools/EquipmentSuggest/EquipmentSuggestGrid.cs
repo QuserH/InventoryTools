@@ -53,7 +53,7 @@ public sealed class EquipmentSuggestGrid : RenderTable<EquipmentSuggestConfig, E
         ImGuiTableFlags.RowBg | ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersOuterH |
         ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersOuterV | ImGuiTableFlags.BordersH |
         ImGuiTableFlags.BordersV | ImGuiTableFlags.BordersInner | ImGuiTableFlags.BordersOuter |
-        ImGuiTableFlags.Borders | ImGuiTableFlags.ScrollX | ImGuiTableFlags.ScrollY, LocalizationService.Ui("Equipment Recommendations"),
+        ImGuiTableFlags.Borders | ImGuiTableFlags.ScrollX | ImGuiTableFlags.ScrollY, "装备推荐",
         "equipmentSuggest")
     {
         _columnFactory = columnFactory;

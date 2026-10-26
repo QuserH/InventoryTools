@@ -20,8 +20,8 @@ namespace InventoryTools.Logic.Filters
         }
 
         public override string Key { get; set; } = "Collectible";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Collectible?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is the item Collectible?"));
+        public override string Name { get; set; } = "是否为收藏品？";
+        public override string HelpText { get; set; } = "该物品为收藏品？";
 
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Gathering;
 

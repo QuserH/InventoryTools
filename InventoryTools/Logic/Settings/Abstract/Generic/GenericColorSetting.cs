@@ -31,11 +31,11 @@ public abstract class GenericColorSetting : Setting<Vector4?>
     {
         var value = CurrentValue(configuration);
 
-        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+        ImGui.LabelText("##" + Key + "标签", customName ?? Name);
 
         var enabled = value != null;
 
-        if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("Enable##"))+Key+"Boolean", ref enabled))
+        if (ImGui.Checkbox("启用##"+Key+"Boolean", ref enabled))
         {
             if (value == null)
             {
@@ -63,7 +63,7 @@ public abstract class GenericColorSetting : Setting<Vector4?>
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 Reset(configuration);
             }

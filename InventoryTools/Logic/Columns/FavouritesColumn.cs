@@ -41,13 +41,13 @@ public class FavouritesColumn : CheckboxColumn
         {
             _configuration.ToggleFavouriteItem(itemId);
         }
-        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Click to favourite/unfavourite.")));
+        ImGuiUtil.HoverTooltip("点击收藏/取消收藏。");
         return null;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Favourite?"));
+    public override string Name { get; set; } = "已收藏？";
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item in your list of favourites?"));
+    public override string HelpText { get; set; } = "该物品在你的收藏中？";
 
     public override FilterType DefaultIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter | Logic.FilterType.GameItemFilter;
 }

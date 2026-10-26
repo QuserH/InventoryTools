@@ -12,10 +12,10 @@ namespace InventoryTools.Logic.Settings
         public override ModifiableHotkey DefaultValue { get; set; } = new(VirtualKey.NO_KEY);
         public static string AsKey => "HotkeyRetainerTasksWindow";
         public override string Key { get; set; } = AsKey;
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Toggle Retainer Ventures Window"));
+        public override string Name { get; set; } = "切换雇员探险窗口";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The hotkey to toggle the retainer ventures window."));
+            "切换雇员探险窗口的快捷键。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

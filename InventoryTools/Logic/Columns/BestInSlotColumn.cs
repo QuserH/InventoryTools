@@ -24,7 +24,7 @@ namespace InventoryTools.Logic.Columns
 
         public BestInSlotColumn(ILogger<BestInSlotColumn> logger, CharacterColumnSetting.Factory characterColumnSettingFactory, ImGuiService imGuiService, ICharacterMonitor characterMonitor, IInventoryMonitor inventoryMonitor, ClassJobCategorySheet classJobCategorySheet) : base(logger, imGuiService)
         {
-            _characterColumnSetting = characterColumnSettingFactory.Invoke(LocalizationService.Ui("Comparison Character"), LocalizationService.Ui("Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better."), [CharacterType.Character, CharacterType.Retainer], true);
+            _characterColumnSetting = characterColumnSettingFactory.Invoke("比较角色", "显示该物品与你或你雇员的物品品级的相对比较。筛选器中会出现下拉菜单，让你选择比较对象角色。负值表示更差，正值表示更好。", [CharacterType.Character, CharacterType.Retainer], true);
             _characterMonitor = characterMonitor;
             _inventoryMonitor = inventoryMonitor;
             _classJobCategorySheet = classJobCategorySheet;
@@ -78,11 +78,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Relative Item Level"));
+        public override string Name { get; set; } = "相对品级";
         public override float Width { get; set; } = 150;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows the relative item level of either your items or your retainers items compared to the item shown. This will show a drop down in the filter that lets you pick which character you are comparing against. A negative value indicates it's worse, a positive indicates it's better."));
+            "显示该物品与你或你雇员的物品品级的相对比较。筛选器中会出现下拉菜单，让你选择比较对象角色。负值表示更差，正值表示更好。";
 
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

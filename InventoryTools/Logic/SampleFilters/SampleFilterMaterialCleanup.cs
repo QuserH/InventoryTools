@@ -46,11 +46,11 @@ public class SampleFilterMaterialCleanup : BooleanSetting, ISampleFilter
     }
 
     public override string Key { get; set; } = "sample3";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Material clean-up"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Finds all gatherable items in your characters inventory and attempts to show you where to put them in your retainers."));
-    public string SampleDefaultName => LocalizationService.Ui("Material clean-up");
+    public override string Name { get; set; } = "清理素材";
+    public override string HelpText { get; set; } = "查找角色背包中所有可采集物品，并尝试显示应将它们放入雇员的哪些位置。";
+    public string SampleDefaultName => "清理素材";
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be setup to quickly put away any excess materials. It will have all the material categories automatically added. When calculating where to put items it will try to prioritise existing stacks of items.");
+        "将添加一个用于快速收纳多余素材的列表。将自动添加全部素材分类。计算物品放置位置时，会优先考虑已有物品的堆叠。";
     public SampleFilterType SampleFilterType => SampleFilterType.Sample;
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.None;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.None;

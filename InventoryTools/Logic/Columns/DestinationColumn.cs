@@ -36,7 +36,7 @@ namespace InventoryTools.Logic.Columns
             {
                 if (!searchResult.SortingResult.IsSortable)
                 {
-                    return LocalizationService.Ui("No room");
+                    return "没有空间";
                 }
 
                 var destination = searchResult.SortingResult.DestinationRetainerId.HasValue
@@ -53,9 +53,9 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui("Destination");
+        public override string Name { get; set; } = "目标";
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows where the item should be moved to or where the item was moved to in the case of a history filter."));
+        public override string HelpText { get; set; } = "显示物品应移动到何处，或历史筛选下物品被移动到的位置。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType AvailableIn => Logic.FilterType.SortingFilter | Logic.FilterType.CraftFilter | Logic.FilterType.HistoryFilter;

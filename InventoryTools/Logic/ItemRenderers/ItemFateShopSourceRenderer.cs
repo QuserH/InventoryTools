@@ -24,7 +24,7 @@ public class ItemFateShopUseRenderer : ItemFateShopSourceRenderer
     {
     }
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a bicolor gemstone shop?"));
+    public override string HelpText => "该物品是否可在双色宝石商店使用？";
 
     public override RendererType RendererType => RendererType.Use;
 
@@ -50,9 +50,9 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.FateShop;
-    public override string SingularName => LocalizationService.Ui("Bicolor Gemstone Shop");
-    public override string PluralName => LocalizationService.Ui("Bicolor Gemstone Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a bicolour gem shop?"));
+    public override string SingularName => "双色宝石商店";
+    public override string PluralName => "双色宝石商店";
+    public override string HelpText => "该物品是否可在双色宝石商店购买？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
 
@@ -67,8 +67,8 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
     {
         var asSource = AsSource(source);
 
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Shop: {0}"), asSource.Shop.Name));
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Rewards:")));
+        ImGui.Text(string.Format("商店：{0}", asSource.Shop.Name));
+        ImGui.Text("奖励：");
         using (ImRaii.PushIndent())
         {
             foreach (var reward in asSource.ShopListing.Rewards)
@@ -87,7 +87,7 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
                 }
             }
         }
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Costs:")));
+        ImGui.Text("花费：");
         using (ImRaii.PushIndent())
         {
             foreach (var cost in asSource.ShopListing.Costs)

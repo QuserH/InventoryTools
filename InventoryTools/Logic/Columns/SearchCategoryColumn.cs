@@ -20,12 +20,12 @@ namespace InventoryTools.Logic.Columns
 
             return "";
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Category (Marketboard)"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Category"));
+        public override string Name { get; set; } = "分类（市场）";
+        public override string RenderName => "市场分类";
         public override float Width { get; set; } = 200.0f;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The category of the item based off the market board search categories."));
+            "基于市场布告板搜索分类的物品类别。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.GameItemFilter;

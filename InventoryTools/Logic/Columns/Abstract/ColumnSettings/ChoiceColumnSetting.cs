@@ -60,7 +60,7 @@ public abstract class ChoiceColumnSetting<T> : ColumnSetting<T?>
                 ImGui.SetNextItemWidth(-1);
                 var tmp   = _filter;
                 var searching = false;
-                if (ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##filter")), LocalizationService.Ui("Filter..."), ref tmp, 255,
+                if (ImGui.InputTextWithHint("##filter", "筛选……", ref tmp, 255,
                         ImGuiInputTextFlags.EnterReturnsTrue))
                 {
                     var selectedText = new FilterComparisonText(tmp.ToLowerInvariant());
@@ -148,7 +148,7 @@ public abstract class ChoiceColumnSetting<T> : ColumnSetting<T?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 ResetFilter(configuration);
                 success = true;
@@ -164,12 +164,12 @@ public abstract class ChoiceColumnSetting<T> : ColumnSetting<T?>
         if (HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name + ":");
+            ImGui.LabelText("##" + Key + "标签", Name + ":");
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name + ":");
+            ImGui.LabelText("##" + Key + "标签", Name + ":");
         }
 
         var choices = GetChoices(configuration);
@@ -216,7 +216,7 @@ public abstract class ChoiceColumnSetting<T> : ColumnSetting<T?>
         if (HasValueSet(configuration) && ShowReset)
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 ResetFilter(configuration);
                 success = true;

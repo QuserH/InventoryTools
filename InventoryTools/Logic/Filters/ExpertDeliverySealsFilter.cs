@@ -18,8 +18,8 @@ public class ExpertDeliverySealsFilter : StringFilter
     }
 
     public override string Key { get; set; } = "ExpertDeliverySeals";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Expert Delivery Reward Seal Count"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The number of seals that are rewarded when handing this item in as an expert delivery."));
+    public override string Name { get; set; } = "稀有品筹备军票奖励";
+    public override string HelpText { get; set; } = "将此物品作为稀有品筹备交付时奖励的军票数量。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

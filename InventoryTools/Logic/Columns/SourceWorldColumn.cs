@@ -27,11 +27,11 @@ public class SourceWorldColumn : TextColumn
         return "";
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Source World"));
+    public override string Name { get; set; } = "来源服务器";
     public override float Width { get; set; } = 120;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("The world where the item is stored(be it in a character, retainer, free company)"));
+        "物品存放的服务器（角色、雇员或部队）。";
 
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

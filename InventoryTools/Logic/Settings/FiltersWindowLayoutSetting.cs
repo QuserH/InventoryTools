@@ -21,9 +21,9 @@ public class FiltersWindowLayoutSetting : ChoiceSetting<WindowLayout>
     }
 
     public override string Key { get; set; } = "FilterWindowLayout";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Items Window Layout"));
-    public override string WizardName { get; } = LocalizationService.Ui("Items Window");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Set the layout of the items window"));
+    public override string Name { get; set; } = "物品窗口布局";
+    public override string WizardName { get; } = "物品窗口";
+    public override string HelpText { get; set; } = "设置物品窗口布局";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.Windows;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.WindowLayout;
 

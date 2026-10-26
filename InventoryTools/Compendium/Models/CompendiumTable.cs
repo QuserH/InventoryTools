@@ -23,7 +23,7 @@ public sealed class CompendiumTable<TData> : RenderTable<WindowState, TData, Mes
     private object? _groupingGroup;
     private readonly Func<(ICompendiumGrouping<TData>, object?)?, List<IColumn<WindowState, TData, MessageBase>>>? _columnGenerator;
 
-    public CompendiumTable(CompendiumTableOptions<TData> tableOptions, CompendiumRowHeightSetting compendiumRowHeightSetting, InventoryToolsConfiguration configuration, CsvLoaderService csvLoaderService, WindowState searchFilter) : base(csvLoaderService, searchFilter, tableOptions.Columns.Invoke(null), tableOptions.TableFlags, tableOptions.Name, LocalizationService.Ui("ct_") + tableOptions.Key)
+    public CompendiumTable(CompendiumTableOptions<TData> tableOptions, CompendiumRowHeightSetting compendiumRowHeightSetting, InventoryToolsConfiguration configuration, CsvLoaderService csvLoaderService, WindowState searchFilter) : base(csvLoaderService, searchFilter, tableOptions.Columns.Invoke(null), tableOptions.TableFlags, tableOptions.Name, "ct_" + tableOptions.Key)
     {
         _compendiumType = tableOptions.CompendiumType;
         _columnGenerator = tableOptions.Columns;

@@ -21,7 +21,7 @@ namespace InventoryTools.Logic.Columns
         }
         public override ColumnCategory ColumnCategory => ColumnCategory.Market;
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows the minimum price of both the NQ and HQ form of the item and multiplies it by the quantity available. If no world is selected, your home world is used. This data is sourced from universalis."));
+            "显示物品NQ与HQ两种形态的最低价，并乘以可用数量。未选择服务器时使用所属服务器。数据来源为 Universalis。";
         public override FilterType AvailableIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter;
 
         public override List<MessageBase>? DoDraw(SearchResult searchResult, (int, int)? currentValue, int rowIndex,
@@ -85,8 +85,8 @@ namespace InventoryTools.Logic.Columns
             return base.CurrentValue(columnConfiguration, searchResult);
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Minimum Total Price(Qty * Price) NQ/HQ"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Min. Total NQ/HQ"));
+        public override string Name { get; set; } = "市场布告板最低总价（数量×价格）普通/优质";
+        public override string RenderName => "市场最低总价 普通/优质";
 
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     }

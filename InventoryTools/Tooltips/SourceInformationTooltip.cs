@@ -108,7 +108,7 @@ public class SourceInformationTooltip : BaseTooltip
 
                     if (groupedLine.Count() > 20)
                     {
-                        textLines[^1] += " (" + (groupedLine.Count() - 20) + LocalizationService.Ui(" more)");
+                        textLines[^1] += " (" + (groupedLine.Count() - 20) + " 更多）";
                     }
                 }
                 else
@@ -120,7 +120,7 @@ public class SourceInformationTooltip : BaseTooltip
             var newText = "";
             if (textLines.Count != 0)
             {
-                newText = LocalizationService.Ui("\nSources: ") + string.Join(", ", textLines.Distinct());
+                newText = "\n来源：" + string.Join(", ", textLines.Distinct());
             }
 
             newText = newText.TrimEnd('\n');

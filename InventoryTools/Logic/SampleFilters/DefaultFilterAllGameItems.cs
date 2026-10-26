@@ -32,11 +32,11 @@ public class DefaultFilterAllGameItems : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui(LocalizationService.Ui("Full Item Catalog"));
-    public string SampleDefaultName => LocalizationService.Ui("Full Item Catalog");
+    public string Name => "完整物品目录";
+    public string SampleDefaultName => "完整物品目录";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be preconfigured to show all of the game's items.");
+        "将添加一个预配置的列表，显示游戏内的全部物品。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

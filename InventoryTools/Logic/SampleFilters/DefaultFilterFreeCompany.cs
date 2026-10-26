@@ -40,11 +40,11 @@ public class DefaultFilterFreeCompany : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui(LocalizationService.Ui("Free Company"));
-    public string SampleDefaultName => LocalizationService.Ui("Free Company");
+    public string Name => "部队";
+    public string SampleDefaultName => "部队";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be preconfigured to show all the items in your free company chest for your active character.");
+        "将添加一个预配置的列表，显示当前角色部队储物柜中的全部物品。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

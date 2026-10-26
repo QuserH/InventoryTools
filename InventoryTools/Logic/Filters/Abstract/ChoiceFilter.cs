@@ -25,12 +25,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
             }
 
             ImGui.Indent();
@@ -54,7 +54,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                     {
                         if (item == null)
                         {
-                            if (ImGui.Selectable(LocalizationService.Ui(""), currentSearchCategory == ""))
+                            if (ImGui.Selectable("", currentSearchCategory == ""))
                             {
                                 UpdateFilterConfiguration(configuration, item);
                             }
@@ -77,7 +77,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                 }

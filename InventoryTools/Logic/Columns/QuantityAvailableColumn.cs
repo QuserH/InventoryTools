@@ -48,12 +48,12 @@ namespace InventoryTools.Logic.Columns
             }
             return qty;
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Total Quantity Available"));
-        public override string RenderName => LocalizationService.Ui("Available");
+        public override string Name { get; set; } = "可用总量";
+        public override string RenderName => "可用";
         public override float Width { get; set; } = 100;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The number of items available across all inventories of this item."));
+            "该物品在所有背包中的持有总数。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

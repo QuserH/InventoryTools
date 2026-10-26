@@ -35,11 +35,11 @@ public abstract class ItemHouseSourceRenderer<T> : ItemInfoRenderer<T> where T :
         var setName = asSource.HousingPreset.Value.Singular.ExtractText();
         if (setName == string.Empty)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Not default in any house.")));
+            ImGui.Text("任何房屋中均不默认放置。");
         }
         else
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Default in ")) + setName);
+            ImGui.Text("默认显示于" + setName);
         }
     };
 
@@ -60,11 +60,11 @@ public abstract class ItemHouseSourceRenderer<T> : ItemInfoRenderer<T> where T :
         var setName = asSource.HousingPreset.Value.Singular.ExtractText();
         if (setName == string.Empty)
         {
-           return LocalizationService.Ui("Not default in any house.");
+           return "任何房屋中均不默认放置。";
         }
         else
         {
-            return LocalizationService.Ui("Default in ") + setName;
+            return "默认显示于" + setName;
         }
     };
 }
@@ -76,9 +76,9 @@ public class ItemHouseDoorSourceRenderer : ItemHouseSourceRenderer<ItemHouseDoor
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Door)");
+    public override string SingularName => "房屋设施（门）";
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the door fixture slot in houses?"));
+    public override string HelpText => "该物品是否可放置在房屋的门框栏位？";
 }
 
 
@@ -89,8 +89,8 @@ public class ItemHouseFlooringSourceRenderer : ItemHouseSourceRenderer<ItemHouse
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Flooring)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the floor fixture slot in houses?"));
+    public override string SingularName => "房屋设施（地板）";
+    public override string HelpText => "该物品是否可放置在房屋的地面栏位？";
 }
 
 public class ItemHouseLightingSourceRenderer : ItemHouseSourceRenderer<ItemHouseLightingSource>
@@ -100,8 +100,8 @@ public class ItemHouseLightingSourceRenderer : ItemHouseSourceRenderer<ItemHouse
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Lighting)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the lighting fixture slot in houses?"));
+    public override string SingularName => "房屋设施（照明）";
+    public override string HelpText => "该物品是否可放置在房屋的照明栏位？";
 }
 
 public class ItemHouseRoofSourceRenderer : ItemHouseSourceRenderer<ItemHouseRoofSource>
@@ -111,8 +111,8 @@ public class ItemHouseRoofSourceRenderer : ItemHouseSourceRenderer<ItemHouseRoof
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Roof)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the roof fixture slot in houses?"));
+    public override string SingularName => "房屋设施（屋顶）";
+    public override string HelpText => "该物品是否可放置在房屋的屋顶栏位？";
 }
 
 public class ItemHouseWallpaperSourceRenderer : ItemHouseSourceRenderer<ItemHouseWallpaperSource>
@@ -122,8 +122,8 @@ public class ItemHouseWallpaperSourceRenderer : ItemHouseSourceRenderer<ItemHous
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Wallpaper)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the interior wall fixture slot in houses?"));
+    public override string SingularName => "房屋设施（壁纸）";
+    public override string HelpText => "该物品是否可放置在房屋的室内墙壁栏位？";
 }
 
 public class ItemHouseWallSourceRenderer : ItemHouseSourceRenderer<ItemHouseWallSource>
@@ -133,8 +133,8 @@ public class ItemHouseWallSourceRenderer : ItemHouseSourceRenderer<ItemHouseWall
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Wall)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the exterior wall fixture slot in houses?"));
+    public override string SingularName => "房屋设施（墙壁）";
+    public override string HelpText => "该物品是否可放置在房屋的室外墙壁栏位？";
 }
 
 public class ItemHouseWindowSourceRenderer : ItemHouseSourceRenderer<ItemHouseWindowSource>
@@ -144,6 +144,6 @@ public class ItemHouseWindowSourceRenderer : ItemHouseSourceRenderer<ItemHouseWi
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("House Fixture (Window)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the window fixture slot in houses?"));
+    public override string SingularName => "房屋设施（窗户）";
+    public override string HelpText => "该物品是否可放置在房屋的窗户栏位？";
 }

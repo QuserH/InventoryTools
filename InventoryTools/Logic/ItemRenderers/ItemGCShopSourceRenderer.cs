@@ -26,13 +26,13 @@ public class ItemGCShopUseRenderer : ItemGCShopSourceRenderer
     {
     }
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a grand company shop?"));
+    public override string HelpText => "该物品是否可在大国防联军商店使用？";
 
     public override Action<List<ItemSource>>? DrawTooltipGrouped => sources =>
     {
         var asSources = AsSource(sources);
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items that can be purchased:")));
+        ImGui.Text("可购买物品：");
 
         using (ImRaii.PushIndent())
         {
@@ -66,9 +66,9 @@ public class ItemGCShopSourceRenderer : ItemInfoRenderer<ItemGCShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.GCShop;
-    public override string SingularName => LocalizationService.Ui("Grand Company Shop");
-    public override string PluralName => LocalizationService.Ui("Grand Company Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased at your grand company shop?"));
+    public override string SingularName => "大国防联军商店";
+    public override string PluralName => "大国防联军商店";
+    public override string HelpText => "该物品是否可在大国防联军商店购买？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
 
@@ -80,13 +80,13 @@ public class ItemGCShopSourceRenderer : ItemInfoRenderer<ItemGCShopSource>
 
         ImGui.Image(_textureProvider.GetFromGameIcon(new GameIconLookup(asSource.CostItem!.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
         ImGui.SameLine();
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Cost: {0} x {1}"), asSource.CostItem.NameString, asSource.GCScripShopItem.Base.CostGCSeals));
+        ImGui.Text(string.Format("花费：{0} × {1}", asSource.CostItem.NameString, asSource.GCScripShopItem.Base.CostGCSeals));
         if (asSource.GCScripShopItem.Base.RequiredGrandCompanyRank.IsValid)
         {
             var genericRank = _rankSheet
                 .GetRow(asSource.GCScripShopItem.Base.RequiredGrandCompanyRank.RowId).NameRank.ExtractText()
                 .ToTitleCase();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Rank Required: ")) + genericRank);
+            ImGui.Text("所需等级：" + genericRank);
         }
 
         DrawMaps(source);

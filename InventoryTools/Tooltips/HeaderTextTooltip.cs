@@ -75,7 +75,7 @@ public class HeaderTextTooltip : BaseTooltip
                 }
                 if (Configuration.TooltipDisplayHeader)
                 {
-                    newText += LocalizationService.Ui("\n[Allagan Tools]");
+                    newText += "\n[亚拉戈工具箱]";
                 }
 
                 if (newText != "")

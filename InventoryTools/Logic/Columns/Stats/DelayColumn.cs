@@ -24,7 +24,7 @@ public class DelayColumn : DecimalColumn
         return (decimal)searchResult.Item.Base.Delayms / 1000;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui("Delay");
+    public override string Name { get; set; } = "延迟";
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The time it takes between each automatic attack while engaged with and in range of an enemy in seconds."));
+    public override string HelpText { get; set; } = "与敌对目标交战并在射程内时，每次自动攻击之间的时间（秒）。";
 }

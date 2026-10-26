@@ -9,8 +9,8 @@ public class CraftReportTrackGatheringFilter : GenericBooleanFilter
 {
     public CraftReportTrackGatheringFilter(ILogger<CraftReportTrackGatheringFilter> logger, ImGuiService imGuiService) :
         base(
-            "CraftReportTrackGathering", LocalizationService.Ui("Report gathered items?"),
-            LocalizationService.Ui("Report progress when you gather an item that is part of this craft list."), FilterCategory.Notifications,
+            "CraftReportTrackGathering", "报告采集物品？",
+            "采集属于此制作列表的物品时报告进度。", FilterCategory.Notifications,
             null, null, logger, imGuiService)
     {
         DefaultValue = true;
@@ -22,8 +22,8 @@ public class CraftReportTrackCraftingFilter : GenericBooleanFilter
 {
     public CraftReportTrackCraftingFilter(ILogger<CraftReportTrackCraftingFilter> logger, ImGuiService imGuiService) :
         base(
-            "CraftReportTrackCrafting", LocalizationService.Ui("Report crafted items?"),
-            LocalizationService.Ui("Report progress when you craft an item that is part of this craft list."), FilterCategory.Notifications,
+            "CraftReportTrackCrafting", "报告制作物品？",
+            "制作属于此制作列表的物品时报告进度。", FilterCategory.Notifications,
             null, null, logger, imGuiService)
     {
         DefaultValue = false;
@@ -35,8 +35,8 @@ public class CraftReportTrackShoppingFilter : GenericBooleanFilter
 {
     public CraftReportTrackShoppingFilter(ILogger<CraftReportTrackShoppingFilter> logger, ImGuiService imGuiService) :
         base(
-            "CraftReportTrackShopping", LocalizationService.Ui("Report shopped items?"),
-            LocalizationService.Ui("Report progress when you buy an item that is part of this craft list."), FilterCategory.Notifications,
+            "CraftReportTrackShopping", "报告商店购买物品？",
+            "购买属于此制作列表的物品时报告进度。", FilterCategory.Notifications,
             null, null, logger, imGuiService)
     {
         DefaultValue = false;
@@ -48,8 +48,8 @@ public class CraftReportTrackCombatDropFilter : GenericBooleanFilter
 {
     public CraftReportTrackCombatDropFilter(ILogger<CraftReportTrackCombatDropFilter> logger, ImGuiService imGuiService)
         : base(
-            "CraftReportTrackCombatDrop", LocalizationService.Ui("Report combat drops?"),
-            LocalizationService.Ui("Report progress when an item that is part of this craft list drops from combat."),
+            "CraftReportTrackCombatDrop", "报告战斗掉落？",
+            "属于此制作列表的物品从战斗中掉落时报告进度。",
             FilterCategory.Notifications,
             null, null, logger, imGuiService)
     {
@@ -62,8 +62,8 @@ public class CraftReportTrackMarketBoardFilter : GenericBooleanFilter
 {
     public CraftReportTrackMarketBoardFilter(ILogger<CraftReportTrackMarketBoardFilter> logger,
         ImGuiService imGuiService) : base(
-        "CraftReportTrackMarketBoard", LocalizationService.Ui("Report market board purchases?"),
-        LocalizationService.Ui("Report progress when you buy an item that is part of this craft list from the market board."),
+        "CraftReportTrackMarketBoard", "报告市场布告板购买？",
+        "从市场布告板购买属于此制作列表的物品时报告进度。",
         FilterCategory.Notifications,
         null, null, logger, imGuiService)
     {
@@ -75,8 +75,8 @@ public class CraftReportTrackMarketBoardFilter : GenericBooleanFilter
 public class CraftReportTrackOtherFilter : GenericBooleanFilter
 {
     public CraftReportTrackOtherFilter(ILogger<CraftReportTrackOtherFilter> logger, ImGuiService imGuiService) : base(
-        "CraftReportTrackOther", LocalizationService.Ui("Report other acquisitions?"),
-        LocalizationService.Ui("Report progress when an item that is part of this craft list is acquired through any other means."),
+        "CraftReportTrackOther", "报告其他获取？",
+        "通过其他任何途径获得属于此制作列表的物品时报告进度。",
         FilterCategory.Notifications,
         null, null, logger, imGuiService)
     {

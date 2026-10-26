@@ -18,7 +18,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
     private SemanticVersion? scrollTo;
     private SemanticVersion? viewingVersion;
 
-    public ChangelogWindow(ILogger<ChangelogWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ChangelogService changelogService) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui("Changelog"))
+    public ChangelogWindow(ILogger<ChangelogWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ChangelogService changelogService) : base(logger, mediator, imGuiService, configuration, "更新日志")
     {
         _changelogService = changelogService;
     }
@@ -26,7 +26,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
     public override void DrawWindow()
     {
         ImGui.SetNextWindowSize(new Vector2(600, 400), ImGuiCond.FirstUseEver);
-        ImGui.Begin(LocalizationService.Ui("Changelog"));
+        ImGui.Begin("更新日志");
 
         // Sidebar and Main Panel
         var sidebarWidth = 150f;
@@ -45,7 +45,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
                         if (currentGroup != null)
                             ImGui.Separator();
 
-                        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), LocalizationService.Format("1.{0}.x", minorGroup));
+                        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), string.Format("1.{0}.x", minorGroup));
                         currentGroup = minorGroup;
                     }
 
@@ -53,7 +53,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
                     using var color = ImRaii.PushColor(ImGuiCol.Text, new Vector4(1f, 0.8f, 0.3f, 1f), isSelected);
 
-                    if (ImGui.Selectable(LocalizationService.Ui("  1.") + changelog, isSelected))
+                    if (ImGui.Selectable("  1." + changelog, isSelected))
                     {
                         scrollTo = changelog;
                     }
@@ -70,7 +70,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
                 bool currentVersionSet = false;
                 foreach (var changelog in _changelogService.ChangeLogs)
                 {
-                    if (ImGui.CollapsingHeader(LocalizationService.Ui("1.") + changelog.Item1.ToString(), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen))
+                    if (ImGui.CollapsingHeader("1." + changelog.Item1.ToString(), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.Leaf | ImGuiTreeNodeFlags.NoTreePushOnOpen))
                     {
                         if (ImGui.IsItemVisible() && !currentVersionSet)
                         {
@@ -82,10 +82,10 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
                             ImGui.SetScrollHereY(0);
                             scrollTo = null;
                         }
-                        DrawSection("Added", changelog.Item3.Added);
+                        DrawSection("新增", changelog.Item3.Added);
                         DrawSection("Fixed", changelog.Item3.Fixed);
                         DrawSection("Changed", changelog.Item3.Changed);
-                        DrawSection("Removed", changelog.Item3.Removed);
+                        DrawSection("移除", changelog.Item3.Removed);
                     }
                 }
             }
@@ -100,7 +100,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
             return;
 
         ImGui.Spacing();
-        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), LocalizationService.Format("{0}:", title));
+        ImGui.TextColored(new Vector4(1f, 0.8f, 0.3f, 1f), string.Format("{0}:", title));
 
         using var indent = ImRaii.PushIndent();
 
@@ -110,7 +110,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
             if (trimmed.StartsWith("- "))
             {
-                ImGui.Text(LocalizationService.Ui("-"));
+                ImGui.Text("-");
                 ImGui.SameLine();
                 ImGui.PushTextWrapPos();
                 ImGui.TextUnformatted(trimmed.Substring(2).Trim());
@@ -133,7 +133,7 @@ public class ChangelogWindow : GenericWindow, IMenuWindow
 
     public override FilterConfiguration? SelectedConfiguration { get; } = null;
     public override string GenericKey { get; } = "changelog";
-    public override string GenericName { get; } = LocalizationService.Ui("Changelog");
+    public override string GenericName { get; } = "更新日志";
     public override bool DestroyOnClose { get; } = true;
     public override bool SaveState { get; } = true;
     public override Vector2? DefaultSize { get; } = new Vector2(500, 500);

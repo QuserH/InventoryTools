@@ -7,7 +7,7 @@ namespace InventoryTools.Debuggers;
 
 public class LayerDebuggerPane : IDebugPane
 {
-    public string Name => LocalizationService.Ui("Layer Debugger");
+    public string Name => "层级调试器";
     public unsafe void Draw()
     {
         var activeLayout = LayoutWorld.Instance()->ActiveLayout;
@@ -27,13 +27,13 @@ public class LayerDebuggerPane : IDebugPane
             ImGui.TextUnformatted($"Layers:");
             foreach (var layer in activeLayout->Layers)
             {
-                ImGui.TextUnformatted(LocalizationService.Format("{0}", layer.Item1));
+                ImGui.TextUnformatted(string.Format("{0}", layer.Item1));
                 var pointer = layer.Item2.Value;
                 if (pointer != null)
                 {
-                    ImGui.TextUnformatted($"Layer ID: " + pointer->Id);
-                    ImGui.TextUnformatted($"Layer Group ID: " + pointer->LayerGroupId);
-                    ImGui.TextUnformatted($"Festival ID: " + pointer->FestivalId);
+                    ImGui.TextUnformatted($"图层 ID：" + pointer->Id);
+                    ImGui.TextUnformatted($"图层组 ID：" + pointer->LayerGroupId);
+                    ImGui.TextUnformatted($"节日 ID：" + pointer->FestivalId);
                 }
             }
         }

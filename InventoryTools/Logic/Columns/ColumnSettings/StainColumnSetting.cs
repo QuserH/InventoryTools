@@ -40,9 +40,9 @@ public class StainColumnSetting : ChoiceColumnSetting<StainColumnSettingEnum?>
         configuration.SetSetting(Key, (uint?)newValue);
     }
 
-    public override string Key { get; set; } = LocalizationService.Ui("Display Mode");
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Display Mode"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Choose the display mode of the dye column"));
+    public override string Key { get; set; } = "显示模式";
+    public override string Name { get; set; } = "显示模式";
+    public override string HelpText { get; set; } = "选择染色列的显示模式";
     public override StainColumnSettingEnum? DefaultValue { get; set; } = StainColumnSettingEnum.Both;
     public override List<StainColumnSettingEnum?> GetChoices(ColumnConfiguration configuration)
     {
@@ -58,10 +58,10 @@ public class StainColumnSetting : ChoiceColumnSetting<StainColumnSettingEnum?>
     {
         return choice switch
         {
-            StainColumnSettingEnum.FirstStain => LocalizationService.Ui("First Dye Only"),
-            StainColumnSettingEnum.SecondStain => LocalizationService.Ui("Second Dye Only"),
-            StainColumnSettingEnum.Both => LocalizationService.Ui("Both Dyes"),
-            _ => LocalizationService.Ui("Not Set")
+            StainColumnSettingEnum.FirstStain => "仅第一染色",
+            StainColumnSettingEnum.SecondStain => "仅第二染色",
+            StainColumnSettingEnum.Both => "双染色",
+            _ => "未设置"
         };
     }
 }

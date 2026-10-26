@@ -26,10 +26,10 @@ public class CraftReportSoundFilter : ChoiceFilter<uint>
     }
     
     public override string Key { get; set; } = "CraftReportSound";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Completion Sound"));
+    public override string Name { get; set; } = "完成音效";
     
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Which sound effect to play when an item in this list reaches its required quantity (when 'Play a sound when an item is complete?' is enabled)."));
+        "当列表中物品达到所需数量时播放的音效（启用物品完成时播放音效？时）。";
     
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Notifications;
     public override uint DefaultValue { get; set; } = 5;
@@ -70,7 +70,7 @@ public class CraftReportSoundFilter : ChoiceFilter<uint>
     
     public override string GetFormattedChoice(FilterConfiguration filterConfiguration, uint choice)
     {
-        return LocalizationService.Ui("se.") + choice;
+        return "se." + choice;
     }
     
     public CraftReportSoundFilter(ILogger<CraftReportSoundFilter> logger, ImGuiService imGuiService) : base(logger,

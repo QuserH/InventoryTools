@@ -15,7 +15,7 @@ namespace InventoryTools.Logic.Columns.ColumnSettings;
 public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
 {
     private readonly ExcelSheet<World> _worldSheet;
-    public override string EmptyText => LocalizationService.Ui("Home World");
+    public override string EmptyText => "所属服务器";
 
     public MarketboardWorldSetting(ILogger<MarketboardWorldSetting> logger, ImGuiService imGuiService, ExcelSheet<World> worldSheet) : base(logger, imGuiService)
     {
@@ -31,7 +31,7 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
 
         if (value.Value == 0)
         {
-            return (0, LocalizationService.Ui("Active World"));
+            return (0, "当前服务器");
         }
 
         var world = _worldSheet.GetRowOrDefault(value.Value);
@@ -72,18 +72,18 @@ public class MarketboardWorldSetting : ChoiceColumnSetting<(uint,string)?>
     }
 
     public override string Key { get; set; } = "MBWorld";
-    public override string Name { get; set; } = LocalizationService.Ui("World");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The world for this column to display?"));
+    public override string Name { get; set; } = "大区";
+    public override string HelpText { get; set; } = "此列显示哪个服务器？";
     public override (uint,string)? DefaultValue { get; set; } = null;
     public override List<(uint,string)?> GetChoices(ColumnConfiguration configuration)
     {
         List<(uint RowId, string FormattedName)?> worlds = CnWorlds.Names.Select(c => ((uint, string)?)(c.Key, $"{c.Value.DataCenter} · {c.Value.World}")).ToList();
-        worlds.Insert(0,(0,LocalizationService.Ui("Active World")));
+        worlds.Insert(0,(0,"当前服务器"));
         return worlds;
     }
 
     public override string GetFormattedChoice(ColumnConfiguration filterConfiguration, (uint,string)? choice)
     {
-        return choice?.Item2 ?? LocalizationService.Ui("Active World");
+        return choice?.Item2 ?? "当前服务器";
     }
 }

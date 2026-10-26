@@ -8,7 +8,7 @@ namespace InventoryTools.Logic.Settings;
 
 public class CompendiumRowHeightSetting : GenericIntegerSetting
 {
-    public CompendiumRowHeightSetting(ILogger<CompendiumRowHeightSetting> logger, ImGuiService imGuiService) : base("CompendiumRowHeight", LocalizationService.Ui("Row Height"), LocalizationService.Ui("What should the minimum height of rows show in compendium lists be?"), 32, SettingCategory.ContextMenu, SettingSubCategory.General, "14.0.3", logger, imGuiService)
+    public CompendiumRowHeightSetting(ILogger<CompendiumRowHeightSetting> logger, ImGuiService imGuiService) : base("CompendiumRowHeight", "行高", "图鉴列表中行显示的最小高度应为何？", 32, SettingCategory.ContextMenu, SettingSubCategory.General, "14.0.3", logger, imGuiService)
     {
     }
 }

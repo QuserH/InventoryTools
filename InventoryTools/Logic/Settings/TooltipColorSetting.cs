@@ -24,8 +24,8 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipColor";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Text Colour"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("This is the colour of any text added to the item tooltip. You can give each tooltip module it's own colour by going into the tooltip's settings."));
+        public override string Name { get; set; } = "文字颜色";
+        public override string HelpText { get; set; } = "添加到物品悬浮提示中的文字颜色。可在悬浮提示设置中为每个模块单独设置颜色。";
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Visuals;
         public override string Version => "1.7.0.0";

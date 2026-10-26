@@ -19,21 +19,21 @@ public class ItemArmoireSourceRenderer : ItemInfoRenderer<ItemArmoireSource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.Armoire;
-    public override string SingularName => LocalizationService.Ui("Stored in Armoire");
+    public override string SingularName => "存放于收藏柜";
     public override bool ShouldGroup => true;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be placed in the armoire?"));
+    public override string HelpText => "该物品是否可放入收藏柜？";
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Category: ")) +
+        ImGui.Text("分类：" +
                    (asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text.ExtractText() ?? "Unknown"));
     };
     public override Func<ItemSource, string> GetName => source =>
     {
         var asSource = AsSource(source);
 
-        return LocalizationService.Ui("Category: ") + asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text.ExtractText();
+        return "分类：" + asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text.ExtractText();
     };
 
     public override Func<ItemSource, int> GetIcon => _ => Icons.ArmoireIcon;
@@ -41,7 +41,7 @@ public class ItemArmoireSourceRenderer : ItemInfoRenderer<ItemArmoireSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return LocalizationService.Format("Can be placed in the {0}",
+        return string.Format("可存放于 {0}",
             asSource.Cabinet.CabinetCategory?.Base.Category.Value.Text);
     };
 }

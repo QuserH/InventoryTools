@@ -14,8 +14,8 @@ public class TableRowHeightFilter : IntegerFilter
     public override FilterType AvailableIn { get; set; } =
         FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
     public override string Key { get; set; } = "TableRowHeight";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Table Row Height"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How many pixels high should each item row try to display at?"));
+    public override string Name { get; set; } = "表格行高";
+    public override string HelpText { get; set; } = "每行物品显示的高度应尝试为多少像素？";
     public override bool ShowReset { get; set; } = true;
     public override int? DefaultValue { get; set; } = 24;
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;

@@ -11,8 +11,8 @@ namespace InventoryTools.Logic.Filters
     public class CanBeTradedFilter : BooleanFilter
     {
         public override string Key { get; set; } = "CanBeTraded";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Traded?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be traded?"));
+        public override string Name { get; set; } = "是否可交易？";
+        public override string HelpText { get; set; } = "该物品是否可交易？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
 

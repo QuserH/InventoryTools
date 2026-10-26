@@ -11,97 +11,97 @@ public class RelicWeaponTypeLocalizer : ILocalizer<RelicWeaponType>
         switch (relicWeaponType)
         {
             case RelicWeaponType.Unknown:
-                return LocalizationService.Ui("Unknown");
+                return "未知";
             case RelicWeaponType.ZodiacBase:
-                return LocalizationService.Ui("Relic Zodiac Base");
+                return "上古武器";
             case RelicWeaponType.ZodiacZenith:
-                return LocalizationService.Ui("Relic Zodiac Zenith");
+                return "上古武器·天极";
             case RelicWeaponType.ZodiacAtma:
-                return LocalizationService.Ui("Relic Zodiac Atma");
+                return "上古武器·魂晶";
             case RelicWeaponType.ZodiacAnimus:
-                return LocalizationService.Ui("Relic Zodiac Animus");
+                return "上古武器·魂灵";
             case RelicWeaponType.ZodiacNovus:
-                return LocalizationService.Ui("Relic Zodiac Novus");
+                return "上古武器·新星";
             case RelicWeaponType.ZodiacNexus:
-                return LocalizationService.Ui("Relic Zodiac Nexus");
+                return "上古武器·镇魂";
             case RelicWeaponType.ZodiacZodiac:
-                return LocalizationService.Ui("Relic Zodiac Zodiac");
+                return "黄道武器";
             case RelicWeaponType.ZodiacZeta:
-                return LocalizationService.Ui("Relic Zodiac Zeta");
+                return "黄道武器·本我";
             case RelicWeaponType.AnimaAnimated:
-                return LocalizationService.Ui("Relic Anima Animated");
+                return "元灵武器";
             case RelicWeaponType.AnimaAwoken:
-                return LocalizationService.Ui("Relic Anima Awoken");
+                return "元灵武器·觉醒";
             case RelicWeaponType.AnimaAnima:
-                return LocalizationService.Ui("Relic Anima Anima");
+                return "新元灵武器";
             case RelicWeaponType.AnimaHyperconductive:
-                return LocalizationService.Ui("Relic Anima Hyperconductive");
+                return "元灵武器·超导";
             case RelicWeaponType.AnimaReconditioned:
-                return LocalizationService.Ui("Relic Anima Reconditioned");
+                return "百炼成钢的元灵武器";
             case RelicWeaponType.AnimaSharpened:
-                return LocalizationService.Ui("Relic Anima Sharpened");
+                return "元灵武器·灵慧";
             case RelicWeaponType.AnimaComplete:
-                return LocalizationService.Ui("Relic Anima Complete");
+                return "真元灵武器";
             case RelicWeaponType.AnimaLux:
-                return LocalizationService.Ui("Relic Anima Lux");
+                return "真元灵武器·灵光";
             case RelicWeaponType.EurekanAntiquated:
-                return LocalizationService.Ui("Relic Eurekan Antiquated");
+                return "禁地兵装";
             case RelicWeaponType.EurekanBase:
-                return LocalizationService.Ui("Relic Eurekan Base");
+                return "禁地兵装";
             case RelicWeaponType.EurekanBase1:
-                return LocalizationService.Ui("Relic Eurekan Base + 1");
+                return "禁地兵装+1";
             case RelicWeaponType.EurekanBase2:
-                return LocalizationService.Ui("Relic Eurekan Base + 2");
+                return "禁地兵装+2";
             case RelicWeaponType.EurekanAnemos:
-                return LocalizationService.Ui("Relic Eurekan Anemos");
+                return "禁地兵装·常风";
             case RelicWeaponType.EurekanPagos:
-                return LocalizationService.Ui("Relic Eurekan Pagos");
+                return "禁地兵装·恒冰";
             case RelicWeaponType.EurekanPagos1:
-                return LocalizationService.Ui("Relic Eurekan Pagos + 1");
+                return "禁地兵装·恒冰+1";
             case RelicWeaponType.EurekanElemental:
-                return LocalizationService.Ui("Relic Eurekan Elemental");
+                return "禁地兵装·元素";
             case RelicWeaponType.EurekanElemental1:
-                return LocalizationService.Ui("Relic Eurekan Elemental + 1");
+                return "禁地兵装·元素+1";
             case RelicWeaponType.EurekanElemental2:
-                return LocalizationService.Ui("Relic Eurekan Elemental + 2");
+                return "禁地兵装·元素+2";
             case RelicWeaponType.EurekanPyros:
-                return LocalizationService.Ui("Relic Eurekan Pyros");
+                return "禁地兵装·涌火";
             case RelicWeaponType.EurekanHydatos:
-                return LocalizationService.Ui("Relic Eurekan Hydatos");
+                return "禁地兵装·丰水";
             case RelicWeaponType.EurekanHydatos1:
-                return LocalizationService.Ui("Relic Eurekan Hydatos + 1");
+                return "禁地兵装·丰水+1";
             case RelicWeaponType.EurekanBaseEureka:
-                return LocalizationService.Ui("Relic Eurekan Base Eureka");
+                return "新禁地兵装";
             case RelicWeaponType.EurekanEureka:
-                return LocalizationService.Ui("Relic Eurekan Eureka");
+                return "禁地兵装最终形态";
             case RelicWeaponType.EurekanPhyseos:
-                return LocalizationService.Ui("Relic Eurekan Physeos");
+                return "禁地兵装·改装";
             case RelicWeaponType.ResistanceResistance:
-                return LocalizationService.Ui("Relic Resistance Resistance");
+                return "义军武器";
             case RelicWeaponType.ResistanceAugmentedResistance:
-                return LocalizationService.Ui("Relic Resistance Augmented Resistance");
+                return "义军武器+1";
             case RelicWeaponType.ResistanceRecollection:
-                return LocalizationService.Ui("Relic Resistance Recollection");
+                return "义军武器·回忆";
             case RelicWeaponType.ResistanceLawsOrder:
-                return LocalizationService.Ui("Relic Resistance Laws Order");
+                return "义军武器·裁决";
             case RelicWeaponType.ResistanceAugmentedLawsOrder:
-                return LocalizationService.Ui("Relic Resistance Augmented Laws Order");
+                return "义军武器·裁决+1";
             case RelicWeaponType.ResistanceBlades:
-                return LocalizationService.Ui("Relic Resistance Blades");
+                return "义军武器·女王";
             case RelicWeaponType.MandervilleManderville:
-                return LocalizationService.Ui("Relic Manderville Manderville");
+                return "曼德维尔武器";
             case RelicWeaponType.MandervilleAmazing:
-                return LocalizationService.Ui("Relic Manderville Amazing");
+                return "曼德维尔武器·惊异";
             case RelicWeaponType.MandervilleMajestic:
-                return LocalizationService.Ui("Relic Manderville Majestic");
+                return "曼德维尔武器·威严";
             case RelicWeaponType.MandervilleMandervillous:
-                return LocalizationService.Ui("Relic Manderville Mandervillous");
+                return "曼德维尔武器·盈满";
             case RelicWeaponType.PhantomPenumbrae:
-                return LocalizationService.Ui("Relic Phantom Penumbrae");
+                return "幻境武器";
             case RelicWeaponType.PhantomUmbrae:
-                return LocalizationService.Ui("Relic Phantom Umbrae");
+                return "幻境武器+1";
             case RelicWeaponType.PhantomObscurum:
-                return LocalizationService.Ui("Relic Phantom Obscurum");
+                return "幻境武器+2";
         }
 
         return LocalizationService.Ui(relicWeaponType.ToString());

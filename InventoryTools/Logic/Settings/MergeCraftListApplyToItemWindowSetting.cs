@@ -23,9 +23,9 @@ public class MergeCraftListApplyToItemWindowSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MergeCraftListApplyToItemWindow";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Apply merge to item window?"));
+    public override string Name { get; set; } = "物品窗口生效";
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the merge apply to the item window opened by /atools?"));
+        "是否在物品窗口中应用合并？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

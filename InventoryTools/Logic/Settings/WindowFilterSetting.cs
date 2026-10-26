@@ -35,10 +35,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "WindowFilter";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Window List Highlighting"));
+        public override string Name { get; set; } = "窗口列表高亮";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is the list that will be highlighted when any of the allagan tools windows are visible."));
+            "这是任意亚拉戈工具箱窗口可见时将被高亮的列表。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Lists;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ActiveLists;

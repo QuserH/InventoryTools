@@ -21,8 +21,8 @@ namespace InventoryTools.Logic.Filters
             _classJobSheet = classJobSheet;
         }
         public override string Key { get; set; } = "EquippableBy";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Equippable By"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which classes can this equipment be equipped by?"));
+        public override string Name { get; set; } = "可装备职业";
+        public override string HelpText { get; set; } = "这件装备可被哪些职业装备？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
         public override List<uint> DefaultValue { get; set; } = new();

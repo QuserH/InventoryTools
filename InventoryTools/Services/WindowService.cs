@@ -124,7 +124,7 @@ namespace InventoryTools.Services
                     }
                     catch (Exception e)
                     {
-                        Logger.LogError(LocalizationService.Ui("Could not load saved window. Perhaps it was removed."));
+                        Logger.LogError("无法加载已保存的窗口。可能已被移除。");
                     }
                 }
             }
@@ -694,10 +694,10 @@ namespace InventoryTools.Services
 
         private void WindowOnOpened(IWindow window)
         {
-            Logger.LogTrace(LocalizationService.Ui("{WindowName} opened at {X}/{Y}"), window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
+            Logger.LogTrace("{WindowName}在{X}/{Y}打开", window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
             if(window.SaveState && !_configuration.OpenWindows.Contains(window.GetType().ToString()))
             {
-                Logger.LogTrace(LocalizationService.Ui("{WindowName} opened, restoring state and position {X}/{Y}"), window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
+                Logger.LogTrace("{WindowName}已打开，正在恢复状态与位置{X}/{Y}", window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
                 _configuration.OpenWindows.Add(window.GetType().ToString());
                 _configuration.IsDirty = true;
             }
@@ -705,7 +705,7 @@ namespace InventoryTools.Services
             {
                 if (_configuration.SavedWindowPositions.ContainsKey(window.GetType().ToString()))
                 {
-                    Logger.LogTrace(LocalizationService.Ui("{WindowName} opened, restoring position, {X}/{Y}"), window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
+                    Logger.LogTrace("{WindowName}已打开，正在恢复位置{X}/{Y}", window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
                     window.SetPosition(_configuration.SavedWindowPositions[window.GetType().ToString()], true);
                     _configuration.IsDirty = true;
                 }
@@ -715,7 +715,7 @@ namespace InventoryTools.Services
 
         private void WindowOnClosed(IWindow window)
         {
-            Logger.LogTrace(LocalizationService.Ui("{WindowName} closed at {X}/{Y}"), window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
+            Logger.LogTrace("{WindowName}在{X}/{Y}关闭", window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
             if(window.SaveState && _configuration.OpenWindows.Contains(window.GetType().ToString()))
             {
                 _configuration.OpenWindows.Remove(window.GetType().ToString());
@@ -737,13 +737,13 @@ namespace InventoryTools.Services
 
                 if (!hasOtherWindowOpen)
                 {
-                    Logger.LogTrace(LocalizationService.Ui("{WindowName} closed, saving position, {X}/{Y}"), window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
+                    Logger.LogTrace("{WindowName}已关闭，正在保存位置{X}/{Y}", window.GenericName, window.CurrentPosition.X, window.CurrentPosition.Y);
                     _configuration.SavedWindowPositions[window.GetType().ToString()] = window.CurrentPosition;
                     _configuration.IsDirty = true;
                 }
                 else
                 {
-                    Logger.LogTrace(LocalizationService.Ui("{WindowName} has other instances open, not saving"), window.GenericName);
+                    Logger.LogTrace("{WindowName}有其他实例打开，不保存", window.GenericName);
                 }
 
             }
@@ -845,7 +845,7 @@ namespace InventoryTools.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
+            Logger.LogTrace("正在启动服务{type}（{this}）", GetType().Name, this);
             _mediatorService.Subscribe(this, new Action<ToggleDalamudWindowMessage>(ToggleDalamudWindow) );
             _mediatorService.Subscribe(this, new Action<ToggleGenericWindowMessage>(ToggleGenericWindow) );
             _mediatorService.Subscribe(this, new Action<ToggleUintWindowMessage>(ToggleUintWindowMessage) );
@@ -946,9 +946,9 @@ namespace InventoryTools.Services
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
             SaveWindowStates();
-            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
             return Task.CompletedTask;
         }
     }

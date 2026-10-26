@@ -26,8 +26,8 @@ public class MarketBoardExtraWorldsSetting : MultipleChoiceSetting<uint>
     }
 
     public override string Key { get; set; } = "MarketBoardExtraWorlds";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Price Worlds"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("A list of extra worlds we should automatically price"));
+    public override string Name { get; set; } = "价格服务器";
+    public override string HelpText { get; set; } = "应自动定价的额外服务器列表";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.MarketBoard;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Market;
     public override string Version { get; } = "1.7.0.0";

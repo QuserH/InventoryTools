@@ -24,8 +24,8 @@ namespace InventoryTools.Logic.Filters
             ShowOperatorTooltip = true;
         }
         public override string Key { get; set; } = "MBPrice";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Marketboard Avg. Price"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The market board price of the item. For this to work you need to have automatic pricing enabled and also note that any background price updates will not be evaluated until an event that refreshes the inventory occurs(this happens fairly often)."));
+        public override string Name { get; set; } = "市场布告板平均价";
+        public override string HelpText { get; set; } = "物品的市场布告板价格。使用此功能需要启用自动定价，另请注意，后台价格更新需在触发背包刷新事件后才会生效（该事件相当频繁）。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Market;
 
         public override bool? FilterItem(FilterConfiguration configuration,InventoryItem item)

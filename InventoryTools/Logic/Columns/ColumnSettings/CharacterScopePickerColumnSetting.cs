@@ -56,8 +56,8 @@ public class CharacterScopePickerColumnSetting : ColumnSetting<List<CharacterSea
     }
 
     public override string Key { get; set; } = "CharacterScopePicker";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Character Search Scope"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Select the characters you want to search inside."));
+    public override string Name { get; set; } = "角色搜索范围";
+    public override string HelpText { get; set; } = "选择要搜索的角色。";
     public override List<CharacterSearchScope>? DefaultValue { get; set; } = null;
 
     public override bool DrawFilter(ColumnConfiguration configuration, string? helpText)
@@ -69,7 +69,7 @@ public class CharacterScopePickerColumnSetting : ColumnSetting<List<CharacterSea
     {
         var success = false;
         var characterSearchScopes = CurrentValue(configuration) ?? new();
-        if (_scopePicker.Draw(LocalizationService.Ui("##ScopePicker") + configuration.Key, characterSearchScopes))
+        if (_scopePicker.Draw("##ScopePicker" + configuration.Key, characterSearchScopes))
         {
             this.UpdateColumnConfiguration(configuration, characterSearchScopes);
             success = true;
@@ -80,14 +80,14 @@ public class CharacterScopePickerColumnSetting : ColumnSetting<List<CharacterSea
             ImGui.SameLine();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudWhite))
             {
-                ImGui.Text(LocalizationService.Ui("?"));
+                ImGui.Text("?");
             }
             ImGuiUtil.HoverTooltip(helpText);
         }
 
         var currentValue = CurrentValue(configuration);
         using var disabled = ImRaii.Disabled(currentValue == null);
-        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Test Scopes"))))
+        if (ImGui.Button("测试范围"))
         {
             if (currentValue != null)
             {
@@ -99,7 +99,7 @@ public class CharacterScopePickerColumnSetting : ColumnSetting<List<CharacterSea
         if (_characters is not null && currentValue is not null)
         {
             ImGui.Separator();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("The following characters will be searched in: ")));
+            ImGui.Text("将搜索以下角色：");
             foreach (var s in _characters)
             {
                 ImGui.TextUnformatted(s.Name);

@@ -22,9 +22,9 @@ namespace InventoryTools.Logic.Filters
 
         public override string Key { get; set; } = "SchCategory";
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Categories"));
+        public override string Name { get; set; } = "市场布告板分类";
 
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter by the categories available on the market board."));
+        public override string HelpText { get; set; } = "按市场布告板可用的类别筛选。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Searching;
 
         private Dictionary<uint, string> _choices = new();

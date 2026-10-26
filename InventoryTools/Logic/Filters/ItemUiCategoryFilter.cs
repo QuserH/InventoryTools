@@ -22,9 +22,9 @@ namespace InventoryTools.Logic.Filters
 
         public override string Key { get; set; } = "UiCategory";
 
-        public override string Name { get; set; } = LocalizationService.Ui("Categories");
+        public override string Name { get; set; } = "类别";
 
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter by the categories the game gives items when you scroll over them."));
+        public override string HelpText { get; set; } = "按游戏中鼠标悬停物品时显示的类别筛选。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Searching;
 
         private Dictionary<uint, string> _choices = new();

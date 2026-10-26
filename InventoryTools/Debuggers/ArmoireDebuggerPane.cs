@@ -17,17 +17,17 @@ public class ArmoireDebuggerPane : IDebugPane
         _gameGui = gameGui;
     }
 
-    public string Name => LocalizationService.Ui("Armoire");
+    public string Name => "收藏柜";
     public unsafe void Draw()
     {
         var uiState = UIState.Instance();
         if (uiState == null)
         {
-            ImGui.Text(LocalizationService.Ui("UIState not found."));
+            ImGui.Text("未找到 UIState。");
         }
         else
         {
-            ImGui.Text(uiState->Cabinet.IsCabinetLoaded() ? "Cabinet Loaded" : "Cabinet Not Loaded");
+            ImGui.Text(uiState->Cabinet.IsCabinetLoaded() ? "收藏柜已加载" : "收藏柜未加载");
         }
 
         var addon = this._gameGui.GetAddonByName("CabinetWithdraw");

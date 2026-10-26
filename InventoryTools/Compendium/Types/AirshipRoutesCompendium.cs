@@ -66,13 +66,13 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
 
     public override void BuildColumns(CompendiumColumnBuilder<AirshipExplorationPointRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("Icon"), HelpText = LocalizationService.Ui("The icon of the route"), Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
-        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the route"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "unlock", Name = LocalizationService.Ui("Unlock Route"), HelpText = LocalizationService.Ui("The name of the route that unlocks this"), Version = "14.0.3", ValueSelector = row => row.Unlock?.Base.Name.ToImGuiString() ?? ""});
-        builder.AddIntegerColumn(new(){Key = "rankrequired", Name = LocalizationService.Ui("Rank Required"), HelpText = LocalizationService.Ui("The rank required for the route"), Version = "14.0.3", ValueSelector =row => row.Base.RankReq.ToString()});
-        builder.AddIntegerColumn(new(){Key = "cerelumrequired", Name = LocalizationService.Ui("Ceruleum Required"), HelpText = LocalizationService.Ui("The ceruleum required for the route"), Version = "14.0.3", ValueSelector =row => row.Base.CeruleumTankReq.ToString()});
-        builder.AddIntegerColumn(new(){Key = "surveillancerequired", Name = LocalizationService.Ui("Surveillance Required"), HelpText = LocalizationService.Ui("The surveillance required for the route"), Version = "14.0.3", ValueSelector =row => row.Base.SurveillanceReq.ToString()});
-        builder.AddItemsColumn(new(){Key = "drops", Name = LocalizationService.Ui("Drops"), HelpText = LocalizationService.Ui("The drops for this airship route"), Version = "14.0.3", ValueSelector = row => row.DropItems, ColumnFlags = ImGuiTableColumnFlags.WidthFixed});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "图标", HelpText = "该航线的图标", Version = "14.0.3", CompendiumType = this, RowIdSelector = row => row.RowId, ValueSelector = this.GetIcon});
+        builder.AddStringColumn(new (){Key = "name", Name = "名称", HelpText = "该航线的名称", Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "unlock", Name = "解锁航线", HelpText = "解锁此航线的航线名称", Version = "14.0.3", ValueSelector = row => row.Unlock?.Base.Name.ToImGuiString() ?? ""});
+        builder.AddIntegerColumn(new(){Key = "rankrequired", Name = "所需等级", HelpText = "该航线所需等级", Version = "14.0.3", ValueSelector =row => row.Base.RankReq.ToString()});
+        builder.AddIntegerColumn(new(){Key = "cerelumrequired", Name = "所需青磷水", HelpText = "该航线所需青磷水", Version = "14.0.3", ValueSelector =row => row.Base.CeruleumTankReq.ToString()});
+        builder.AddIntegerColumn(new(){Key = "surveillancerequired", Name = "所需监视性能", HelpText = "该航线所需监视性能", Version = "14.0.3", ValueSelector =row => row.Base.SurveillanceReq.ToString()});
+        builder.AddItemsColumn(new(){Key = "drops", Name = "掉落物品", HelpText = "该飞空艇航线的掉落物", Version = "14.0.3", ValueSelector = row => row.DropItems, ColumnFlags = ImGuiTableColumnFlags.WidthFixed});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, AirshipExplorationPointRow row)
@@ -80,14 +80,14 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
         viewBuilder.SetupDefaults(this, row);
         var information = new List<(string Header, string Value, bool IsVisible)>
         {
-            (LocalizationService.Ui("Rank Req."), row.Base.RankReq.ToString(), true),
-            (LocalizationService.Ui("Ceruleum Req."), row.Base.CeruleumTankReq.ToString(), true),
-            (LocalizationService.Ui("Surveillance Req."), row.Base.SurveillanceReq.ToString(), true)
+            ("所需等级", row.Base.RankReq.ToString(), true),
+            ("所需青磷水", row.Base.CeruleumTankReq.ToString(), true),
+            ("所需监视性能", row.Base.SurveillanceReq.ToString(), true)
         };
         viewBuilder.AddInfoTableSection(new InfoTableSectionOptions()
         {
             SectionKey = "information",
-            SectionName = LocalizationService.Ui("Information"),
+            SectionName = "信息",
             Items = information.AsReadOnly()
         });
         if (row.Unlock != null)
@@ -95,7 +95,7 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlocked_via",
-                SectionName = LocalizationService.Ui("Unlocked Via"),
+                SectionName = "解锁方式",
                 RelatedRef = row.Unlock.Base.AsUntypedRowRef()
             });
         }
@@ -103,7 +103,7 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
         {
             RelatedRefs = _airshipExplorationPointSheet.Where(c => c.UnlockId != null && c.UnlockId == row.RowId).Select(c => c.Base.AsUntypedRowRef()).ToList(),
             SectionKey = "unlocks",
-            SectionName = LocalizationService.Ui("Unlocks"),
+            SectionName = "解锁内容",
             HideWhenEmpty = true
         });
 
@@ -111,7 +111,7 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
         {
             Items = row.DropItems.Select(c => new ItemInfo(c)).ToList(),
             SectionKey = "potential_drops",
-            SectionName = LocalizationService.Ui("Potential Drops")
+            SectionName = "可能掉落"
         });
     }
 
@@ -128,9 +128,9 @@ public class AirshipRoutesCompendiumType : CompendiumType<AirshipExplorationPoin
 
     public override List<Type>? RelatedTypes => [typeof(AirshipExplorationPoint)];
 
-    public override string Singular => LocalizationService.Ui("Airship Route");
-    public override string Plural => LocalizationService.Ui("Airship Routes");
-    public override string Description => LocalizationService.Ui("Routes flown by Company Airships");
+    public override string Singular => "飞空艇航线";
+    public override string Plural => "飞空艇航线";
+    public override string Description => "部队飞空艇飞行过的航线";
     public override string Key => "airships";
     public override (string?, uint?) Icon => (null, Icons.AirshipIcon);
 }

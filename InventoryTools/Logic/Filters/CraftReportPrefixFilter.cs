@@ -33,10 +33,10 @@ public class CraftReportPrefixFilter : ChoiceFilter<CraftReportPrefix>
     }
     
     public override string Key { get; set; } = "CraftReportPrefix";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Notification Prefix"));
+    public override string Name { get; set; } = "通知前缀";
     
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("What to prefix each acquisition progress message with. 'Plugin Name' uses [AT], 'Craft List Name' uses the name of this craft list."));
+        "每条获取进度消息的前缀。插件名称使用 [AT]，制作列表名称使用此制作列表的名称。";
     
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Notifications;
     public override CraftReportPrefix DefaultValue { get; set; } = CraftReportPrefix.Blank;
@@ -67,8 +67,8 @@ public class CraftReportPrefixFilter : ChoiceFilter<CraftReportPrefix>
         return choice switch
         {
             CraftReportPrefix.Blank => "None",
-            CraftReportPrefix.PluginName => LocalizationService.Ui("Plugin Name"),
-            CraftReportPrefix.CraftListName => LocalizationService.Ui("Craft List Name"),
+            CraftReportPrefix.PluginName => "插件名称",
+            CraftReportPrefix.CraftListName => "制作列表名称",
             _ => choice.ToString()
         };
     }

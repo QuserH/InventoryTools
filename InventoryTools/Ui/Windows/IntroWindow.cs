@@ -18,7 +18,7 @@ namespace InventoryTools.Ui
         }
         public override void Initialize()
         {
-            WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools"));
+            WindowName = "亚拉戈工具箱";
             Flags =
                 ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar;
             Key = "intro";
@@ -31,7 +31,7 @@ namespace InventoryTools.Ui
 
         public override FilterConfiguration? SelectedConfiguration => null;
         public override string GenericKey { get; } = "intro";
-        public override string GenericName { get; } = LocalizationService.Ui("Intro");
+        public override string GenericName { get; } = "介绍";
         public override bool DestroyOnClose => true;
 
         public override void DrawWindow()
@@ -41,7 +41,7 @@ namespace InventoryTools.Ui
                 if (leftChild.Success)
                 {
                     ImGui.SetCursorPosY(40);
-                    ImGui.Image(ImGuiService.GetImageTexture(LocalizationService.Ui("icon-hor")).Handle, new Vector2(200, 200) * ImGui.GetIO().FontGlobalScale);
+                    ImGui.Image(ImGuiService.GetImageTexture("icon-hor").Handle, new Vector2(200, 200) * ImGui.GetIO().FontGlobalScale);
                 }
             }
             ImGui.SameLine();
@@ -53,25 +53,25 @@ namespace InventoryTools.Ui
                     {
                         if (textChild.Success)
                         {
-                            ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("Welcome to Allagan Tools.")));
+                            ImGui.TextWrapped("欢迎使用亚拉戈工具箱。");
                             ImGui.TextWrapped(
-                                LocalizationService.Ui(LocalizationService.Ui("Allagan Tools is a plugin for Final Fantasy XIV that provides the following features:")));
+                                "亚拉戈工具箱是《最终幻想XIV》的一个插件，提供以下功能：");
                             using (ImRaii.PushIndent())
                             {
                                 ImGui.Bullet();
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Track your inventories")));
+                                ImGui.Text("追踪你的背包");
                                 ImGui.Bullet();
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Plan your crafts")));
+                                ImGui.Text("规划你的制作");
                                 ImGui.Bullet();
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Provide information about items, monsters, duties and much more")));
+                                ImGui.Text("提供物品、怪物、副本等更多信息");
                             }
 
                             ImGui.TextWrapped(
-                                LocalizationService.Ui(LocalizationService.Ui("You can open various new windows using command shortcuts(the main filter  or from the main window.")));
+                                "你可以使用命令快捷方式打开各种新窗口（主筛选器或从主窗口）。");
                             ImGui.TextWrapped(
-                                LocalizationService.Ui(LocalizationService.Ui("If you're unsure, right-click on an item or a table row for more options!")));
+                                "如果拿不准，请右键点击物品或表格行以查看更多选项！");
                             ImGui.TextWrapped(
-                                LocalizationService.Ui(LocalizationService.Ui("To learn about the different features, I recommend going to the settings section and reading the information provided by the ? icons.")));
+                                "要了解不同功能，建议前往设置部分，阅读 ? 图标提供的信息。");
                         }
                     }
 
@@ -79,13 +79,13 @@ namespace InventoryTools.Ui
                     {
                         if (buttonsChild.Success)
                         {
-                            if (ImGui.Button(LocalizationService.Ui("Close")))
+                            if (ImGui.Button("关闭"))
                             {
                                 Close();
                             }
 
                             ImGui.SameLine(0, 4);
-                            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Close & Open Main Window"))))
+                            if (ImGui.Button("关闭并打开主窗口"))
                             {
                                 Close();
                                 MediatorService.Publish(new OpenGenericWindowMessage(typeof(FiltersWindow)));

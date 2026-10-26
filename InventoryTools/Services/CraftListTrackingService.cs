@@ -116,7 +116,7 @@ public class CraftListTrackingService : IHostedService
     private void AcquisitionMonitorServiceOnItemAcquired(uint itemId, InventoryItem.ItemFlags itemFlags,
         int qtyIncrease, AcquisitionReason reason)
     {
-        _logger.LogTrace(LocalizationService.Ui("Item acquired through {Reason}, qty of {QtyIncrease}, item ID: {ItemId}"), reason, qtyIncrease,
+        _logger.LogTrace("通过{Reason}获得物品，数量{QtyIncrease}，物品ID：{ItemId}", reason, qtyIncrease,
             itemId);
 
         var activeCraftList = _listService.GetActiveCraftList();
@@ -133,12 +133,12 @@ public class CraftListTrackingService : IHostedService
                  _trackMarketBoardFilter.CurrentValue(activeCraftList) == false)
                )
             {
-                _logger.LogTrace(LocalizationService.Ui("Craft list configured to not track {Reason}, not altering required item counts."),
+                _logger.LogTrace("制作列表已配置为不追踪{Reason}，不改变所需物品数量。",
                     reason);
                 return;
             }
 
-            _logger.LogTrace(LocalizationService.Ui("Marking {Quantity} qty for item {ItemId} ({HqFlag}) as crafted."), qtyIncrease, itemId,
+            _logger.LogTrace("已将{Quantity}件物品{ItemId}（{HqFlag}）标记为已制作。", qtyIncrease, itemId,
                 itemFlags.ToString());
             var activeItem = activeCraftList.CraftList.GetItemById(itemId, itemFlags);
             var missing = activeItem?.QuantityMissingOverall;
@@ -152,8 +152,8 @@ public class CraftListTrackingService : IHostedService
                 activeCraftList.CraftList.MarkCrafted(itemId, itemFlags, (uint)qtyIncrease);
                 if (activeCraftList is { IsEphemeralCraftList: true, CraftList.IsCompleted: true })
                 {
-                    _chatUtilities.Print(LocalizationService.Ui("Ephemeral craft list '") + activeCraftList.Name +
-                                         LocalizationService.Ui("' completed. List has been removed."));
+                    _chatUtilities.Print("临时制作列表 " + activeCraftList.Name +
+                                         " 已完成。列表已删除。");
                     _listService.RemoveList(activeCraftList);
                 }
                 else
@@ -164,7 +164,7 @@ public class CraftListTrackingService : IHostedService
         }
         else
         {
-            _logger.LogTrace(LocalizationService.Ui("Active craft list is either inactive or in stock mode."));
+            _logger.LogTrace("当前制作列表未启用或处于备货模式。");
         }
     }
 
@@ -192,7 +192,7 @@ public class CraftListTrackingService : IHostedService
         var reasonToggle = ReasonToggle(reason);
         if (reasonToggle == null || !IsToggleOn(reasonToggle, activeCraftList))
         {
-            _logger.LogTrace(LocalizationService.Ui("Not reporting {ItemId}: report toggle for reason {Reason} is off"), itemId, reason);
+            _logger.LogTrace("不报告{ItemId}：{Reason}的报告开关已关闭", itemId, reason);
             return;
         }
 
@@ -212,13 +212,13 @@ public class CraftListTrackingService : IHostedService
 
         if (amountText == null)
         {
-            _logger.LogTrace(LocalizationService.Ui("Not reporting {ItemId}: completion-only is on and it isn't complete yet"), itemId);
+            _logger.LogTrace("不报告 {ItemId}：仅完成模式已开启且尚未完成", itemId);
             return;
         }
 
         var item = _itemSheet.GetRow(itemId);
 
-        _logger.LogTrace(LocalizationService.Ui("Reporting {ItemId} ({Reason}): {Missing} complete={Complete}"), itemId, reason,
+        _logger.LogTrace("报告{ItemId}（{Reason}）：{Missing} complete={Complete}", itemId, reason,
             quantityMissing, complete);
         PrintProgress(GetPrefix(activeCraftList), item.NameString, amountText);
 
@@ -236,7 +236,7 @@ public class CraftListTrackingService : IHostedService
     {
         return _prefixFilter.CurrentValue(list) switch
         {
-            CraftReportPrefix.PluginName => LocalizationService.Ui("[AT]"),
+            CraftReportPrefix.PluginName => "[亚拉戈]",
             CraftReportPrefix.CraftListName => $"[{list.Name}]",
             _ => string.Empty,
         };

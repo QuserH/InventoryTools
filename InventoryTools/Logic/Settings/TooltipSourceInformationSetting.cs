@@ -34,17 +34,17 @@ public enum TooltipSourceModifier
 
 public class TooltipSourceInformationEnabledSetting : GenericBooleanSetting
 {
-    public TooltipSourceInformationEnabledSetting(ILogger<TooltipSourceInformationEnabledSetting> logger, ImGuiService imGuiService) : base("TooltipSourceInformationEnabled", LocalizationService.Ui("Source Information Enabled"), LocalizationService.Ui("Should source information be shown in the tooltip? For example that an item can be sourced via crafting, shops, monsters etc"), false, SettingCategory.ToolTips, SettingSubCategory.SourceInformation, "1.11.0.11", logger, imGuiService)
+    public TooltipSourceInformationEnabledSetting(ILogger<TooltipSourceInformationEnabledSetting> logger, ImGuiService imGuiService) : base("TooltipSourceInformationEnabled", "启用来源信息", "悬浮提示中是否显示来源信息？例如物品可通过制作、商店、怪物等获取", false, SettingCategory.ToolTips, SettingSubCategory.SourceInformation, "1.11.0.11", logger, imGuiService)
     {
     }
 
-    public override string WizardName { get; } = LocalizationService.Ui("Show Source Information");
+    public override string WizardName { get; } = "显示来源信息";
     public override uint? Order { get; } = 0;
 }
 
 public class TooltipSourceInformationModifierSetting : GenericEnumChoiceSetting<TooltipSourceModifier>
 {
-    public TooltipSourceInformationModifierSetting(ILogger<TooltipSourceInformationModifierSetting> logger, ImGuiService imGuiService) : base("TooltipSourceInformationModifier", LocalizationService.Ui("Source Information Modifier Key"), LocalizationService.Ui("Should the tooltip only be shown if a modifier key is pressed?"), TooltipSourceModifier.Always, new()
+    public TooltipSourceInformationModifierSetting(ILogger<TooltipSourceInformationModifierSetting> logger, ImGuiService imGuiService) : base("TooltipSourceInformationModifier", "来源信息修饰键", "是否仅在按下修饰键时显示悬浮提示？", TooltipSourceModifier.Always, new()
     {
         {TooltipSourceModifier.Always, "Always"},
         {TooltipSourceModifier.Control, "Control"},
@@ -83,7 +83,7 @@ public class TooltipSourceInformationSetting : Setting<Dictionary<ItemInfoType, 
 
     public override void Draw(InventoryToolsConfiguration configuration, string? customName, bool? disableReset, bool? disableColouring)
     {
-        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+        ImGui.LabelText("##" + Key + "标签", customName ?? Name);
 
         using (var table = ImRaii.Table("SourceConfiguration", 4, ImGuiTableFlags.SizingFixedFit))
         {
@@ -119,10 +119,10 @@ public class TooltipSourceInformationSetting : Setting<Dictionary<ItemInfoType, 
                 }
 
 
-                ImGui.TableSetupColumn(LocalizationService.Ui("Settings"), ImGuiTableColumnFlags.NoHeaderLabel);
-                ImGui.TableSetupColumn(LocalizationService.Ui("Name"));
-                ImGui.TableSetupColumn(LocalizationService.Ui("Show"));
-                ImGui.TableSetupColumn(LocalizationService.Ui(LocalizationService.Ui("Group Mode")));
+                ImGui.TableSetupColumn("设置", ImGuiTableColumnFlags.NoHeaderLabel);
+                ImGui.TableSetupColumn("名称");
+                ImGui.TableSetupColumn("显示");
+                ImGui.TableSetupColumn("分组模式");
 
                 ImGui.TableHeadersRow();
 
@@ -202,7 +202,7 @@ public class TooltipSourceInformationSetting : Setting<Dictionary<ItemInfoType, 
                     ImGui.TableNextColumn();
                     ImGui.TextUnformatted(sourceRenderer.SingularName);
                     ImGui.TableNextColumn();
-                    if (ImGui.Checkbox(LocalizationService.Ui(LocalizationService.Ui("##Show")), ref show))
+                    if (ImGui.Checkbox("##Show", ref show))
                     {
                         tooltipSourceSetting.Show = show;
                         UpdateFilterConfiguration(configuration, currentValue);
@@ -274,12 +274,12 @@ public class TooltipSourceInformationSetting : Setting<Dictionary<ItemInfoType, 
     }
 
     public override string Key { get; set; } = "TooltipSourceInformation";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Source Information Configuration"));
+    public override string Name { get; set; } = "来源信息设置";
 
     public override uint? Order { get; } = 3;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("If the source information tooltip is enabled, how should the various sources be ordered/displayed/etc?"));
+        "启用来源信息悬浮提示后，各种来源应如何排序/显示等？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.SourceInformation;

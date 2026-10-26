@@ -34,14 +34,14 @@ namespace InventoryTools.Ui
             _airshipExplorationPointId = airshipExplorationPointId;
             if (AirshipExplorationPoint != null)
             {
-                WindowName = LocalizationService.Ui("") + AirshipExplorationPoint.Base.NameShort.ExtractText();
+                WindowName = "" + AirshipExplorationPoint.Base.NameShort.ExtractText();
                 Key = "aepid_" + airshipExplorationPointId;
                 _drops = _airshipExplorationPointSheet.GetItemsByAirshipExplorationPoint(_airshipExplorationPointId).Select(c => _itemSheet.GetRow(c)).ToList();
             }
             else
             {
                 Key = "aepid_unknown";
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Unknown Airship Point"));
+                WindowName = "未知飞空艇探索点";
                 _drops = new List<ItemRow>();
             }
         }
@@ -53,25 +53,25 @@ namespace InventoryTools.Ui
         private AirshipExplorationPointRow? AirshipExplorationPoint => _airshipExplorationPointSheet.GetRowOrDefault(_airshipExplorationPointId);
 
         public override string GenericKey => "airship";
-        public override string GenericName => LocalizationService.Ui("Airship");
+        public override string GenericName => "飞空艇";
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (AirshipExplorationPoint == null)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Airship Exploration Point with the ID ")) + _airshipExplorationPointId + LocalizationService.Ui(" could not be found."));
+                ImGui.TextUnformatted("飞空艇探索点 ID：" + _airshipExplorationPointId + "未找到。");
             }
             else
             {
                 ImGui.TextUnformatted(AirshipExplorationPoint.Base.NameShort.ExtractText());
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Unlocked Via: ")) + AirshipExplorationPoint.Unlock?.Base.NameShort.ExtractText() ?? "N/A");
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Rank Required: ")) + AirshipExplorationPoint.Base.RankReq);
+                ImGui.TextUnformatted("解锁方式：" + AirshipExplorationPoint.Unlock?.Base.NameShort.ExtractText() ?? "不适用");
+                ImGui.TextUnformatted("所需等级：" + AirshipExplorationPoint.Base.RankReq);
                 ;
                 var itemIcon = ImGuiService.GetIconTexture(Icons.AirshipIcon);
                 ImGui.Image(itemIcon.Handle, new Vector2(100, 100) * ImGui.GetIO().FontGlobalScale);
 
 
-                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Rewards (")) + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader("奖励（" + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -113,9 +113,9 @@ namespace InventoryTools.Ui
                 }
 
                 #if DEBUG
-                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
+                if (ImGui.CollapsingHeader("调试"))
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duty ID: ")) + _airshipExplorationPointId);
+                    ImGui.TextUnformatted("副本 ID：" + _airshipExplorationPointId);
                     Utils.PrintOutObject(AirshipExplorationPoint, 0, new List<string>());
                 }
                 #endif

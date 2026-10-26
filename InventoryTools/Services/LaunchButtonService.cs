@@ -51,7 +51,7 @@ public class LaunchButtonService : DisposableMediatorSubscriberBase, IHostedServ
         }
         try
         {
-            _entry = _titleScreenMenu.AddEntry(LocalizationService.Ui("Allagan Tools"), _textureProvider.GetFromFile(_fileName), OnTriggered);
+            _entry = _titleScreenMenu.AddEntry("亚拉戈工具箱", _textureProvider.GetFromFile(_fileName), OnTriggered);
 
             _pluginInterfaceService.UiBuilder.Draw -= CreateEntry;
         }

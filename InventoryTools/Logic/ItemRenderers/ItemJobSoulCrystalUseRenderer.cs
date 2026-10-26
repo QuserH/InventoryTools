@@ -19,9 +19,9 @@ public class ItemJobSoulCrystalUseRenderer : ItemInfoRenderer<ItemJobSoulCrystal
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.JobSoulCrystal;
-    public override string SingularName => LocalizationService.Ui("Job Soul Crystal");
-    public override string PluralName => LocalizationService.Ui("Job Soul Crystals");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Equipped to either switch from a Class to Job or used by a Job?"));
+    public override string SingularName => "特职水晶";
+    public override string PluralName => "特职水晶";
+    public override string HelpText => "装备后从基础职业转职为特职，或由特职使用？";
     public override bool ShouldGroup => false;
 
     public override Action<ItemSource> DrawTooltip => source =>
@@ -29,11 +29,11 @@ public class ItemJobSoulCrystalUseRenderer : ItemInfoRenderer<ItemJobSoulCrystal
         var asSource = AsSource(source);
         if (asSource.ParentClassJob != null)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Converts ")) + asSource.ParentClassJob.Base.Name.ExtractText() + LocalizationService.Ui(" into ") + asSource.ClassJob.Base.Name.ExtractText());
+            ImGui.Text("转换为" + asSource.ParentClassJob.Base.Name.ExtractText() + " 转换为 " + asSource.ClassJob.Base.Name.ExtractText());
         }
         else
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Provides the ")) + asSource.ClassJob.Base.Name.ExtractText() + LocalizationService.Ui(" job"));
+            ImGui.Text("提供" + asSource.ClassJob.Base.Name.ExtractText() + " 职业");
         }
     };
 
@@ -54,9 +54,9 @@ public class ItemJobSoulCrystalUseRenderer : ItemInfoRenderer<ItemJobSoulCrystal
         var asSource = AsSource(source);
         if (asSource.ParentClassJob != null)
         {
-            return LocalizationService.Ui("Converts ") + asSource.ParentClassJob.Base.Name.ExtractText() + LocalizationService.Ui(" into ") + asSource.ClassJob.Base.Name.ExtractText();
+            return "转换为" + asSource.ParentClassJob.Base.Name.ExtractText() + " 转换为 " + asSource.ClassJob.Base.Name.ExtractText();
         }
 
-        return LocalizationService.Ui("Provides the ") + asSource.ClassJob.Base.Name.ExtractText() + LocalizationService.Ui(" job");
+        return "提供" + asSource.ClassJob.Base.Name.ExtractText() + " 职业";
     };
 }

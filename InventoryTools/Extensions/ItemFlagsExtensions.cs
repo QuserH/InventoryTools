@@ -9,12 +9,12 @@ public static class ItemFlagsExtensions
     {
         return flags switch
         {
-            InventoryItem.ItemFlags.None => LocalizationService.Ui("Normal Quality"),
-            InventoryItem.ItemFlags.HighQuality => LocalizationService.Ui("High Quality"),
-            InventoryItem.ItemFlags.CompanyCrestApplied => LocalizationService.Ui("Company Crest Applied"),
-            InventoryItem.ItemFlags.Relic => LocalizationService.Ui("Relic"),
-            InventoryItem.ItemFlags.Collectable => LocalizationService.Ui("Collectable"),
-            _ => LocalizationService.Ui("None")
+            InventoryItem.ItemFlags.None => "Normal Quality",
+            InventoryItem.ItemFlags.HighQuality => "High Quality",
+            InventoryItem.ItemFlags.CompanyCrestApplied => "已应用部队徽章",
+            InventoryItem.ItemFlags.Relic => "发光武器",
+            InventoryItem.ItemFlags.Collectable => "收藏品",
+            _ => "无"
         };
     }
 }

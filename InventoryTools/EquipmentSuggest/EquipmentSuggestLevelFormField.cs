@@ -17,8 +17,8 @@ public class EquipmentSuggestLevelFormField : IntegerFormField<EquipmentSuggestC
 
     public override int DefaultValue { get; set; } = 1;
     public override string Key { get; set; } = "Level";
-    public override string Name { get; set; } = LocalizationService.Ui("Level");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The start level of items"));
+    public override string Name { get; set; } = "等级";
+    public override string HelpText { get; set; } = "物品的初始等级";
     public override string Version { get; set; } = "1.12.0.10";
 
     public int GetCenteredValue(EquipmentSuggestConfig config, int index)

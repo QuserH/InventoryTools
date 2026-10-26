@@ -11,10 +11,10 @@ namespace InventoryTools.Logic.Filters;
 public class CraftIsEphemeralFilter : BooleanFilter
 {
     public override string Key { get; set; } = "CraftIsEphemeral";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Ephemeral?"));
+    public override string Name { get; set; } = "临时？";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Is this craft list ephemeral? If checked, once all the items in the craft list are deleted, the list will delete itself. This is only checked as each craft is completed."));
+        "此制作列表是否为临时列表？勾选后，当列表中所有物品完成后，列表将自动删除。此状态仅在每项制作完成时检查。";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;

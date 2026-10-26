@@ -23,18 +23,18 @@ public class ItemTripleTriadSourceRenderer : ItemInfoRenderer<ItemTripleTriadSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.TripleTriad;
-    public override string SingularName => LocalizationService.Ui("Triple Triad Card");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item acquired from playing triple triad?"));
+    public override string SingularName => "九宫幻卡";
+    public override string HelpText => "该物品是否可通过游玩九宫幻卡获得？";
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => (source) =>
     {
         var asSource = this.AsSource(source);
 
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Match Cost: ")) + asSource.TripleTriadRow.Base.Fee + SeIconChar.Gil.ToIconString());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Uses Regional Rules: ")) + (asSource.TripleTriadRow.Base.UsesRegionalRules ? "Yes" : "No"));
+        ImGui.TextUnformatted("匹配花费：" + asSource.TripleTriadRow.Base.Fee + SeIconChar.Gil.ToIconString());
+        ImGui.TextUnformatted("使用区域规则：" + (asSource.TripleTriadRow.Base.UsesRegionalRules ? "Yes" : "No"));
 
-        DrawSection(LocalizationService.Ui("Rules: "), asSource.TripleTriadRow.Base.TripleTriadRule.Where(c => c.RowId != 0).DistinctBy(c => c.RowId).Select(c => c.Value.Name.ToImGuiString()).ToList());
+        DrawSection("规则：", asSource.TripleTriadRow.Base.TripleTriadRule.Where(c => c.RowId != 0).DistinctBy(c => c.RowId).Select(c => c.Value.Name.ToImGuiString()).ToList());
 
         foreach (var npc in asSource.TripleTriadRow.ENpcBaseRows)
         {

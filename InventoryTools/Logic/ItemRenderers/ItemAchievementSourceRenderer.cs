@@ -22,10 +22,10 @@ public class ItemAchievementSourceRenderer : ItemInfoRenderer<ItemAchievementSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Achievement;
-    public override string SingularName => LocalizationService.Ui("Achievement");
+    public override string SingularName => "成就";
 
-    public override string? PluralName => LocalizationService.Ui("Achievements");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be earned via an achievement?"));
+    public override string? PluralName => "成就";
+    public override string HelpText => "该物品是否可通过成就获得？";
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>

@@ -15,8 +15,8 @@ public class CraftWorldPriceUseActiveWorldFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "CraftWorldPriceUseActiveWorld";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Use Active World?"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should your currently logged in character's active world be used as a pricing source?"));
+    public override string Name { get; set; } = "使用当前服务器？";
+    public override string HelpText { get; set; } = "是否使用当前登录角色的所在服务器作为价格来源？";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
     public override bool? DefaultValue { get; set; } = true;

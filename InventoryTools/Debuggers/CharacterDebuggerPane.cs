@@ -24,7 +24,7 @@ public class CharacterDebuggerPane : DebugLogPane
         _clientState = clientState;
         _configuration = configuration;
     }
-    public override string Name => LocalizationService.Ui("Character Monitor");
+    public override string Name => "角色监控";
 
     public override void SubscribeToEvents()
     {
@@ -103,38 +103,38 @@ public class CharacterDebuggerPane : DebugLogPane
 
     public override unsafe void DrawInfo()
     {
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Session / Active State")))
+        if (ImGui.CollapsingHeader("会话/当前状态"))
         {
-            ImGui.TextUnformatted(LocalizationService.Format("Is Logged In: {0}", _characterMonitor.IsLoggedIn));
-            ImGui.TextUnformatted(LocalizationService.Format("Local Content ID: {0}", _characterMonitor.LocalContentId));
-            ImGui.TextUnformatted(LocalizationService.Format("Internal Character ID: {0}", _characterMonitor.InternalCharacterId));
+            ImGui.TextUnformatted(string.Format("已登录：{0}", _characterMonitor.IsLoggedIn));
+            ImGui.TextUnformatted(string.Format("本地内容 ID：{0}", _characterMonitor.LocalContentId));
+            ImGui.TextUnformatted(string.Format("内部角色 ID：{0}", _characterMonitor.InternalCharacterId));
 
             ImGui.Separator();
-            ImGui.TextUnformatted(LocalizationService.Ui("Active Character:"));
+            ImGui.TextUnformatted("当前角色：");
             ImGui.TextUnformatted(_characterMonitor.ActiveCharacter != null
                 ? $"{_characterMonitor.ActiveCharacter.Name} ({_characterMonitor.ActiveCharacterId})"
-                : "<none>");
+                : "<无>");
 
-            ImGui.TextUnformatted(LocalizationService.Ui("Active Retainer:"));
+            ImGui.TextUnformatted("当前雇员：");
             ImGui.TextUnformatted(_characterMonitor.ActiveRetainer != null
                 ? $"{_characterMonitor.ActiveRetainer.Name} ({_characterMonitor.ActiveRetainerId})"
-                : "<none>");
+                : "<无>");
 
-            ImGui.TextUnformatted(LocalizationService.Ui("Active Free Company:"));
+            ImGui.TextUnformatted("当前部队：");
             ImGui.TextUnformatted(_characterMonitor.ActiveFreeCompany != null
                 ? $"{_characterMonitor.ActiveFreeCompany.Name} ({_characterMonitor.ActiveFreeCompanyId})"
-                : "<none>");
+                : "<无>");
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Housing")))
+        if (ImGui.CollapsingHeader("房屋"))
         {
-            ImGui.TextUnformatted(LocalizationService.Format("Active House ID: {0}", _characterMonitor.ActiveHouseId));
-            ImGui.TextUnformatted(LocalizationService.Format("Cached Ward Id: {0}", _characterMonitor.InternalWardId));
-            ImGui.TextUnformatted(LocalizationService.Format("Cached Plot Id: {0}", _characterMonitor.InternalPlotId));
-            ImGui.TextUnformatted(LocalizationService.Format("Cached Division Id: {0}", _characterMonitor.InternalDivisionId));
-            ImGui.TextUnformatted(LocalizationService.Format("Cached Room Id: {0}", _characterMonitor.InternalRoomId));
-            ImGui.TextUnformatted(LocalizationService.Format("Cached House Id: {0}", _characterMonitor.InternalHouseId));
-            ImGui.TextUnformatted(LocalizationService.Format("Territory Type Id: {0}", _characterMonitor.CorrectedTerritoryTypeId));
+            ImGui.TextUnformatted(string.Format("当前房屋 ID：{0}", _characterMonitor.ActiveHouseId));
+            ImGui.TextUnformatted(string.Format("缓存分区 ID：{0}", _characterMonitor.InternalWardId));
+            ImGui.TextUnformatted(string.Format("缓存土地 ID：{0}", _characterMonitor.InternalPlotId));
+            ImGui.TextUnformatted(string.Format("缓存分队 ID：{0}", _characterMonitor.InternalDivisionId));
+            ImGui.TextUnformatted(string.Format("缓存房间 ID：{0}", _characterMonitor.InternalRoomId));
+            ImGui.TextUnformatted(string.Format("缓存房屋 ID：{0}", _characterMonitor.InternalHouseId));
+            ImGui.TextUnformatted(string.Format("区域类型 ID：{0}", _characterMonitor.CorrectedTerritoryTypeId));
 
             var hm = HousingManager.Instance();
             if (hm != null)
@@ -148,11 +148,11 @@ public class CharacterDebuggerPane : DebugLogPane
             }
 
             ImGui.Separator();
-            ImGui.TextUnformatted(LocalizationService.Ui("Owned Houses:"));
+            ImGui.TextUnformatted("拥有的房屋：");
             foreach (var id in _characterMonitor.GetOwnedHouseIds())
                 ImGui.BulletText(id.ToString());
 
-            ImGui.TextUnformatted(LocalizationService.Ui("Has Housing Permission: ") +
+            ImGui.TextUnformatted("拥有房屋权限：" +
                 (_characterMonitor.InternalHasHousePermission ||
                  _characterMonitor.GetOwnedHouseIds().Contains(_characterMonitor.InternalHouseId)
                     ? "Yes"
@@ -162,30 +162,30 @@ public class CharacterDebuggerPane : DebugLogPane
         //
         // Worlds
         //
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Worlds")))
+        if (ImGui.CollapsingHeader("服务器"))
         {
             foreach (var wid in _characterMonitor.GetWorldIds())
-                ImGui.BulletText(LocalizationService.Format("World {0}", wid));
+                ImGui.BulletText(string.Format("服务器 {0}", wid));
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Characters")))
+        if (ImGui.CollapsingHeader("角色"))
         {
             foreach (var kv in _characterMonitor.Characters)
-                ImGui.BulletText(LocalizationService.Format("{0}: {1}", kv.Key, kv.Value.Name));
+                ImGui.BulletText(string.Format("{0}: {1}", kv.Key, kv.Value.Name));
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Retainers")))
+        if (ImGui.CollapsingHeader("雇员"))
         {
             using (var table = ImRaii.Table("retainerTable", 6))
             {
                 if (table)
                 {
-                    ImGui.TableSetupColumn(LocalizationService.Ui("Hire Order"));
-                    ImGui.TableSetupColumn(LocalizationService.Ui("Name"));
-                    ImGui.TableSetupColumn(LocalizationService.Ui("Type"));
-                    ImGui.TableSetupColumn(LocalizationService.Ui("Gil"));
-                    ImGui.TableSetupColumn(LocalizationService.Ui("ID"));
-                    ImGui.TableSetupColumn(LocalizationService.Ui("Owner ID"));
+                    ImGui.TableSetupColumn("雇用顺序");
+                    ImGui.TableSetupColumn("名称");
+                    ImGui.TableSetupColumn("类型");
+                    ImGui.TableSetupColumn("金币");
+                    ImGui.TableSetupColumn("ID");
+                    ImGui.TableSetupColumn("持有者 ID");
                     ImGui.TableHeadersRow();
 
                     foreach (var retainer in _characterMonitor.GetRetainerCharacters())
@@ -217,7 +217,7 @@ public class CharacterDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Character Objects")))
+        if (ImGui.CollapsingHeader("角色物品"))
         {
             foreach (var kv in _characterMonitor.Characters)
             {
@@ -225,7 +225,7 @@ public class CharacterDebuggerPane : DebugLogPane
                     ? kv.Value.HousingName
                     : kv.Value.Name;
 
-                if (ImGui.TreeNode(LocalizationService.Format("{0}##{1}", label, kv.Key)))
+                if (ImGui.TreeNode(string.Format("{0}##{1}", label, kv.Key)))
                 {
                     Utils.PrintOutObject(kv.Value, 0, new List<string>());
                     ImGui.TreePop();
@@ -233,13 +233,13 @@ public class CharacterDebuggerPane : DebugLogPane
             }
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Acquired Items")))
+        if (ImGui.CollapsingHeader("已获得物品"))
         {
             foreach (var characterPair in _configuration.AcquiredItems)
             {
                 var character = _characterMonitor.GetCharacterById(characterPair.Key);
-                ImGui.TextUnformatted(character?.FormattedName ?? "Unknown Character");
-                ImGui.Text(LocalizationService.Format("{0} unlocked items", characterPair.Value.Count));
+                ImGui.TextUnformatted(character?.FormattedName ?? "未知角色");
+                ImGui.Text(string.Format("{0} 件已解锁物品", characterPair.Value.Count));
             }
         }
     }

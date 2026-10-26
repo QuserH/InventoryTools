@@ -23,9 +23,9 @@ public class MergeCraftListNqHqApplyToCraftWindowSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "MergeCraftListNqHqApplyToCraftWindow";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Apply NQ/HQ merge to craft list?"));
+    public override string Name { get; set; } = "制作列表生效";
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the NQ/HQ merge apply to the craft list inventory panel?"));
+        "是否在制作列表的“雇员/背包中的物品”面板中合并NQ和HQ？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.General;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

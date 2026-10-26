@@ -14,10 +14,10 @@ public class CraftReverseListDisplayFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "CraftReverseListDisplay";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Reverse Craft List Order?"));
+    public override string Name { get; set; } = "反转制作列表顺序？";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the craft list be displayed in reverse order? i.e. Should outputs start at the bottom? (This is only applicable when the Craft Display Mode is single table)"));
+        "制作列表是否倒序显示？即成品是否从底部开始？（仅适用于制作显示模式为单表时）";
 
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;
 

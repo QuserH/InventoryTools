@@ -58,13 +58,13 @@ namespace InventoryTools.Ui
 
         public override void OnOpen()
         {
-            Logger.LogTrace(LocalizationService.Ui("{WindowName} opened"), this.GenericName);
+            Logger.LogTrace("{WindowName}已打开", this.GenericName);
             Opened?.Invoke(this);
         }
 
         public override void OnClose()
         {
-            Logger.LogTrace(LocalizationService.Ui("{WindowName} closed"), this.GenericName);
+            Logger.LogTrace("{WindowName}已关闭", this.GenericName);
             Closed?.Invoke(this);
         }
 

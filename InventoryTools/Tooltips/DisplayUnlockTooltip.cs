@@ -93,7 +93,7 @@ public class DisplayUnlockTooltip : BaseTooltip
 
             if (displayModeSetting == TooltipDisplayUnlockDisplayMode.CharacterPerLine)
             {
-                var textLines = unlockStatuses.Select(c => _characterMonitor.GetCharacterById(c.Key)!.FormattedName + " - " + (c.Item2 ? "Acquired" : LocalizationService.Ui("Not Acquired")) + "\n").OrderBy(c => c).ToList();
+                var textLines = unlockStatuses.Select(c => _characterMonitor.GetCharacterById(c.Key)!.FormattedName + " - " + (c.Item2 ? "Acquired" : "未获得") + "\n").OrderBy(c => c).ToList();
                 if (textLines.Count != 0)
                 {
                     newText += "\n";
@@ -114,7 +114,7 @@ public class DisplayUnlockTooltip : BaseTooltip
                 var locked = unlockStatuses.Where(c => !c.Item2).ToList();
                 if (locked.Count != 0)
                 {
-                    newText += LocalizationService.Ui("Not Acquired:\n");
+                    newText += "未获得：\n";
                     foreach (var lockedItem in locked)
                     {
                         newText += _characterMonitor.GetCharacterById(lockedItem.Key)!.FormattedName + "\n";
@@ -123,7 +123,7 @@ public class DisplayUnlockTooltip : BaseTooltip
 
                 if (unlocked.Count != 0)
                 {
-                    newText += LocalizationService.Ui("Acquired:\n");
+                    newText += "已获得：\n";
                     foreach (var lockedItem in unlocked)
                     {
                         newText += _characterMonitor.GetCharacterById(lockedItem.Key)!.FormattedName + "\n";

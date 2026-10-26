@@ -16,9 +16,9 @@ namespace InventoryTools.Logic.Columns
             return searchResult.Item.CanBeCrafted;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Craftable?"));
+        public override string Name { get; set; } = "是否可制作？";
         public override float Width { get; set; } = 125.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be crafted?"));
+        public override string HelpText { get; set; } = "该物品是否可制作？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
         public override FilterType DefaultIn => Logic.FilterType.GameItemFilter;

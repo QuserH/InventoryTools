@@ -31,8 +31,8 @@ public class DefaultSortColumnFilter : ChoiceFilter<string>
     }
 
     public override string Key { get; set; } = "DefaultSortColumn";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Default Sort Column"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The column to use to sort by default"));
+    public override string Name { get; set; } = "默认排序列";
+    public override string HelpText { get; set; } = "默认排序使用的列";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Columns;
 
     public override string? DefaultValue { get; set; } = null;

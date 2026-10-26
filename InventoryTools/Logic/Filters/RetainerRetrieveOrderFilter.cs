@@ -48,8 +48,8 @@ public class RetainerRetrieveOrderFilter : ChoiceFilter<RetainerRetrieveOrder>
     }
 
     public override string Key { get; set; } = "RetainerRetrieveOrder";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer Retrieve Order"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When displaying the items for a craft, if there are items to be retrieved should we display this before or after the shortfall is made up. If first is selected, it will make you retrieve items first, if last is selected, any missing items you'll need will have to be collected/purchased before the remainder will be shown for retrieval."));
+    public override string Name { get; set; } = "雇员取回顺序";
+    public override string HelpText { get; set; } = "显示制作物品时，若有待取回物品，应在补足缺口前还是后显示。选择优先将先取回物品，选择靠后则需先收集/购买缺少的物品，之后再显示待取回的其余部分。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override RetainerRetrieveOrder DefaultValue { get; set; } = RetainerRetrieveOrder.RetrieveFirst;
     public override List<RetainerRetrieveOrder> GetChoices(FilterConfiguration configuration)
@@ -66,9 +66,9 @@ public class RetainerRetrieveOrderFilter : ChoiceFilter<RetainerRetrieveOrder>
         switch (choice)
         {
             case RetainerRetrieveOrder.RetrieveFirst:
-                return LocalizationService.Ui("Retrieve First");
+                return "优先取回";
             case RetainerRetrieveOrder.RetrieveLast:
-                return LocalizationService.Ui("Retrieve Last");
+                return "最后取回";
         }
         return "Unknown";
     }

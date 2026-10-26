@@ -1,0 +1,147 @@
+name: sync-upstream
+
+# 每日同步上游并重新贴汉化（AutoRetainer-zh 同款流程）。
+#
+# 注意：GitHub 的 schedule 只会执行默认分支上的工作流。
+# 如果本仓库默认分支不是 zh-cn-translation，请二选一：
+#   1) 在仓库 Settings -> Branches 把默认分支改为 zh-cn-translation；或
+#   2) 手动用 workflow_dispatch 触发，或在主分支放一个只负责 dispatch 的跳板工作流。
+#
+# 冲突策略：上游改动撞到我们的功能文件时，任务直接失败并列出冲突文件，
+# 不会用 -X theirs 覆盖，避免悄悄丢掉雇员取回/合并等功能。
+
+on:
+  schedule:
+    - cron: "23 19 * * *"   # UTC 19:23 = 北京时间 03:23
+  workflow_dispatch:
+    inputs:
+      force_build:
+        description: "即使上游没有变化，也触发一次构建发布"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+env:
+  UPSTREAM_REPO: Critical-Impact/InventoryTools
+  UPSTREAM_BRANCH: main
+  TARGET_BRANCH: zh-cn-translation
+
+jobs:
+  sync:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure Git
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream
+        shell: pwsh
+        run: |
+          $refspec = "${env:UPSTREAM_BRANCH}:refs/remotes/upstream/${env:UPSTREAM_BRANCH}"
+          git fetch "https://github.com/$env:UPSTREAM_REPO.git" $refspec
+          $count = git rev-list --count "HEAD..upstream/$env:UPSTREAM_BRANCH"
+          Write-Output "Upstream commits pending: $count"
+          if ($count -eq "0") {
+            "UPSTREAM_CHANGED=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+            "UPSTREAM_CHANGED=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+
+      - name: Merge upstream and reapply localization
+        if: env.UPSTREAM_CHANGED == 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Continue'
+
+          git merge "upstream/$env:UPSTREAM_BRANCH" --no-edit
+          if ($LASTEXITCODE -ne 0) {
+            Write-Output "::group::Conflicted files"
+            git diff --name-only --diff-filter=U
+            Write-Output "::endgroup::"
+            git merge --abort
+            Write-Output "::error::Upstream merge produced conflicts. Stopped on purpose so feature code is not overwritten. Resolve locally, run tools/localize.py + tools/patch_cn.py, then push."
+            exit 1
+          }
+
+          python tools/localize.py
+          if ($LASTEXITCODE -ne 0) { Write-Output "::error::localize.py failed."; exit 1 }
+
+          python tools/patch_cn.py
+          if ($LASTEXITCODE -ne 0) { Write-Output "::error::patch_cn.py failed (upstream may have changed a patched spot)."; exit 1 }
+
+          git add -A
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) {
+            Write-Output "Localization produced no changes."
+          } else {
+            git commit -m "chore: sync upstream and reapply localization"
+          }
+
+          # 快进合并时没有额外提交，也要把分支推上去
+          git push origin "HEAD:$env:TARGET_BRANCH"
+          if ($LASTEXITCODE -ne 0) { Write-Output "::error::git push failed."; exit 1 }
+
+      - name: Align plugin version with upstream
+        if: env.UPSTREAM_CHANGED == 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $rev = "upstream/$env:UPSTREAM_BRANCH"
+          $upstreamProject = git show "${rev}:InventoryTools/InventoryTools.csproj"
+          if ($LASTEXITCODE -ne 0) { Write-Output "::warning::Unable to read upstream csproj; skipping version alignment."; exit 0 }
+
+          $m = [regex]::Match(($upstreamProject -join "`n"), '<Version>([^<]+)</Version>')
+          if (-not $m.Success) {
+            Write-Output "Upstream no longer pins <Version> (new SDK layout). Keeping current version; align manually when catching up."
+            exit 0
+          }
+
+          $upstreamVersion = $m.Groups[1].Value.Trim()
+          # 本项目发布版本沿用 "1." 前缀约定（例如上游 15.0.13 -> 1.15.0.13）
+          if (-not $upstreamVersion.StartsWith("1.")) { $upstreamVersion = "1.$upstreamVersion" }
+
+          $projectPath = "InventoryTools/InventoryTools.csproj"
+          $project = Get-Content $projectPath -Raw -Encoding utf8
+          $current = [regex]::Match($project, '<Version>([^<]+)</Version>').Groups[1].Value
+          if ($current -eq $upstreamVersion) { Write-Output "Version already $current."; exit 0 }
+
+          $project = [regex]::Replace($project, '<Version>[^<]+</Version>', "<Version>$upstreamVersion</Version>", 1)
+          $project = [regex]::Replace($project, '<AssemblyVersion>[^<]+</AssemblyVersion>', "<AssemblyVersion>$upstreamVersion</AssemblyVersion>", 1)
+          $project = [regex]::Replace($project, '<FileVersion>[^<]+</FileVersion>', "<FileVersion>$upstreamVersion</FileVersion>", 1)
+          Set-Content $projectPath -Value $project -Encoding utf8BOM -NoNewline
+          git add $projectPath
+          git commit -m "chore: align version with upstream $upstreamVersion"
+          git push origin "HEAD:$env:TARGET_BRANCH"
+          if ($LASTEXITCODE -ne 0) { Write-Output "::error::git push failed."; exit 1 }
+
+      - name: Trigger release
+        if: env.UPSTREAM_CHANGED == 'true' || inputs.force_build
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # 用 GITHUB_TOKEN 推送的提交不会触发其他工作流，所以显式派发 release-zh。
+          gh workflow run notify-zh-repo.yml --ref $env:TARGET_BRANCH
+          if ($LASTEXITCODE -ne 0) { Write-Output "::error::Failed to dispatch release workflow."; exit 1 }

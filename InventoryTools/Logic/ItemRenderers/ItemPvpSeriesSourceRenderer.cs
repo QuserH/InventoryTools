@@ -18,15 +18,15 @@ public class ItemPvpSeriesSourceRenderer : ItemInfoRenderer<ItemPVPSeriesSource>
 
     public override RendererType RendererType { get; } = RendererType.Source;
     public override ItemInfoType Type { get; } = ItemInfoType.PVPSeries;
-    public override string SingularName { get; } = LocalizationService.Ui("PVP Series");
-    public override string HelpText { get; } = LocalizationService.Ui(LocalizationService.Ui("Is this item rewarded from a PVP series?"));
+    public override string SingularName { get; } = "PVP 赛季";
+    public override string HelpText { get; } = "该物品来自 PVP 赛季奖励？";
     public override bool ShouldGroup { get; } = true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Reward in PVP Series ")) + asSource.PvpSeries.Value.RowId);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unlocks at level ")) + asSource.Level);
+        ImGui.Text("PVP 赛季奖励" + asSource.PvpSeries.Value.RowId);
+        ImGui.Text("于以下等级解锁：" + asSource.Level);
     };
 
     public override Func<ItemSource, string> GetName => source =>

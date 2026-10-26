@@ -65,7 +65,7 @@ public class CompendiumSectionStateService : IDisposable
             }
             catch (Exception e)
             {
-                _logger.LogError(e, LocalizationService.Ui("Unable to parse saved configuration."));
+                _logger.LogError(e, "无法解析已保存的配置。");
             }
         }
 

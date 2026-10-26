@@ -33,9 +33,9 @@ public class ItemCraftLeveSourceRenderer : ItemInfoRenderer<ItemCraftLeveSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CraftLeve;
-    public override string SingularName => LocalizationService.Ui("Craft Leve");
-    public override string PluralName => LocalizationService.Ui("Craft Leves");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this item obtained from a craft leve?"));
+    public override string SingularName => "制作理符";
+    public override string PluralName => "制作理符";
+    public override string HelpText => "该物品来自制作理符？";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Leve];
 
@@ -50,12 +50,12 @@ public class ItemCraftLeveSourceRenderer : ItemInfoRenderer<ItemCraftLeveSource>
         var asSource = AsSource(source);
         var leveRow = asSource.Leve.Value;
 
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Leve: ")) + leveRow.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + leveRow.ClassJobCategory.Value.Name.ExtractText());
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("EXP Reward: ")) + asSource.ExpReward);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Allowance Cost: ")) + leveRow.AllowanceCost);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Loot Chance: ")) + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
-        DrawItems(LocalizationService.Ui("Possible Reward Items: "), asSource.RewardItems);
+        ImGui.TextUnformatted("理符：" + leveRow.Name.ExtractText());
+        ImGui.TextUnformatted("职业：" + leveRow.ClassJobCategory.Value.Name.ExtractText());
+        ImGui.TextUnformatted("经验奖励：" + asSource.ExpReward);
+        ImGui.TextUnformatted("允许消耗：" + leveRow.AllowanceCost);
+        ImGui.TextUnformatted("掉落几率：" + asSource.LeveRewardItem.Value.ProbabilityPercent[asSource.RewardItemIndex] + "%");
+        DrawItems("可能的奖励物品：", asSource.RewardItems);
         DrawMaps(source);
     };
 

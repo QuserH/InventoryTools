@@ -18,7 +18,7 @@ public class CanBeEquippedColumn : CheckboxColumn
     {
         return searchResult.Item.Base.EquipSlotCategory.RowId != 0;
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can be Equipped?"));
+    public override string Name { get; set; } = "是否可装备？";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can this item be equipped?"));
+    public override string HelpText { get; set; } = "该物品是否可装备？";
 }

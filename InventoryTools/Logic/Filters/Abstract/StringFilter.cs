@@ -33,12 +33,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
             }
 
             ImGui.Indent();
@@ -50,7 +50,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             }
 
             ImGui.SetNextItemWidth(InputSize);
-            if (ImGui.InputText(LocalizationService.Ui("##")+Key+"Input", ref value, 500))
+            if (ImGui.InputText("##"+Key+"Input", ref value, 500))
             {
                 UpdateFilterConfiguration(configuration, value);
             }
@@ -59,20 +59,20 @@ namespace InventoryTools.Logic.Filters.Abstract
                 ImGui.SameLine();
                 ImGuiService.HelpMarker(new List<string>()
                 {
-                    LocalizationService.Ui("When searching the following operators can be used to compare: "),
+                    "搜索时可用以下运算符比较：",
                     "",
-                    LocalizationService.Ui(">, >=, <, <=, =, for numerical comparisons") ,
-                    LocalizationService.Ui("=, for exact comparisons"),
-                    LocalizationService.Ui("!, for inequality comparisons"),
-                    LocalizationService.Ui("||, search multiple expressions using OR"),
-                    LocalizationService.Ui("&&, search multiple expressions using AND")
+                    ">, >=, <, <=, =，用于数值比较" ,
+                    "=，用于精确比较",
+                    "!，用于不等比较",
+                    "||，使用或连接多个表达式",
+                    "&&，使用AND连接多个表达式"
                 });
             }
 
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                 }

@@ -34,9 +34,9 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         _itemInfoCache = itemInfoCache;
     }
 
-    public override string Singular => LocalizationService.Ui("Leve");
-    public override string Plural => LocalizationService.Ui("Leves");
-    public override string Description => LocalizationService.Ui("Leves the character can undertake.");
+    public override string Singular => "理符";
+    public override string Plural => "理符";
+    public override string Description => "角色可承接的理符。";
     public override string Key => "leves";
     public override (string?, uint?) Icon => (null, Icons.LeveIcon);
 
@@ -90,22 +90,22 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<LeveRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the leve"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId });
-        builder.AddStringColumn(new() { Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString() });
-        builder.AddStringColumn(new() { Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the leve"), Version = "14.0.3", ValueSelector = row => LocalizationService.Ui(row.LeveType.ToString().Humanize()) + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
-        builder.AddIntegerColumn(new() { Key = "level", Name = LocalizationService.Ui("Level"), HelpText = LocalizationService.Ui("The level of the leve"), Version = "14.0.3", ValueSelector = row => row.Base.ClassJobLevel.ToString() });
-        builder.AddStringColumn(new() { Key = "leveissuer", Name = LocalizationService.Ui("Leve Issuer"), HelpText = LocalizationService.Ui("The NPC who starts the leve"), Version = "14.0.3", ValueSelector = row => row.StartENpc == null ? "N/A" : _npcLocalizer.Format(row.StartENpc.ENpcBase.Base) });
-        builder.AddIntegerColumn(new() { Key = "exp", Name = LocalizationService.Ui("EXP"), HelpText = LocalizationService.Ui("The exp rewarded on completion of the leve"), Version = "14.0.3", ValueSelector = row => row.ExpReward.ToString() });
-        builder.AddIntegerColumn(new() { Key = "gil", Name = LocalizationService.Ui("Gil"), HelpText = LocalizationService.Ui("The gil rewarded on completion of the leve"), Version = "14.0.3", ValueSelector = row => row.GilReward.ToString() });
-        builder.AddStringColumn(new() { Key = "startlocation", Name = LocalizationService.Ui("Start Location"), HelpText = LocalizationService.Ui("The start location of the leve"), Version = "14.0.3", ValueSelector = row => row.StartLocation?.FormattedName ?? null });
-        builder.AddIntegerColumn(new() { Key = "handins", Name = LocalizationService.Ui("Hand Ins"), HelpText = LocalizationService.Ui("The number of times the leve can be handed in"), Version = "14.0.3", ValueSelector = row => row.HandIns.ToString() });
+        builder.AddCompendiumOpenViewColumn(new() { Key = "icon", Name = "##Icon", HelpText = "该理符的图标", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId });
+        builder.AddStringColumn(new() { Key = "name", Name = "名称", HelpText = "该理符的名称", Version = "14.0.3", ValueSelector = row => row.Base.Name.ToImGuiString() });
+        builder.AddStringColumn(new() { Key = "type", Name = "类型", HelpText = "该理符的类型", Version = "14.0.3", ValueSelector = row => LocalizationService.Ui(row.LeveType.ToString().Humanize()) + "(" + row.Base.LeveAssignmentType.Value.Name.ToImGuiString() + ")" });
+        builder.AddIntegerColumn(new() { Key = "level", Name = "等级", HelpText = "该理符的等级", Version = "14.0.3", ValueSelector = row => row.Base.ClassJobLevel.ToString() });
+        builder.AddStringColumn(new() { Key = "leveissuer", Name = "理符发布者", HelpText = "发布该理符的 NPC", Version = "14.0.3", ValueSelector = row => row.StartENpc == null ? "不适用" : _npcLocalizer.Format(row.StartENpc.ENpcBase.Base) });
+        builder.AddIntegerColumn(new() { Key = "exp", Name = "经验值", HelpText = "完成该理符奖励的经验", Version = "14.0.3", ValueSelector = row => row.ExpReward.ToString() });
+        builder.AddIntegerColumn(new() { Key = "gil", Name = "金币", HelpText = "完成该理符奖励的金币", Version = "14.0.3", ValueSelector = row => row.GilReward.ToString() });
+        builder.AddStringColumn(new() { Key = "startlocation", Name = "起始位置", HelpText = "该理符的起始位置", Version = "14.0.3", ValueSelector = row => row.StartLocation?.FormattedName ?? null });
+        builder.AddIntegerColumn(new() { Key = "handins", Name = "提交次数", HelpText = "该理符可提交的次数", Version = "14.0.3", ValueSelector = row => row.HandIns.ToString() });
 
         //Maybe make a reward display column
         builder.AddItemsColumn(new()
         {
             Key = "rewards",
-            Name = LocalizationService.Ui("Rewards"),
-            HelpText = LocalizationService.Ui("The rewards for the leve"),
+            Name = "奖励",
+            HelpText = "该理符的奖励",
             Version = "14.0.3",
             ValueSelector =
                 row =>
@@ -132,8 +132,8 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         builder.AddItemsColumn(new()
         {
             Key = "required",
-            Name = LocalizationService.Ui("Required Items"),
-            HelpText = LocalizationService.Ui("The required items for the leve"),
+            Name = "所需物品",
+            HelpText = "该理符所需的物品",
             Version = "14.0.3",
             ValueSelector =
                 row =>
@@ -160,15 +160,15 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
         viewBuilder.AddInfoTableSection(new()
         {
             SectionKey = "info",
-            SectionName = LocalizationService.Ui("Info"),
+            SectionName = "信息",
             HideHeader = false,
             Items =
         [
-            (LocalizationService.Ui("Level"), row.Base.ClassJobLevel.ToString(), true),
-            (LocalizationService.Ui("EXP"), row.ExpReward.ToString(), row.ExpReward > 0),
-            (LocalizationService.Ui("Gil"), row.GilReward.ToString(),  row.GilReward > 0),
-            (LocalizationService.Ui("Allowances"), row.Base.AllowanceCost.ToString(), row.Base.AllowanceCost > 0),
-            (LocalizationService.Ui("Hand-Ins"), row.HandIns.ToString(), true)
+            ("等级", row.Base.ClassJobLevel.ToString(), true),
+            ("经验值", row.ExpReward.ToString(), row.ExpReward > 0),
+            ("金币", row.GilReward.ToString(),  row.GilReward > 0),
+            ("理符额度", row.Base.AllowanceCost.ToString(), row.Base.AllowanceCost > 0),
+            ("提交次数", row.HandIns.ToString(), true)
         ]
         });
         if (row.StartENpc != null && row.StartENpc.ENpcBase.Locations.Any())
@@ -176,7 +176,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddMapLinkSectionSection(new MapLinkViewSectionOptions()
             {
                 SectionKey = "leve_issuer",
-                SectionName = LocalizationService.Ui("Leve Issuer"),
+                SectionName = "理符发布者",
                 MapLink = new MapLinkEntry(Icons.FlagIcon, _npcLocalizer.Format(row.StartENpc.ENpcBase.Base), row.StartENpc.ENpcBase.Locations.First().FormattedName, row.StartENpc.ENpcBase.Locations.First())
             });
         }
@@ -185,7 +185,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddMapLinkSectionSection(new MapLinkViewSectionOptions()
             {
                 SectionKey = "leve_start",
-                SectionName = LocalizationService.Ui("Leve Start"),
+                SectionName = "理符起始",
                 MapLink = new MapLinkEntry(Icons.FlagIcon, row.StartLocation.FormattedName, row.StartLocation.FormattedName, row.StartLocation)
             });
         }
@@ -200,7 +200,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
                 viewBuilder.AddItemListSection(new ItemListSectionOptions()
                 {
                     SectionKey = "required_items",
-                    SectionName = LocalizationService.Ui("Required Items"),
+                    SectionName = "所需物品",
                     Items = requiredItems,
                 });
             }
@@ -235,7 +235,7 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             viewBuilder.AddItemListSection(new ItemListSectionOptions()
             {
                 SectionKey = "reward_items",
-                SectionName = LocalizationService.Ui("Reward Items"),
+                SectionName = "奖励物品",
                 Items = rewards,
             });
         }
@@ -260,18 +260,18 @@ public class LeveCompendiumType : CompendiumType<LeveRow>
             new CompendiumGrouping<LeveRow>()
             {
                 Key = "type",
-                Name = LocalizationService.Ui("Type"),
+                Name = "类型",
                 GroupFunc = row => row.LeveType,
                 GroupMapping = row =>
                 {
                     var leveType = (LeveType)row;
                     return leveType switch
                     {
-                        LeveType.Battle => LocalizationService.Ui("Battle"),
-                        LeveType.Gathering => LocalizationService.Ui("Gathering"),
-                        LeveType.Craft => LocalizationService.Ui("Craft"),
-                        LeveType.Company => LocalizationService.Ui("Company"),
-                        _ => LocalizationService.Ui("Unknown")
+                        LeveType.Battle => "战斗",
+                        LeveType.Gathering => "采集",
+                        LeveType.Craft => "制作",
+                        LeveType.Company => "军队",
+                        _ => "未知"
                     };
                 },
             }

@@ -26,15 +26,15 @@ namespace InventoryTools.Logic.Filters.Abstract
             var currentValue = CurrentValue(configuration);
             if (currentValue == null)
             {
-                return LocalizationService.Ui("N/A");
+                return "不适用";
             }
 
             if (currentValue == true)
             {
-                return LocalizationService.Ui("Yes");
+                return "是";
             }
 
-            return LocalizationService.Ui("No");
+            return "否";
         }
 
         public bool? ConvertSelection(string selection)
@@ -66,12 +66,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
             }
             ImGui.Indent();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -97,7 +97,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                 }

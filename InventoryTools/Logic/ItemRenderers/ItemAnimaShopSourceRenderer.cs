@@ -26,7 +26,7 @@ public class ItemAnimaShopUseRenderer : ItemAnimaShopSourceRenderer
 
     public override RendererType RendererType => RendererType.Use;
 
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at an anima shop?"));
+    public override string HelpText => "该物品是否可在元灵商店使用？";
 
     public override Func<ItemSource, int> GetIcon => source =>
     {
@@ -50,9 +50,9 @@ public class ItemAnimaShopSourceRenderer : ItemInfoRenderer<ItemAnimaShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.AnimaShop;
-    public override string SingularName => LocalizationService.Ui("Anima Shop");
-    public override string PluralName => LocalizationService.Ui("Anima Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a anima currency shop?"));
+    public override string SingularName => "元灵商店";
+    public override string PluralName => "元灵商店";
+    public override string HelpText => "该物品是否可在元灵商店购买？";
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 3;
@@ -67,10 +67,10 @@ public class ItemAnimaShopSourceRenderer : ItemInfoRenderer<ItemAnimaShopSource>
     {
         var asSource = AsSource(source);
 
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Shop: {0}"), asSource.Shop.Name));
+        ImGui.Text(string.Format("商店：{0}", asSource.Shop.Name));
 
-        this.DrawItems(LocalizationService.Ui("Rewards:"), asSource.RewardItems);
-        this.DrawItems(LocalizationService.Ui("Costs:"), asSource.CostItems);
+        this.DrawItems("奖励：", asSource.RewardItems);
+        this.DrawItems("花费：", asSource.CostItems);
 
         DrawMaps(source);
     };

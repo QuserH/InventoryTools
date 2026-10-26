@@ -28,19 +28,19 @@ namespace InventoryTools.Logic.Columns
 
             ImGui.TableNextColumn();
             if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled)) return null;
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Required: ")) +  searchResult.CraftItem.QuantityRequired);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Needed: ")) +  searchResult.CraftItem.QuantityNeeded);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Needed Pre Update: ")) +  searchResult.CraftItem.QuantityNeededPreUpdate);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) +  searchResult.CraftItem.QuantityAvailable);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Ready: ")) +  searchResult.CraftItem.QuantityReady);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Can Craft: ")) +  searchResult.CraftItem.QuantityCanCraft);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Will Retrieve: ")) + searchResult.CraftItem.QuantityWillRetrieve);
+            ImGui.Text("所需：" +  searchResult.CraftItem.QuantityRequired);
+            ImGui.Text("需要：" +  searchResult.CraftItem.QuantityNeeded);
+            ImGui.Text("更新前需要：" +  searchResult.CraftItem.QuantityNeededPreUpdate);
+            ImGui.Text("可用：" +  searchResult.CraftItem.QuantityAvailable);
+            ImGui.Text("就绪：" +  searchResult.CraftItem.QuantityReady);
+            ImGui.Text("可制作数量：" +  searchResult.CraftItem.QuantityCanCraft);
+            ImGui.Text("将取回：" + searchResult.CraftItem.QuantityWillRetrieve);
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Debug - Craft"));
+        public override string Name { get; set; } = "调试 - 制作";
         public override float Width { get; set; } = 200;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows craft debug information"));
+        public override string HelpText { get; set; } = "显示制作调试信息";
         public override bool HasFilter { get; set; } = true;
         public override bool IsDebug { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

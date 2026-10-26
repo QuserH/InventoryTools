@@ -11,8 +11,8 @@ namespace InventoryTools.Logic.Filters
     public class IsHqFilter : BooleanFilter
     {
         public override string Key { get; set; } = "HQ";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is HQ?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is the item High Quality?"));
+        public override string Name { get; set; } = "是否为优质品？";
+        public override string HelpText { get; set; } = "该物品为HQ？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
         public override bool? FilterItem(FilterConfiguration configuration,InventoryItem item)

@@ -17,7 +17,7 @@ public class AchievementDebuggerPane : DebugLogPane
         _achievementMonitorService = achievementMonitorService;
     }
 
-    public override string Name => LocalizationService.Ui("Achievement Monitor");
+    public override string Name => "成就监控器";
 
     public override void SubscribeToEvents()
     {
@@ -25,36 +25,36 @@ public class AchievementDebuggerPane : DebugLogPane
 
     public override void DrawInfo()
     {
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Status")))
+        if (ImGui.CollapsingHeader("状态"))
         {
-            ImGui.TextUnformatted(LocalizationService.Format("Loaded: {0}", _achievementMonitorService.IsLoaded));
+            ImGui.TextUnformatted(string.Format("已加载：{0}", _achievementMonitorService.IsLoaded));
             ImGui.TextUnformatted($"Completed Achievement Count: {_achievementMonitorService.GetCompletedAchievementIds().Count}");
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Completed Achievements")))
+        if (ImGui.CollapsingHeader("已完成的成就"))
         {
             var completed = _achievementMonitorService.GetCompletedAchievements();
 
             if (completed.Count == 0)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui("<none>"));
+                ImGui.TextUnformatted("<无>");
             }
             else
             {
                 foreach (var rowRef in completed.OrderBy(r => r.RowId))
                 {
                     var name = rowRef.ValueNullable?.Name.ToImGuiString() ?? $"<unknown name>";
-                    ImGui.TextUnformatted(LocalizationService.Format("ID={0}, Name={1}", rowRef.RowId, name));
+                    ImGui.TextUnformatted(string.Format("ID={0}，名称={1}", rowRef.RowId, name));
                 }
             }
         }
 
-        if (ImGui.CollapsingHeader(LocalizationService.Ui("Configuration")))
+        if (ImGui.CollapsingHeader("设置"))
         {
             var config = _achievementMonitorService.Configuration;
             if (config == null)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui("<no configuration>"));
+                ImGui.TextUnformatted("<未配置>");
             }
             else
             {

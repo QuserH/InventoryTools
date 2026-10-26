@@ -85,7 +85,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
         _useActiveWorldSetting = useActiveWorldSetting;
         _useHomeWorldSetting = useHomeWorldSetting;
         _useDefaultWorldsSetting = useDefaultWorldsSetting;
-        FilterQueue = taskQueueFactory.Invoke(LocalizationService.Ui("List Filter Queue"), 1);
+        FilterQueue = taskQueueFactory.Invoke("列表筛选队列", 1);
         MediatorService.Subscribe<RequestListUpdateMessage>(this, message => RequestRefresh(message.FilterConfiguration));
     }
 
@@ -222,9 +222,9 @@ public class ListFilterService : DisposableMediatorBackgroundService
         var activeCharacter = _characterMonitor.ActiveCharacterId;
         var activeRetainer = _characterMonitor.ActiveRetainerId;
 
-        Logger.LogTrace(LocalizationService.Ui("Filter Information:"));
-        Logger.LogTrace(LocalizationService.Ui("Filter Name:") + filter.Name);
-        Logger.LogTrace(LocalizationService.Ui("List Type: ") + filter.FilterType);
+        Logger.LogTrace("筛选器信息：");
+        Logger.LogTrace("筛选器名称：" + filter.Name);
+        Logger.LogTrace("列表类型：" + filter.FilterType);
 
         var filtersWithValues = _filterService.AvailableFilters.Where(c => c.HasValueSet(filter) && c.AvailableIn.HasFlag(filter.FilterType)).ToList();
 
@@ -238,7 +238,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
             Dictionary<(ulong, InventoryType), List<FilteredItem>> filteredSources = new();
             //Dictionary<(ulong, InventoryCategory), List<InventoryItem>> filteredDestinations = new();
             var sourceKeys = sourceInventories.Select(c => c.Key);
-            Logger.LogTrace(sourceInventories.Count() + LocalizationService.Ui(" inventories to examine."));
+            Logger.LogTrace(sourceInventories.Count() + " 个背包可供检查。");
             if (filter.FilterType == FilterType.CraftFilter)
             {
                 filter.CraftList.GetFlattenedMergedMaterials(true);
@@ -520,7 +520,7 @@ public class ListFilterService : DisposableMediatorBackgroundService
             //Filter the source and destination inventories based on the applicable items so we have less to sort
             Dictionary<(ulong, InventoryType), List<FilteredItem>> filteredSources = new();
             //Dictionary<(ulong, InventoryCategory), List<InventoryItem>> filteredDestinations = new();
-            Logger.LogTrace(sourceInventories.Count() + LocalizationService.Ui(" inventories to examine."));
+            Logger.LogTrace(sourceInventories.Count() + " 个背包可供检查。");
             foreach (var sourceInventory in sourceInventories)
             {
                 ct.ThrowIfCancellationRequested();
@@ -894,15 +894,15 @@ public class ListFilterService : DisposableMediatorBackgroundService
             catch (Exception ex)
             {
                 Logger.LogError(ex,
-                    LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
+                    "执行{WorkItem}时出错。", nameof(workItem));
             }
         }
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
         await base.StopAsync(cancellationToken);
-        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
     }
 }

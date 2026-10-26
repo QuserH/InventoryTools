@@ -10,7 +10,7 @@ namespace InventoryTools.Logic.Filters;
 
 public class IsCollectableFilter : GenericBooleanFilter
 {
-    public IsCollectableFilter(ILogger<IsCollectableFilter> logger, ImGuiService imGuiService) : base("IsCollectable", LocalizationService.Ui("Is Collectable?"), LocalizationService.Ui("Is the item collectable?"), FilterCategory.Basic, item => item.Item.Base.IsCollectable, item => item.Base.IsCollectable, logger, imGuiService)
+    public IsCollectableFilter(ILogger<IsCollectableFilter> logger, ImGuiService imGuiService) : base("IsCollectable", "是否为收藏品？", "该物品为收藏品？", FilterCategory.Basic, item => item.Item.Base.IsCollectable, item => item.Base.IsCollectable, logger, imGuiService)
     {
     }
 }

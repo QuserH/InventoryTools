@@ -30,8 +30,8 @@ public class TooltipCategoryWhitelistSetting : MultipleChoiceSetting<uint>
     }
 
     public override string Key { get; set; } = "TooltipWhitelistCategories";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Tooltip Category Whitelist"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When adding information to tooltips, should we limit the items affected to these categories? If 'Tooltip Category Blacklist` is checked, this functionality will be reversed."));
+    public override string Name { get; set; } = "悬浮提示类别白名单";
+    public override string HelpText { get; set; } = "向悬浮提示添加信息时，是否将受影响的物品限制为这些类别？勾选悬浮提示类别黑名单后，此功能将反转。";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     public override Dictionary<uint, string> GetChoices(InventoryToolsConfiguration configuration)

@@ -22,19 +22,19 @@ public class ItemCashShopSourceRenderer : ItemInfoRenderer<ItemCashShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CashShop;
-    public override string SingularName => LocalizationService.Ui("Bought on SQ Store(real money)");
+    public override string SingularName => "在SE商店购买（真实货币）";
     public override bool ShouldGroup => true;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased through the mogstation?"));
+    public override string HelpText => "该物品是否可通过莫古站购买？";
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        var priceUsd = asSource.PriceUsd.ToString("C2", CultureInfo.GetCultureInfo(LocalizationService.Ui("en-US")));
-        ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Price(USD): {0}"), priceUsd));
+        var priceUsd = asSource.PriceUsd.ToString("C2", CultureInfo.GetCultureInfo("en-US"));
+        ImGui.TextUnformatted(string.Format("价格（美元）：{0}", priceUsd));
         if (asSource.FittingShopItemSetRow?.Items.Count > 1)
         {
-            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Set: {0}"), asSource.FittingShopItemSetRow.Base.Name.ExtractText()));
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Contains:")));
+            ImGui.TextUnformatted(string.Format("套装：{0}", asSource.FittingShopItemSetRow.Base.Name.ExtractText()));
+            ImGui.TextUnformatted("包含：");
             using (ImRaii.PushIndent())
             {
                 foreach (var item in asSource.FittingShopItemSetRow.Items)
@@ -48,7 +48,7 @@ public class ItemCashShopSourceRenderer : ItemInfoRenderer<ItemCashShopSource>
     public override Func<ItemSource, string> GetName => source =>
     {
         var asSource = AsSource(source);
-        return (asSource.FittingShopItemSetRow?.Base.Name.ExtractText() ?? LocalizationService.Ui("Not in a set"));
+        return (asSource.FittingShopItemSetRow?.Base.Name.ExtractText() ?? "不属于套装");
     };
 
     public override Func<ItemSource, int> GetIcon => source => Icons.BagStar;
@@ -56,13 +56,13 @@ public class ItemCashShopSourceRenderer : ItemInfoRenderer<ItemCashShopSource>
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        var priceUsd = asSource.PriceUsd.ToString("C2", CultureInfo.GetCultureInfo(LocalizationService.Ui("en-US")));
-        var description = LocalizationService.Format("Price(USD): {0}", priceUsd);
+        var priceUsd = asSource.PriceUsd.ToString("C2", CultureInfo.GetCultureInfo("en-US"));
+        var description = string.Format("价格（美元）：{0}", priceUsd);
         if (asSource.FittingShopItemSetRow != null)
         {
-            description += LocalizationService.Format(" (Part of {0} set)",
+            description += string.Format("（属于套装：{0}）",
                 asSource.FittingShopItemSetRow.Base.Name.ExtractText());
-            description += LocalizationService.Format(" (Contains {0})",
+            description += string.Format("（包含：{0}）",
                 string.Join(", ", asSource.FittingShopItemSetRow.Items.Select(c => c.NameString)));
         }
         return description;

@@ -18,7 +18,7 @@ public class RecipeTotalColumn : IntegerColumn
         return searchResult.Item.RecipesAsRequirement.Count;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Recipe Total Count"));
+    public override string Name { get; set; } = "配方总数";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The number of recipes the item is a component of."));
+    public override string HelpText { get; set; } = "该物品作为配方的组成数量。";
 }

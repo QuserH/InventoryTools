@@ -36,22 +36,22 @@ public class InventoryScopePicker
         var scopeName = "";
         if (scope.Mode == InventorySearchScopeMode.Invert)
         {
-            scopeName += LocalizationService.Ui("Exclude ");
+            scopeName += "排除 ";
         }
         if (scope.CharacterId != null && scope.CharacterId != 0)
         {
             var character = _characterMonitor.GetCharacterById(scope.CharacterId.Value);
-            scopeName += character?.FormattedName ?? LocalizationService.Ui("Unknown Character");
+            scopeName += character?.FormattedName ?? "未知角色";
         }
         if (scope.ActiveCharacter != null)
         {
-            scopeName += LocalizationService.Ui("Active Character");
+            scopeName += "当前角色";
         }
 
         if (scope.WorldId != null && scope.WorldId != 0)
         {
             var world = _worldSheet.GetRowOrDefault(scope.WorldId.Value);
-            scopeName += world?.Name.ExtractText() ?? LocalizationService.Ui("Unknown World");
+            scopeName += world?.Name.ExtractText() ?? "未知服务器";
         }
 
         if (scopeName == "")
@@ -61,7 +61,7 @@ public class InventoryScopePicker
 
         if (scope.Invert)
         {
-            scopeName += LocalizationService.Ui(" (Invert)");
+            scopeName += "（反转）";
         }
 
         return scopeName;
@@ -99,7 +99,7 @@ public class InventoryScopePicker
     {
 
         var changed = false;
-        var fakeRef = searchScopes.Count + LocalizationService.Ui(" scopes defined.");
+        var fakeRef = searchScopes.Count + " 个已定义范围。";
         using (ImRaii.Disabled())
         {
             ImGui.InputText(label, ref fakeRef, 200);
@@ -128,7 +128,7 @@ public class InventoryScopePicker
                     {
                         foreach (var characterType in searchScope.CharacterTypes)
                         {
-                            ImGui.Text(characterType.FormattedName() + LocalizationService.Ui(" (All Inventories)"));
+                            ImGui.Text(characterType.FormattedName() + "（全部背包）");
                         }
                     }
                 }
@@ -148,7 +148,7 @@ public class InventoryScopePicker
         {
             if (combo)
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Inventory Scope Editor")));
+                ImGui.Text("背包范围编辑器");
                 using(var child = ImRaii.Child("selected", new Vector2(200, 0) * ImGui.GetIO().FontGlobalScale , true, ImGuiWindowFlags.NoScrollbar))
                 {
                     if (child)
@@ -159,7 +159,7 @@ public class InventoryScopePicker
                             {
                                 if (searchScopes.Count == 0)
                                 {
-                                    ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("No scopes defined yet. Press add to start.")));
+                                    ImGui.TextWrapped("尚未定义范围。点击添加开始。");
                                 }
 
                                 for (var index = 0; index < searchScopes.Count; index++)
@@ -201,14 +201,14 @@ public class InventoryScopePicker
                         {
                             if (commandBar)
                             {
-                                if (ImGui.Button(LocalizationService.Ui("Add")))
+                                if (ImGui.Button("添加"))
                                 {
                                     _selectedScope = new InventorySearchScope();
                                     searchScopes.Add(_selectedScope);
                                     changed = true;
                                 }
                                 ImGui.SameLine();
-                                if (ImGui.Button(LocalizationService.Ui("Save")))
+                                if (ImGui.Button("保存"))
                                 {
                                     ImGui.CloseCurrentPopup();
                                 }
@@ -222,9 +222,9 @@ public class InventoryScopePicker
                 {
                     if (_selectedScope == null)
                     {
-                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("The inventory scope editor allows you define which inventories you want to search across.")));
-                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("By default, every inventory Allagan Tools knows about is searched.")));
-                        ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("By providing a set of scopes, you are narrowing down which inventories are displayed.")));
+                        ImGui.TextWrapped("背包范围编辑器允许你定义要搜索哪些背包。");
+                        ImGui.TextWrapped("默认搜索亚拉戈工具箱已知的所有背包。");
+                        ImGui.TextWrapped("通过提供一组范围，你可以缩小显示的背包范围。");
                     }
                     else
                     {
@@ -237,29 +237,29 @@ public class InventoryScopePicker
                                     var isCharacter = _selectedScope.CharacterId != null;
                                     var isWorld = _selectedScope.WorldId != null;
                                     var isActiveCharacter = _selectedScope.ActiveCharacter != null;
-                                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Search Scope:")));
+                                    ImGui.Text("搜索范围：");
                                     ImGui.Separator();
-                                    if (ImGui.RadioButton(LocalizationService.Ui("All"),!isCharacter && !isWorld && !isActiveCharacter))
+                                    if (ImGui.RadioButton("全部",!isCharacter && !isWorld && !isActiveCharacter))
                                     {
                                         _selectedScope.Reset();
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against all inventories"));
+                                    _imGuiService.HelpMarker("匹配全部背包");
                                     ImGui.NewLine();
 
-                                    if (ImGui.RadioButton(LocalizationService.Ui("Character"),isCharacter))
+                                    if (ImGui.RadioButton("角色",isCharacter))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.CharacterId = 0;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against a specific character(player character, retainer, free company, etc)"));
+                                    _imGuiService.HelpMarker("匹配特定角色（玩家角色、雇员、部队等）");
 
                                     if (_selectedScope.CharacterId != null)
                                     {
                                         var selectedCharacter = _characterMonitor.GetCharacterById(_selectedScope.CharacterId.Value);
-                                        using (var characterSelector = ImRaii.Combo(LocalizationService.Ui("##character"),
-                                                   selectedCharacter?.FormattedName ?? LocalizationService.Ui("Select Character")))
+                                        using (var characterSelector = ImRaii.Combo("##character",
+                                                   selectedCharacter?.FormattedName ?? "选择角色"))
                                         {
                                             if (characterSelector)
                                             {
@@ -282,29 +282,29 @@ public class InventoryScopePicker
                                         }
                                     }
                                     ImGui.NewLine();
-                                    if (ImGui.RadioButton(LocalizationService.Ui(LocalizationService.Ui("Active Character")),isActiveCharacter))
+                                    if (ImGui.RadioButton("当前角色",isActiveCharacter))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.ActiveCharacter = true;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against the currently logged in character. This includes all retainers/free companies/etc owned by the character. Use categories or character types to filter down further."));
+                                    _imGuiService.HelpMarker("匹配当前登录角色。包括该角色拥有的全部雇员/部队等。使用分类或角色类型进一步筛选。");
                                     ImGui.NewLine();
 
-                                    if (ImGui.RadioButton(LocalizationService.Ui("World"),isWorld))
+                                    if (ImGui.RadioButton("大区",isWorld))
                                     {
                                         _selectedScope.Reset();
                                         _selectedScope.WorldId = 0;
                                     }
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("Match against a specific world"));
+                                    _imGuiService.HelpMarker("匹配特定服务器");
                                     if (_selectedScope.WorldId != null)
                                     {
                                         var selectedWorld = _selectedScope.WorldId == 0 ? null : _worldSheet.GetRowOrDefault(_selectedScope.WorldId.Value);
-                                        using (var worldSelector = ImRaii.Combo(LocalizationService.Ui("##world"),
+                                        using (var worldSelector = ImRaii.Combo("##world",
                                                    (selectedWorld != null && CnWorlds.Names.TryGetValue(selectedWorld.Value.RowId, out var cnWorld)
                                                        ? cnWorld.World
-                                                       : selectedWorld?.Name.ExtractText()) ?? LocalizationService.Ui("Select World")))
+                                                       : selectedWorld?.Name.ExtractText()) ?? "选择服务器"))
                                         {
                                             if (worldSelector)
                                             {
@@ -328,11 +328,11 @@ public class InventoryScopePicker
                                     }
                                     else
                                     {
-                                        categoryPreview = LocalizationService.Ui("Select categories");
+                                        categoryPreview = "选择分类";
                                     }
 
-                                    ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##categories")), LocalizationService.Ui("Inventory Categories: "));
-                                    using (var categorySelector = ImRaii.Combo(LocalizationService.Ui("##categories"),categoryPreview))
+                                    ImGui.LabelText("##categories", "背包分类：");
+                                    using (var categorySelector = ImRaii.Combo("##categories",categoryPreview))
                                     {
                                         if (categorySelector)
                                         {
@@ -375,7 +375,7 @@ public class InventoryScopePicker
                                     }
 
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("When a category is selected, only items from this category will be shown. Select an item again to unselect it."));
+                                    _imGuiService.HelpMarker("选择分类后，仅显示该分类的物品。再次选择可取消。");
 
                                     if (_selectedScope.CharacterId == null)
                                     {
@@ -387,12 +387,12 @@ public class InventoryScopePicker
                                         }
                                         else
                                         {
-                                            characterTypesPreview = LocalizationService.Ui("Select character types");
+                                            characterTypesPreview = "选择角色类型";
                                         }
 
-                                        ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##characterTypesLabel")), LocalizationService.Ui("Character Types: "));
+                                        ImGui.LabelText("##characterTypesLabel", "角色类型：");
                                         using (var characterTypeSelector =
-                                               ImRaii.Combo(LocalizationService.Ui("##characterTypes"), characterTypesPreview))
+                                               ImRaii.Combo("##characterTypes", characterTypesPreview))
                                         {
                                             if (characterTypeSelector)
                                             {
@@ -427,20 +427,20 @@ public class InventoryScopePicker
                                             }
                                         }
                                         ImGui.SameLine();
-                                        _imGuiService.HelpMarker(LocalizationService.Ui("When 'All' or 'World' is selected, choose the types of characters you want to filter against. Select an item again to unselect it."));
+                                        _imGuiService.HelpMarker("选择全部或服务器时，请选择要筛选的角色类型。再次选择可取消。");
                                     }
 
                                     ImGui.Separator();
                                     ImGui.NewLine();
                                     var invert = _selectedScope.Invert;
-                                    if (ImGui.Checkbox(LocalizationService.Ui("Invert"), ref invert))
+                                    if (ImGui.Checkbox("反转", ref invert))
                                     {
                                         _selectedScope.Invert = invert;
                                         changed = true;
                                     }
 
                                     ImGui.SameLine();
-                                    _imGuiService.HelpMarker(LocalizationService.Ui("When checked, match against the opposite of what is selected."));
+                                    _imGuiService.HelpMarker("勾选后，匹配与所选相反的内容。");
                                 }
                             }
 
@@ -448,13 +448,13 @@ public class InventoryScopePicker
                             {
                                 if (commandBar)
                                 {
-                                    if (ImGui.Button(LocalizationService.Ui("Save")))
+                                    if (ImGui.Button("保存"))
                                     {
                                         _selectedScope = null;
                                         changed = true;
                                     }
                                     ImGui.SameLine();
-                                    if (ImGui.Button(LocalizationService.Ui("Delete")))
+                                    if (ImGui.Button("删除"))
                                     {
                                         searchScopes.Remove(_selectedScope);
                                         _selectedScope = null;

@@ -51,7 +51,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
         EquipmentSuggestFilterStatsField statsField, EquipmentSuggestModeSetting modeSetting, EquipmentSuggestToolModeCategorySetting toolModeCategorySetting,
         EquipmentSuggestService equipmentSuggestService,
         ICharacterMonitor characterMonitor) : base(logger, mediator, imGuiService, configuration,
-        LocalizationService.Ui("Equipment Recommendations"))
+        "装备推荐")
     {
         _configuration = configuration;
         _equipmentSuggestGrid = equipmentSuggestGrid;
@@ -78,26 +78,26 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
         {
             if (menuBar)
             {
-                using (var menu = ImRaii.Menu(LocalizationService.Ui("File")))
+                using (var menu = ImRaii.Menu("文件"))
                 {
                     if (menu)
                     {
-                        if (ImGui.MenuItem(LocalizationService.Ui("Configuration")))
+                        if (ImGui.MenuItem("设置"))
                         {
                             MediatorService.Publish(new OpenGenericWindowMessage(typeof(ConfigurationWindow)));
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui("Changelog")))
+                        if (ImGui.MenuItem("更新日志"))
                         {
                             MediatorService.Publish(new OpenGenericWindowMessage(typeof(ChangelogWindow)));
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui("Help")))
+                        if (ImGui.MenuItem("帮助"))
                         {
                             MediatorService.Publish(new OpenGenericWindowMessage(typeof(HelpWindow)));
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Enable Verbose Logging")), "",
+                        if (ImGui.MenuItem("启用详细日志", "",
                                 this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose))
                         {
                             if (this._pluginLog.MinimumLogLevel == LogEventLevel.Verbose)
@@ -110,39 +110,39 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                             }
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Generate Support Dump"))))
+                        if (ImGui.MenuItem("生成支持信息包"))
                         {
                             MediatorService.Publish(new OpenGenericWindowMessage(typeof(SupportDumpWindow)));
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Report a Issue"))))
+                        if (ImGui.MenuItem("报告问题"))
                         {
                             "https://github.com/Critical-Impact/InventoryTools".OpenBrowser();
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Ko-Fi"))))
+                        if (ImGui.MenuItem("Ko-Fi"))
                         {
                             "https://ko-fi.com/critical_impact".OpenBrowser();
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui("Close")))
+                        if (ImGui.MenuItem("关闭"))
                         {
                             this.IsOpen = false;
                         }
                     }
                 }
 
-                using (var menu = ImRaii.Menu(LocalizationService.Ui("Mode")))
+                using (var menu = ImRaii.Menu("模式"))
                 {
                     if (menu)
                     {
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Class/Job")), "",
+                        if (ImGui.MenuItem("职业", "",
                                 _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class))
                         {
                             _modeSetting.UpdateFilterConfiguration(_configuration, EquipmentSuggestMode.Class);
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Tool/Weapon")), "",
+                        if (ImGui.MenuItem("工具/武器", "",
                                 _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Tool))
                         {
                             _modeSetting.UpdateFilterConfiguration(_configuration, EquipmentSuggestMode.Tool);
@@ -150,24 +150,24 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                     }
                 }
 
-                using (var menu = ImRaii.Menu(LocalizationService.Ui("View")))
+                using (var menu = ImRaii.Menu("视图"))
                 {
                     if (menu)
                     {
-                        if (ImGui.MenuItem(LocalizationService.Ui("Normal"), "",
+                        if (ImGui.MenuItem("普通", "",
                                 _viewModeSetting.CurrentValue(_configuration) == EquipmentSuggestViewMode.Normal))
                         {
                             _viewModeSetting.UpdateFilterConfiguration(_configuration, EquipmentSuggestViewMode.Normal);
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui("Expanded"), "",
+                        if (ImGui.MenuItem("展开", "",
                                 _viewModeSetting.CurrentValue(_configuration) == EquipmentSuggestViewMode.Expanded))
                         {
                             _viewModeSetting.UpdateFilterConfiguration(_configuration,
                                 EquipmentSuggestViewMode.Expanded);
                         }
 
-                        if (ImGui.MenuItem(LocalizationService.Ui("Compact"), "",
+                        if (ImGui.MenuItem("紧凑", "",
                                 _viewModeSetting.CurrentValue(_configuration) == EquipmentSuggestViewMode.Compact))
                         {
                             _viewModeSetting.UpdateFilterConfiguration(_configuration,
@@ -176,7 +176,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                     }
                 }
 
-                using (var menu = ImRaii.Menu(LocalizationService.Ui("Windows")))
+                using (var menu = ImRaii.Menu("窗口"))
                 {
                     if (menu)
                     {
@@ -307,7 +307,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                 }
 
                 ImGui.SameLine();
-                var text = _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Tool ? LocalizationService.Ui("Use Current Level") : LocalizationService.Ui("Use Current Class/Level");
+                var text = _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Tool ? "使用当前等级" : "使用当前职业/等级";
                 var textSize = ImGui.CalcTextSize(text).X + ImGui.GetStyle().ItemSpacing.X * 2;
                 var childSize = new Vector2(textSize, 50) * ImGui.GetIO().FontGlobalScale;
                 using (var child = ImRaii.Child("5", childSize, false, ImGuiWindowFlags.NoScrollbar))
@@ -319,7 +319,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                         using var disabled = ImRaii.Disabled(activeCharacter == null);
                         ImGui.SetNextItemWidth(400);
                         using var color = ImRaii.PushColor(ImGuiCol.Text, new Vector4(0, 0, 0, 0));
-                        ImGui.LabelText(LocalizationService.Ui("5Label"), text);
+                        ImGui.LabelText("5Label", text);
                         color.Pop();
                         if (ImGui.Button(text) && activeCharacter != null)
                         {
@@ -329,7 +329,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                 }
 
                 ImGui.SameLine();
-                text = LocalizationService.Ui("Auto Select Best Items");
+                text = "自动选择最佳物品";
                 textSize = ImGui.CalcTextSize(text).X + ImGui.GetStyle().ItemSpacing.X * 2;
                 childSize = new Vector2(textSize, 50) * ImGui.GetIO().FontGlobalScale;
                 using (var child = ImRaii.Child("6", childSize, false, ImGuiWindowFlags.NoScrollbar))
@@ -339,7 +339,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                         var classJob = _classJobField.CurrentValue(_config);
                         ImGui.SetNextItemWidth(400);
                         using var color = ImRaii.PushColor(ImGuiCol.Text, new Vector4(0, 0, 0, 0));
-                        ImGui.LabelText(LocalizationService.Ui("6Label"), text);
+                        ImGui.LabelText("6Label", text);
                         color.Pop();
                         using var disabled = ImRaii.Disabled(classJob == 0 && _modeSetting.CurrentValue(_configuration) == EquipmentSuggestMode.Class);
                         if (ImGui.Button(text))
@@ -355,7 +355,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                             using (ImRaii.Tooltip())
                             {
                                 ImGui.Text(
-                                    LocalizationService.Ui(LocalizationService.Ui("Hitting this will pick the highest iLvl items while also factoring in the relevant stats for the seleted class/item.")));
+                                    "点击此项将选取品级最高的物品，同时考虑选定职业/物品的相关属性。");
                             }
                         }
                     }
@@ -367,7 +367,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
                     if (child)
                     {
                         using var color = ImRaii.PushColor(ImGuiCol.Text, new Vector4(0, 0, 0, 0));
-                        ImGui.LabelText(LocalizationService.Ui("SpinLabel"), text);
+                        ImGui.LabelText("SpinLabel", text);
                         if (_equipmentSuggestGrid.Value.IsLoading || _currentTask != null)
                         {
                             ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 5 * ImGui.GetIO().FontGlobalScale);
@@ -387,7 +387,7 @@ public class EquipmentSuggestWindow : GenericWindow, IMenuWindow
 
     public override FilterConfiguration? SelectedConfiguration { get; } = null;
     public override string GenericKey { get; } = "EquipmentSuggest";
-    public override string GenericName { get; } = LocalizationService.Ui("Equipment Recommendations");
+    public override string GenericName { get; } = "装备推荐";
     public override bool DestroyOnClose { get; } = true;
     public override bool SaveState { get; } = true;
     public override Vector2? DefaultSize { get; } = new Vector2(800, 500);

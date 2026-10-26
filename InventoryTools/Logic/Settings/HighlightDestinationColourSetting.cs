@@ -20,8 +20,8 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "DestinationHighlightColour";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Destination Highlight Colour"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The color to set any items in the destination that match your source filter(assuming highlight destination duplicates is on)."));
+        public override string Name { get; set; } = "目标高亮颜色";
+        public override string HelpText { get; set; } = "目标中与来源筛选器匹配的物品颜色（假设已启用高亮目标重复项）。";
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Colours;
         public override string Version => "1.7.0.0";

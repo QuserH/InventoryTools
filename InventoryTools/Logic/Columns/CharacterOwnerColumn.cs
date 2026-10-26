@@ -26,11 +26,11 @@ public class CharacterOwnerColumn : TextColumn
         _characterOwners = new();
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Character Owner"));
+    public override string Name { get; set; } = "角色持有者";
     public override float Width { get; set; } = 100;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Display's the name of the owner of the character this item is on if applicable(retainers, free companies, etc)"));
+        "显示持有该物品的角色/雇员的持有者名称（如适用，包括雇员、部队等）";
 
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Inventory;
     public override bool HasFilter { get; set; } = true;

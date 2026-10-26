@@ -16,8 +16,8 @@ public class MateriaCountFilter : StringFilter
     }
 
     public override string Key { get; set; } = "MateriaCount";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Materia Count"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How many materia does this item have or can it have?"));
+    public override string Name { get; set; } = "魔晶石数量";
+    public override string HelpText { get; set; } = "该物品有多少魔晶石孔或可镶嵌多少魔晶石？";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override FilterType AvailableIn { get; set; }  = FilterType.SearchFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

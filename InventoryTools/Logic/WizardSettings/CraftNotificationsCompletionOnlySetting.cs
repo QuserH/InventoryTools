@@ -12,8 +12,8 @@ public class CraftNotificationsCompletionOnlySetting : GenericBooleanSetting
 
     public CraftNotificationsCompletionOnlySetting(ILogger<CraftNotificationsCompletionOnlySetting> logger,
         ImGuiService imGuiService) : base("CraftNotificationsCompletionOnly",
-        LocalizationService.Ui("Only report when an item is complete?"),
-        LocalizationService.Ui("Instead of reporting every acquisition, only print a message when an item reaches its required quantity. The craft list must be active for notifications to occur."),
+        "仅在物品完成时报告？",
+        "不报告每次获取，仅在物品达到所需数量时输出消息。制作列表必须启用才会通知。",
         false,
         SettingCategory.None,
         SettingSubCategory.None,

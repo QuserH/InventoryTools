@@ -28,13 +28,13 @@ public class ConfigurationWizard : GenericWindow
     private int _currentFeature;
     public override void Initialize()
     {
-        WindowName = LocalizationService.Ui(LocalizationService.Ui("Configuration Wizard"));
+        WindowName = "设置向导";
         Key = "wizard";
         _availableFeatures = _configurationWizardService.GetNewFeatures();
     }
 
     public override string GenericKey => "wizard";
-    public override string GenericName => LocalizationService.Ui("Configuration Wizard");
+    public override string GenericName => "设置向导";
     public override bool DestroyOnClose => true;
     public override bool SaveState => false;
     public override Vector2? DefaultSize { get; } = new(750, 500);
@@ -82,7 +82,7 @@ public class ConfigurationWizard : GenericWindow
                         using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.HealerGreen,
                                    _currentFeature == 0))
                         {
-                            ImGui.Text(LocalizationService.Ui("Welcome"));
+                            ImGui.Text("欢迎");
                         }
 
                         for (var index = 0; index < _availableFeatures.Count; index++)
@@ -120,22 +120,22 @@ public class ConfigurationWizard : GenericWindow
                         {
                             if (_configurationWizardService.ConfiguredOnce)
                             {
-                                ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("Welcome back to the Allagan Tools configuration wizard.")));
+                                ImGui.TextWrapped("欢迎回到亚拉戈工具箱设置向导。");
                                 ImGui.Separator();
                                 ImGui.TextWrapped(
-                                    LocalizationService.Ui(LocalizationService.Ui("There are new features available to configure and you elected to show this window when that occurs.")));
+                                    "有新的功能可供配置，你选择了在此情况下显示此窗口。");
                                 ImGui.NewLine();
                             }
                             else
                             {
-                                ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("Welcome to the Allagan Tools configuration wizard.")));
+                                ImGui.TextWrapped("欢迎使用亚拉戈工具箱设置向导。");
                                 ImGui.Separator();
                                 ImGui.TextWrapped(
-                                    LocalizationService.Ui(LocalizationService.Ui("This will guide you through the setup of the most commonly used features. This wizard, with your permission will show itself again when a new feature gets released as features are normally left for the user to configure and activate.")));
+                                    "本向导将引导你完成最常用功能的设置。若你允许，新功能发布时向导会再次显示，因为功能通常由用户自行配置和启用。");
                                 ImGui.NewLine();
-                                ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("If this is your first time using Allagan Tools, I'd recommend opening the help window and reading the General section. It gives you a run down of what the plugin can do.")));
-                                ImGui.TextWrapped(LocalizationService.Ui(LocalizationService.Ui("If you are a returning user feel free to close this window.")));
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Open Help"))))
+                                ImGui.TextWrapped("如果你是第一次使用亚拉戈工具箱，建议打开帮助窗口并阅读常规部分。它为你介绍了插件的功能。");
+                                ImGui.TextWrapped("如果你是老用户，可以随意关闭此窗口。");
+                                if (ImGui.Button("打开帮助"))
                                 {
                                     MediatorService.Publish(new ToggleGenericWindowMessage(typeof(HelpWindow)));
                                 }
@@ -177,13 +177,13 @@ public class ConfigurationWizard : GenericWindow
                         {
                             if (_configurationWizardService.ConfiguredOnce)
                             {
-                                if (ImGui.Button(LocalizationService.Ui("Continue")))
+                                if (ImGui.Button("继续"))
                                 {
                                     NextStep();
                                     _configuration.ShowWizardNewFeatures = true;
                                 }
 
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Close (and show next time the plugin loads)"))))
+                                if (ImGui.Button("关闭（下次加载插件时再次显示）"))
                                 {
                                     Close();
                                     _configuration.ShowWizardNewFeatures = true;
@@ -191,27 +191,27 @@ public class ConfigurationWizard : GenericWindow
                             }
                             else
                             {
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Continue (and show on new features)"))))
+                                if (ImGui.Button("继续（下次有新功能时显示）"))
                                 {
                                     NextStep();
                                     _configuration.ShowWizardNewFeatures = true;
                                 }
 
                                 ImGui.SameLine();
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Continue (and never show the wizard again)"))))
+                                if (ImGui.Button("继续（不再显示向导）"))
                                 {
                                     NextStep();
                                     _configuration.ShowWizardNewFeatures = false;
                                 }
 
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Close (and show next time the plugin loads)"))))
+                                if (ImGui.Button("关闭（下次加载插件时再次显示）"))
                                 {
                                     Close();
                                     _configuration.ShowWizardNewFeatures = true;
                                 }
 
                                 ImGui.SameLine();
-                                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Close (and never show the wizard again)"))))
+                                if (ImGui.Button("关闭（不再显示向导）"))
                                 {
                                     Close();
                                     _configuration.ShowWizardNewFeatures = false;
@@ -223,7 +223,7 @@ public class ConfigurationWizard : GenericWindow
                             var canGoPrevious = CanGoPrevious;
                             using var disabled = ImRaii.Disabled(!canGoPrevious);
 
-                            if (ImGui.Button(LocalizationService.Ui("Previous")))
+                            if (ImGui.Button("上一步"))
                             {
                                 PreviousStep();
                             }
@@ -233,12 +233,12 @@ public class ConfigurationWizard : GenericWindow
                             ImGui.SameLine();
                             var canGoNext = CanGoNext;
 
-                            if (canGoNext && ImGui.Button(LocalizationService.Ui("Next")))
+                            if (canGoNext && ImGui.Button("下一步"))
                             {
                                 NextStep();
                             }
 
-                            if (!canGoNext && ImGui.Button(LocalizationService.Ui("Finish")))
+                            if (!canGoNext && ImGui.Button("完成"))
                             {
                                 Finish();
                             }

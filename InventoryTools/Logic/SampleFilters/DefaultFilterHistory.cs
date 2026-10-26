@@ -40,11 +40,11 @@ public class DefaultFilterHistory : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui("History");
-    public string SampleDefaultName => LocalizationService.Ui("History");
+    public string Name => "历史";
+    public string SampleDefaultName => "历史";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that shows you the movement of items in your inventories. History tracking must be enabled for this to function.");
+        "将添加一个显示背包物品变动的列表。需启用历史追踪才能使用。";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

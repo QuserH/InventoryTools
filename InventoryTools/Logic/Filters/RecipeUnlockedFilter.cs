@@ -21,8 +21,8 @@ public class RecipeUnlockedFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "RecipeUnlocked";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Recipe Unlocked?"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Filter items by whether all crafting requirements (job level, mastery book, specialization) are met by the current character. Items with no crafting source are excluded when a value is set."));
+    public override string Name { get; set; } = "配方已解锁？";
+    public override string HelpText { get; set; } = "按当前角色是否满足全部制作条件（职业等级、秘籍、专精）筛选物品。设置值后，无制作来源的物品将被排除。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Crafting;
     public override FilterType AvailableIn { get; set; } = FilterType.GameItemFilter | FilterType.SearchFilter | FilterType.SortingFilter;
 

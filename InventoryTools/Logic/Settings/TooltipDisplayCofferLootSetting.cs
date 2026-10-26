@@ -20,12 +20,12 @@ public class TooltipDisplayCofferLootSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TooltipDisplayCofferLoot";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Coffer Loot Info"));
+    public override string Name { get; set; } = "宝箱物品信息";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Coffer Loot Info");
+    public override string WizardName { get; } = "宝箱物品信息";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("When hovering a coffer, card pack, or loot container, show how many of its possible loot items you already own."));
+        "鼠标悬停宝匣、卡包或战利品容器时，显示其中可能的战利品你已拥有多少。";
 
     public override uint? Order { get; } = 0;
 

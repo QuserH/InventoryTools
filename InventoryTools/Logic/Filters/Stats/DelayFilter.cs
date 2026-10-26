@@ -16,8 +16,8 @@ public class DelayFilter : StringFilter
     }
 
     public override string Key { get; set; } = "DelayFilter";
-    public override string Name { get; set; } = LocalizationService.Ui("Delay");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The time it takes between each automatic attack while engaged with and in range of an enemy in seconds."));
+    public override string Name { get; set; } = "延迟";
+    public override string HelpText { get; set; } = "与敌对目标交战并在射程内时，每次自动攻击之间的时间（秒）。";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)
     {

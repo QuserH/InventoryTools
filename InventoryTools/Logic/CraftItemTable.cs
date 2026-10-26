@@ -88,10 +88,10 @@ namespace InventoryTools.Logic
                         var groupedCrafts = CraftGroups;
                         if (groupedCrafts.Count == 0)
                         {
-                            using var tabItem = ImRaii.TabItem("No Items");
+                            using var tabItem = ImRaii.TabItem("无物品");
                             if (!tabItem.Success) return messages;
                             ImGui.TextWrapped(
-                                LocalizationService.Ui("No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin."));
+                                "尚未向列表添加物品。可通过屏幕右上角搜索菜单按钮添加，或右键点击插件内任意物品添加。");
                         }
                         else
                         {
@@ -216,7 +216,7 @@ namespace InventoryTools.Logic
                                     if (columnIndex == 1)
                                     {
                                         ImGui.TextWrapped(
-                                            LocalizationService.Ui("No items have been added to the list. Add items via the search menu button at the top right of the screen or by right clicking on an item anywhere within the plugin."));
+                                            "尚未向列表添加物品。可通过屏幕右上角搜索菜单按钮添加，或右键点击插件内任意物品添加。");
                                     }
                                 }
                             }

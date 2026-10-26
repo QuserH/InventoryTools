@@ -19,15 +19,15 @@ public class AddonOffsetFinderDebuggerPane : DebugLogPane
         _gameGui = gameGui;
     }
 
-    public override string Name => LocalizationService.Ui("Addon Offset Finder");
+    public override string Name => "Addon偏移查找器";
     public override unsafe void DrawInfo()
     {
-        ImGui.InputText(LocalizationService.Ui("Addon Name"), ref _addonName, 100);
-        ImGui.InputInt(LocalizationService.Ui("Component ID"), ref _componentId);
-        ImGui.InputInt(LocalizationService.Ui("Max Scan Size"), ref _maxScanSize);
+        ImGui.InputText("Addon 名称", ref _addonName, 100);
+        ImGui.InputInt("组件 ID", ref _componentId);
+        ImGui.InputInt("最大扫描大小", ref _maxScanSize);
 
 
-        if (ImGui.Button(LocalizationService.Ui("Scan")))
+        if (ImGui.Button("扫描"))
         {
 
             var addon = _gameGui.GetAddonByName(_addonName);

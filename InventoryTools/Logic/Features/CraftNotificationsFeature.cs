@@ -44,10 +44,10 @@ public class CraftNotificationsFeature : Feature
         _configuration = configuration;
     }
 
-    public override string Name => LocalizationService.Ui(LocalizationService.Ui("Craft Notifications"));
+    public override string Name => "制作通知";
 
     public override string Description =>
-        LocalizationService.Ui("Configure how Allagan Tools notifies you as you acquire items for your craft lists. The default craft list and any of your existing craft lists will receive these notification settings. Notifications only occur while a craft list is active. This feature can be further configured in craft lists by editing the settings of your individual lists or the default craft list.");
+        "配置亚拉戈工具箱在获取制作列表物品时如何通知你。默认制作列表和现有制作列表将应用这些通知设置。通知仅在制作列表启用时发生。可通过编辑各列表或默认制作列表的设置进一步配置此功能。";
 
     public override void OnFinish()
     {

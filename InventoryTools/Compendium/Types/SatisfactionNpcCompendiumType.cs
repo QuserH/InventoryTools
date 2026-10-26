@@ -59,7 +59,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             CompendiumType = this,
             Key = "custom_deliveries",
-            Name = LocalizationService.Ui("Custom Deliveries"),
+            Name = "老主顾",
             Columns = BuiltColumns
         });
     }
@@ -71,7 +71,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
 
     public override string? GetSubtitle(SatisfactionNpc row)
     {
-        return LocalizationService.Format("Level {0} Custom Delivery Client", row.LevelUnlock);
+        return string.Format("{0} 级老主顾", row.LevelUnlock);
     }
 
     public override (string?, uint?) GetIcon(SatisfactionNpc row)
@@ -120,8 +120,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("##Icon"),
-            HelpText = LocalizationService.Ui("The NPC icon"),
+            Name = "##Icon",
+            HelpText = "该 NPC 的图标",
             Version = "1.0.0",
             ValueSelector = GetIcon,
             CompendiumType = this,
@@ -131,8 +131,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("NPC"),
-            HelpText = LocalizationService.Ui("The NPC name"),
+            Name = "NPC",
+            HelpText = "该 NPC 的名称",
             Version = "1.0.0",
             ValueSelector = GetName
         });
@@ -140,8 +140,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "level",
-            Name = LocalizationService.Ui("Level"),
-            HelpText = LocalizationService.Ui("Unlock level"),
+            Name = "等级",
+            HelpText = "解锁等级",
             Version = "1.0.0",
             ValueSelector = row => row.LevelUnlock.ToString()
         });
@@ -149,8 +149,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "deliveries",
-            Name = LocalizationService.Ui("Deliveries / Week"),
-            HelpText = LocalizationService.Ui("Max weekly deliveries"),
+            Name = "每周交付次数",
+            HelpText = "每周最大交付次数",
             Version = "1.0.0",
             ValueSelector = row => row.DeliveriesPerWeek.ToString()
         });
@@ -158,8 +158,8 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         builder.AddStringColumn(new()
         {
             Key = "unlock_quest",
-            Name = LocalizationService.Ui("Unlock Quest"),
-            HelpText = LocalizationService.Ui("Required quest"),
+            Name = "解锁任务",
+            HelpText = "所需任务",
             Version = "1.0.0",
             ValueSelector = row => row.QuestRequired.ValueNullable?.Name.ToImGuiString() ?? ""
         });
@@ -168,13 +168,13 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, SatisfactionNpc row)
     {
         viewBuilder.SetupDefaults(this, row);
-        viewBuilder.AddTag(() => $"{row.DeliveriesPerWeek}/week", () => LocalizationService.Ui("The number of times you can deliver to the client per week."));
+        viewBuilder.AddTag(() => $"{row.DeliveriesPerWeek}/week", () => "每周可向客户交付的次数。");
 
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = (RowRef)row.QuestRequired,
             SectionKey = "unlock_quest",
-            SectionName = LocalizationService.Ui("Unlock Quest")
+            SectionName = "解锁任务"
         });
 
         var rankQuests = _satisfactionArbitrationSheet
@@ -189,7 +189,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             RelatedRefs = rankQuests,
             SectionKey = "rank_quests",
-            SectionName = LocalizationService.Ui("Rank Quests"),
+            SectionName = "等级任务",
             HideWhenEmpty = false
         });
 
@@ -212,7 +212,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
             {
                 Items = supplyItems,
                 SectionKey = $"requested_items_tier_{tierNumber}",
-                SectionName = LocalizationService.Format("Requested Items (Tier {0})", tierNumber),
+                SectionName = string.Format("请求物品（阶段 {0}）", tierNumber),
                 HideWhenEmpty = true
             });
         }
@@ -229,7 +229,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
                     location
                 ),
                 SectionKey = "location",
-                SectionName = LocalizationService.Ui("Location")
+                SectionName = "位置"
             });
         }
 
@@ -237,7 +237,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         {
             RelatedRef = (RowRef)row.Npc,
             SectionKey = "related_npc",
-            SectionName = LocalizationService.Ui("Related NPC")
+            SectionName = "相关 NPC"
         });
 
     }
@@ -248,7 +248,7 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
         [
             new CompendiumGrouping<SatisfactionNpc>()
             {
-                Name = LocalizationService.Ui("Expansion"),
+                Name = "资料片",
                 Key = "expansion",
                 GroupFunc = row => row.QuestRequired.ValueNullable?.Expansion.RowId ?? 0,
                 GroupMapping = row =>
@@ -259,17 +259,17 @@ public class SatisfactionNpcCompendiumType : CompendiumType<SatisfactionNpc>
             },
             new CompendiumGrouping<SatisfactionNpc>()
             {
-                Name = LocalizationService.Ui("Level"),
+                Name = "等级",
                 Key = "level",
                 GroupFunc = row => row.LevelUnlock,
-                GroupMapping = row => LocalizationService.Format("Level {0}", (byte)row)
+                GroupMapping = row => string.Format("等级 {0}", (byte)row)
             }
         ];
     }
 
-    public override string Singular => LocalizationService.Ui("Custom Delivery");
-    public override string Plural => LocalizationService.Ui("Custom Deliveries");
-    public override string Description => LocalizationService.Ui("NPCs that accept Custom Deliveries (Satisfaction system).");
+    public override string Singular => "老主顾";
+    public override string Plural => "老主顾";
+    public override string Description => "接受老主顾交付（满意度系统）的NPC。";
     public override string Key => "satisfaction_npc";
     public override (string?, uint?) Icon => (null, Icons.CustomDeliveriesIcon);
 }

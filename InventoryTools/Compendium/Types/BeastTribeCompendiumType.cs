@@ -40,7 +40,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
     {
         return Factory.Invoke(new CompendiumTableOptions<BeastTribe>()
         {
-            Name = LocalizationService.Ui("Beast Tribes"),
+            Name = "友好部族",
             Key = "beast_tribes",
             Columns = BuiltColumns,
             CompendiumType = this
@@ -54,7 +54,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override string? GetSubtitle(BeastTribe row)
     {
-        return row.Expansion.Value.Name.ToImGuiString() + LocalizationService.Ui(", Uses ") + row.CurrencyItem.Value.Name.ToImGuiString();
+        return row.Expansion.Value.Name.ToImGuiString() + "，用途 " + row.CurrencyItem.Value.Name.ToImGuiString();
     }
 
     public override (string?, uint?) GetIcon(BeastTribe row)
@@ -79,9 +79,9 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override unsafe void BuildColumns(CompendiumColumnBuilder<BeastTribe> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the beast tribe"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the beast tribe"), Version = "14.0.3", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "expansion", Name = LocalizationService.Ui("Expansion"), HelpText = LocalizationService.Ui("The expansion the beast tribe was introduced"), Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString()});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "该友好部族的图标", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = "名称", HelpText = "该友好部族的名称", Version = "14.0.3", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "expansion", Name = "资料片", HelpText = "该友好部族实装的资料片", Version = "14.0.3", ValueSelector = row => row.Expansion.Value.Name.ToImGuiString()});
     }
 
     public override List<ICompendiumGrouping>? GetGroupings()
@@ -91,7 +91,7 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
             new CompendiumGrouping<BeastTribe>()
             {
                 Key = "expansion",
-                Name = LocalizationService.Ui("Expansion"),
+                Name = "资料片",
                 GroupFunc = row => row.Expansion.RowId,
                 GroupMapping = o =>
                 {
@@ -116,26 +116,26 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
         viewBuilder.AddLevelMapLinkSection(new LevelViewSectionOptions()
         {
             SectionKey = "location",
-            SectionName = LocalizationService.Ui("Location"),
+            SectionName = "位置",
             Level = row.Level
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "currency_item",
-            SectionName = LocalizationService.Ui("Currency Item"),
+            SectionName = "货币物品",
             RelatedRef = (RowRef)row.CurrencyItem,
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "main_quests",
-            SectionName = LocalizationService.Ui("Main Quests"),
+            SectionName = "主线任务",
             RelatedRefs = mainQuests,
             HideWhenEmpty = true
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "repeatable_quests",
-            SectionName = LocalizationService.Ui("Repeatable Quests"),
+            SectionName = "重复任务",
             RelatedRefs = repeatableQuests,
             HideWhenEmpty = true
         });
@@ -153,9 +153,9 @@ public class BeastTribeCompendiumType : CompendiumType<BeastTribe>
 
     public override bool HasLocation => true;
 
-    public override string Singular => LocalizationService.Ui("Allied Society");
-    public override string Plural => LocalizationService.Ui("Allied Societies");
-    public override string Description => LocalizationService.Ui("Allied Societies the player can gain reputation with.");
+    public override string Singular => "友好部族";
+    public override string Plural => "友好部族";
+    public override string Description => "玩家可获得声望的友好部族。";
     public override string Key => "beast_tribes";
     public override (string?, uint?) Icon => (null, Icons.BeastTribeIcon);
 }

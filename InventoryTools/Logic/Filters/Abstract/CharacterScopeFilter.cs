@@ -53,7 +53,7 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
     public override void Draw(FilterConfiguration configuration)
     {
         var characterSearchScopes = CurrentValue(configuration) ?? new();
-        if (_scopePicker.Draw(LocalizationService.Ui("##ScopePicker") + configuration.Key, characterSearchScopes))
+        if (_scopePicker.Draw("##ScopePicker" + configuration.Key, characterSearchScopes))
         {
             this.UpdateFilterConfiguration(configuration, characterSearchScopes);
         }
@@ -63,14 +63,14 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
             ImGui.SameLine();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudWhite))
             {
-                ImGui.Text(LocalizationService.Ui("?"));
+                ImGui.Text("?");
             }
             ImGuiUtil.HoverTooltip(GetHelpText(configuration));
         }
 
         var currentValue = CurrentValue(configuration);
         using var disabled = ImRaii.Disabled(currentValue == null);
-        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Test Scopes"))))
+        if (ImGui.Button("测试范围"))
         {
             if (currentValue != null)
             {
@@ -82,7 +82,7 @@ public abstract class CharacterScopeFilter : Filter<List<CharacterSearchScope>?>
         if (_characters is not null && currentValue is not null)
         {
             ImGui.Separator();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("The following characters will be searched in: ")));
+            ImGui.Text("将搜索以下角色：");
             foreach (var s in _characters)
             {
                 ImGui.TextUnformatted(s.Name);

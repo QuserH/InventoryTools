@@ -21,14 +21,14 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (disableColouring != true && HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+                ImGui.LabelText("##" + Key + "标签", customName ?? Name);
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+                ImGui.LabelText("##" + Key + "标签", customName ?? Name);
             }
-            if (ImGui.Checkbox(LocalizationService.Ui("##")+Key+"Boolean", ref currentValue))
+            if (ImGui.Checkbox("##"+Key+"Boolean", ref currentValue))
             {
                 if (currentValue != CurrentValue(configuration))
                 {
@@ -40,7 +40,7 @@ namespace InventoryTools.Logic.Settings.Abstract
             if (disableReset != true && HasValueSet(configuration))
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     Reset(configuration);
                 }

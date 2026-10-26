@@ -29,10 +29,10 @@ public class CraftHouseVendorFilter : ChoiceFilter<HouseVendorSetting>
     }
 
     public override string Key { get; set; } = "CraftHouseVendor";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Group House Vendors By"));
+    public override string Name { get; set; } = "房屋商人分组方式";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("How should house vendor items be grouped?"));
+        "房屋商人物品应如何分组？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override HouseVendorSetting DefaultValue { get; set; } = HouseVendorSetting.Together;

@@ -35,7 +35,7 @@ public class RemoveButtonColumn : ButtonColumn
             ImGui.Dummy(new Vector2(0,0));
             return null;
         }
-        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("X##RM")) + rowIndex + "_" + columnIndex))
+        if (ImGui.Button("X##RM" + rowIndex + "_" + columnIndex))
         {
             if (searchResult.CraftItem != null && searchResult.CraftItem.IsOutputItem)
             {
@@ -46,13 +46,13 @@ public class RemoveButtonColumn : ButtonColumn
                 configuration.RemoveCuratedItem(searchResult.CuratedItem);
             }
         }
-        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Remove this item")));
+        ImGuiUtil.HoverTooltip("移除该物品");
 
         return null;
     }
 
     public override bool HideHeaderLabel => true;
-    public override string Name { get; set; } = LocalizationService.Ui("Remove");
+    public override string Name { get; set; } = "移除";
     public override float Width { get; set; } = 60;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Adds a button for quickly removing items from your list"));
+    public override string HelpText { get; set; } = "添加用于从列表中快速移除物品的按钮";
 }

@@ -95,42 +95,42 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
 
     private void MenuOpened(IMenuOpenedArgs args)
     {
-        Logger.LogDebug(LocalizationService.Ui("MenuType: {MenuType}") ,((int)args.MenuType).ToString());
+        Logger.LogDebug("菜单类型：{MenuType}" ,((int)args.MenuType).ToString());
         uint? itemId = null;
         uint? bNpcNameId = null;
         uint? eNpcResidentId = null;
-        Logger.LogDebug(LocalizationService.Ui("AddonName:{AddonName} "), args.AddonName);
-        Logger.LogDebug(LocalizationService.Ui("AgentPtr: {AgentPtr}"), ((ulong)args.AgentPtr).ToString("X"));
+        Logger.LogDebug("Addon名称：{AddonName} ", args.AddonName);
+        Logger.LogDebug("AgentPtr: {AgentPtr}", ((ulong)args.AgentPtr).ToString("X"));
         if (args.Target is MenuTargetDefault targetDefault)
         {
             var targetObject = targetDefault.TargetObject;
             if (targetObject is INpc npc)
             {
-                Logger.LogDebug(LocalizationService.Ui("BaseId: {BaseID}"), npc.BaseId );
+                Logger.LogDebug("BaseId: {BaseID}", npc.BaseId );
                 eNpcResidentId = npc.BaseId;
             }
             else if (targetObject is IBattleNpc battleNpc)
             {
-                Logger.LogDebug(LocalizationService.Ui("BaseId: {BaseID}"), battleNpc.BaseId );
-                Logger.LogDebug(LocalizationService.Ui("NameId: {NameId}"), battleNpc.NameId );
+                Logger.LogDebug("BaseId: {BaseID}", battleNpc.BaseId );
+                Logger.LogDebug("NameId: {NameId}", battleNpc.NameId );
                 bNpcNameId = battleNpc.NameId;
             }
             else if(targetObject != null)
             {
-                Logger.LogDebug(LocalizationService.Ui("Type: {Type}"), targetObject.BaseId );
-                Logger.LogDebug(LocalizationService.Ui("Type: {Type}"), targetObject.GetType() );
+                Logger.LogDebug("类型：{Type}", targetObject.BaseId );
+                Logger.LogDebug("类型：{Type}", targetObject.GetType() );
             }
         }
         itemId = GetGameObjectItemId(args);
         itemId %= 500000;
-        Logger.LogDebug(LocalizationService.Ui("ItemId: {ItemId}"), itemId);
+        Logger.LogDebug("物品ID：{ItemId}", itemId);
 
         if (itemId != null)
         {
             if (_configuration.AddMoreInformationContextMenu)
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("More Information");
+                menuItem.Name = "更多信息";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += clickedArgs => MoreInformationClicked(clickedArgs, itemId);
                 args.AddMenuItem(menuItem);
@@ -139,7 +139,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_configuration.ItemSearchContextMenu)
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = "Search";
+                menuItem.Name = "搜索";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += clickedArgs => ItemSearchClicked(clickedArgs, itemId);
                 args.AddMenuItem(menuItem);
@@ -148,7 +148,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_copyNameSetting.CurrentValue(_configuration))
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("Copy Name to Clipboard");
+                menuItem.Name = "将名称复制到剪贴板";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += clickedArgs => CopyNameClicked(clickedArgs, itemId);
                 args.AddMenuItem(menuItem);
@@ -160,7 +160,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
                 if (activeList != null)
                 {
                     var menuItem = new MenuItem();
-                    menuItem.Name = LocalizationService.Ui("Add to Active Craft List");
+                    menuItem.Name = "添加到当前制作列表";
                     menuItem.PrefixChar = 'A';
                     menuItem.OnClicked += clickedArgs => AddToCraftList(activeList, clickedArgs, itemId);
                     args.AddMenuItem(menuItem);
@@ -170,7 +170,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_configuration.AddToCraftListContextMenu)
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("Add to Craft List");
+                menuItem.Name = "添加到制作列表";
                 menuItem.PrefixChar = 'A';
                 menuItem.IsSubmenu = true;
                 menuItem.OnClicked += clickedArgs => OpenAddCraftListSubmenu(clickedArgs, itemId);
@@ -180,7 +180,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_curatedListSetting.CurrentValue(_configuration))
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("Add to Curated List");
+                menuItem.Name = "添加到精选列表";
                 menuItem.PrefixChar = 'A';
                 menuItem.IsSubmenu = true;
                 menuItem.OnClicked += clickedArgs => OpenAddCuratedListSubmenu(clickedArgs, itemId);
@@ -190,7 +190,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_addToFavouritesSetting.CurrentValue(_configuration))
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = _configuration.IsFavouriteItem(itemId.Value) ? LocalizationService.Ui("Remove from Favourites") : LocalizationService.Ui("Add to Favourites");
+                menuItem.Name = _configuration.IsFavouriteItem(itemId.Value) ? "取消收藏" : "加入收藏";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += _ => _configuration.ToggleFavouriteItem(itemId.Value);
                 args.AddMenuItem(menuItem);
@@ -202,7 +202,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
                 if (item != null && item.CanOpenCraftingLog)
                 {
                     var menuItem = new MenuItem();
-                    menuItem.Name = LocalizationService.Ui("Open Crafting Log");
+                    menuItem.Name = "打开制作笔记";
                     menuItem.PrefixChar = 'A';
                     menuItem.OnClicked += _ => _gameInterface.OpenCraftingLog(itemId.Value);
                     args.AddMenuItem(menuItem);
@@ -215,7 +215,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
                 if (item != null && item.CanOpenGatheringLog)
                 {
                     var menuItem = new MenuItem();
-                    menuItem.Name = LocalizationService.Ui("Open Gathering Log");
+                    menuItem.Name = "打开采集笔记";
                     menuItem.PrefixChar = 'A';
                     menuItem.OnClicked += _ => _gameInterface.OpenGatheringLog(itemId.Value);
                     args.AddMenuItem(menuItem);
@@ -227,7 +227,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
                 if (item != null && item.CanOpenFishingLog)
                 {
                     var menuItem = new MenuItem();
-                    menuItem.Name = LocalizationService.Ui("Open Fishing Log");
+                    menuItem.Name = "打开钓鱼笔记";
                     menuItem.PrefixChar = 'A';
                     menuItem.OnClicked += _ => _gameInterface.OpenFishingLog(itemId.Value, item.ObtainedSpearFishing);
                     args.AddMenuItem(menuItem);
@@ -239,7 +239,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_moreInformationNpcsSetting.CurrentValue(_configuration))
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("More Information");
+                menuItem.Name = "更多信息";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += _ => MediatorService.Publish(new OpenUintWindowMessage(typeof(ENpcWindow), eNpcResidentId.Value));
                 args.AddMenuItem(menuItem);
@@ -250,7 +250,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             if (_moreInformationMonstersSetting.CurrentValue(_configuration))
             {
                 var menuItem = new MenuItem();
-                menuItem.Name = LocalizationService.Ui("More Information");
+                menuItem.Name = "更多信息";
                 menuItem.PrefixChar = 'A';
                 menuItem.OnClicked += _ => MediatorService.Publish(new OpenUintWindowMessage(typeof(BNpcWindow), bNpcNameId.Value));
                 args.AddMenuItem(menuItem);
@@ -318,13 +318,13 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
             var guiHoveredItem = _gameGui.HoveredItem;
             if (guiHoveredItem == 0 && cachedHoverItemId != null && args.AddonName == "Tryon") //Only allow TryOn otherwise everything with a context menu matches, this may expand later
             {
-                Logger.LogDebug(LocalizationService.Ui("Falling back to cached hovered item ID: {HoveredItemId}"), guiHoveredItem);
+                Logger.LogDebug("回退到缓存的悬停物品ID：{HoveredItemId}", guiHoveredItem);
                 guiHoveredItem = cachedHoverItemId.Value;
                 cachedHoverItemId = null;
             }
             else
             {
-                Logger.LogDebug(LocalizationService.Ui("Falling back to hovered item ID: {HoveredItemId}"), guiHoveredItem);
+                Logger.LogDebug("回退到悬停物品ID：{HoveredItemId}", guiHoveredItem);
             }
             if (guiHoveredItem >= 2000000 || guiHoveredItem == 0) return null;
             item = (uint)guiHoveredItem % 500_000;
@@ -420,12 +420,12 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
         }
 
         var newButton = new MenuItem();
-        newButton.Name = LocalizationService.Ui("Add to New Craft List");
+        newButton.Name = "添加到新制作列表";
         newButton.OnClicked += args => AddToNewCraftList(args, itemId);
         menuItems.Add(newButton);
 
         newButton = new MenuItem();
-        newButton.Name = LocalizationService.Ui("Add to New Ephemeral Craft List");
+        newButton.Name = "添加到新临时制作列表";
         newButton.OnClicked += args => AddToNewEphemeralCraftList(args, itemId);
         menuItems.Add(newButton);
         obj.OpenSubmenu(menuItems);
@@ -447,7 +447,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
         }
 
         var newButton = new MenuItem();
-        newButton.Name = LocalizationService.Ui("Add to New Curated List");
+        newButton.Name = "添加到新精选列表";
         newButton.OnClicked += args => AddToNewCuratedList(args, itemId);
         menuItems.Add(newButton);
 
@@ -604,7 +604,7 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Started service {type} ({this})"), GetType().Name, this);
+        Logger.LogTrace("服务{type}（{this}）已启动", GetType().Name, this);
         _gameGui.HoveredItemChanged += HoveredItemChanged;
         ContextMenu.OnMenuOpened += MenuOpened;
         return Task.CompletedTask;
@@ -620,10 +620,10 @@ public class ContextMenuService : DisposableMediatorSubscriberBase, IHostedServi
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
         ContextMenu.OnMenuOpened -= MenuOpened;
         _gameGui.HoveredItemChanged -= HoveredItemChanged;
-        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
         return Task.CompletedTask;
     }
 }

@@ -13,8 +13,8 @@ namespace InventoryTools.Logic.Filters
         public override FilterType AvailableIn { get; set; } =
             FilterType.SearchFilter | FilterType.CraftFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter | FilterType.CuratedList;
         public override string Key { get; set; } = "InvertTabHighlighting";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Invert Tab Highlighting?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Should all the items not matching the filter be highlighted instead? If set to N/A will use the 'Invert Highlighting' setting inside the general configuration."));
+        public override string Name { get; set; } = "反转标签高亮？";
+        public override string HelpText { get; set; } = "是否改为高亮不匹配筛选器的物品？设为不适用时将使用常规设置中的反转高亮选项。";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Display;
 
         public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

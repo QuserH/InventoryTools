@@ -16,8 +16,8 @@ public class DyeCountFilter : StringFilter
     }
 
     public override string Key { get; set; } = "DyeCount";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Dye Count"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How many dyes does this item have or can it support?"));
+    public override string Name { get; set; } = "染色次数";
+    public override string HelpText { get; set; } = "该物品已染色或可支持的染色次数？";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Stats;
     public override FilterType AvailableIn { get; set; }  = FilterType.SearchFilter | FilterType.SortingFilter | FilterType.GameItemFilter | FilterType.HistoryFilter;
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

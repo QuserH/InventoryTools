@@ -21,19 +21,19 @@ public class CustomButtonColumn : ButtonColumn
     {
         _commandManager = commandManager;
         _actionSetting = stringColumnFactory.Invoke("cb_action", "Command",
-            LocalizationService.Ui("The command to run. A slash will automatically be added for you. You can add the ***Name*** to output the name of the item or ***ID*** to output the name of the item in the command."),
-            "", LocalizationService.Ui("gather ***Name***"));
-        _buttonText = stringColumnFactory.Invoke("cb_label", "Label", LocalizationService.Ui("The label to give the button."),"","Button");
+            "要运行的命令。会自动为你添加斜杠。可添加 ***名称*** 输出物品名称，或 ***ID*** 在命令中输出物品 ID。",
+            "", "采集 ***名称***");
+        _buttonText = stringColumnFactory.Invoke("cb_label", "Label", "给按钮的标签。","","Button");
         Settings.Add(_buttonText);
         Settings.Add(_actionSetting);
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Custom Button"));
+    public override string Name { get; set; } = "自定义按钮";
     public override float Width { get; set; } = 50;
 
     public override bool HasFilter { get; set; } = false;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("A custom button letting you specify a custom command you wish to run with the item's name or ID "));
+        "自定义按钮，可指定要使用物品名称或 ID 运行的自定义命令";
 
     public override List<MessageBase>? Draw(FilterConfiguration configuration, ColumnConfiguration columnConfiguration, SearchResult searchResult,
         int rowIndex, int columnIndex)
@@ -47,14 +47,14 @@ public class CustomButtonColumn : ButtonColumn
                 var command = _actionSetting.CurrentValue(columnConfiguration);
                 if (command != null)
                 {
-                    if (command.Contains(LocalizationService.Ui("***ID***")))
+                    if (command.Contains("***ID***"))
                     {
-                        command = command.Replace(LocalizationService.Ui("***ID***"), searchResult.ItemId.ToString());
+                        command = command.Replace("***ID***", searchResult.ItemId.ToString());
                     }
 
-                    if (command.Contains(LocalizationService.Ui("***Name***")))
+                    if (command.Contains("***名称***"))
                     {
-                        command = command.Replace(LocalizationService.Ui("***Name***"), searchResult.Item.NameString);
+                        command = command.Replace("***名称***", searchResult.Item.NameString);
                     }
 
                     _commandManager.ProcessCommand("/" + command);

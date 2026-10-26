@@ -16,10 +16,10 @@ public class StoreColumn : CheckboxColumn
     {
         return searchResult.Item.HasSourcesByType(ItemInfoType.CashShop);
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is sold in Square Store?"));
-    public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("Is Square Store Item?"));
+    public override string Name { get; set; } = "商城出售？";
+    public override string RenderName => "商城物品？";
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item sold in the square store?"));
+    public override string HelpText { get; set; } = "该物品在商城出售？";
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
 }

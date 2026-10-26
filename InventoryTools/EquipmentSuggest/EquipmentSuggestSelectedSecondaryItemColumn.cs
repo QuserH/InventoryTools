@@ -45,7 +45,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
 
     public override string DefaultValue { get; set; } = string.Empty;
     public override string Key { get; set; } = "SecondarySelectedItem";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Off-hand"));
+    public override string Name { get; set; } = "副手";
     public string? RenderName { get; set; } = null;
     public int Width { get; set; } = 100;
     public bool HideFilter { get; set; } = true;
@@ -64,7 +64,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
             var containerSize = _viewModeSetting.GetIconContainerSize(_configuration);
             if (item.SecondarySelectedItem == null)
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No item selected")));
+                ImGui.Text("未选择物品");
             }
             else
             {
@@ -212,7 +212,7 @@ public class EquipmentSuggestSelectedSecondaryItemColumn  : StringFormField<Equi
         return "";
     }
 
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The item you've selected from the list of recommendations"));
+    public override string HelpText { get; set; } = "你从推荐列表中选中的物品";
     public override string Version { get; set; } = "1.12.0.10";
 
     public string? CurrentValue(EquipmentSuggestItem item)

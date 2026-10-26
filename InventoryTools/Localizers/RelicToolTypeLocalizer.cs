@@ -11,75 +11,75 @@ public class RelicToolTypeLocalizer : ILocalizer<RelicToolType>
         switch (relicToolType)
         {
             case RelicToolType.Unknown:
-                return LocalizationService.Ui("Unknown");
+                return "未知";
             case RelicToolType.MastercraftBase:
-                return LocalizationService.Ui("Relic Mastercraft Base");
+                return "华光工具";
             case RelicToolType.MastercraftSupra:
-                return LocalizationService.Ui("Relic Mastercraft Supra");
+                return "赐福工具";
             case RelicToolType.MastercraftLucis:
-                return LocalizationService.Ui("Relic Mastercraft Lucis");
+                return "辉煌工具";
             case RelicToolType.SkysteelBase:
-                return LocalizationService.Ui("Relic Skysteel Base");
+                return "天钢工具";
             case RelicToolType.SkysteelBase1:
-                return LocalizationService.Ui("Relic Skysteel Base + 1");
+                return "天钢工具+1";
             case RelicToolType.SkysteelDragonsung:
-                return LocalizationService.Ui("Relic Skysteel Dragonsung");
+                return "龙诗工具";
             case RelicToolType.SkysteelAugmentedDragonsung:
-                return LocalizationService.Ui("Relic Skysteel Augmented Dragonsung");
+                return "改良型龙诗工具";
             case RelicToolType.SkysteelSkysung:
-                return LocalizationService.Ui("Relic Skysteel Skysung");
+                return "天诗工具";
             case RelicToolType.SkysteelSkybuilders:
-                return LocalizationService.Ui("Relic Skysteel Skybuilders");
+                return "天工工具";
             case RelicToolType.Resplendent:
-                return LocalizationService.Ui("Relic Resplendent");
+                return "天穹工具";
             case RelicToolType.SplendorousBase:
-                return LocalizationService.Ui("Relic Splendorous Base");
+                return "卓越工具";
             case RelicToolType.SplendorousAugmented:
-                return LocalizationService.Ui("Relic Splendorous Augmented");
+                return "改良型卓越工具";
             case RelicToolType.SplendorousCrystalline:
-                return LocalizationService.Ui("Relic Splendorous Crystalline");
+                return "水晶工具";
             case RelicToolType.SplendorousChoraZoiCrystalline:
-                return LocalizationService.Ui("Relic Splendorous Chora-Zoi Crystalline");
+                return "乔菈水晶工具";
             case RelicToolType.SplendorousBrilliant:
-                return LocalizationService.Ui("Relic Splendorous Brilliant");
+                return "乔菈卓绝工具";
             case RelicToolType.SplendorousVrandticVisionary:
-                return LocalizationService.Ui("Relic Splendorous Vrandtic Visionary");
+                return "诺弗兰特远见工具";
             case RelicToolType.SplendorousLodestar:
-                return LocalizationService.Ui("Relic Splendorous Lodestar");
+                return "领航星工具";
             case RelicToolType.CosmicPrototype01:
-                return LocalizationService.Ui("Relic Cosmic Prototype01");
+                return "宇宙工具·α";
             case RelicToolType.CosmicPrototype02:
-                return LocalizationService.Ui("Relic Cosmic Prototype02");
+                return "宇宙工具·β";
             case RelicToolType.CosmicPrototype03:
-                return LocalizationService.Ui("Relic Cosmic Prototype03");
+                return "宇宙工具·γ";
             case RelicToolType.CosmicPrototype04:
-                return LocalizationService.Ui("Relic Cosmic Prototype04");
+                return "宇宙工具·δ";
             case RelicToolType.CosmicPrototype05:
-                return LocalizationService.Ui("Relic Cosmic Prototype05");
+                return "宇宙工具·ε";
             case RelicToolType.CosmicPrototype06:
-                return LocalizationService.Ui("Relic Cosmic Prototype06");
+                return "宇宙工具·ζ";
             case RelicToolType.CosmicPrototype07:
-                return LocalizationService.Ui("Relic Cosmic Prototype07");
+                return "宇宙工具·η";
             case RelicToolType.CosmicPrototype08:
-                return LocalizationService.Ui("Relic Cosmic Prototype08");
+                return "宇宙工具·θ";
             case RelicToolType.CosmicCosmic:
-                return LocalizationService.Ui("Relic Cosmic Cosmic");
+                return "宇宙工具";
             case RelicToolType.CosmicCosmic11:
-                return LocalizationService.Ui("Relic Cosmic Cosmic 1.1");
+                return "太空工具·α";
             case RelicToolType.CosmicCosmic12:
-                return LocalizationService.Ui("Relic Cosmic Cosmic 1.2");
+                return "太空工具·β";
             case RelicToolType.CosmicCosmic13:
-                return LocalizationService.Ui("Relic Cosmic Cosmic 1.3");
+                return "太空工具·γ";
             case RelicToolType.CosmicCosmic14:
-                return LocalizationService.Ui("Relic Cosmic Cosmic 1.4");
+                return "太空工具·δ";
             case RelicToolType.CosmicStellar:
-                return LocalizationService.Ui("Relic Cosmic Stellar");
+                return "超空间工具";
             case RelicToolType.CosmicStellar11:
-                return LocalizationService.Ui("Relic Cosmic Stellar 1.1");
+                return "超空间工具·α";
             case RelicToolType.CosmicStellar12:
-                return LocalizationService.Ui("Relic Cosmic Stellar 1.2");
+                return "超空间工具·β";
             case RelicToolType.CosmicHypertools:
-                return LocalizationService.Ui("Relic Cosmic Hypertools");
+                return "群星工具";
         }
 
         return LocalizationService.Ui(relicToolType.ToString());

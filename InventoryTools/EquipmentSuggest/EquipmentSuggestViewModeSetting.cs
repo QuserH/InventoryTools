@@ -17,7 +17,7 @@ public enum EquipmentSuggestViewMode
 
 public class EquipmentSuggestViewModeSetting : GenericEnumChoiceSetting<EquipmentSuggestViewMode>
 {
-    public EquipmentSuggestViewModeSetting(ILogger<EquipmentSuggestViewModeSetting> logger, ImGuiService imGuiService) : base("EquipSuggestViewMode", LocalizationService.Ui("View Mode"), LocalizationService.Ui("Should the equipment recommendation screen be compact or normal?"), EquipmentSuggestViewMode.Normal, new(){{EquipmentSuggestViewMode.Normal, LocalizationService.Ui("Normal")}, {EquipmentSuggestViewMode.Expanded, LocalizationService.Ui("Expanded")}, {EquipmentSuggestViewMode.Compact, LocalizationService.Ui("Compact")}}, SettingCategory.EquipmentRecommendation, SettingSubCategory.General, "12.0.10", logger, imGuiService)
+    public EquipmentSuggestViewModeSetting(ILogger<EquipmentSuggestViewModeSetting> logger, ImGuiService imGuiService) : base("EquipSuggestViewMode", "视图模式", "装备推荐界面应为紧凑模式还是普通模式？", EquipmentSuggestViewMode.Normal, new(){{EquipmentSuggestViewMode.Normal, "普通"}, {EquipmentSuggestViewMode.Expanded, "展开"}, {EquipmentSuggestViewMode.Compact, "紧凑"}}, SettingCategory.EquipmentRecommendation, SettingSubCategory.General, "12.0.10", logger, imGuiService)
     {
     }
 

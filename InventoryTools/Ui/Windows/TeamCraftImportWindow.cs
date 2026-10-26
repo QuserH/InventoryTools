@@ -29,7 +29,7 @@ public class TeamCraftImportWindow : GenericWindow
 
 
     public override string GenericKey { get; } = "tcimport";
-    public override string GenericName { get; } = LocalizationService.Ui("Teamcraft Import");
+    public override string GenericName { get; } = "Teamcraft 导入";
     public override bool DestroyOnClose { get; }
     public override bool SaveState { get; } = false;
     public override Vector2? DefaultSize { get; } = new Vector2(300, 300);
@@ -41,18 +41,18 @@ public class TeamCraftImportWindow : GenericWindow
 
     public override void DrawWindow()
     {
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Import to Craft List: ")));
+        ImGui.Text("导入到制作列表：");
         ImGui.SameLine();
-        ImGuiService.HelpMarker(LocalizationService.Ui("Guide to importing lists.\r\n\r\n") +
-                                LocalizationService.Ui("Step 1. Open a list on Teamcraft with the items you wish to craft.\r\n\r\n") +
-                                LocalizationService.Ui("Step 2. Find the 'Items' \"Copy as Text\" button. You only want to copy the output items.\r\n\r\n") +
-                                LocalizationService.Ui("Step 3. Paste into the text box below in this window.\r\n\r\n") +
-                                LocalizationService.Ui("Step 4. Click import."));
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Paste text here")));
-        ImGui.InputTextMultiline(LocalizationService.Ui(LocalizationService.Ui("###FinalItems")), ref _importListItems, 10000000, new Vector2(ImGui.GetContentRegionAvail().X, 100));
+        ImGuiService.HelpMarker("导入列表指南：\r\n\r\n" +
+                                "第 1 步：在 Teamcraft 上打开你要制作的物品列表。\r\n\r\n" +
+                                "第 2 步：找到“Items”的“Copy as Text”按钮，只复制输出物品。\r\n\r\n" +
+                                "第 3 步：粘贴到本窗口下方的文本框中。\r\n\r\n" +
+                                "第 4 步：点击导入。");
+        ImGui.Text("在此粘贴文本");
+        ImGui.InputTextMultiline("###FinalItems", ref _importListItems, 10000000, new Vector2(ImGui.GetContentRegionAvail().X, 100));
 
 
-        if (ImGui.Button(LocalizationService.Ui("Import")))
+        if (ImGui.Button("导入"))
         {
             var importedList = _importExportService.FromTCString(_importListItems ?? "");
             if (importedList is not null)
@@ -63,7 +63,7 @@ public class TeamCraftImportWindow : GenericWindow
 
         }
         ImGui.SameLine();
-        if (ImGui.Button(LocalizationService.Ui("Cancel")))
+        if (ImGui.Button("取消"))
         {
             Close();
         }

@@ -20,7 +20,7 @@ namespace InventoryTools.Logic.ItemRenderers;
 
 public class ItemQuestUseRenderer : ItemInfoRenderer<ItemQuestUse>
 {
-    public override string HelpText { get; } = LocalizationService.Ui(LocalizationService.Ui("Is this item required for a quest?"));
+    public override string HelpText { get; } = "该物品是任务的所需物品？";
 
     public override RendererType RendererType { get; } = RendererType.Use;
 
@@ -51,21 +51,21 @@ public class ItemQuestUseRenderer : ItemInfoRenderer<ItemQuestUse>
         var quest = asSource.Quest.Value;
 
         var questName = quest.Name.ToImGuiString();
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Name: ")) + questName);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Expansion: ")) + quest.Expansion.Value.Name.ToImGuiString());
+        ImGui.Text("名称：" + questName);
+        ImGui.Text("资料片：" + quest.Expansion.Value.Name.ToImGuiString());
         if (quest.BeastTribe.RowId != 0)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Allied Society: ")) + quest.BeastTribe.Value.Name.ToImGuiString());
+            ImGui.Text("友好部族：" + quest.BeastTribe.Value.Name.ToImGuiString());
         }
         if (quest.Festival.RowId != 0 && _festivalNames.ContainsKey(quest.Festival.RowId))
         {
             ImGui.PushTextWrapPos();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Only available from ")) + _festivalNames[quest.Festival.RowId]);
+            ImGui.Text("仅可从以下获取：" + _festivalNames[quest.Festival.RowId]);
             ImGui.PopTextWrapPos();
         }
 
-        DrawItems(LocalizationService.Ui("Required Items: "), asSource.CostItems);
-        DrawItems(LocalizationService.Ui("Rewards: "), asSource.RewardItems);
+        DrawItems("所需物品：", asSource.CostItems);
+        DrawItems("奖励：", asSource.RewardItems);
     };
 
     public override Func<ItemSource, string> GetName => source =>
@@ -96,7 +96,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
     public override RendererType RendererType { get; } = RendererType.Source;
     public override ItemInfoType Type { get; } = ItemInfoType.Quest;
     public override string SingularName { get; } = "Quest";
-    public override string HelpText { get; } = LocalizationService.Ui(LocalizationService.Ui("Does this item come from a quest?"));
+    public override string HelpText { get; } = "该物品来自任务吗？";
     public override bool ShouldGroup { get; } = true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
@@ -119,21 +119,21 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
         var quest = asSource.Quest.Value;
 
         var questName = quest.Name.ToImGuiString();
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Name: ")) + questName);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Expansion: ")) + quest.Expansion.Value.Name.ToImGuiString());
+        ImGui.Text("名称：" + questName);
+        ImGui.Text("资料片：" + quest.Expansion.Value.Name.ToImGuiString());
         if (quest.BeastTribe.RowId != 0)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Allied Society: ")) + quest.BeastTribe.Value.Name.ToImGuiString());
+            ImGui.Text("友好部族：" + quest.BeastTribe.Value.Name.ToImGuiString());
         }
         if (quest.Festival.RowId != 0 && _festivalNames.ContainsKey(quest.Festival.RowId))
         {
             ImGui.PushTextWrapPos();
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Only available from ")) + _festivalNames[quest.Festival.RowId]);
+            ImGui.Text("仅可从以下获取：" + _festivalNames[quest.Festival.RowId]);
             ImGui.PopTextWrapPos();
         }
 
-        DrawItems(LocalizationService.Ui("Required Items: "), asSource.CostItems);
-        DrawItems(LocalizationService.Ui("Rewards: "), asSource.RewardItems);
+        DrawItems("所需物品：", asSource.CostItems);
+        DrawItems("奖励：", asSource.RewardItems);
     };
 
     public override Func<ItemSource, string> GetName => source =>

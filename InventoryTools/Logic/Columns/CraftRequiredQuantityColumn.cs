@@ -40,11 +40,11 @@ namespace InventoryTools.Logic.Columns
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Required Quantity"));
-        public override string RenderName => LocalizationService.Ui("Required");
+        public override string Name { get; set; } = "需求数量";
+        public override string RenderName => "所需";
         public override float Width { get; set; } = 60;
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The total quantity of this material required by the active craft list."));
+            "当前制作清单对该材料的总需求数量。";
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

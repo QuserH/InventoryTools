@@ -73,7 +73,7 @@ namespace InventoryTools.Ui
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
+            Logger.LogTrace("正在启动服务{type}（{this}）", GetType().Name, this);
             _pluginInterfaceService.UiBuilder.Draw += Draw;
             _pluginInterfaceService.UiBuilder.OpenConfigUi += UiBuilderOnOpenConfigUi;
             _pluginInterfaceService.UiBuilder.OpenMainUi += InterfaceOnOpenMainUi;
@@ -82,11 +82,11 @@ namespace InventoryTools.Ui
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
             _pluginInterfaceService.UiBuilder.Draw -= Draw;
             _pluginInterfaceService.UiBuilder.OpenConfigUi -= UiBuilderOnOpenConfigUi;
             _pluginInterfaceService.UiBuilder.OpenMainUi -= InterfaceOnOpenMainUi;
-            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
             return Task.CompletedTask;
         }
     }

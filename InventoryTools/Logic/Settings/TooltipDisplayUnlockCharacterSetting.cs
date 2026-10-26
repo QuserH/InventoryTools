@@ -29,8 +29,8 @@ public class TooltipDisplayUnlockCharacterSetting : MultipleChoiceSetting<ulong>
     }
 
     public override string Key { get; set; } = "TooltipDisplayUnlockCharacter";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Item Unlock Status (Characters)"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When showing the unlock status on items, these characters will be displayed. Leave empty to display all characters."));
+    public override string Name { get; set; } = "添加解锁状态（角色）";
+    public override string HelpText { get; set; } = "显示物品解锁状态时，将显示这些角色。留空则显示所有角色。";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.ItemUnlockStatus;
     public override string Version { get; } = "1.11.0.4";
@@ -43,11 +43,11 @@ public class TooltipDisplayUnlockCharacterSetting : MultipleChoiceSetting<ulong>
     {
         if (items.Count == 0)
         {
-            return LocalizationService.Ui("All characters will be shown.");
+            return "将显示全部角色。";
         }
         else
         {
-            return LocalizationService.Format("{0} characters will be shown.", items.Count);
+            return string.Format("将显示 {0} 个角色。", items.Count);
         }
     }
 

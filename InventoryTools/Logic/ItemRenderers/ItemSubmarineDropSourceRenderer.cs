@@ -25,8 +25,8 @@ public class ItemSubmarineDropSourceRenderer : ItemInfoRenderer<ItemSubmarineDro
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Submarine;
-    public override string SingularName => LocalizationService.Ui("Submarine Exploration");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be earned from a submarine exploration route?"));
+    public override string SingularName => "潜水艇探索";
+    public override string HelpText => "该物品是否可通过潜水艇探索航线获得？";
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>

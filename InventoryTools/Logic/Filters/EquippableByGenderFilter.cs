@@ -31,8 +31,8 @@ namespace InventoryTools.Logic.Filters
 
 
         public override string Key { get; set; } = "EquippableByGender";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Equippable By Gender"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which genders can this equipment be equipped by?"));
+        public override string Name { get; set; } = "可装备性别";
+        public override string HelpText { get; set; } = "这件装备可被哪些性别装备？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Basic;
 
 

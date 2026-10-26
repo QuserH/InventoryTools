@@ -12,8 +12,8 @@ public class FavouritesFilter : BooleanFilter
 {
     private readonly InventoryToolsConfiguration _configuration;
     public override string Key { get; set; } = "favourites";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Favourite?"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is this item a favourite?"));
+    public override string Name { get; set; } = "是否已收藏？";
+    public override string HelpText { get; set; } = "该物品已收藏？";
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Searching;
 
     public override bool? FilterItem(FilterConfiguration configuration, InventoryItem item)

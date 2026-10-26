@@ -63,10 +63,10 @@ namespace InventoryTools.Logic.Columns
             var quantity = searchResult.InventoryItem?.Quantity ?? 1;
             return value.HasValue ? ((int)(value.Value.Item1 * quantity), (int)(value.Value.Item2 * quantity)) : null;
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Average Total Price(Qty * Price) NQ/HQ"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Avg. Total NQ/HQ"));
+        public override string Name { get; set; } = "市场布告板平均总价（数量×价格）普通/优质";
+        public override string RenderName => "市场平均总价 普通/优质";
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows the average price of both the NQ and HQ form of the item and multiplies it by the quantity available. If no world is selected, your home world is used. This data is sourced from universalis."));
+            "显示物品NQ与HQ两种形态的平均价，并乘以可用数量。未选择服务器时使用所属服务器。数据来源为 Universalis。";
         public override float Width { get; set; } = 250.0f;
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

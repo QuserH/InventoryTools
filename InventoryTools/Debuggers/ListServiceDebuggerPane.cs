@@ -22,7 +22,7 @@ public class ListServiceDebuggerPane : IDebugPane
         _mediatorService = mediatorService;
     }
 
-    public string Name => LocalizationService.Ui("List Service");
+    public string Name => "列表服务";
 
     public void Draw()
     {
@@ -34,10 +34,10 @@ public class ListServiceDebuggerPane : IDebugPane
         foreach (var list in lists)
         {
             using var id = ImRaii.PushId(list.Key);
-            ImGui.Text(LocalizationService.Format("{0}:", list.Name));
+            ImGui.Text(string.Format("{0}:", list.Name));
             ImGui.Text($"{(list.Active ? "Active" : "Not Active")}");
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui("Request Refresh")))
+            if (ImGui.Button("请求刷新"))
             {
                 _mediatorService.Publish(new RequestListUpdateMessage(list));
             }

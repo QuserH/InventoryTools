@@ -29,8 +29,8 @@ namespace InventoryTools.Logic.Columns
             MarketboardWorldSetting = marketboardWorldSetting;
         }
         public override ColumnCategory ColumnCategory => ColumnCategory.Market;
-        protected readonly string LoadingString = LocalizationService.Ui("Loading...");
-        protected readonly string UntradableString = LocalizationService.Ui("Untradable");
+        protected readonly string LoadingString = "正在加载……";
+        protected readonly string UntradableString = "不可交易";
         protected readonly int Loading = -1;
         protected readonly int Untradable = -2;
         public MarketboardWorldSetting MarketboardWorldSetting { get; }
@@ -98,30 +98,30 @@ namespace InventoryTools.Logic.Columns
                             var pricing = _marketCache.GetPricing(searchResult.Item.RowId, selectedWorldId, false);
                             if (pricing is { recentHistory: null, listings: null })
                             {
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("No data available")));
+                                ImGui.Text("暂无数据");
                             }
 
                             if (pricing is { listings: not null })
                             {
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Listings: ")));
+                                ImGui.Text("出售列表：");
                                 ImGui.Separator();
 
                                 foreach (var price in pricing.listings)
                                 {
-                                    ImGui.Text(price.quantity + LocalizationService.Ui(" available at ") + price.pricePerUnit +
-                                               (price.hq ? LocalizationService.Ui(" (HQ)") : ""));
+                                    ImGui.Text(price.quantity + " 可在 " + price.pricePerUnit +
+                                               (price.hq ? " (HQ)" : ""));
                                 }
                             }
 
                             if (pricing is { recentHistory: not null })
                             {
-                                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("History: ")));
+                                ImGui.Text("历史记录：");
                                 ImGui.Separator();
 
                                 foreach (var price in pricing.recentHistory)
                                 {
-                                    ImGui.Text(price.quantity + LocalizationService.Ui(" available at ") + price.pricePerUnit +
-                                               (price.hq ? LocalizationService.Ui(" (HQ)") : ""));
+                                    ImGui.Text(price.quantity + " 可在 " + price.pricePerUnit +
+                                               (price.hq ? " (HQ)" : ""));
                                 }
                             }
                         }
@@ -159,10 +159,10 @@ namespace InventoryTools.Logic.Columns
             return (Loading, Loading);
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Average Price NQ/HQ"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Avg. Price NQ/HQ"));
+        public override string Name { get; set; } = "市场布告板平均价 普通/优质";
+        public override string RenderName => "市场平均价 普通/优质";
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows the average price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis."));
+            "显示物品NQ与HQ两种形态的平均价。未选择服务器时使用所属服务器。数据来源为 Universalis。";
         public override float Width { get; set; } = 200.0f;
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

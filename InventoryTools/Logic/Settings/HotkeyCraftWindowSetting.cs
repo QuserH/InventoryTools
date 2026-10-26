@@ -12,10 +12,10 @@ namespace InventoryTools.Logic.Settings
         public override ModifiableHotkey DefaultValue { get; set; } = new(VirtualKey.NO_KEY);
         public static string AsKey => "HotkeyCraftWindow";
         public override string Key { get; set; } = AsKey;
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Toggle Craft Window"));
+        public override string Name { get; set; } = "切换制作窗口";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The hotkey to toggle the craft window."));
+            "切换制作窗口的快捷键。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Hotkeys;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

@@ -11,17 +11,17 @@ public class RelicWeaponCategoryLocalizer : ILocalizer<RelicWeaponCategory>
         switch (instance)
         {
             case RelicWeaponCategory.Zodiac:
-                return  LocalizationService.Ui("Zodiac Weapons");
+                return  "上古武器";
             case RelicWeaponCategory.Anima:
-                return  LocalizationService.Ui("Anima Weapons");
+                return  "元灵武器";
             case RelicWeaponCategory.Eurekan:
-                return  LocalizationService.Ui("Eurekan Weapons");
+                return  "禁地兵装";
             case RelicWeaponCategory.Resistance:
-                return  LocalizationService.Ui("Resistance Weapons");
+                return  "义军武器";
             case RelicWeaponCategory.Manderville:
-                return  LocalizationService.Ui("Manderville Weapons");
+                return  "曼德维尔武器";
             case RelicWeaponCategory.Phantom:
-                return  LocalizationService.Ui("Phantom Weapons");
+                return  "幻境武器";
         }
         return instance.ToString();
     }

@@ -28,8 +28,8 @@ public class HotkeysFeature : Feature
     }
 
     public string Version { get; } = "1.0.0.0";
-    public override string Name { get; } = LocalizationService.Ui("Hotkeys");
+    public override string Name { get; } = "快捷键";
 
     public override string Description { get; } =
-        LocalizationService.Ui("Set hotkeys for opening the various Allagan Tools windows. A hotkey to open the 'More Information' window for items is also available.");
+        "设置打开亚拉戈工具箱各窗口的快捷键。也可设置打开物品更多信息窗口的快捷键。";
 }

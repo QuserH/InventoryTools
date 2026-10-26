@@ -100,7 +100,7 @@ public class CofferLootTooltip : BaseTooltip
         if (lootItems.Count > 0)
         {
             var ownedCount = lootItems.Count(loot => (_unlockTrackerService.IsUnlocked(loot, false) == true) ||  allItemsList.Any(i => i.ItemId == loot.RowId));
-            newText += "\n" + LocalizationService.Format("Loot: {0}/{1} items owned", ownedCount, lootItems.Count);
+            newText += "\n" + string.Format("战利品：已持有 {0}/{1} 件", ownedCount, lootItems.Count);
         }
         else
         {
@@ -108,7 +108,7 @@ public class CofferLootTooltip : BaseTooltip
                 .DistinctBy(s => s.CostItem!.RowId)
                 .ToList();
 
-            newText += LocalizationService.Ui("\nAvailable in:");
+            newText += "\n可在此获得：";
             foreach (var source in uniqueCoffers)
             {
                 var cofferItem = source.CostItem!;
@@ -123,7 +123,7 @@ public class CofferLootTooltip : BaseTooltip
 
             var alreadyAcquired = allItemsList.Any(i => i.ItemId == HoverItemId);
             if (alreadyAcquired)
-                newText += "\n" + LocalizationService.Ui("Already acquired");
+                newText += "\n" + "已获得";
         }
 
         if (newText == "") return;

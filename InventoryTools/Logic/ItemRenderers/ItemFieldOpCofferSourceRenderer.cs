@@ -29,24 +29,24 @@ public abstract class ItemFieldOpCofferSourceRenderer<T> : ItemInfoRenderer<T> w
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Drops from ")) + asSource.CofferType + LocalizationService.Ui(" coffer"));
+        ImGui.Text("掉落自" + asSource.CofferType + " 宝匣");
         if (asSource.Min != null && asSource.Max != null)
         {
             ImGui.SameLine();
             if (asSource.Min == asSource.Max)
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops 1)")));
+                ImGui.Text("（掉落 1）");
             }
             else
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("(Drops ")) + asSource.Min.Value + " - " + asSource.Max.Value + ")");
+                ImGui.Text("（掉落" + asSource.Min.Value + " - " + asSource.Max.Value + ")");
             }
         }
 
         if (asSource.Probability != null)
         {
             ImGui.SameLine();
-            ImGui.TextUnformatted(LocalizationService.Format("{0}%", asSource.Probability.Value));
+            ImGui.TextUnformatted(string.Format("{0}%", asSource.Probability.Value));
         }
     };
 
@@ -57,7 +57,7 @@ public abstract class ItemFieldOpCofferSourceRenderer<T> : ItemInfoRenderer<T> w
     public override Func<ItemSource, string> GetDescription => source =>
     {
         var asSource = AsSource(source);
-        return asSource.CofferType + LocalizationService.Ui(" coffer");
+        return asSource.CofferType + " 宝匣";
     };
 }
 
@@ -70,8 +70,8 @@ public class ItemPagosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<I
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Eureka Pagos (Treasure Coffer)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a pagos treasure coffer?"));
+    public override string SingularName => "禁地优雷卡·恒冰之地（寻宝宝箱）";
+    public override string HelpText => "该物品是否从恒冰之地宝箱中掉落？";
 }
 
 public class ItemPyrosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemPyrosTreasureCofferSource>
@@ -83,8 +83,8 @@ public class ItemPyrosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<I
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Eureka Pyros (Treasure Coffer)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a pyros treasure coffer?"));
+    public override string SingularName => "禁地优雷卡·涌火之地（寻宝宝箱）";
+    public override string HelpText => "该物品是否从涌火之地宝箱中掉落？";
 }
 
 public class ItemHydatosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemHydatosTreasureCofferSource>
@@ -96,8 +96,8 @@ public class ItemHydatosTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Eureka Hydatos (Treasure Coffer)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a hydatos treasure coffer?"));
+    public override string SingularName => "禁地优雷卡·丰水之地（寻宝宝箱）";
+    public override string HelpText => "该物品是否从丰水之地宝箱中掉落？";
 }
 
 public class ItemOccultTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultTreasureCofferSource>
@@ -109,8 +109,8 @@ public class ItemOccultTreasureSourceRenderer : ItemFieldOpCofferSourceRenderer<
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Occult Crescent (Treasure Coffer)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent treasure coffer?"));
+    public override string SingularName => "秘隐新月（寻宝宝箱）";
+    public override string HelpText => "该物品是否从晦月秘宝箱中掉落？";
 }
 
 public class ItemOccultPotSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultPotSource>
@@ -122,8 +122,8 @@ public class ItemOccultPotSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemO
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Occult Crescent (Pot)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent pot?"));
+    public override string SingularName => "秘隐新月（陶罐）";
+    public override string HelpText => "该物品是否从晦月秘罐中掉落？";
 }
 
 public class ItemOccultGoldenCofferSourceRenderer : ItemFieldOpCofferSourceRenderer<ItemOccultGoldenCofferSource>
@@ -135,6 +135,6 @@ public class ItemOccultGoldenCofferSourceRenderer : ItemFieldOpCofferSourceRende
     {
     }
 
-    public override string SingularName => LocalizationService.Ui("Occult Crescent (Golden Coffer)");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item drop from a occult crescent golden coffer?"));
+    public override string SingularName => "秘隐新月（金色宝箱）";
+    public override string HelpText => "该物品是否从晦月秘黄金宝箱中掉落？";
 }

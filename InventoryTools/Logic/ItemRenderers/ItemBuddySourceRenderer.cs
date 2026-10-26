@@ -20,9 +20,9 @@ public class ItemBuddySourceRenderer : ItemInfoRenderer<ItemBuddySource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.BuddyItem;
-    public override string SingularName => LocalizationService.Ui("Used on Chocobo Companion");
+    public override string SingularName => "用于陆行鸟伙伴";
     public override bool ShouldGroup => false;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be used on your chocobo companion?"));
+    public override string HelpText => "该物品是否可用于你的陆行鸟伙伴？";
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
@@ -33,17 +33,17 @@ public class ItemBuddySourceRenderer : ItemInfoRenderer<ItemBuddySource>
 
         if (usedField)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Battle: Increases EXP earned by your chocobo companion.")));
+            ImGui.Text("战斗：增加陆行鸟伙伴获得的经验值。");
         }
 
         if (usedTraining)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Stable: Training food for a stabled Chocobo companion.")));
+            ImGui.Text("马厩：马厩中陆行鸟伙伴的训练饲料。");
         }
 
         if (usedDyeing)
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Dying: Used in Chocobo Dyeing.")));
+            ImGui.Text("染色：用于陆行鸟染色。");
         }
     };
     public override Func<ItemSource, string> GetName => source =>
@@ -70,7 +70,7 @@ public class ItemBuddySourceRenderer : ItemInfoRenderer<ItemBuddySource>
             name.Add("dyeing");
         }
 
-        return LocalizationService.Ui("chocobo ") + string.Join(", ", name);
+        return "陆行鸟 " + string.Join(", ", name);
     };
 
     public override Func<ItemSource, int> GetIcon => _ => Icons.ChocoboIcon;
@@ -98,6 +98,6 @@ public class ItemBuddySourceRenderer : ItemInfoRenderer<ItemBuddySource>
             name.Add("dyeing");
         }
 
-        return LocalizationService.Ui("Used for ") + string.Join(", ", name);
+        return "用于 " + string.Join(", ", name);
     };
 }

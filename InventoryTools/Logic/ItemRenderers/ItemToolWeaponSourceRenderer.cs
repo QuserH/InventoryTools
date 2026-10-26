@@ -35,8 +35,8 @@ public abstract class ItemRelicToolSourceRenderer<T> : ItemInfoRenderer<T> where
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = this.AsSource(source);
-        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Class: ")) + asSource.RelicTool.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
-        this.DrawForms(LocalizationService.Ui("Forms:"), asSource.Forms);
+        ImGui.TextUnformatted("职业：" + asSource.RelicTool.ClassJob.Value.Name.ToImGuiString().ToTitleCase());
+        this.DrawForms("形态：", asSource.Forms);
     };
 
     public void DrawForms(string sectionName, IReadOnlyList<RelicTool> items)
@@ -104,8 +104,8 @@ public class ItemMastercraftToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.MastercraftTool;
-    public override string SingularName => LocalizationService.Ui("Mastercraft Tool");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Mastercraft Tool?"));
+    public override string SingularName => "工匠之具";
+    public override string HelpText => "是能工巧匠工具吗？";
 }
 
 public class ItemSkysteelToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSkysteelToolSource>
@@ -115,8 +115,8 @@ public class ItemSkysteelToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSk
     }
 
     public override ItemInfoType Type => ItemInfoType.SkysteelTool;
-    public override string SingularName => LocalizationService.Ui("Skysteel Tool");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Skysteel Tool?"));
+    public override string SingularName => "天钢工具";
+    public override string HelpText => "是天钢工具吗？";
 }
 
 public class ItemResplendentToolSourceRenderer : ItemRelicToolSourceRenderer<ItemResplendentToolSource>
@@ -126,8 +126,8 @@ public class ItemResplendentToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.ResplendentTool;
-    public override string SingularName => LocalizationService.Ui("Resplendent Tool");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Resplendent Tool?"));
+    public override string SingularName => "天穹工具";
+    public override string HelpText => "是天穹工具吗？";
 }
 
 public class ItemSplendorousToolSourceRenderer : ItemRelicToolSourceRenderer<ItemSplendorousToolSource>
@@ -137,8 +137,8 @@ public class ItemSplendorousToolSourceRenderer : ItemRelicToolSourceRenderer<Ite
     }
 
     public override ItemInfoType Type => ItemInfoType.SplendorousTool;
-    public override string SingularName => LocalizationService.Ui("Splendorous Tool");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Splendorous Tool?"));
+    public override string SingularName => "莫雯工具";
+    public override string HelpText => "是莫雯工具吗？";
 }
 
 public class ItemCosmicToolSourceRenderer : ItemRelicToolSourceRenderer<ItemCosmicToolSource>
@@ -148,6 +148,6 @@ public class ItemCosmicToolSourceRenderer : ItemRelicToolSourceRenderer<ItemCosm
     }
 
     public override ItemInfoType Type => ItemInfoType.CosmicTool;
-    public override string SingularName => LocalizationService.Ui("Cosmic Tool");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is this a Cosmic Tool?"));
+    public override string SingularName => "宇宙工具";
+    public override string HelpText => "是宇宙工具吗？";
 }

@@ -31,12 +31,12 @@ namespace InventoryTools.Logic.Columns
             {
                 if (searchResult.MergedContainsMarket)
                 {
-                    return LocalizationService.Ui("On the Market");
+                    return "市场上";
                 }
 
                 if (searchResult.MergedContainsFreeCompany)
                 {
-                    return LocalizationService.Ui("Free Company Chest");
+                    return "部队储物柜";
                 }
 
                 // Merged rows drop the specific slot but keep the container name, e.g.
@@ -46,15 +46,15 @@ namespace InventoryTools.Logic.Columns
                     return _itemLocalizer.SortedContainerName(searchResult.InventoryItem);
                 }
 
-                return LocalizationService.Ui("Merged Bag");
+                return "背包";
             }
 
             return null;
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Inventory Location"));
-        public override string RenderName => LocalizationService.Ui("Location");
+        public override string Name { get; set; } = "背包位置";
+        public override string RenderName => "位置";
         public override float Width { get; set; } = 100.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows the location of the item in your inventory."));
+        public override string HelpText { get; set; } = "显示物品在你背包中的位置。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
         public override FilterType DefaultIn => Logic.FilterType.SearchFilter | Logic.FilterType.SortingFilter | Logic.FilterType.CraftFilter | Logic.FilterType.HistoryFilter;

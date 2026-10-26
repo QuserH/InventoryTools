@@ -34,10 +34,10 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.CraftRecipe;
-    public override string SingularName => LocalizationService.Ui("Craft Recipe");
+    public override string SingularName => "制作配方";
     public override bool ShouldGroup => true;
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Crafting];
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be crafted via a craft recipe?"));
+    public override string HelpText => "该物品是否可通过制作配方制作？";
     public override Func<ItemSource, List<MessageBase>?>? OnClick => source =>
     {
         var asSource = AsSource(source);
@@ -53,12 +53,12 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Craft Type: {0}"), asSource.Recipe.Base.CraftType.Value.Name));
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Yield: {0}"), asSource.Recipe.Base.AmountResult));
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Difficulty: {0}"), asSource.Recipe.Base.DifficultyFactor));
-        ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Required Craftsmanship: {0}"), asSource.Recipe.Base.RequiredCraftsmanship));
+        ImGui.Text(string.Format("制作类型：{0}", asSource.Recipe.Base.CraftType.Value.Name));
+        ImGui.Text(string.Format("产量：{0}", asSource.Recipe.Base.AmountResult));
+        ImGui.Text(string.Format("难度：{0}", asSource.Recipe.Base.DifficultyFactor));
+        ImGui.Text(string.Format("所需加工精度：{0}", asSource.Recipe.Base.RequiredCraftsmanship));
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Ingredients:")));
+        ImGui.Text("素材：");
         using (ImRaii.PushIndent())
         {
             foreach (var ingredient in asSource.Recipe.IngredientCounts)
@@ -66,7 +66,7 @@ public class ItemCraftResultSourceRenderer : ItemInfoRenderer<ItemCraftResultSou
                 var item = _itemSheet.GetRow(ingredient.Key);
                 ImGui.Image(_textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 ImGui.SameLine();
-                ImGui.Text(LocalizationService.Format("{0} x {1}", item.NameString, ingredient.Value));
+                ImGui.Text(string.Format("{0} x {1}", item.NameString, ingredient.Value));
             }
         }
     };

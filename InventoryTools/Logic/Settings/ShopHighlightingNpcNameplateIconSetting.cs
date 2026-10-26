@@ -11,8 +11,8 @@ public class ShopHighlightingNpcNameplateIconSetting : GenericBooleanSetting
     public ShopHighlightingNpcNameplateIconSetting(ILogger<ShopHighlightingNpcNameplateIconSetting> logger, ImGuiService imGuiService)
         : base(
             "ShopHighlightingNpcNameplateIcon",
-            LocalizationService.Ui("Shop Highlighting - Nameplate Icon"),
-            LocalizationService.Ui("When highlighting shop items, show a small vendor icon on the nameplate of related NPCs in the world."),
+            "商店高亮 - 名牌图标",
+            "商店物品高亮时，在世界中相关 NPC 的名牌上显示小商人图标。",
             true,
             SettingCategory.Highlighting,
             SettingSubCategory.ShopHighlighting,

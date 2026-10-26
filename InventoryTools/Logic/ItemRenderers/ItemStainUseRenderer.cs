@@ -20,15 +20,15 @@ public class ItemStainUseRenderer : ItemInfoRenderer<ItemStainSource>
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.Stain;
-    public override string SingularName => LocalizationService.Ui("Dye");
-    public override string PluralName => LocalizationService.Ui("Dyeing");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be used to dye an item?"));
+    public override string SingularName => "染剂";
+    public override string PluralName => "染色";
+    public override string HelpText => "该物品是否可用于染色？";
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var stainSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Colour: ")) + stainSource.Stain.Value.Name.ExtractText());
+        ImGui.Text("颜色：" + stainSource.Stain.Value.Name.ExtractText());
         var color = Utils.Convert3ChannelUintToColorVector4(stainSource.Stain.Value.Color);
         if (ImGui.ColorButton("ColorPreview", color, ImGuiColorEditFlags.None, new (64,64)))
         {

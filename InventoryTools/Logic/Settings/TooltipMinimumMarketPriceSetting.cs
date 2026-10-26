@@ -20,12 +20,12 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "TooltipDisplayMBMinimum";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Add Market Minimum NQ/HQ Price?"));
+        public override string Name { get; set; } = "添加市场最低价 普通/优质？";
 
-        public override string WizardName { get; } = LocalizationService.Ui("Market Price");
+        public override string WizardName { get; } = "市场价格";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("When hovering an item, should the tooltip contain the minimum market price for both NQ and HQ. Please make sure 'Automatically download prices' is enabled."));
+            "鼠标悬停物品时，悬浮提示是否包含NQ和HQ的市场最低价。请确保已启用自动下载价格。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.MarketPricing;

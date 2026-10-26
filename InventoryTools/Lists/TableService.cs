@@ -50,7 +50,7 @@ public class TableService : DisposableMediatorBackgroundService
         _listService.ListRefreshed += ListRefreshed;
         _itemListTables = new ConcurrentDictionary<string, FilterTable>();
         _craftItemTables = new ConcurrentDictionary<string, CraftItemTable>();
-        TableQueue = taskQueueFactory.Invoke(LocalizationService.Ui("Table Queue"), 3);
+        TableQueue = taskQueueFactory.Invoke("表格队列", 3);
         _framework.Update += OnUpdate;
         MediatorService.Subscribe<RequestTableUpdateMessage>(this, message => this.InvalidateTables(message.FilterConfiguration));
     }
@@ -126,7 +126,7 @@ public class TableService : DisposableMediatorBackgroundService
 
         if (filterConfiguration.SearchResults != null && filterConfiguration.CraftList.BeenGenerated && filterConfiguration.CraftList.BeenUpdated)
         {
-            Logger.LogTrace(LocalizationService.Ui("CraftTable: Refreshing"));
+            Logger.LogTrace("制作表格：正在刷新");
             craftItemTable.CraftItems = filterConfiguration.CraftList.GetFlattenedMergedMaterials().Select(c => new SearchResult(c)).ToList();
             filterConfiguration.CraftList.ClearGroupCache();
             var outputList = filterConfiguration.CraftList.GetOutputList();
@@ -437,19 +437,19 @@ public class TableService : DisposableMediatorBackgroundService
             catch (Exception ex)
             {
                 Logger.LogError(ex,
-                    LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
+                    "执行{WorkItem}时出错。", nameof(workItem));
             }
         }
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
         await base.StopAsync(cancellationToken);
         _framework.Update -= OnUpdate;
         _listService.ListConfigurationChanged -= ListConfigurationChanged;
         _listService.ListTableConfigurationChanged -= ListTableConfigurationChanged;
         _listService.ListRefreshed -= ListRefreshed;
-        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
     }
 }

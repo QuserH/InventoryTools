@@ -19,7 +19,7 @@ namespace InventoryTools.Logic.ItemRenderers;
 public class ItemFccShopUseRenderer : ItemFccShopSourceRenderer
 {
     private readonly ItemSheet _itemSheet;
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be spent at a free company shop?"));
+    public override string HelpText => "该物品是否可在部队商店使用？";
     public ItemFccShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet, ITextureProvider textureProvider,
         IDalamudPluginInterface dalamudPluginInterface) : base(mapSheet, itemSheet, textureProvider, dalamudPluginInterface)
     {
@@ -34,7 +34,7 @@ public class ItemFccShopUseRenderer : ItemFccShopSourceRenderer
             ? new List<string>()
             : shopSource.MapIds.Select(c => MapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Items that can be purchased:")));
+        ImGui.Text("可购买物品：");
 
         using (ImRaii.PushIndent())
         {
@@ -64,9 +64,9 @@ public class ItemFccShopSourceRenderer : ItemInfoRenderer<ItemFccShopSource>
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.FCShop;
-    public override string SingularName => LocalizationService.Ui("Free Company Shop");
-    public override string PluralName => LocalizationService.Ui("Free Company Shops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be purchased from a free company shop?"));
+    public override string SingularName => "部队商店";
+    public override string PluralName => "部队商店";
+    public override string HelpText => "该物品是否可在部队商店购买？";
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 1;
@@ -78,7 +78,7 @@ public class ItemFccShopSourceRenderer : ItemInfoRenderer<ItemFccShopSource>
 
         using (ImRaii.PushIndent())
         {
-            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Cost: Company Credit x {0}"), asSources.First().FccShopListing.Cost.Count));
+            ImGui.Text(string.Format("花费：部队徽章 × {0}", asSources.First().FccShopListing.Cost.Count));
         }
 
         DrawMaps(sources);
@@ -90,7 +90,7 @@ public class ItemFccShopSourceRenderer : ItemInfoRenderer<ItemFccShopSource>
 
         using (ImRaii.PushIndent())
         {
-            ImGui.Text(LocalizationService.Format(LocalizationService.Ui("Cost: Company Credit x {0}"), asSource.FccShopListing.Cost.Count));
+            ImGui.Text(string.Format("花费：部队徽章 × {0}", asSource.FccShopListing.Cost.Count));
         }
 
         DrawMaps(source);

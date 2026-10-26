@@ -19,10 +19,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "InvertHighlighting";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Invert Highlighting?"));
+        public override string Name { get; set; } = "反转高亮？";
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Should all the items not matching a list be highlighted instead? This can be overridden in the list configuration."));
+            "是否改为高亮不匹配列表的全部物品？可在列表配置中覆盖。";
 
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.Highlighting;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;

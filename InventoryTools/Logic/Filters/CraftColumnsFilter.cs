@@ -57,9 +57,9 @@ namespace InventoryTools.Logic.Filters
             UpdateFilterConfiguration(configuration, new Dictionary<ColumnConfiguration, (string, string?)>());
         }
 
-        public override string Key { get; set; } = LocalizationService.Ui("Craft Columns");
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Columns"));
-        public override string HelpText { get; set; } = LocalizationService.Ui("");
+        public override string Key { get; set; } = "制作列";
+        public override string Name { get; set; } = "制作列";
+        public override string HelpText { get; set; } = "";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.CraftColumns;
         public override bool ShowReset { get; set; } = false;
         public override Dictionary<ColumnConfiguration, (string, string?)> DefaultValue { get; set; } = new();
@@ -130,7 +130,7 @@ namespace InventoryTools.Logic.Filters
         {
             base.DrawButtons(configuration, item, index);
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Edit##Column")) + index))
+            if (ImGui.Button("编辑##Column" + index))
             {
                 EditItem(configuration, item.Key);
             }
@@ -160,10 +160,10 @@ namespace InventoryTools.Logic.Filters
                     var groupedItems = GetGroupedItems(configuration);
                     if (_selectedColumnKey == "")
                     {
-                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Add Column")));
+                        ImGui.Text("添加列");
                         ImGui.Separator();
                         var searchString = SearchString;
-                        ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("##ItemSearch")), ref searchString, 50);
+                        ImGui.InputText("##ItemSearch", ref searchString, 50);
                         if (_searchString != searchString)
                         {
                             SearchString = searchString;
@@ -172,7 +172,7 @@ namespace InventoryTools.Logic.Filters
                         ImGui.Separator();
                         if (_searchString == "")
                         {
-                            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Start typing to search...")));
+                            ImGui.TextUnformatted("输入文字进行搜索……");
                         }
 
                         ImGui.Separator();
@@ -228,14 +228,14 @@ namespace InventoryTools.Logic.Filters
                                     {
                                         ImGui.SameLine();
                                         ImGui.Image(ImGuiService.GetIconTexture(Icons.SproutIcon).Handle, new Vector2(16,16));
-                                        ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Default Column")));
+                                        ImGuiUtil.HoverTooltip("默认列");
                                     }
 
                                     if (column.Value.IsConfigurable)
                                     {
                                         ImGui.SameLine();
                                         ImGui.Image(ImGuiService.GetIconTexture(Icons.WrenchIcon).Handle, new Vector2(16,16));
-                                        ImGuiUtil.HoverTooltip(LocalizationService.Ui("Configurable"));
+                                        ImGuiUtil.HoverTooltip("可配置");
                                     }
 
                                     pushColor?.Pop();
@@ -246,7 +246,7 @@ namespace InventoryTools.Logic.Filters
                                         ImGui.PushTextWrapPos();
                                         ImGui.Text(column.Value.HelpText);
                                         ImGui.PopTextWrapPos();
-                                        if (ImGui.Button(LocalizationService.Ui("Add")))
+                                        if (ImGui.Button("添加"))
                                         {
                                             _selectedColumnName = column.Value.Name;
                                             _selectedColumnHelp = column.Value.HelpText;
@@ -272,10 +272,10 @@ namespace InventoryTools.Logic.Filters
                         ImGui.PopTextWrapPos();
                         ImGui.Separator();
                         ImGui.SetNextItemWidth(LabelSize);
-                        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Custom", LocalizationService.Ui("Custom Column Name: "));
+                        ImGui.LabelText("##" + Key + "Custom", "自定义列名：");
                         ImGui.SetNextItemWidth(InputSize);
                         ImGui.SameLine();
-                        if (ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##CustomColumnName")), _selectedColumnName, ref customName, 100,
+                        if (ImGui.InputTextWithHint("##CustomColumnName", _selectedColumnName, ref customName, 100,
                                 ImGuiInputTextFlags.None))
                         {
                             _customName = customName;
@@ -283,10 +283,10 @@ namespace InventoryTools.Logic.Filters
 
                         string exportName = _exportName;
                         ImGui.SetNextItemWidth(LabelSize);
-                        ImGui.LabelText(LocalizationService.Ui("##") + Key + "Export", LocalizationService.Ui("Custom Export Name: "));
+                        ImGui.LabelText("##" + Key + "导出", "自定义导出名称：");
                         ImGui.SetNextItemWidth(InputSize);
                         ImGui.SameLine();
-                        if (ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##CustomExportName")), _selectedColumnName, ref exportName, 100,
+                        if (ImGui.InputTextWithHint("##CustomExportName", _selectedColumnName, ref exportName, 100,
                                 ImGuiInputTextFlags.None))
                         {
                             _exportName = exportName;
@@ -304,7 +304,7 @@ namespace InventoryTools.Logic.Filters
                         ImGui.NewLine();
                         ImGui.SetCursorPosX(posX - ImGui.GetStyle().ItemSpacing.X - 40);
                         posX = ImGui.GetCursorPosX();
-                        if (ImGui.Button(_editMode ? "Save" : "Add", new Vector2(40, 20)))
+                        if (ImGui.Button(_editMode ? "保存" : "添加", new Vector2(40, 20)))
                         {
                             if (_editMode)
                             {
@@ -336,7 +336,7 @@ namespace InventoryTools.Logic.Filters
                         }
                         ImGui.SameLine();
                         ImGui.SetCursorPosX(posX - ImGui.GetStyle().ItemSpacing.X - 50);
-                        if (ImGui.Button(LocalizationService.Ui("Cancel"), new Vector2(50, 20)))
+                        if (ImGui.Button("取消", new Vector2(50, 20)))
                         {
                             _selectedColumnName = "";
                             _selectedColumnKey = "";
@@ -356,7 +356,7 @@ namespace InventoryTools.Logic.Filters
             {
                 if (table.Success)
                 {
-                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Current Columns:")));
+                    ImGui.Text("当前列：");
                     ImGui.Separator();
                     DrawTable(configuration);
                 }

@@ -43,16 +43,16 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw(LocalizationService.Ui("##glamourReadySetScope"), currentScopes))
+        if (_scopePicker.Draw("##glamourReadySetScope", currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -62,7 +62,7 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 Reset(configuration);
             }
@@ -75,8 +75,8 @@ public class TooltipGlamourReadySetScopeSetting : Setting<List<InventorySearchSc
     }
 
     public override string Key { get; set; } = "TooltipGlamourReadySetScope";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Outfit Glamour (Search Locations)"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Which inventories should be searched when determining which outfit glamour set items you already own?"));
+    public override string Name { get; set; } = "套装幻化（搜索位置）";
+    public override string HelpText { get; set; } = "确定你已拥有的幻化套装物品时，应搜索哪些背包？";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ToolTips;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.GlamourReadySet;

@@ -10,7 +10,7 @@ namespace InventoryTools.Logic.Settings;
 
 public class CraftOverlayWindowStateSetting : GenericEnumChoiceSetting<CraftOverlayWindowState>
 {
-    public CraftOverlayWindowStateSetting(ILogger<CraftOverlayWindowStateSetting> logger, ImGuiService imGuiService) : base("CraftOverlayWindowState", LocalizationService.Ui("Window State"), LocalizationService.Ui("The current state of the craft overlay window."), CraftOverlayWindowState.Single, new Dictionary<CraftOverlayWindowState, string>()
+    public CraftOverlayWindowStateSetting(ILogger<CraftOverlayWindowStateSetting> logger, ImGuiService imGuiService) : base("CraftOverlayWindowState", "窗口状态", "制作悬浮窗的当前状态。", CraftOverlayWindowState.Single, new Dictionary<CraftOverlayWindowState, string>()
     {
         { CraftOverlayWindowState.Collapsed, "Collapsed"},
         { CraftOverlayWindowState.Single, "Single"},

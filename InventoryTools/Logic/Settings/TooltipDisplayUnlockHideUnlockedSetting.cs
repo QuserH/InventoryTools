@@ -8,7 +8,7 @@ namespace InventoryTools.Logic.Settings;
 
 public class TooltipDisplayUnlockHideUnlockedSetting : GenericBooleanSetting
 {
-    public TooltipDisplayUnlockHideUnlockedSetting(ILogger<TooltipDisplayUnlockHideUnlockedSetting> logger, ImGuiService imGuiService) : base("TooltipDisplayUnlockHideUnlocked", LocalizationService.Ui("Add Item Unlock Status (Hide Unlocked Characters)"), LocalizationService.Ui("Should characters that already have this unlocked be hidden? If in grouped mode, this will hide the acquired group."), false, SettingCategory.ToolTips, SettingSubCategory.ItemUnlockStatus, "1.11.1.1", logger, imGuiService)
+    public TooltipDisplayUnlockHideUnlockedSetting(ILogger<TooltipDisplayUnlockHideUnlockedSetting> logger, ImGuiService imGuiService) : base("TooltipDisplayUnlockHideUnlocked", "添加物品解锁状态（隐藏已解锁角色）", "已解锁的角色是否应隐藏？分组模式下将隐藏已获得组。", false, SettingCategory.ToolTips, SettingSubCategory.ItemUnlockStatus, "1.11.1.1", logger, imGuiService)
     {
     }
 }

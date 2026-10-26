@@ -16,9 +16,9 @@ public class GatherButtonColumn : ButtonColumn
     {
         _gameInterface = gameInterface;
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Gathering Log Button"));
+    public override string Name { get; set; } = "采集笔记按钮";
     public override float Width { get; set; } = 80;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Shows a button that opens the item's gathering/fishing log entry if applicable."));
+    public override string HelpText { get; set; } = "显示打开该物品采集/钓鱼笔记条目的按钮（如适用）。";
 
     public override List<MessageBase>? Draw(FilterConfiguration configuration, ColumnConfiguration columnConfiguration,
         SearchResult searchResult, int rowIndex, int columnIndex)
@@ -26,7 +26,7 @@ public class GatherButtonColumn : ButtonColumn
         ImGui.TableNextColumn();
         if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled)) return null;
 
-        if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Log##")) + rowIndex + "_" + columnIndex))
+        if (ImGui.Button("日志##" + rowIndex + "_" + columnIndex))
         {
             if (searchResult.Item.ObtainedFishing)
             {

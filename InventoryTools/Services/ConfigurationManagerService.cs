@@ -40,7 +40,7 @@ namespace InventoryTools.Services
         {
             Logger = logger;
             _pluginInterfaceService = pluginInterfaceService;
-            _saveQueue = taskQueueFactory.Invoke(LocalizationService.Ui("Configuration Save Queue"));
+            _saveQueue = taskQueueFactory.Invoke("配置保存队列");
             _minifyResolver = minifyResolver;
             _containerAwareCsvLoader = containerAwareCsvLoader;
             _framework = framework;
@@ -114,7 +114,7 @@ namespace InventoryTools.Services
         /// <param name="file">An alternate file to load</param>
         public void Load(string? file = null)
         {
-            Logger.LogTrace(LocalizationService.Ui("Loading configuration"));
+            Logger.LogTrace("正在加载配置");
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
             if (!File.Exists(file ?? ConfigurationFile))
@@ -145,7 +145,7 @@ namespace InventoryTools.Services
                 return;
             }
             loadConfigStopwatch.Stop();
-            Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to load main configuration file."));
+            Logger.LogTrace("用时 " + loadConfigStopwatch.Elapsed.TotalSeconds + " 以加载主配置文件。");
             Config = inventoryToolsConfiguration;
             Config.MarkReloaded();
             _configurationLoaded = true;
@@ -153,7 +153,7 @@ namespace InventoryTools.Services
 
         public List<InventoryItem> LoadInventory(string? file = null)
         {
-            Logger.LogTrace(LocalizationService.Ui("Loading inventory"));
+            Logger.LogTrace("正在加载背包");
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
 
@@ -177,7 +177,7 @@ namespace InventoryTools.Services
                         });
                     if (inventoryToolsConfiguration != null)
                     {
-                        Logger.LogTrace(LocalizationService.Ui("Migrating inventories"));
+                        Logger.LogTrace("正在迁移背包");
                         var temp = JObject.Parse(jsonText);
                         if (temp.ContainsKey("SavedInventories"))
                         {
@@ -206,7 +206,7 @@ namespace InventoryTools.Services
             }
             else if (!Config.InventoriesMigratedToCsv)
             {
-                Logger.LogTrace(LocalizationService.Ui("Marked inventories to now load from CSV"));
+                Logger.LogTrace("已将背包标记为从 CSV 加载");
                 if (File.Exists(InventoryFile))
                 {
                     var parsedInventories = LoadInventoriesJson(InventoryFile) ?? new();
@@ -229,7 +229,7 @@ namespace InventoryTools.Services
                 inventories = LoadInventoriesFromCsv(out bool success);
             }
             loadConfigStopwatch.Stop();
-            Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to load inventories."));
+            Logger.LogTrace("用时 " + loadConfigStopwatch.Elapsed.TotalSeconds + " 以加载背包。");
             loadConfigStopwatch.Restart();
             return inventories;
         }
@@ -238,7 +238,7 @@ namespace InventoryTools.Services
         {
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
-            Logger.LogTrace(LocalizationService.Ui("Saving allagan tools configuration"));
+            Logger.LogTrace("正在保存亚拉戈工具箱配置");
             try
             {
                 File.WriteAllText(ConfigurationFile, JsonConvert.SerializeObject(Config, Formatting.None, new JsonSerializerSettings()
@@ -250,7 +250,7 @@ namespace InventoryTools.Services
                     ContractResolver = _minifyResolver
                 }));
                 loadConfigStopwatch.Stop();
-                Logger.LogTrace(LocalizationService.Ui("Took ") + loadConfigStopwatch.Elapsed.TotalSeconds + LocalizationService.Ui(" to save configuration."));
+                Logger.LogTrace("用时 " + loadConfigStopwatch.Elapsed.TotalSeconds + " 以保存配置。");
             }
             catch (Exception e)
             {
@@ -274,7 +274,7 @@ namespace InventoryTools.Services
             try
             {
                 fileName ??= InventoryFile;
-                Logger.LogTrace(LocalizationService.Ui("Loading inventories from ") + fileName);
+                Logger.LogTrace("正在从以下位置加载背包：" + fileName);
                 var cacheFile = new FileInfo(fileName);
                 string json = File.ReadAllText(cacheFile.FullName, Encoding.UTF8);
                 return JsonConvert.DeserializeObject<Dictionary<ulong, Dictionary<InventoryCategory, List<InventoryItem>>>>(json, new JsonSerializerSettings()
@@ -285,7 +285,7 @@ namespace InventoryTools.Services
             }
             catch (Exception e)
             {
-                Logger.LogError(LocalizationService.Ui("Error while parsing saved saved inventory data, ") + e.Message);
+                Logger.LogError("解析已保存的背包数据时出错，" + e.Message);
                 return null;
             }
         }
@@ -299,7 +299,7 @@ namespace InventoryTools.Services
         public void SaveInventoriesToJson(
             Dictionary<ulong, Dictionary<InventoryCategory, List<InventoryItem>>> savedInventories)
         {
-            Logger.LogTrace(LocalizationService.Ui("Saving inventory data"));
+            Logger.LogTrace("正在保存背包数据");
             Stopwatch loadConfigStopwatch = new Stopwatch();
             loadConfigStopwatch.Start();
             try
@@ -347,14 +347,14 @@ namespace InventoryTools.Services
                 catch (Exception e)
                 {
                     success = false;
-                    Logger.LogError(LocalizationService.Ui("Failed to load inventories from CSV"));
+                    Logger.LogError("从 CSV 加载背包失败");
                     Logger.LogError(e.Message);
                 }
             }
             else
             {
                 success = true;
-                Logger.LogTrace(LocalizationService.Ui("Not loading inventories, file does not exist."));
+                Logger.LogTrace("未加载背包，文件不存在。");
             }
 
 
@@ -375,13 +375,13 @@ namespace InventoryTools.Services
                 catch (Exception e)
                 {
                     success = false;
-                    Logger.LogError(e, LocalizationService.Ui("Failed to load history from CSV"));
+                    Logger.LogError(e, "从 CSV 加载历史记录失败");
                 }
             }
             else
             {
                 success = true;
-                Logger.LogTrace(LocalizationService.Ui("Not loading history, file does not exist."));
+                Logger.LogTrace("未加载历史记录，文件不存在。");
             }
 
 
@@ -413,17 +413,17 @@ namespace InventoryTools.Services
                 catch (Exception ex)
                 {
                     Logger.LogError(ex,
-                        LocalizationService.Ui("Error occurred executing {WorkItem}."), nameof(workItem));
+                        "执行{WorkItem}时出错。", nameof(workItem));
                 }
             }
         }
 
         public override async Task StopAsync(CancellationToken stoppingToken)
         {
-            Logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
             Save();
             await base.StopAsync(stoppingToken);
-            Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+            Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
         }
 
         private bool disposed = false;

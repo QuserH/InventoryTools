@@ -20,10 +20,10 @@ public class CraftOverlayHideSetting : GenericEnumChoiceSetting<CraftOverlayHide
     private readonly IClientState _clientState;
     private readonly ICondition _condition;
 
-    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", LocalizationService.Ui("Hide during duties?"), LocalizationService.Ui("Should the craft overlay be hidden during duties/cutscenes/chocobo racing/etc?"), CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
+    public CraftOverlayHideSetting(ILogger<CraftOverlayHideSetting> logger, ImGuiService imGuiService, IClientState clientState, ICondition condition) : base("CraftOverlayHide", "副本期间隐藏？", "制作悬浮窗是否应在副本/过场动画/陆行鸟竞速等期间隐藏？", CraftOverlayHide.HideDuringDuties, new Dictionary<CraftOverlayHide, string>()
     {
-        { CraftOverlayHide.AlwaysShow, LocalizationService.Ui("Always show") },
-        { CraftOverlayHide.HideDuringDuties, LocalizationService.Ui("Hide during duties") },
+        { CraftOverlayHide.AlwaysShow, "始终显示" },
+        { CraftOverlayHide.HideDuringDuties, "副本期间隐藏" },
     }, SettingCategory.CraftOverlay, SettingSubCategory.General, "1.11.0.9", logger, imGuiService)
     {
         _clientState = clientState;

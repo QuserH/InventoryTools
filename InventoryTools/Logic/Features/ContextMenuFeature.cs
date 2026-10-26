@@ -25,8 +25,8 @@ public class ContextMenuFeature : Feature
     {
     }
 
-    public override string Name { get; } = LocalizationService.Ui(LocalizationService.Ui("Context Menus"));
+    public override string Name { get; } = "快捷菜单";
 
     public override string Description { get; } =
-        LocalizationService.Ui("Adds new items to the right click/context menu for items in the game. ");
+        "为游戏内物品的右键/快捷菜单添加新条目。";
 }

@@ -17,9 +17,9 @@ public class OutdatedGearColumn : CheckboxColumn
         _gameInteropService = gameInteropService;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Outdated Gear?"));
+    public override string Name { get; set; } = "过时装备？";
     public override float Width { get; set; } = 50;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Will show any gear considered to be outdated. This will compare the item level of each item with the level of your classes. It will use the lowest level you have applicable to the weapon to determine if it's outdated. Any classes you do not have are not taken into consideration."));
+    public override string HelpText { get; set; } = "显示所有被认为过时的装备。将每个物品的品级与你各职业的等级进行比较，使用你拥有的武器相应职业中的最低等级来判断是否过时。未拥有的职业不计入考量。";
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Tools;
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;

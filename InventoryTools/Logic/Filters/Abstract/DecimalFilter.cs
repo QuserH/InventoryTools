@@ -27,12 +27,12 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration))
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
                 ImGui.PopStyleColor();
             }
             else
             {
-                ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", GetName(configuration) + ":");
+                ImGui.LabelText("##" + Key + "标签", GetName(configuration) + ":");
             }
             ImGui.Indent();
             using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
@@ -42,7 +42,7 @@ namespace InventoryTools.Logic.Filters.Abstract
                 ImGui.PopTextWrapPos();
             }
             ImGui.SetNextItemWidth(InputSize);
-            if (ImGui.InputText(LocalizationService.Ui("##")+Key+"Input", ref value, 100, ImGuiInputTextFlags.CharsDecimal))
+            if (ImGui.InputText("##"+Key+"Input", ref value, 100, ImGuiInputTextFlags.CharsDecimal))
             {
                 int parsedNumber;
                 if(int.TryParse(value, out parsedNumber))
@@ -57,7 +57,7 @@ namespace InventoryTools.Logic.Filters.Abstract
             if (HasValueSet(configuration) && ShowReset)
             {
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+                if (ImGui.Button("重置##" + Key + "重置"))
                 {
                     ResetFilter(configuration);
                 }

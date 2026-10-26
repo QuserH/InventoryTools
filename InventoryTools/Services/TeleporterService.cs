@@ -155,7 +155,7 @@ public class TeleporterService : DisposableMediatorSubscriberBase, IHostedServic
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
+        Logger.LogTrace("正在启动服务{type}（{this}）", GetType().Name, this);
         MediatorService.Subscribe<RequestTeleportMessage>(this, TeleportRequested);
         MediatorService.Subscribe<RequestTeleportToTerritoryMessage>(this, TeleportRequested);
         MediatorService.Subscribe<RequestTeleportToMapMessage>(this, TeleportRequested);
@@ -212,7 +212,7 @@ public class TeleporterService : DisposableMediatorSubscriberBase, IHostedServic
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+        Logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
         return Task.CompletedTask;
     }
 }

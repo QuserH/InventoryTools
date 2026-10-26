@@ -62,12 +62,12 @@ public class SourceIconGroupingSetting : Setting<Dictionary<Type, bool>?>
                 if (disableColouring != true && hasValueSet)
                 {
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-                    ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), sourceRenderer.Value.SingularName);
+                    ImGui.LabelText("##Label", sourceRenderer.Value.SingularName);
                     ImGui.PopStyleColor();
                 }
                 else
                 {
-                    ImGui.LabelText(LocalizationService.Ui(LocalizationService.Ui("##Label")), sourceRenderer.Value.SingularName);
+                    ImGui.LabelText("##Label", sourceRenderer.Value.SingularName);
                 }
 
 
@@ -115,7 +115,7 @@ public class SourceIconGroupingSetting : Setting<Dictionary<Type, bool>?>
                 if (disableReset != true && hasValueSet)
                 {
                     ImGui.SameLine();
-                    if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##Reset"))))
+                    if (ImGui.Button("重置##Reset"))
                     {
                         currentSettings.Remove(sourceRenderer.Key);
                         UpdateFilterConfiguration(configuration, currentSettings);
@@ -132,8 +132,8 @@ public class SourceIconGroupingSetting : Setting<Dictionary<Type, bool>?>
     }
 
     public override string Key { get; set; } = "SourceIconGrouping";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Source Acquisition Icon Grouping"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When source acquisition icons are displayed, how should they be grouped?"));
+    public override string Name { get; set; } = "来源图标分组";
+    public override string HelpText { get; set; } = "显示来源图标时如何分组？";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.Items;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.SourceGrouping;
     public override string Version { get; } = "1.11.0.10";

@@ -36,16 +36,16 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", Name);
+            ImGui.LabelText("##" + Key + "标签", Name);
         }
 
         ImGui.SetNextItemWidth(InputSize - 26);
-        if (_scopePicker.Draw(LocalizationService.Ui("##tooltipScope"), currentScopes))
+        if (_scopePicker.Draw("##tooltipScope", currentScopes))
         {
             UpdateFilterConfiguration(configuration, currentScopes);
         }
@@ -55,7 +55,7 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 Reset(configuration);
             }
@@ -68,10 +68,10 @@ public class ContextMenuItemSearchScopeSetting : Setting<List<InventorySearchSco
     }
 
     public override string Key { get; set; } = "ItemSearchScope";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Context Menu - Search Scope"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When searching for an item across the inventories AT knows about, which inventories should be searched?"));
+    public override string Name { get; set; } = "快捷菜单 - 搜索范围";
+    public override string HelpText { get; set; } = "在亚拉戈工具箱已知的背包中搜索物品时，应搜索哪些背包？";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Search Scope");
+    public override string WizardName { get; } = "搜索范围";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.ContextMenu;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.General;
     public override string Version => "1.7.0.13";

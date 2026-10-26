@@ -32,7 +32,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
     private readonly List<(SourceType, ItemInfoType)> _useTypes;
     private Dictionary<uint, string> _tabs;
 
-    public SourceWindow(ILogger<SourceWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ItemInfoRenderService itemInfoRenderService, ItemInfoCache infoCache) : base(logger, mediator, imGuiService, configuration, LocalizationService.Ui(LocalizationService.Ui("Sources Window")))
+    public SourceWindow(ILogger<SourceWindow> logger, MediatorService mediator, ImGuiService imGuiService, InventoryToolsConfiguration configuration, ItemInfoRenderService itemInfoRenderService, ItemInfoCache infoCache) : base(logger, mediator, imGuiService, configuration, "来源窗口")
     {
         _itemInfoRenderService = itemInfoRenderService;
         _infoCache = infoCache;
@@ -61,7 +61,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
 
     public override FilterConfiguration? SelectedConfiguration => null;
     public override string GenericKey => "sources";
-    public override string GenericName => LocalizationService.Ui("Sources");
+    public override string GenericName => "来源";
     public override bool DestroyOnClose => true;
     public override bool SaveState => false;
     public override Vector2? DefaultSize => new Vector2(500, 500);
@@ -70,7 +70,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
     public override void Initialize()
     {
         Key = "submarines";
-        WindowName = LocalizationService.Ui("Submarines");
+        WindowName = "潜水艇";
         _columns = new List<TableColumn<(SourceType, ItemInfoType)>>()
         {
             new("Name", 200, ImGuiTableColumnFlags.WidthFixed)
@@ -97,7 +97,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
                     ImGui.TextUnformatted((ex.Item1 == SourceType.Source ? _itemInfoRenderService.GetSourceTypeName(ex.Item2) : _itemInfoRenderService.GetUseTypeName(ex.Item2)).Singular);
                 }
             },
-            new(LocalizationService.Ui("Help Text"), 200, ImGuiTableColumnFlags.WidthFixed)
+            new("帮助文本", 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -121,7 +121,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
                     ImGui.TextUnformatted((ex.Item1 == SourceType.Source ? _itemInfoRenderService.GetSourceHelpText(ex.Item2) : _itemInfoRenderService.GetUseHelpText(ex.Item2)));
                 }
             },
-            new(LocalizationService.Ui("Relationship Type"), 200, ImGuiTableColumnFlags.WidthFixed)
+            new("关系类型", 200, ImGuiTableColumnFlags.WidthFixed)
             {
                 Sort = (specs, exes) =>
                 {
@@ -178,7 +178,7 @@ public class SourceWindow : GenericTabbedTable<(SourceType, ItemInfoType)>
                 }
             },
         };
-        _tabs = new Dictionary<uint, string>() {{0, LocalizationService.Ui("All")}, {1, LocalizationService.Ui("Sources")}, {2, LocalizationService.Ui("Uses")}};
+        _tabs = new Dictionary<uint, string>() {{0, "全部"}, {1, "来源"}, {2, "用途"}};
         _items = new Dictionary<uint, List<(SourceType, ItemInfoType)>>();
         _filteredItems = new Dictionary<uint, List<(SourceType, ItemInfoType)>>();
     }

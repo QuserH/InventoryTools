@@ -21,10 +21,10 @@ public class CraftWindowLayoutSetting : ChoiceSetting<WindowLayout>
     }
 
     public override string Key { get; set; } = "CraftWindowLayout";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Craft Window Layout"));
+    public override string Name { get; set; } = "制作窗口布局";
 
-    public override string WizardName { get; } = LocalizationService.Ui("Craft Window");
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Set the layout of the craft window"));
+    public override string WizardName { get; } = "制作窗口";
+    public override string HelpText { get; set; } = "设置制作窗口布局";
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.Windows;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.WindowLayout;
 

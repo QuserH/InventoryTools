@@ -33,12 +33,12 @@ public abstract class MultipleChoiceSetting<T> : Setting<List<T>> where T:notnul
         if (disableColouring != true && HasValueSet(configuration))
         {
             ImGui.PushStyleColor(ImGuiCol.Text,ImGuiColors.HealerGreen);
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+            ImGui.LabelText("##" + Key + "标签", customName ?? Name);
             ImGui.PopStyleColor();
         }
         else
         {
-            ImGui.LabelText(LocalizationService.Ui("##") + Key + "Label", customName ?? Name);
+            ImGui.LabelText("##" + Key + "标签", customName ?? Name);
         }
 
         var choices = GetChoices(configuration);
@@ -49,14 +49,14 @@ public abstract class MultipleChoiceSetting<T> : Setting<List<T>> where T:notnul
             if (combo.Success)
             {
                 var searchString = SearchString;
-                ImGui.InputText(LocalizationService.Ui(LocalizationService.Ui("Start typing to search..##ItemSearch")), ref searchString, 50);
+                ImGui.InputText("输入文字开始搜索……##ItemSearch", ref searchString, 50);
                 if (_searchString != searchString)
                 {
                     SearchString = searchString;
                 }
                 var activeChoices = GetActiveChoices(configuration);
                 ImGui.SameLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Add All"))))
+                if (ImGui.Button("全部添加"))
                 {
                     foreach (var item in activeChoices)
                     {
@@ -104,7 +104,7 @@ public abstract class MultipleChoiceSetting<T> : Setting<List<T>> where T:notnul
         if (disableReset != true && HasValueSet(configuration))
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Reset##")) + Key + "Reset"))
+            if (ImGui.Button("重置##" + Key + "重置"))
             {
                 Reset(configuration);
             }
@@ -181,8 +181,8 @@ public abstract class MultipleChoiceSetting<T> : Setting<List<T>> where T:notnul
     public virtual string GetPreviewValue(List<T> items)
     {
         return items.Count == 0
-            ? LocalizationService.Ui("No items selected")
-            : LocalizationService.Format("{0} items selected", items.Count);
+            ? "未选中物品"
+            : string.Format("已选择 {0} 项", items.Count);
     }
 
     public virtual int? ResultLimit { get; } = null;

@@ -53,7 +53,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         {
             CompendiumType = this,
             Key = "instance_content",
-            Name = LocalizationService.Ui("Instance Content"),
+            Name = "副本内容",
             Columns = BuiltColumns
         });
     }
@@ -100,7 +100,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
             new CompendiumGrouping<InstanceContent>()
             {
                 Key = "content_type",
-                Name = LocalizationService.Ui("Content Type"),
+                Name = "副本类型",
                 GroupFunc = row => row.ContentFinderCondition.Value.ContentType.RowId,
                 GroupMapping = id => _contentTypeLocalizer.Format(_contentTypeSheet.GetRow((uint)id))
             }
@@ -114,8 +114,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("Icon"),
-            HelpText = LocalizationService.Ui("Duty icon"),
+            Name = "图标",
+            HelpText = "副本图标",
             Version = "14.0.3",
             CompendiumType = this,
             RowIdSelector = row => row.RowId,
@@ -125,8 +125,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the duty"),
+            Name = "名称",
+            HelpText = "该副本的名称",
             Version = "14.0.3",
             ValueSelector = GetName
         });
@@ -134,8 +134,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "level",
-            Name = LocalizationService.Ui("Level"),
-            HelpText = LocalizationService.Ui("Required class/job level"),
+            Name = "等级",
+            HelpText = "所需职业等级",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ClassJobLevelRequired.ToString()
@@ -144,8 +144,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new BooleanColumnOptions<InstanceContent>()
         {
             Key = "unlocked",
-            Name = LocalizationService.Ui("Unlocked?"),
-            HelpText = LocalizationService.Ui("Is the instance unlocked?"),
+            Name = "已解锁？",
+            HelpText = "该副本是否已解锁？",
             Version = "14.1.3",
             ValueSelector = row => _unlockState.IsInstanceContentUnlocked(row)
         });
@@ -153,8 +153,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new BooleanColumnOptions<InstanceContent>()
         {
             Key = "completed",
-            Name = LocalizationService.Ui("Completed?"),
-            HelpText = LocalizationService.Ui("Is the instance completed?"),
+            Name = "已完成？",
+            HelpText = "该副本是否已完成？",
             Version = "14.1.3",
             ValueSelector = row => _uiStateService.IsInstanceContentCompleted(row)
         });
@@ -162,8 +162,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "sync_level",
-            Name = LocalizationService.Ui("Sync Level"),
-            HelpText = LocalizationService.Ui("Level sync applied in the duty"),
+            Name = "同步等级",
+            HelpText = "该副本应用的等级同步",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ClassJobLevelSync.ToString()
@@ -172,8 +172,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "item_level",
-            Name = LocalizationService.Ui("Item Level"),
-            HelpText = LocalizationService.Ui("Minimum item level required"),
+            Name = "品级",
+            HelpText = "所需最低品级",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ItemLevelRequired.ToString()
@@ -182,8 +182,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddIntegerColumn(new()
         {
             Key = "item_level_sync",
-            Name = LocalizationService.Ui("Item Level Sync"),
-            HelpText = LocalizationService.Ui("Maximum synced item level"),
+            Name = "品级同步",
+            HelpText = "同步后的最高品级",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.ItemLevelSync.ToString()
@@ -192,8 +192,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "allows_undersized",
-            Name = LocalizationService.Ui("Allows Undersized"),
-            HelpText = LocalizationService.Ui("Whether the duty allows undersized party mode"),
+            Name = "允许少人",
+            HelpText = "该副本是否允许少人模式",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.AllowUndersized
@@ -202,8 +202,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "allows_explorer_mode",
-            Name = LocalizationService.Ui("Allows Explorer Mode"),
-            HelpText = LocalizationService.Ui("Whether the duty supports explorer mode"),
+            Name = "允许探索模式",
+            HelpText = "该副本是否支持探索模式",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.AllowExplorerMode
@@ -212,8 +212,8 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddBooleanColumn(new()
         {
             Key = "pvp",
-            Name = LocalizationService.Ui("PVP"),
-            HelpText = LocalizationService.Ui("Whether this duty is PvP"),
+            Name = "PVP",
+            HelpText = "该副本是否为 PVP",
             Version = "14.0.3",
             ValueSelector = row =>
                 row.ContentFinderCondition.Value.PvP
@@ -222,11 +222,11 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         builder.AddStringColumn(new()
         {
             Key = "accepted_classes",
-            Name = LocalizationService.Ui("Accepted Classes"),
-            HelpText = LocalizationService.Ui("Class/job categories allowed to enter"),
+            Name = "可进入的职业",
+            HelpText = "允许进入的职业类别",
             Version = "14.0.3",
             ValueSelector = row =>
-                row.ContentFinderCondition.Value.AcceptClassJobCategory.ValueNullable?.Name.ToImGuiString() ?? "Unknown"
+                row.ContentFinderCondition.Value.AcceptClassJobCategory.ValueNullable?.Name.ToImGuiString() ?? "未知"
         });
     }
 
@@ -235,12 +235,12 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.SetupDefaults(this, row);
 
         viewBuilder.AddTag(
-            () => _unlockState.IsInstanceContentUnlocked(row) ? "Unlocked" : LocalizationService.Ui("Not Unlocked"),
-            () => LocalizationService.Ui("Is the instance unlocked?"),
+            () => _unlockState.IsInstanceContentUnlocked(row) ? "Unlocked" : "未解锁",
+            () => "该副本是否已解锁？",
             () => _unlockState.IsInstanceContentUnlocked(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
         viewBuilder.AddTag(
-            () => _uiStateService.IsInstanceContentCompleted(row) ? "Completed" : LocalizationService.Ui("Not Completed"),
-            () => LocalizationService.Ui("Is the instance completed?"),
+            () => _uiStateService.IsInstanceContentCompleted(row) ? "Completed" : "未完成",
+            () => "该副本是否已完成？",
             () => _uiStateService.IsInstanceContentCompleted(row) ? ImGuiColors.HealerGreen : ImGuiColors.DalamudRed);
 
         var relatedQuests = _questSheet.Where(c => c.InstanceContent.Any(c => c.RowId == row.RowId) || c.QuestParams.Any(c => c.ScriptArg == row.RowId && c.ScriptInstruction.ToString().StartsWith("INSTANCEDUNGEON")))
@@ -252,13 +252,13 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
             RelatedRefs = relatedQuests,
             HideWhenEmpty = true,
             SectionKey = "related_quests",
-            SectionName = LocalizationService.Ui("Related Quests")
+            SectionName = "相关任务"
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             RelatedRef = row.ContentFinderCondition.Value.TerritoryType.Value.AsUntypedRowRef(),
             SectionKey = "related_map",
-            SectionName = LocalizationService.Ui("Related Map")
+            SectionName = "关联地图"
         });
 
         var cfcId = row.ContentFinderCondition.RowId;
@@ -315,7 +315,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddNestedSection(new NestedSectionOptions
         {
             SectionKey = "boss_loot",
-            SectionName = LocalizationService.Ui("Instance Bosses"),
+            SectionName = "副本首领",
             HideWhenEmpty = true,
             Sections = bossChildSections
         });
@@ -342,7 +342,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddNestedSection(new NestedSectionOptions
         {
             SectionKey = "other_chests",
-            SectionName = LocalizationService.Ui("Other Chests"),
+            SectionName = "其他宝箱",
             HideWhenEmpty = true,
             Sections = chestChildSections
         });
@@ -350,7 +350,7 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         viewBuilder.AddItemListSection(new ItemListSectionOptions
         {
             SectionKey = "rewards",
-            SectionName = LocalizationService.Ui("Rewards"),
+            SectionName = "奖励",
             HideWhenEmpty = true,
             Items = _itemInfoCache
                 .GetItemSourcesByType<ItemDungeonDropSource>(ItemInfoType.DungeonDrop)
@@ -372,9 +372,9 @@ public class InstanceContentCompendiumType : CompendiumType<InstanceContent>
         return new TerritoryLocation(territoryType.Value.Value);
     }
 
-    public override string Singular => LocalizationService.Ui("Instance");
-    public override string Plural => LocalizationService.Ui("Instances");
-    public override string Description => LocalizationService.Ui("Instances including duties, trials, etc");
+    public override string Singular => "副本";
+    public override string Plural => "副本";
+    public override string Description => "副本实例，包括迷宫、讨伐等";
     public override string Key => "instance";
     public override (string?, uint?) Icon => (null, Icons.DutyIcon);
 }

@@ -94,11 +94,11 @@ namespace InventoryTools.Logic.Columns
                 ImGui.NewLine();
                 ImGui.Separator();
                 ImGui.SetNextItemWidth(220);
-                ImGui.LabelText(LocalizationService.Ui("##") + configuration.Key + "Search", LocalizationService.Ui("Characters to search in:"));
+                ImGui.LabelText("##" + configuration.Key + "搜索", "要搜索的角色：");
                 ImGui.SetNextItemWidth(250);
                 ImGui.SameLine();
                 _scopePickerColumnSetting.Draw(columnConfiguration,
-                    LocalizationService.Ui("This lets you set which characters you want to generate a total based off."));
+                    "用于设置要基于哪些角色生成总计。");
                 base.DrawEditor(columnConfiguration, configuration);
             }
             return null;
@@ -113,7 +113,7 @@ namespace InventoryTools.Logic.Columns
                 if (!ImGui.TableGetColumnFlags().HasFlag(ImGuiTableColumnFlags.IsEnabled)) return null;
                 var value = CurrentValue(columnConfiguration, searchResult)?.ToString() ?? "";
                 ImGuiUtil.VerticalAlignButton(configuration.TableHeight);
-                if (ImGui.InputText(LocalizationService.Ui("##")+rowIndex+"QtyInput" + columnIndex, ref value, 4, ImGuiInputTextFlags.CharsDecimal))
+                if (ImGui.InputText("##"+rowIndex+"QtyInput" + columnIndex, ref value, 4, ImGuiInputTextFlags.CharsDecimal))
                 {
                     if (value != (CurrentValue(columnConfiguration, searchResult)?.ToString() ?? ""))
                     {
@@ -139,13 +139,13 @@ namespace InventoryTools.Logic.Columns
             return base.Draw(configuration, columnConfiguration, searchResult, rowIndex, columnIndex);
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Quantity/Total Quantity Available"));
-        public override string RenderName => LocalizationService.Ui("Quantity");
+        public override string Name { get; set; } = "数量/总可用数量";
+        public override string RenderName => "数量";
 
         public override float Width { get; set; } = 70.0f;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("The quantity of the item. If viewing from a game items or craft filter, this will show the total number of items available in all inventories."));
+            "物品数量。若从游戏物品或制作筛选查看，将显示所有背包中的总可用数量。";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 

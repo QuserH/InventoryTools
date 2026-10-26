@@ -37,7 +37,7 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "territory_types",
-            Name = LocalizationService.Ui("Territory Types"),
+            Name = "区域类型",
         });
     }
 
@@ -76,8 +76,8 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
         builder.AddCompendiumOpenViewColumn(new()
         {
             Key = "icon",
-            Name = LocalizationService.Ui("Icon"),
-            HelpText = LocalizationService.Ui("Territory icon"),
+            Name = "图标",
+            HelpText = "区域图标",
             Version = "14.0.3",
             CompendiumType = this,
             RowIdSelector = row => row.First().RowId,
@@ -87,8 +87,8 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
         builder.AddStringColumn(new()
         {
             Key = "name",
-            Name = LocalizationService.Ui("Name"),
-            HelpText = LocalizationService.Ui("The name of the territory"),
+            Name = "名称",
+            HelpText = "区域的名称",
             Version = "14.0.3",
             ValueSelector = GetName
         });
@@ -106,9 +106,9 @@ public class TerritoryTypeCompendiumType : CompendiumType<IGrouping<string, Terr
 
     public override bool ShowInListing => true;
 
-    public override string Singular => LocalizationService.Ui("Territory");
-    public override string Plural => LocalizationService.Ui("Territories");
-    public override string Description => LocalizationService.Ui("Territories available in the game");
+    public override string Singular => "区域";
+    public override string Plural => "区域";
+    public override string Description => "游戏内可用的区域";
     public override string Key => "territories";
     public override (string?, uint?) Icon => (null, Icons.FlagIcon);
 }

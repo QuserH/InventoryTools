@@ -17,9 +17,9 @@ namespace InventoryTools.Logic.Columns
             return searchResult.Item.IsUnobtainable;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Unobtainable?"));
+        public override string Name { get; set; } = "是否无法获得？";
         public override float Width { get; set; } = 100;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has the item been made unobtainable?"));
+        public override string HelpText { get; set; } = "该物品已绝版？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

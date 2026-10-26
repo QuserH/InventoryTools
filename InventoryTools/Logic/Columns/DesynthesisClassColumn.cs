@@ -21,10 +21,10 @@ public class DesynthesisClassColumn : TextColumn
 
         return searchResult.Item.Base.ClassJobRepair.ValueNullable?.Name.ToString().ToTitleCase() ?? "Unknown";
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Desynthesis Class"));
-    public override string RenderName  => LocalizationService.Ui(LocalizationService.Ui("Desynth Class"));
+    public override string Name { get; set; } = "分解职业";
+    public override string RenderName  => "分解职业";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("What class is related to de-synthesising this item?"));
+    public override string HelpText { get; set; } = "该物品关联哪个分解职业？";
     public override bool HasFilter { get; set; } = true;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 }

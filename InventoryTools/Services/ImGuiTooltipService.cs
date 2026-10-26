@@ -123,8 +123,8 @@ public class ImGuiTooltipService
                         {
                             if (table)
                             {
-                                ImGui.TableSetupColumn(LocalizationService.Ui("BaseAttributes"));
-                                ImGui.TableSetupColumn(LocalizationService.Ui("Attributes"));
+                                ImGui.TableSetupColumn("基础属性");
+                                ImGui.TableSetupColumn("属性");
                                 ImGui.TableNextRow();
                                 ImGui.TableNextColumn();
                                 DrawBaseAttributes(item);
@@ -153,7 +153,7 @@ public class ImGuiTooltipService
                                     {
                                         ImGui.NewLine();
                                         ImGui.Separator();
-                                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("When HQ:")));
+                                        ImGui.Text("HQ时：");
                                         for (var index = 0; index < item.Base.BaseParamSpecial.Count; index++)
                                         {
                                             var baseParamSpecial = item.Base.BaseParamSpecial[index];
@@ -192,7 +192,7 @@ public class ImGuiTooltipService
                     if (item.Sources.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Available From: ")));
+                        ImGui.TextUnformatted("获取来源：");
                         ImGui.Separator();
                         ImGui.PushTextWrapPos();
                         var sources = item.Sources.Select(c => c.Type).Distinct().Select(
@@ -205,7 +205,7 @@ public class ImGuiTooltipService
                     if (item.Uses.Count > 0)
                     {
                         ImGui.NewLine();
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Used In: ")));
+                        ImGui.TextUnformatted("用于：");
                         ImGui.Separator();
                         ImGui.PushTextWrapPos();
                         var uses = item.Uses.Select(c => c.Type).Distinct().Select(
@@ -277,14 +277,14 @@ public class ImGuiTooltipService
                             }
                             else if (oItem.IsCollectible)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             locations.Add($"{name} - {_itemLocalizer.FormattedBagLocation(oItem)} " + typeIcon);
                         }
                         if (ownedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
                     if (_configuration.TooltipLocationDisplayMode ==
@@ -310,7 +310,7 @@ public class ImGuiTooltipService
                         }
                         if (ownedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(ownedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterCategoryQuantityQuality)
@@ -340,14 +340,14 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             locations.Add($"{name} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon);
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality)
@@ -386,7 +386,7 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             var locationLine = string.IsNullOrEmpty(worldName)
@@ -396,7 +396,7 @@ public class ImGuiTooltipService
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
                     else if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterQuantityQuality)
@@ -426,14 +426,14 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             locations.Add($"{name} - " + quantity + " " + typeIcon);
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
                     if (_configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterRetainerCategoryQuantityQuality)
@@ -475,7 +475,7 @@ public class ImGuiTooltipService
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             // 角色背包：角色-分类-数量-品质；雇员背包：角色-雇员-分类-数量-品质
@@ -492,21 +492,21 @@ public class ImGuiTooltipService
                         }
                         if (groupedItems.Count > _configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(groupedItems.Count - _configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
 
                     if (storageCount > 0)
                     {
                         ImGui.Separator();
-                        ImGui.TextUnformatted(LocalizationService.Ui("持有数量: ") + storageCount);
-                        ImGui.TextUnformatted(LocalizationService.Ui("位置:"));
+                        ImGui.TextUnformatted("持有数量: " + storageCount);
+                        ImGui.TextUnformatted("位置:");
                         using (Dalamud.Interface.Utility.Raii.ImRaii.PushIndent())
                         {
                             for (var index = 0; index < locations.Count; index++)
                             {
                                 var location = locations[index];
-                                ImGui.TextUnformatted(LocalizationService.Format("{0}\n", location));
+                                ImGui.TextUnformatted(string.Format("{0}\n", location));
                             }
                         }
                     }
@@ -514,10 +514,10 @@ public class ImGuiTooltipService
                     ImGui.Separator();
                     using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
                     {
-                        ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Ctrl: Link")));
+                        ImGui.TextUnformatted("Ctrl：链接");
                         if (item.CanTryOn)
                         {
-                            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Shift: Try on")));
+                            ImGui.TextUnformatted("Shift：试穿");
                         }
                     }
                 }
@@ -527,37 +527,37 @@ public class ImGuiTooltipService
 
     private static void DrawBaseAttributes(ItemRow item)
     {
-        ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Item Level {0}"), item.Base.LevelItem.RowId));
+        ImGui.TextUnformatted(string.Format("品级 {0}", item.Base.LevelItem.RowId));
         if (item.ClassJobCategory != null)
         {
-            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Equip Level {0}"), item.Base.LevelEquip));
+            ImGui.TextUnformatted(string.Format("装备等级 {0}", item.Base.LevelEquip));
         }
 
         ImGui.TextUnformatted(LocalizationService.Ui(item.FormattedRarity));
 
         if (item.EquipRace != CharacterRace.Any && item.EquipRace != CharacterRace.None)
         {
-            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Only equippable by {0}"), item.EquipRace.FormattedName()));
+            ImGui.TextUnformatted(string.Format("仅可由 {0} 装备", item.EquipRace.FormattedName()));
         }
 
         if (item.EquippableByGender != CharacterSex.Both && item.EquippableByGender != CharacterSex.NotApplicable)
         {
-            ImGui.TextUnformatted(LocalizationService.Format(LocalizationService.Ui("Only equippable by {0}"), item.EquippableByGender.FormattedName()));
+            ImGui.TextUnformatted(string.Format("仅可由 {0} 装备", item.EquippableByGender.FormattedName()));
         }
 
         if (item.Base.CanBeHq)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Can be HQ")));
+            ImGui.TextUnformatted("可为HQ");
         }
 
         if (item.Base.IsUnique)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui("Unique"));
+            ImGui.TextUnformatted("唯一");
         }
 
         if (item.Base.IsUntradable)
         {
-            ImGui.TextUnformatted(LocalizationService.Ui("Untradable"));
+            ImGui.TextUnformatted("不可交易");
         }
     }
 }

@@ -55,7 +55,7 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
 
 
 
-        stringBuilder.Append(LocalizationService.Ui("Searching for "));
+        stringBuilder.Append("正在搜索 ");
 
         stringBuilder.AddUiForeground(0x0225)
             .AddUiGlow(0x0226)
@@ -95,19 +95,19 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
                 normalTotal = (uint)(normalTotal + normalQuantity);
                 hqTotal = (uint)(hqTotal + hqQuantity);
                 var quantities = $"{(normalQuantity != 0 ? normalQuantity.ToString() : "")}{(hqQuantity != 0 ? (normalQuantity != 0 ? "," : "") + hqQuantity + "\uE03c" : "")}";
-                searchResults.Add("    " + LocalizationService.Format("{0} found in {1}", quantities,
+                searchResults.Add("    " + string.Format("在 {1} 中找到 {0}", quantities,
                     itemByCategory.Key.FormattedName()));
             }
         }
 
         if (normalTotal == 0 && hqTotal == 0)
         {
-            searchResults.Add(LocalizationService.Ui("No results found."));
+            searchResults.Add("未找到结果。");
         }
         else
         {
             var totals = $"{(normalTotal != 0 ? normalTotal.ToString() : "")}{(hqTotal != 0 ? "," + hqTotal + "\uE03c" : "")}";
-            searchResults.Add(LocalizationService.Format("Total: {0} found.", totals));
+            searchResults.Add(string.Format("总计找到：{0}。", totals));
         }
 
         stringBuilder.Append(String.Join("\n", searchResults));
@@ -118,9 +118,9 @@ public class ItemSearchService(MediatorService mediatorService, IClientState cli
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        _logger.LogTrace(LocalizationService.Ui("Stopping service {Type} ({This})"), GetType().Name, this);
+        _logger.LogTrace("正在停止服务{Type}（{This}）", GetType().Name, this);
         mediatorService.UnsubscribeAll(this);
-        _logger.LogTrace(LocalizationService.Ui("Stopped service {Type} ({This})"), GetType().Name, this);
+        _logger.LogTrace("服务{Type}（{This}）已停止", GetType().Name, this);
         return Task.CompletedTask;
     }
 

@@ -50,7 +50,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             Columns = BuiltColumns,
             CompendiumType = this,
             Key = "relic_weapons",
-            Name = LocalizationService.Ui("Relic Weapons"),
+            Name = "特殊武器（战斗）",
         });
     }
 
@@ -86,7 +86,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
 
     public override void BuildColumns(CompendiumColumnBuilder<RelicWeaponGroup> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the BGM"), Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "该背景音乐的图标", Version = "14.1.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
 
         var grouping = builder.CompendiumGrouping?.Key;
         if (grouping != "category")
@@ -94,9 +94,9 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             builder.AddStringColumn(new ()
             {
                 ValueSelector = row => _weaponCategoryLocalizer.Format(row.WeaponCategory),
-                Name = LocalizationService.Ui("Category"),
+                Name = "分类",
                 Key = "Category",
-                HelpText = LocalizationService.Ui("The category of the item"),
+                HelpText = "物品的分类",
                 Version = "14.1.3"
             });
         }
@@ -104,10 +104,10 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
         {
             builder.AddStringColumn(new ()
             {
-                ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? LocalizationService.Ui("Unknown"),
-                Name = LocalizationService.Ui("Class/Job"),
+                ValueSelector = row => row.ClassJob.Value.Name.ToImGuiString().FirstCharToUpper() ?? "未知",
+                Name = "职业",
                 Key = "class_job",
-                HelpText = LocalizationService.Ui("The class/job of the item"),
+                HelpText = "物品的职业",
                 Version = "14.1.3"
             });
         }
@@ -149,7 +149,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
                         builder.AddItemsColumn(new()
                         {
                             Key = "item_" + i,
-                            Name = _weaponTypeLocalizer.Format(relicWeaponType), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this weapon."),
+                            Name = _weaponTypeLocalizer.Format(relicWeaponType), HelpText = "形态 " + (i + 1) + "的此武器。",
                             Version = "14.1.3",
                             ValueSelector = relicWeapon => weaponCategory == relicWeapon.WeaponCategory ? [_itemSheet.GetRow(relicWeapon.RelicWeapons[i1].ItemId), _itemSheet.GetRow(relicWeapon.RelicWeapons[i1].OffhandItemId)] : []
                         });
@@ -167,7 +167,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             builder.AddItemColumn(new()
             {
                 Key = "item_" + i,
-                Name = LocalizationService.Ui("Form ") + (i + 1), HelpText = LocalizationService.Ui("Form ") + (i + 1) + LocalizationService.Ui(" of this weapon."),
+                Name = "形态 " + (i + 1), HelpText = "形态 " + (i + 1) + "的此武器。",
                 Version = "14.1.3",
                 ValueSelector = relicWeapon =>
                     i1 >= 0 && i1 < relicWeapon.RelicWeapons.Count ? relicWeapon.RelicWeapons[i1].ItemId : null
@@ -194,19 +194,19 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "class_job",
-            SectionName = LocalizationService.Ui("Class/Job"),
+            SectionName = "职业",
             RelatedRef = (RowRef)row.ClassJob
         });
         viewBuilder.AddCollectionRowRefSection(new CollectionRowRefSectionOptions()
         {
             SectionKey = "related_quests",
-            SectionName = LocalizationService.Ui("Related Quests"),
+            SectionName = "相关任务",
             RelatedRefs = row.Quests.Where(c => c.RowId != 0).Select(c => (RowRef)c).ToList(),
         });
         viewBuilder.AddItemFlowSection(new ItemFlowSectionOptions()
         {
             SectionKey = "weapons",
-            SectionName = LocalizationService.Ui("Weapons"),
+            SectionName = "武器",
             Items = itemFlowEntries,
             ItemsPerColumn = Math.Max(3, (int)Math.Ceiling((double)itemFlowEntries.Count / 3))
         });
@@ -224,16 +224,16 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             new CompendiumGrouping<RelicWeaponGroup>()
             {
                 Key = "class_job",
-                Name = LocalizationService.Ui("Class/Job"),
+                Name = "职业",
                 GroupFunc = row => row.ClassJob.RowId,
                 GroupMapping = row =>
                 {
                     var classJobId = (uint)row;
                     var name = _classJobSheet.GetRowOrDefault(classJobId)?.Name.ToImGuiString().FirstCharToUpper() ??
-                               LocalizationService.Ui("None");
+                               "无";
                     if (name == string.Empty)
                     {
-                        name = LocalizationService.Ui("Ungrouped");
+                        name = "不分组";
                     }
 
                     return name;
@@ -242,7 +242,7 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
             new CompendiumGrouping<RelicWeaponGroup>()
             {
                 Key = "category",
-                Name = LocalizationService.Ui("Category"),
+                Name = "分类",
                 GroupFunc = row => row.WeaponCategory,
                 GroupMapping = row =>
                 {
@@ -270,9 +270,9 @@ public class RelicWeaponCompendiumType : CompendiumType<RelicWeaponGroup>
         return "category";
     }
 
-    public override string Singular => LocalizationService.Ui("Relic Weapon");
-    public override string Plural => LocalizationService.Ui("Relic Weapons");
-    public override string Description => LocalizationService.Ui("Relic Weapons");
+    public override string Singular => "特殊武器（战斗）";
+    public override string Plural => "特殊武器（战斗）";
+    public override string Description => "特殊武器（战斗）";
     public override string Key => "relic_weapons";
     public override (string?, uint?) Icon => (null, Icons.WeaponIcon);
 }

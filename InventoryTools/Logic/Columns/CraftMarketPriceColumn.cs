@@ -46,7 +46,7 @@ public class CraftMarketPriceColumn : GilColumn
         if (!searchResult.CraftItem.Item.CanBePlacedOnMarket) return new List<MessageBase>();
         if (searchResult.CraftItem.MarketTotalPrice != null && searchResult.CraftItem.MarketUnitPrice != null)
         {
-            ImGui.Text(LocalizationService.Format("{0:n0}", searchResult.CraftItem.MarketUnitPrice.Value) + SeIconChar.Gil.ToIconString() + " (" + LocalizationService.Format("{0:n0}", searchResult.CraftItem.MarketTotalPrice.Value) + SeIconChar.Gil.ToIconString() + ")");
+            ImGui.Text(string.Format("{0:n0}", searchResult.CraftItem.MarketUnitPrice.Value) + SeIconChar.Gil.ToIconString() + " (" + string.Format("{0:n0}", searchResult.CraftItem.MarketTotalPrice.Value) + SeIconChar.Gil.ToIconString() + ")");
 
             if (searchResult.Item.HasSourcesByType(ItemInfoType.GilShop, ItemInfoType.CalamitySalvagerShop))
             {
@@ -65,14 +65,14 @@ public class CraftMarketPriceColumn : GilColumn
                         ImGui.SameLine();
                         ImGui.Image(ImGuiService.GetIconTexture(Icons.QuestionMarkIcon).Handle, new Vector2(16, 16));
                         ImGuiUtil.HoverTooltip(
-                            LocalizationService.Ui(LocalizationService.Ui("The market price of this item is cheaper than buying it from a vendor and you prefer vendors over the current ingredient preference.")));
+                            "该物品的市场价格比从商店购买更便宜，且你更喜欢商店而不是当前的素材偏好。");
                     }
                 }
             }
         }
         else
         {
-            ImGui.Text(LocalizationService.Ui("N/A"));
+            ImGui.Text("不适用");
         }
 
         var craftPrices = searchResult.CraftItem.CraftPrices;
@@ -92,18 +92,18 @@ public class CraftMarketPriceColumn : GilColumn
                             var world = _worldSheet.GetRowOrDefault(price.WorldId);
                             if (world != null)
                             {
-                                ImGui.Text(price.Left + LocalizationService.Ui(" available at ") + price.UnitPrice +
-                                           (price.IsHq ? LocalizationService.Ui(" (HQ)") : "") + " (" + world.Value.Name.ExtractText() + ")");
+                                ImGui.Text(price.Left + " 可在 " + price.UnitPrice +
+                                           (price.IsHq ? " (HQ)" : "") + " (" + world.Value.Name.ExtractText() + ")");
                             }
 
                             totalAvailable += price.Left;
                         }
 
-                        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Available: ")) + totalAvailable);
+                        ImGui.Text("可用：" + totalAvailable);
 
                         if (searchResult.CraftItem.MarketAvailable != searchResult.CraftItem.QuantityNeeded)
                         {
-                            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Missing: ")) + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
+                            ImGui.Text("缺少：" + (searchResult.CraftItem.QuantityNeeded - searchResult.CraftItem.MarketAvailable));
                         }
                     }
                 }
@@ -113,9 +113,9 @@ public class CraftMarketPriceColumn : GilColumn
         return new List<MessageBase>();
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Pricing"));
+    public override string Name { get; set; } = "市场价格";
     public override float Width { get; set; } = 150;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The current market pricing for the given item. "));
+    public override string HelpText { get; set; } = "该物品当前的市场价格。";
 
     public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     public override FilterType AvailableIn => Logic.FilterType.CraftFilter;

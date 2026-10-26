@@ -44,11 +44,11 @@ public class SampleFilterDuplicateItems : BooleanSetting, ISampleFilter
     }
 
     public override string Key { get; set; } = "sample2";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Duplicate Items"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Finds any items where there are 2 seperate stacks in retainers & characters and attempts to sort them into a single stack. This is great for making sure your retainers are as compacted as possible."));
-    public string SampleDefaultName => LocalizationService.Ui("Duplicated items");
+    public override string Name { get; set; } = "重复物品";
+    public override string HelpText { get; set; } = "查找在雇员和角色背包中分成两堆的物品，并尝试将它们整理为单堆。这有助于确保雇员的背包尽可能紧凑。";
+    public string SampleDefaultName => "重复物品";
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will provide a list of all the distinct stacks that appear in 2 sets of inventories. You can use this to make sure only one retainer has a specific type of item.");
+        "将添加一个列表，列出两组背包中出现的所有不同堆叠。可用于确保只有一名雇员持有特定类型的物品。";
     public SampleFilterType SampleFilterType => SampleFilterType.Sample;
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.None;
     public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.None;

@@ -30,7 +30,7 @@ namespace InventoryTools.Services
             {
                 ("InventoryTools.json", _configurationManagerService.ConfigurationFile),
                 ("inventories.csv", _configurationManagerService.InventoryCsv),
-                (LocalizationService.Ui("dalamud.log"), ResolveDalamudLogPath()),
+                ("dalamud.log", ResolveDalamudLogPath()),
             };
 
             var includedFiles = new List<string>();
@@ -44,7 +44,7 @@ namespace InventoryTools.Services
                 {
                     if (path == null || !File.Exists(path))
                     {
-                        _logger.LogWarning(LocalizationService.Ui("Support dump could not find {EntryName} at {Path}."), entryName, path ?? LocalizationService.Ui("<unresolved>"));
+                        _logger.LogWarning("支持信息包在{Path}中找不到{EntryName}。", entryName, path ?? "<未解析>");
                         missingFiles.Add(entryName);
                         continue;
                     }
@@ -61,14 +61,14 @@ namespace InventoryTools.Services
                     }
                     catch (Exception e)
                     {
-                        _logger.LogWarning(e, LocalizationService.Ui("Failed to add {EntryName} to the support dump: {Message}"), entryName, e.Message);
+                        _logger.LogWarning(e, "无法将{EntryName}添加到支持信息包：{Message}", entryName, e.Message);
                         missingFiles.Add(entryName);
                     }
                 }
             }
             catch (Exception e)
             {
-                _logger.LogError(e, LocalizationService.Ui("Failed to create the support dump zip."));
+                _logger.LogError(e, "创建支持信息包 zip 失败。");
                 return new SupportDumpResult(false, zipPath, includedFiles, missingFiles);
             }
 
@@ -85,8 +85,8 @@ namespace InventoryTools.Services
 
             var candidates = new[]
             {
-                Path.Combine(root.FullName, "logs", LocalizationService.Ui("dalamud.log")),
-                Path.Combine(root.FullName, LocalizationService.Ui("dalamud.log")),
+                Path.Combine(root.FullName, "logs", "dalamud.log"),
+                Path.Combine(root.FullName, "dalamud.log"),
             };
 
             foreach (var candidate in candidates)

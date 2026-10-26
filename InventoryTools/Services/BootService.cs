@@ -23,7 +23,7 @@ public class BootService : DisposableMediatorSubscriberBase, IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Starting service {type} ({this})"), GetType().Name, this);
+        Logger.LogTrace("正在启动服务{type}（{this}）", GetType().Name, this);
         MediatorService.Subscribe<PluginLoadedMessage>(this, PluginLoaded);
         return Task.CompletedTask;
     }
@@ -39,7 +39,7 @@ public class BootService : DisposableMediatorSubscriberBase, IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Logger.LogTrace(LocalizationService.Ui("Stopping service {type} ({this})"), GetType().Name, this);
+        Logger.LogTrace("正在停止服务{type}（{this}）", GetType().Name, this);
         return Task.CompletedTask;
     }
 

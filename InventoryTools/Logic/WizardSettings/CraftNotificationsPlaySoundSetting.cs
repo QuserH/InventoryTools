@@ -12,8 +12,8 @@ public class CraftNotificationsPlaySoundSetting : GenericBooleanSetting
 
     public CraftNotificationsPlaySoundSetting(ILogger<CraftNotificationsPlaySoundSetting> logger,
         ImGuiService imGuiService) : base("CraftNotificationsPlaySound",
-        LocalizationService.Ui("Play sound when an item is complete"),
-        LocalizationService.Ui("Play a sound effect when an item in a craft list reaches its required quantity. The craft list must be active for notifications to occur."),
+        "物品完成时播放音效",
+        "制作列表中的物品达到所需数量时播放音效。制作列表必须启用才会通知。",
         false,
         SettingCategory.None,
         SettingSubCategory.None,

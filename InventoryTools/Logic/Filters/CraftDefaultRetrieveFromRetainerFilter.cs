@@ -30,10 +30,10 @@ public class CraftDefaultRetrieveFromRetainerFilter : ChoiceFilter<CraftRetainer
     }
 
     public override string Key { get; set; } = "CraftDefaultRetrieveFromRetainerOutput";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Retainer Retrieval"));
+    public override string Name { get; set; } = "从雇员取回";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("What should the default 'Retrieve from Retainer' setting be for 'Non-output' items?"));
+        "非成品物品的默认从雇员取回设置应为何？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override CraftRetainerRetrieval DefaultValue { get; set; } = CraftRetainerRetrieval.Yes;

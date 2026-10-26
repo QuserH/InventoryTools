@@ -141,14 +141,14 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if (oItem.IsCollectible)
                     {
-                        typeIcon = LocalizationService.Ui("\\uE03d");
+                        typeIcon = "\\uE03d";
                     }
 
                     locations.Add($"{name} - {_itemLocalizer.FormattedBagLocation(oItem)} " + typeIcon);
                 }
                 if (ownedItems.Count > Configuration.TooltipLocationLimit)
                 {
-                    locations.Add(ownedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                    locations.Add(ownedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                 }
             }
             if (Configuration.TooltipLocationDisplayMode ==
@@ -174,7 +174,7 @@ public class AmountOwnedTooltip : BaseTooltip
                 }
                 if (ownedItems.Count > Configuration.TooltipLocationLimit)
                 {
-                    locations.Add(ownedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                    locations.Add(ownedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                 }
             }
             else if (Configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterCategoryQuantityQuality)
@@ -204,14 +204,14 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = LocalizationService.Ui("\\uE03d");
+                        typeIcon = "\\uE03d";
                     }
 
                     locations.Add($"{name} - {oGroup.Key.SortedCategory.FormattedName()} - " + quantity + " " + typeIcon);
                 }
                 if (groupedItems.Count > Configuration.TooltipLocationLimit)
                 {
-                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                 }
             }
             else if (Configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterWorldCategoryQuantityQuality)
@@ -250,7 +250,7 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = LocalizationService.Ui("\\uE03d");
+                        typeIcon = "\\uE03d";
                     }
 
                     var locationLine = string.IsNullOrEmpty(worldName)
@@ -260,7 +260,7 @@ public class AmountOwnedTooltip : BaseTooltip
                 }
                 if (groupedItems.Count > Configuration.TooltipLocationLimit)
                 {
-                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                 }
             }
             else if (Configuration.TooltipLocationDisplayMode == TooltipLocationDisplayMode.CharacterQuantityQuality)
@@ -290,14 +290,14 @@ public class AmountOwnedTooltip : BaseTooltip
                     }
                     else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                     {
-                        typeIcon = LocalizationService.Ui("\\uE03d");
+                        typeIcon = "\\uE03d";
                     }
 
                     locations.Add($"{name} - " + quantity + " " + typeIcon);
                 }
                 if (groupedItems.Count > Configuration.TooltipLocationLimit)
                 {
-                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                    locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                 }
             }
 
@@ -341,7 +341,7 @@ public class AmountOwnedTooltip : BaseTooltip
                             }
                             else if ((oGroup.Key.Flags & FFXIVClientStructs.FFXIV.Client.Game.InventoryItem.ItemFlags.Collectable) != 0)
                             {
-                                typeIcon = LocalizationService.Ui("\\uE03d");
+                                typeIcon = "\\uE03d";
                             }
 
                             // 角色背包：角色-分类-数量-品质；雇员背包：角色-雇员-分类-数量-品质
@@ -358,14 +358,14 @@ public class AmountOwnedTooltip : BaseTooltip
                         }
                         if (groupedItems.Count > Configuration.TooltipLocationLimit)
                         {
-                            locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + LocalizationService.Ui(" 个其他位置."));
+                            locations.Add(groupedItems.Count - Configuration.TooltipLocationLimit + " 个其他位置.");
                         }
                     }
 
             if (storageCount > 0)
             {
-                textLines.Add(LocalizationService.Ui("持有数量: ") + storageCount + "\n");
-                textLines.Add(LocalizationService.Ui("位置:") + "\n");
+                textLines.Add("持有数量: " + storageCount + "\n");
+                textLines.Add("位置:" + "\n");
                 for (var index = 0; index < locations.Count; index++)
                 {
                     var location = locations[index];

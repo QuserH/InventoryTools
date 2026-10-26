@@ -21,8 +21,8 @@ namespace InventoryTools.Logic.Filters
             _playerState = playerState;
         }
         public override string Key { get; set; } = "Acquired";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Acquired?"));
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Has this item be acquired by your active character?"));
+        public override string Name { get; set; } = "是否已获得？";
+        public override string HelpText { get; set; } = "你的当前角色是否已获得该物品？";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Acquisition;
 
         public override bool? FilterItem(FilterConfiguration configuration,InventoryItem item)

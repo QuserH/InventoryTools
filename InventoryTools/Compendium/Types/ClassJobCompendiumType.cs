@@ -52,7 +52,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         {
             CompendiumType = this,
             Key = "classes",
-            Name = LocalizationService.Ui("Classes"),
+            Name = "职业",
             Columns = BuiltColumns
         });
     }
@@ -102,11 +102,11 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
 
     public override void BuildColumns(CompendiumColumnBuilder<ClassJobRow> builder)
     {
-        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = LocalizationService.Ui("##Icon"), HelpText = LocalizationService.Ui("The icon of the class"), Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
-        builder.AddStringColumn(new (){Key = "name", Name = LocalizationService.Ui("Name"), HelpText = LocalizationService.Ui("The name of the class"), Version = "14.0.3", ValueSelector = this.GetName});
-        builder.AddStringColumn(new (){Key = "type", Name = LocalizationService.Ui("Type"), HelpText = LocalizationService.Ui("The type of the class"), Version = "14.0.3", ValueSelector = row => row.Base.ClassJobCategory.Value.Name.ToImGuiString()});
-        builder.AddStringColumn(new (){Key = "role", Name = LocalizationService.Ui("Role"), HelpText = LocalizationService.Ui("The role of the class"), Version = "14.0.3", ValueSelector = row => _roleLocalizer.Format(row.Role)});
-        builder.AddIntegerColumn(new (){Key = "start_level", Name = LocalizationService.Ui("Start Level"), HelpText = LocalizationService.Ui("The level the class starts at"), Version = "14.0.3", ValueSelector = row => row.Base.StartingLevel.ToString()});
+        builder.AddCompendiumOpenViewColumn(new(){Key = "icon", Name = "##Icon", HelpText = "该职业的图标", Version = "14.0.3", ValueSelector = this.GetIcon, CompendiumType = this, RowIdSelector = row => row.RowId});
+        builder.AddStringColumn(new (){Key = "name", Name = "名称", HelpText = "该职业的名称", Version = "14.0.3", ValueSelector = this.GetName});
+        builder.AddStringColumn(new (){Key = "type", Name = "类型", HelpText = "该职业的类型", Version = "14.0.3", ValueSelector = row => row.Base.ClassJobCategory.Value.Name.ToImGuiString()});
+        builder.AddStringColumn(new (){Key = "role", Name = "职能", HelpText = "该职业的职能", Version = "14.0.3", ValueSelector = row => _roleLocalizer.Format(row.Role)});
+        builder.AddIntegerColumn(new (){Key = "start_level", Name = "初始等级", HelpText = "该职业的初始等级", Version = "14.0.3", ValueSelector = row => row.Base.StartingLevel.ToString()});
     }
 
     public override void BuildViewFields(CompendiumViewBuilder viewBuilder, ClassJobRow row)
@@ -115,7 +115,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "base_class",
-            SectionName = LocalizationService.Ui("Base Class"),
+            SectionName = "基础职业",
             RelatedRef = (RowRef)row.Base.ClassJobParent
         });
 
@@ -130,7 +130,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "soul_crystal",
-                SectionName = LocalizationService.Ui("Soul Crystal"),
+                SectionName = "特职水晶",
                 RelatedRef = (RowRef)row.Base.ItemSoulCrystal,
                 OverrideCompendiumType = soulCrystalCompendiumType,
             });
@@ -142,7 +142,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlock_quest",
-                SectionName = LocalizationService.Ui("Unlock Quest"),
+                SectionName = "解锁任务",
                 RelatedRef = (RowRef)firstQuest.Value.Quest
             });
         }
@@ -152,7 +152,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
             {
                 SectionKey = "unlock_quest",
-                SectionName = LocalizationService.Ui("Unlock Quest"),
+                SectionName = "解锁任务",
                 RelatedRef = (RowRef)row.Base.UnlockQuest
             });
         }
@@ -160,13 +160,13 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "relic_quest",
-            SectionName = LocalizationService.Ui("Relic Quest"),
+            SectionName = "古武任务",
             RelatedRef = (RowRef)row.Base.RelicQuest
         });
         viewBuilder.AddSingleRowRefSection(new SingleRowRefSectionOptions()
         {
             SectionKey = "prerequisite_quest",
-            SectionName = LocalizationService.Ui("Prerequisite Quest"),
+            SectionName = "前置任务",
             RelatedRef = (RowRef)row.Base.Prerequisite
         });
     }
@@ -178,7 +178,7 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
             new CompendiumGrouping<ClassJobRow>()
             {
                 Key = "role",
-                Name = LocalizationService.Ui("Role"),
+                Name = "职能",
                 GroupFunc = row => row.Role,
                 GroupMapping = o =>
                 {
@@ -191,9 +191,9 @@ public class ClassJobCompendiumType : CompendiumType<ClassJobRow>
 
     public override List<Type>? RelatedTypes => [typeof(ClassJob)];
 
-    public override string Singular => LocalizationService.Ui("Class");
-    public override string Plural => LocalizationService.Ui("Classes");
-    public override string Description => LocalizationService.Ui("The classes/jobs your character can learn.");
+    public override string Singular => "职业";
+    public override string Plural => "职业";
+    public override string Description => "你的角色可以学习的职业。";
     public override string Key => "classes";
     public override (string?, uint?) Icon => (null, Icons.ManSwordIcon);
 }

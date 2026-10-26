@@ -75,22 +75,22 @@ namespace InventoryTools.Logic.Columns
                 return null;
 
             ImGui.SameLine();
-            if (ImGui.SmallButton(LocalizationService.Ui("Retrieve") + "##retainerRetrieve" + rowIndex + searchResult.ItemId))
+            if (ImGui.SmallButton("取回" + "##retainerRetrieve" + rowIndex + searchResult.ItemId))
             {
                 var key = new RetainerRetrievalItemKey(searchResult.ItemId, searchResult.Flags);
                 _retainerRetrievalAutomation.Start(configuration.CraftList,
                     new Dictionary<RetainerRetrievalItemKey, uint> { [key] = quantity }, true);
             }
 
-            ImGuiUtil.HoverTooltip(LocalizationService.Ui("Retrieve this item's required quantity from retainers."));
+            ImGuiUtil.HoverTooltip("从雇员取回该物品所需的数量。");
             return null;
         }
 
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Amount to Retrieve"));
-        public override string RenderName => LocalizationService.Ui("Retrieve");
+        public override string Name { get; set; } = "待取回数量";
+        public override string RenderName => "取回";
         public override float Width { get; set; } = 110;
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is the amount to retrieve from retainers."));
+            "需要从雇员处取回的数量。";
         public override FilterType AvailableIn { get; } = Logic.FilterType.CraftFilter;
         public override bool HasFilter { get; set; } = false;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;

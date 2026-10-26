@@ -31,10 +31,10 @@ public class TrackMobSpawnSetting : BooleanSetting
     }
 
     public override string Key { get; set; } = "TrackMobSpawns";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Track Mob Spawns"));
+    public override string Name { get; set; } = "追踪怪物刷新";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the plugin track where mobs spawn as you move around. This data is not used by the plugin yet but once you have collected enough you can hit the button next to the checkbox to export a file containing those positions. If you upload those CSVs and send a url to via feedback I can use that spawn data to provide accurate mob spawns for everyone."));
+        "插件是否在移动时追踪怪物刷新位置。这些数据目前尚未被插件使用，但收集足够后，可点击复选框旁的按钮导出包含这些位置的文件。若你上传这些 CSV 并通过反馈发送链接，我可以用这些刷新数据为所有人提供准确的怪物刷新位置。";
 
     public override SettingCategory SettingCategory { get; set; } = SettingCategory.MobSpawnTracker;
 
@@ -47,13 +47,13 @@ public class TrackMobSpawnSetting : BooleanSetting
         if (configuration.TrackMobSpawns)
         {
             ImGui.SameLine();
-            if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Export CSV"))))
+            if (ImGui.Button("导出 CSV"))
             {
-                _fileDialogManager.SaveFileDialog(LocalizationService.Ui("Save to csv"), "*.csv", "mob_spawns.csv", ".csv",
+                _fileDialogManager.SaveFileDialog("保存为 CSV", "*.csv", "mob_spawns.csv", ".csv",
                     (b, s) => { SaveMobSpawns(b, s); }, null, true);
             }
 
-            ImGuiUtil.HoverTooltip(LocalizationService.Ui(LocalizationService.Ui("Export a CSV containing the mob spawn IDs and their positions.")));
+            ImGuiUtil.HoverTooltip("导出包含怪物刷新 ID 及其位置的 CSV 文件。");
         }
     }
 

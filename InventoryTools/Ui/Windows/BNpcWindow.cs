@@ -45,7 +45,7 @@ namespace InventoryTools.Ui
             TerritoryTypeSheet territoryTypeSheet,
             ItemSheet itemSheet,
             IListService listService,
-            string name = "") : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? LocalizationService.Ui("Mob Window") : name)
+            string name = "") : base(logger, mediator, imGuiService, configuration, string.IsNullOrEmpty(name) ? "怪物窗口" : name)
         {
             _chatUtilities = chatUtilities;
             _clipboardService = clipboardService;
@@ -68,7 +68,7 @@ namespace InventoryTools.Ui
             }
             else
             {
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Unknown Mob"));
+                WindowName = "未知怪物";
             }
         }
 
@@ -78,21 +78,21 @@ namespace InventoryTools.Ui
         private List<MobSpawnPosition>? _mobSpawns;
 
         private BNpcNameRow? bNpc => _bNpcNameSheet.GetRowOrDefault(_bNpcId);
-        public override string GenericName => LocalizationService.Ui("Mob");
+        public override string GenericName => "怪物";
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (bNpc == null)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("bNpc with the ID ")) + _bNpcId + LocalizationService.Ui(" could not be found."));
+                ImGui.TextUnformatted("战斗NPC ID：" + _bNpcId + "未找到。");
             }
             else
             {
-                ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Type: ")) + string.Join(", ", bNpc.MobTypes.Select(c => LocalizationService.Ui(c.ToString()))));
+                ImGui.Text("类型：" + string.Join(", ", bNpc.MobTypes.Select(c => LocalizationService.Ui(c.ToString()))));
 
                 if (bNpc.NotoriousMonster != null)
                 {
-                    ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Rank: ")) + bNpc.NotoriousMonster?.RankFormatted());
+                    ImGui.Text("等级：" + bNpc.NotoriousMonster?.RankFormatted());
                 }
 
                 var garlandId = bNpc.GarlandToolsId;
@@ -104,7 +104,7 @@ namespace InventoryTools.Ui
                         $"https://www.garlandtools.org/db/#mob/{garlandId}".OpenBrowser();
                     }
 
-                    ImGuiUtil.HoverTooltip(LocalizationService.Ui("Open in Garland Tools"));
+                    ImGuiUtil.HoverTooltip("在 Garland Tools 中打开");
                     ImGui.SameLine();
                 }
 
@@ -113,12 +113,12 @@ namespace InventoryTools.Ui
                 {
                     $"https://ffxivteamcraft.com/db/en/mob/{_bNpcId}".OpenBrowser();
                 }
-                ImGuiUtil.HoverTooltip(LocalizationService.Ui("Open in Teamcraft"));
+                ImGuiUtil.HoverTooltip("在 Teamcraft 中打开");
 
                 ImGui.Separator();
 
 
-                if (_mobDrops != null && ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Drops (")) + _mobDrops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (_mobDrops != null && ImGui.CollapsingHeader("掉落（" + _mobDrops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -173,7 +173,7 @@ namespace InventoryTools.Ui
 
                 ImGui.NewLine();
 
-                if (_mobSpawns != null && ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Locations (")) + _mobSpawns.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (_mobSpawns != null && ImGui.CollapsingHeader("位置（" + _mobSpawns.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -201,7 +201,7 @@ namespace InventoryTools.Ui
                             if (ImGui.IsItemHovered())
                             {
                                 using var tt = ImRaii.Tooltip();
-                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? LocalizationService.Ui("Unknown")) + " - " +
+                                ImGui.TextUnformatted((territory.Base.PlaceName.ValueNullable?.Name.ExtractText() ?? "未知") + " - " +
                                                       spawn.Position.X +
                                                       " : " + spawn.Position.Y);
                             }
@@ -220,7 +220,7 @@ namespace InventoryTools.Ui
                 var firstBase = bNpc.RelatedBases.FirstOrDefault();
                 if (firstBase != null && firstBase.GetRelatedItems().Count != 0)
                 {
-                    if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Shared Models")), ImGuiTreeNodeFlags.DefaultOpen))
+                    if (ImGui.CollapsingHeader("共享模型", ImGuiTreeNodeFlags.DefaultOpen))
                     {
                         using (ImRaii.PushIndent())
                         {
@@ -235,10 +235,10 @@ namespace InventoryTools.Ui
 
 #if DEBUG
                 ImGui.NewLine();
-                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
+                if (ImGui.CollapsingHeader("调试"))
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("bNpc ID: ")) + _bNpcId);
-                    if (ImGui.Button(LocalizationService.Ui("Copy")))
+                    ImGui.TextUnformatted("战斗NPC ID：" + _bNpcId);
+                    if (ImGui.Button("复制"))
                     {
                         _clipboardService.CopyToClipboard(_bNpcId.ToString());
                     }
@@ -259,7 +259,7 @@ namespace InventoryTools.Ui
                                     c.FilterType == Logic.FilterType.CraftFilter && !c.CraftListDefault).ToArray();
                             if (craftFilters.Length != 0)
                             {
-                                using var menu = ImRaii.Menu(LocalizationService.Ui("Add to Craft List"));
+                                using var menu = ImRaii.Menu("添加到制作列表");
                                 if (menu)
                                 {
                                     foreach (var filter in craftFilters)
@@ -281,7 +281,7 @@ namespace InventoryTools.Ui
                                 }
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List"))))
+                            if (ImGui.MenuItem("添加到新制作列表"))
                             {
                                 var filter = _listService.AddNewCraftList();
                                 foreach (var slot in _equipSlots)
@@ -298,7 +298,7 @@ namespace InventoryTools.Ui
                                 filter.NeedsRefresh = true;
                             }
 
-                            if (ImGui.MenuItem(LocalizationService.Ui(LocalizationService.Ui("Add to new Craft List (ephemeral)"))))
+                            if (ImGui.MenuItem("添加到新制作列表（临时）"))
                             {
                                 var filter = _listService.AddNewCraftList(null, true);
                                 foreach (var slot in _equipSlots)
@@ -337,7 +337,7 @@ namespace InventoryTools.Ui
             {
                 return;
             }
-            if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Shared Models - ")) + EquipSlotName(slot) + " (" + relatedItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen))
+            if (ImGui.CollapsingHeader("共享模型 - " + EquipSlotName(slot) + " (" + relatedItems.Count + ")", ImGuiTreeNodeFlags.DefaultOpen))
             {
                 ImGuiStylePtr style = ImGui.GetStyle();
                 float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -400,19 +400,19 @@ namespace InventoryTools.Ui
 
         private static string EquipSlotName(EquipSlot slot) => slot switch
         {
-            EquipSlot.MainHand => LocalizationService.Ui("Main Hand"),
-            EquipSlot.OffHand => LocalizationService.Ui("Off Hand"),
-            EquipSlot.Head => LocalizationService.Ui("Head"),
-            EquipSlot.Body => LocalizationService.Ui("Body"),
-            EquipSlot.Gloves => LocalizationService.Ui("Gloves"),
-            EquipSlot.Legs => LocalizationService.Ui("Legs"),
-            EquipSlot.Feet => LocalizationService.Ui("Feet"),
-            EquipSlot.Ears => LocalizationService.Ui("Ears"),
-            EquipSlot.Neck => LocalizationService.Ui("Neck"),
-            EquipSlot.Wrists => LocalizationService.Ui("Wrists"),
-            EquipSlot.FingerR => LocalizationService.Ui("Right Finger"),
-            EquipSlot.FingerL => LocalizationService.Ui("Left Finger"),
-            EquipSlot.SoulCrystal => LocalizationService.Ui("Soul Crystal"),
+            EquipSlot.MainHand => "主手",
+            EquipSlot.OffHand => "副手",
+            EquipSlot.Head => "头部",
+            EquipSlot.Body => "身体",
+            EquipSlot.Gloves => "手部",
+            EquipSlot.Legs => "腿部",
+            EquipSlot.Feet => "脚部",
+            EquipSlot.Ears => "耳部",
+            EquipSlot.Neck => "颈部",
+            EquipSlot.Wrists => "腕部",
+            EquipSlot.FingerR => "右手戒指",
+            EquipSlot.FingerL => "左手戒指",
+            EquipSlot.SoulCrystal => "特职水晶",
             _ => LocalizationService.Ui(slot.Humanize()),
         };
     }

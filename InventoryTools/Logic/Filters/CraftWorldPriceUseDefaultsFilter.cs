@@ -15,10 +15,10 @@ public class CraftWorldPriceUseDefaultsFilter : BooleanFilter
     }
 
     public override string Key { get; set; } = "CraftWorldPriceUseDefaults";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Use Default Worlds?"));
+    public override string Name { get; set; } = "使用默认服务器？";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the worlds selected in 'Price Worlds' in the main settings be automatically used for pricing?"));
+        "是否自动使用主设置中价格服务器选定的服务器进行定价？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.WorldPricePreference;
     public override FilterType AvailableIn { get; set; } = FilterType.CraftFilter;

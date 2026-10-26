@@ -56,10 +56,10 @@ namespace InventoryTools.Ui.Pages
             var filterConfiguration = FilterConfiguration;
             var filterName = filterConfiguration.Name;
             var labelName = "##" + filterConfiguration.Key;
-            if (ImGui.CollapsingHeader(LocalizationService.Ui("General"), ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+            if (ImGui.CollapsingHeader("常规", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
             {
                 ImGui.SetNextItemWidth(100);
-                ImGui.LabelText(labelName + "FilterNameLabel", LocalizationService.Ui("Name: "));
+                ImGui.LabelText(labelName + "FilterNameLabel", "名称：");
                 ImGui.SameLine();
                 ImGui.InputText(labelName + "FilterName", ref filterName, 100);
                 if (filterName != filterConfiguration.Name)
@@ -68,21 +68,21 @@ namespace InventoryTools.Ui.Pages
                 }
 
                 ImGui.NewLine();
-                if (ImGui.Button(LocalizationService.Ui(LocalizationService.Ui("Export Configuration to Clipboard"))))
+                if (ImGui.Button("导出配置到剪贴板"))
                 {
                     var base64 = _importExportService.ToBase64(filterConfiguration);
                     _clipboardService.CopyToClipboard(base64);
-                    _chatUtilities.PrintClipboardMessage(LocalizationService.Ui("[Export] "), LocalizationService.Ui("Filter Configuration"));
+                    _chatUtilities.PrintClipboardMessage("[导出] ", "筛选器配置");
                 }
 
                 var filterType = filterConfiguration.FormattedFilterType;
                 ImGui.SetNextItemWidth(100);
-                ImGui.LabelText(labelName + "FilterTypeLabel", LocalizationService.Ui("List Type: "));
+                ImGui.LabelText(labelName + "FilterTypeLabel", "列表类型：");
                 ImGui.SameLine();
                 ImGui.TextDisabled(filterType);
 
                 ImGui.SetNextItemWidth(150);
-                ImGui.LabelText(labelName + "DisplayInTabs", LocalizationService.Ui("Display in Tab List: "));
+                ImGui.LabelText(labelName + "DisplayInTabs", "在标签页列表中显示：");
                 ImGui.SameLine();
                 var displayInTabs = filterConfiguration.DisplayInTabs;
                 if (ImGui.Checkbox(labelName + "DisplayInTabsCheckbox", ref displayInTabs))
@@ -94,7 +94,7 @@ namespace InventoryTools.Ui.Pages
                 }
             }
 
-            using (var tabBar = ImRaii.TabBar(LocalizationService.Ui("###FilterConfigTabs"), ImGuiTabBarFlags.FittingPolicyScroll))
+            using (var tabBar = ImRaii.TabBar("###FilterConfigTabs", ImGuiTabBarFlags.FittingPolicyScroll))
             {
                 if (tabBar)
                 {

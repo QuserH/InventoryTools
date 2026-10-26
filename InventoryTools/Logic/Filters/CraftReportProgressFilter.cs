@@ -8,8 +8,8 @@ namespace InventoryTools.Logic.Filters;
 public class CraftReportProgressFilter : GenericBooleanFilter
 {
     public CraftReportProgressFilter(ILogger<CraftReportProgressFilter> logger, ImGuiService imGuiService) : base(
-        "CraftReportProgress", LocalizationService.Ui("Report acquisition progress to chat?"),
-        LocalizationService.Ui("When acquiring items that are part of this craft list, print progress (e.g. \"Ironwood Log 30 remaining\") to chat. The craft list must be active."),
+        "CraftReportProgress", "将获取进度报告到聊天频道？",
+        "获取制作列表中的物品时，在聊天中输出进度（例如“铁木原木 剩余 30”）。制作列表必须处于启用状态。",
         FilterCategory.Notifications, null, null, logger, imGuiService)
     {
         DefaultValue = true;

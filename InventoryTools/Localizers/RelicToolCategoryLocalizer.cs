@@ -11,15 +11,15 @@ public class RelicToolCategoryLocalizer : ILocalizer<RelicToolCategory>
         switch (instance)
         {
             case RelicToolCategory.Mastercraft:
-                return LocalizationService.Ui("Mastercraft Tools");
+                return "成就工具";
             case RelicToolCategory.Skysteel:
-                return LocalizationService.Ui("Skysteel Tools");
+                return "天钢工具";
             case RelicToolCategory.Resplendent:
-                return LocalizationService.Ui("Resplendent Tools");
+                return "天穹工具";
             case RelicToolCategory.Splendorous:
-                return LocalizationService.Ui("Splendorous Tools");
+                return "莫雯卓越工具";
             case RelicToolCategory.Cosmic:
-                return LocalizationService.Ui("Cosmic Tools");
+                return "宇宙工具";
         }
         return instance.ToString();
     }

@@ -28,10 +28,10 @@ namespace InventoryTools.Logic.Settings
         }
 
         public override string Key { get; set; } = "MarketRefreshTime";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Keep market prices for X hours"));
+        public override string Name { get; set; } = "将市场价格保留 X 小时";
 
-        public override string WizardName { get; } = LocalizationService.Ui("Persist for X hours");
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("How long should we store the market prices for before refreshing from universalis?"));
+        public override string WizardName { get; } = "保留 X 小时";
+        public override string HelpText { get; set; } = "在从 Universalis 刷新前，市场价格应保留多久？";
         public override SettingCategory SettingCategory { get; set; } = SettingCategory.MarketBoard;
         public override SettingSubCategory SettingSubCategory { get; } = SettingSubCategory.Market;
         public override string Version => "1.7.0.0";

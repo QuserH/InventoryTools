@@ -15,9 +15,9 @@ namespace InventoryTools.Logic.Columns
         {
             return searchResult.Item.CanBeTraded;
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Is Tradable?"));
+        public override string Name { get; set; } = "是否可交易？";
         public override float Width { get; set; } = 90.0f;
-        public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Can the item be traded?"));
+        public override string HelpText { get; set; } = "该物品是否可交易？";
         public override bool HasFilter { get; set; } = true;
         public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Boolean;
     }

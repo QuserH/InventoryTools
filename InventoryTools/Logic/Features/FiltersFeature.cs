@@ -18,8 +18,8 @@ public class FiltersFeature : Feature
     {
     }
 
-    public override string Name { get; } = LocalizationService.Ui(LocalizationService.Ui("Sample Item Lists"));
-    public override string Description { get; } = LocalizationService.Ui("Select which sample item lists you'd like to install by default. These are good examples of the types of lists that are possible within Allagan Tools.");
+    public override string Name { get; } = "示例物品列表";
+    public override string Description { get; } = "选择默认安装的示例物品列表。这些是亚拉戈工具箱中可创建的列表类型的良好示例。";
 
     public override void OnFinish()
     {

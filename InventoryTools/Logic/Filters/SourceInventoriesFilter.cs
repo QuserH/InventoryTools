@@ -20,9 +20,9 @@ namespace InventoryTools.Logic.Filters
         }
         public override int LabelSize { get; set; } = 240;
         public override string Key { get; set; } = "SourceInventories";
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Source - Inventories"));
+        public override string Name { get; set; } = "来源背包";
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("This is a list of source inventories to sort items from based on the filter configuration"));
+            "基于筛选器配置的来源背包列表";
         public override FilterCategory FilterCategory { get; set; } = FilterCategory.Inventories;
 
         public override List<InventorySearchScope>? DefaultValue { get; set; } = null;
@@ -34,9 +34,9 @@ namespace InventoryTools.Logic.Filters
             {
                 case FilterType.SearchFilter:
                 case FilterType.HistoryFilter:
-                    return LocalizationService.Ui("Search Inventories");
+                    return "搜索背包";
                 case FilterType.SortingFilter:
-                    return LocalizationService.Ui("Source Inventories");
+                    return "来源背包";
             }
 
             return Name;
@@ -48,13 +48,13 @@ namespace InventoryTools.Logic.Filters
             {
                 case FilterType.SearchFilter:
                     return
-                        LocalizationService.Ui("Define which inventories you want to be searched, these will show up in the list. You can see which inventories have been found based on the scope configuration below.");
+                        "定义要搜索的背包，这些将显示在列表中。你可根据下方范围配置查看已找到的背包。";
                 case FilterType.HistoryFilter:
                     return
-                        LocalizationService.Ui("Define the scope of inventories you want to see in the historical list of inventory changes.");
+                        "定义要在背包变动历史列表中查看的背包范围。";
                 case FilterType.SortingFilter:
                     return
-                        LocalizationService.Ui("Define which inventories you want to be searched, the plugin will then attempt to show you where to put them in the destinations you have selected. You can see which inventories have been found based on the scope configuration below.");
+                        "定义要搜索的背包，插件将尝试显示应将其放入所选目标的位置。你可根据下方范围配置查看已找到的背包。";
             }
 
             return HelpText;

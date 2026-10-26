@@ -16,9 +16,9 @@ public class WindowServiceDebuggerPane : IDebugPane
     {
         _windowService = windowService;
     }
-    public string Name => LocalizationService.Ui("Window Service");
+    public string Name => "窗口服务";
     public void Draw()
     {
-        ImGui.Text(LocalizationService.Format("Filter Window Open: {0}", WindowService.HasFilterWindowOpen));
+        ImGui.Text(string.Format("筛选窗口已打开：{0}", WindowService.HasFilterWindowOpen));
     }
 }

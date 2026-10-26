@@ -18,6 +18,6 @@ public class BasicFeature : Feature
     {
     }
     
-    public override string Name { get; } = LocalizationService.Ui("Basic");
-    public override string Description { get; } = LocalizationService.Ui("Configure the basic settings of Allagan Tools");
+    public override string Name { get; } = "基础";
+    public override string Description { get; } = "配置亚拉戈工具箱的基础设置";
 }

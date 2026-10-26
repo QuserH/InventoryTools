@@ -183,7 +183,7 @@ namespace InventoryTools.Overlays
             {
                 return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Select(item => item.Item.RowId).Distinct().Count() + ")";
             }
-            return LocalizationService.Ui("Unknown ")  + "(" + c.Select(item => item.Item.RowId).Distinct().Count() + ")";
+            return "未知 "  + "(" + c.Select(item => item.Item.RowId).Distinct().Count() + ")";
         }
 
         private string GenerateNewName(KeyValuePair<ulong, int> c)
@@ -192,7 +192,7 @@ namespace InventoryTools.Overlays
             {
                 return _characterMonitor.Characters[c.Key].FormattedName + " (" + c.Value + ")";
             }
-            return LocalizationService.Ui("Unknown ")  + "(" + c.Value + ")";
+            return "未知 "  + "(" + c.Value + ")";
         }
         
     }

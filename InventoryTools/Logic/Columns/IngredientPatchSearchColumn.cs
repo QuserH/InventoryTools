@@ -34,9 +34,9 @@ public class IngredientPatchSearchColumn : DecimalColumn
 
 
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Ingredient Patch Search"));
+    public override string Name { get; set; } = "素材版本搜索";
     public override float Width { get; set; } = 100;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Shows a number indicating the highest patch a craft material is used in."));
+        "显示制作素材被使用到的最高版本号。";
 }

@@ -88,7 +88,7 @@ public class FilterService : IFilterService
             var name = baseParam.Name.ExtractText();
             if (helpText == string.Empty)
             {
-                helpText = LocalizationService.Format("The {0} of the item.", name);
+                helpText = string.Format("物品的{0}。", name);
             }
             var genericFilter = _integerFilterFactory.Invoke("BaseParam" + baseParam.RowId, name, helpText, FilterCategory.Stats, null,
                 row =>

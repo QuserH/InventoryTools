@@ -22,19 +22,19 @@ public class CustomLinkButtonColumn : ButtonColumn
     {
         _commandManager = commandManager;
         _actionSetting = stringColumnFactory.Invoke("cb_action", "Command",
-            LocalizationService.Ui("The web link to open. You can add the ***Name*** to output the name of the item or ***ID*** to output the name of the item in the command."),
+            "要打开的网页链接。可添加 ***名称*** 输出物品名称，或 ***ID*** 在命令中输出物品 ID。",
             "", "https://site.com");
-        _buttonText = stringColumnFactory.Invoke("cb_label", "Label", LocalizationService.Ui("The label to give the button."),"","Button");
+        _buttonText = stringColumnFactory.Invoke("cb_label", "Label", "给按钮的标签。","","Button");
         Settings.Add(_buttonText);
         Settings.Add(_actionSetting);
     }
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Custom Link Button"));
+    public override string Name { get; set; } = "自定义链接按钮";
     public override float Width { get; set; } = 50;
 
     public override bool HasFilter { get; set; } = false;
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("A custom button letting you open a webpage with the item's name or ID optionally embedded into the link."));
+        "自定义按钮，可打开将物品名称或 ID 嵌入链接的网页。";
 
     public override List<MessageBase>? Draw(FilterConfiguration configuration, ColumnConfiguration columnConfiguration, SearchResult searchResult,
         int rowIndex, int columnIndex)
@@ -48,14 +48,14 @@ public class CustomLinkButtonColumn : ButtonColumn
                 var webUrl = _actionSetting.CurrentValue(columnConfiguration);
                 if (webUrl != null)
                 {
-                    if (webUrl.Contains(LocalizationService.Ui("***ID***")))
+                    if (webUrl.Contains("***ID***"))
                     {
-                        webUrl = webUrl.Replace(LocalizationService.Ui("***ID***"), searchResult.ItemId.ToString());
+                        webUrl = webUrl.Replace("***ID***", searchResult.ItemId.ToString());
                     }
 
-                    if (webUrl.Contains(LocalizationService.Ui("***Name***")))
+                    if (webUrl.Contains("***名称***"))
                     {
-                        webUrl = webUrl.Replace(LocalizationService.Ui("***Name***"), searchResult.Item.NameString);
+                        webUrl = webUrl.Replace("***名称***", searchResult.Item.NameString);
                     }
                     webUrl.OpenBrowser();
                 }

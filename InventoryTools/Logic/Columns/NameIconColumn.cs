@@ -59,7 +59,7 @@ public class NameIconColumn : TextIconColumn
             {
                 var value = searchResult.CraftItem.Recipe?.CraftType?.FormattedName ?? "";
                 ImGui.SameLine();
-                using (var combo = ImRaii.Combo(LocalizationService.Ui("##SetRecipe") + rowIndex, value))
+                using (var combo = ImRaii.Combo("##SetRecipe" + rowIndex, value))
                 {
                     if (combo.Success)
                     {
@@ -80,10 +80,10 @@ public class NameIconColumn : TextIconColumn
         return null;
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Name & Icon"));
-    public override string RenderName => LocalizationService.Ui("Name");
+    public override string Name { get; set; } = "名称和图标";
+    public override string RenderName => "名称";
     public override float Width { get; set; } = 100;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The name of the item with the icon next to it."));
+    public override string HelpText { get; set; } = "物品名称及旁边的图标。";
     public override bool HasFilter { get; set; } = false;
     public override ColumnFilterType FilterType { get; set; } = ColumnFilterType.Text;
 }

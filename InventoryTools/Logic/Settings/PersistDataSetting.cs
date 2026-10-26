@@ -11,7 +11,7 @@ public class PersistDataSetting : GenericBooleanSetting
 {
     private readonly BootConfiguration _bootConfiguration;
 
-    public PersistDataSetting(ILogger<PersistDataSetting> logger, BootConfiguration bootConfiguration, ImGuiService imGuiService) : base("PersistData", LocalizationService.Ui("Persist Cached Data"), LocalizationService.Ui("Allagan Tools has to calculate information when it first boots that can take upwards of 5-10 seconds depending on your computer. If this is on, that data is persisted between updates speeding up the boot time of the plugin."), true, SettingCategory.Troubleshooting, SettingSubCategory.General, "14.0.5", logger, imGuiService)
+    public PersistDataSetting(ILogger<PersistDataSetting> logger, BootConfiguration bootConfiguration, ImGuiService imGuiService) : base("PersistData", "保留缓存数据", "亚拉戈工具箱首次启动时需要计算信息，视电脑性能可能需要 5-10 秒。启用后，该数据将在更新之间保留，加快插件启动时间。", true, SettingCategory.Troubleshooting, SettingSubCategory.General, "14.0.5", logger, imGuiService)
     {
         _bootConfiguration = bootConfiguration;
     }

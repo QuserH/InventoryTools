@@ -26,9 +26,9 @@ public class ItemFolkloreTomeSourceRenderer : ItemInfoRenderer<ItemFolkloreTomeS
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.FolkloreTome;
-    public override string SingularName => LocalizationService.Ui("Folklore Tome");
-    public override string? PluralName => LocalizationService.Ui("Folklore Tomes");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Does this item unlock additional gathering items when read?"));
+    public override string SingularName => "传承录";
+    public override string? PluralName => "传承录";
+    public override string HelpText => "阅读该物品是否解锁额外的采集物品？";
     public override bool ShouldGroup => true;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
@@ -43,12 +43,12 @@ public class ItemFolkloreTomeSourceRenderer : ItemInfoRenderer<ItemFolkloreTomeS
         var divisionName = asSource.NotebookDivision.ValueNullable?.Name.ToImGuiString();
         if (!string.IsNullOrEmpty(divisionName))
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unlocks: ")) + divisionName);
+            ImGui.Text("解锁：" + divisionName);
         }
 
         if (asSource.RelatedItems.Count > 0)
         {
-            this.DrawItems(LocalizationService.Ui("Items Unlocked:"), asSource.RelatedItems.First().Value);
+            this.DrawItems("解锁的物品：", asSource.RelatedItems.First().Value);
         }
     };
 

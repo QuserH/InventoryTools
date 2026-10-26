@@ -35,17 +35,17 @@ public class ItemMonsterDropSourceRenderer : ItemInfoRenderer<ItemMonsterDropSou
 
     public override RendererType RendererType => RendererType.Source;
     public override ItemInfoType Type => ItemInfoType.Monster;
-    public override string SingularName => LocalizationService.Ui("Monster Drop");
-    public override string PluralName => LocalizationService.Ui("Monster Drops");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Is the item dropped from monsters?"));
+    public override string SingularName => "怪物掉落";
+    public override string PluralName => "怪物掉落";
+    public override string HelpText => "该物品由怪物掉落？";
     public override bool ShouldGroup => true;
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = AsSource(source);
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Monster: ")) + asSource.MobDrop.BNpcName.Value.Singular.ExtractText().ToTitleCase());
+        ImGui.Text("怪物：" + asSource.MobDrop.BNpcName.Value.Singular.ExtractText().ToTitleCase());
 
-        ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Locations: ")));
+        ImGui.Text("位置：");
         using (ImRaii.PushIndent())
         {
             foreach (var groupedSpawns in asSource.BNpcName.MobSpawnPositions.GroupBy(c => c.TerritoryTypeId))
@@ -54,7 +54,7 @@ public class ItemMonsterDropSourceRenderer : ItemInfoRenderer<ItemMonsterDropSou
                 if (map != null)
                 {
                     var spawns = string.Join(", ", groupedSpawns.Select(spawnPosition => $"{spawnPosition.Position.X}/{spawnPosition.Position.Y}"));
-                    ImGui.Text(LocalizationService.Format("{0}", map.FormattedName));
+                    ImGui.Text(string.Format("{0}", map.FormattedName));
                     using (ImRaii.PushIndent())
                     {
                         ImGui.PushTextWrapPos();

@@ -43,13 +43,13 @@ namespace InventoryTools.Ui
             if (RetainerTask != null)
             {
                 Key = "rt_" + retainerTaskId;
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - ")) + RetainerTask.FormattedName + LocalizationService.Ui(" - Venture");
+                WindowName = "亚拉戈工具箱 - " + RetainerTask.FormattedName + " - 委托";
                 _drops = RetainerTask.Drops;
             }
             else
             {
                 Key = "rt_invalid";
-                WindowName = LocalizationService.Ui(LocalizationService.Ui("Allagan Tools - Invalid Retainer Task"));
+                WindowName = "亚拉戈工具箱 - 无效的雇员任务";
                 _drops = new List<ItemRow>();
             }
         }
@@ -60,27 +60,27 @@ namespace InventoryTools.Ui
 
 
         public override string GenericKey { get; } = "retainertask";
-        public override string GenericName { get; } = LocalizationService.Ui("Retainer Task");
+        public override string GenericName { get; } = "雇员任务";
         public override bool DestroyOnClose => true;
         public override void DrawWindow()
         {
             if (RetainerTask == null)
             {
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Submarine Exploration Point with the ID ")) + _retainerTaskId + LocalizationService.Ui(" could not be found."));
+                ImGui.TextUnformatted("潜水艇探索点 ID：" + _retainerTaskId + "未找到。");
             }
             else
             {
                 ImGui.TextUnformatted(RetainerTask.FormattedName);
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Level: ")) + RetainerTask.Base.RetainerLevel);
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duration: ")) + RetainerTask.DurationString);
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Experience: ")) + RetainerTask.ExperienceString);
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Venture Cost: ")) + RetainerTask.Base.VentureCost);
-                ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Average iLvl: ")) + RetainerTask.Base.RequiredItemLevel);
+                ImGui.TextUnformatted("等级：" + RetainerTask.Base.RetainerLevel);
+                ImGui.TextUnformatted("持续时间：" + RetainerTask.DurationString);
+                ImGui.TextUnformatted("经验：" + RetainerTask.ExperienceString);
+                ImGui.TextUnformatted("委托消耗：" + RetainerTask.Base.VentureCost);
+                ImGui.TextUnformatted("平均品级：" + RetainerTask.Base.RequiredItemLevel);
                 ;
                 ImGui.Image(ImGuiService.GetIconTexture(65049).Handle, new Vector2(100, 100) * ImGui.GetIO().FontGlobalScale);
 
 
-                if (ImGui.CollapsingHeader(LocalizationService.Ui(LocalizationService.Ui("Rewards (")) + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
+                if (ImGui.CollapsingHeader("奖励（" + _drops.Count + ")", ImGuiTreeNodeFlags.DefaultOpen | ImGuiTreeNodeFlags.CollapsingHeader))
                 {
                     ImGuiStylePtr style = ImGui.GetStyle();
                     float windowVisibleX2 = ImGui.GetWindowPos().X + ImGui.GetWindowContentRegionMax().X;
@@ -125,9 +125,9 @@ namespace InventoryTools.Ui
                 }
 
                 #if DEBUG
-                if (ImGui.CollapsingHeader(LocalizationService.Ui("Debug")))
+                if (ImGui.CollapsingHeader("调试"))
                 {
-                    ImGui.TextUnformatted(LocalizationService.Ui(LocalizationService.Ui("Duty ID: ")) + _retainerTaskId);
+                    ImGui.TextUnformatted("副本 ID：" + _retainerTaskId);
                     Utils.PrintOutObject(RetainerTask, 0, new List<string>());
                 }
                 #endif

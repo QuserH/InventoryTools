@@ -21,9 +21,9 @@ public class ItemCustomDeliverySourceRenderer : ItemInfoRenderer<ItemCustomDeliv
 
     public override RendererType RendererType => RendererType.Use;
     public override ItemInfoType Type => ItemInfoType.CustomDelivery;
-    public override string SingularName => LocalizationService.Ui("Custom Delivery");
-    public override string PluralName => LocalizationService.Ui("Custom Deliveries");
-    public override string HelpText => LocalizationService.Ui(LocalizationService.Ui("Can the item be delivered in a custom delivery quest?"));
+    public override string SingularName => "老主顾";
+    public override string PluralName => "老主顾";
+    public override string HelpText => "该物品是否可用于老主顾交付任务？";
     public override bool ShouldGroup => false;
 
     public override Func<ItemSource, (Type, uint)>? RelatedType => source =>
@@ -41,14 +41,14 @@ public class ItemCustomDeliverySourceRenderer : ItemInfoRenderer<ItemCustomDeliv
             var collectabilityLow = asSource.SupplyRow.Base.CollectabilityLow;
             var collectabilityMid = asSource.SupplyRow.Base.CollectabilityMid;
             var collectabilityHigh = asSource.SupplyRow.Base.CollectabilityHigh;
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("NPC: ")) + eNpcResident.Value.Singular.ExtractText());
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (Low): ")) + collectabilityLow);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (Mid): ")) + collectabilityMid);
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Collectability (High): ")) + collectabilityHigh);
+            ImGui.Text("NPC: " + eNpcResident.Value.Singular.ExtractText());
+            ImGui.Text("收藏价值（低）：" + collectabilityLow);
+            ImGui.Text("收藏价值（中）：" + collectabilityMid);
+            ImGui.Text("收藏价值（高）：" + collectabilityHigh);
         }
         else
         {
-            ImGui.Text(LocalizationService.Ui(LocalizationService.Ui("Unknown Npc")));
+            ImGui.Text("未知 NPC");
         }
     };
 

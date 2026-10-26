@@ -22,7 +22,7 @@ namespace InventoryTools.Logic.Columns
         public override ColumnCategory ColumnCategory => ColumnCategory.Market;
 
         public override string HelpText { get; set; } =
-            LocalizationService.Ui(LocalizationService.Ui("Shows the minimum price of both the NQ and HQ form of the item. If no world is selected, your home world is used. This data is sourced from universalis."));
+            "显示物品NQ与HQ两种形态的最低价。未选择服务器时使用所属服务器。数据来源为 Universalis。";
 
         public override (int, int)? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
         {
@@ -69,8 +69,8 @@ namespace InventoryTools.Logic.Columns
 
             return (Loading, Loading);
         }
-        public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Market Board Minimum Price NQ/HQ"));
-        public override string RenderName => LocalizationService.Ui(LocalizationService.Ui("MB Min. Price NQ/HQ"));
+        public override string Name { get; set; } = "市场布告板最低价 普通/优质";
+        public override string RenderName => "市场最低价 普通/优质";
 
         public override FilterType DefaultIn => Logic.FilterType.CraftFilter;
     }

@@ -30,10 +30,10 @@ public class CraftOutputOrderingFilter : ChoiceFilter<OutputOrderingSetting>
     }
 
     public override string Key { get; set; } = "CraftOutputOrderingFilter";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Output Ordering"));
+    public override string Name { get; set; } = "成品排序";
 
     public override string HelpText { get; set; } =
-        LocalizationService.Ui(LocalizationService.Ui("Should the list of output items be ordered in a specific way?"));
+        "成品列表是否按特定方式排序？";
 
     public override FilterCategory FilterCategory { get; set; } = FilterCategory.Settings;
     public override OutputOrderingSetting DefaultValue { get; set; } = OutputOrderingSetting.AsAdded;
@@ -63,11 +63,11 @@ public class CraftOutputOrderingFilter : ChoiceFilter<OutputOrderingSetting>
         switch (choice)
         {
             case(OutputOrderingSetting.AsAdded):
-                return LocalizationService.Ui("As Added");
+                return "按添加顺序";
             case(OutputOrderingSetting.ByName):
-                return LocalizationService.Ui("By Name");
+                return "按名称";
             case(OutputOrderingSetting.ByClass):
-                return LocalizationService.Ui("By Class");
+                return "按职业";
         }
 
         return choice.ToString();

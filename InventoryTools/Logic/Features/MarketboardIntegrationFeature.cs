@@ -16,7 +16,7 @@ public class MarketboardIntegrationFeature : Feature
         settings)
     {
     }
-    public override string Name { get; } = LocalizationService.Ui("Marketboard");
+    public override string Name { get; } = "市场布告板";
     public override string Description { get; } =
-        LocalizationService.Ui("Configure the marketboard integration. This downloads data from Universalis on a set timer, allowing you to filter against the minimum and average prices of items across multiple servers.");
+        "配置市场布告板整合。将按设定计时器从 Universalis 下载数据，使你能够按多个服务器的物品最低价和平均价筛选。";
 }

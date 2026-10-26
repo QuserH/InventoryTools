@@ -112,7 +112,7 @@ public class NamePopup : IPopup
             ImGui.SetKeyboardFocusHere();
         }
 
-        var enterPressed = ImGui.InputTextWithHint(LocalizationService.Ui(LocalizationService.Ui("##newName")), LocalizationService.Ui(LocalizationService.Ui("Enter New Name...")), ref _name, 512, ImGuiInputTextFlags.EnterReturnsTrue);
+        var enterPressed = ImGui.InputTextWithHint("##newName", "输入新名称……", ref _name, 512, ImGuiInputTextFlags.EnterReturnsTrue);
 
         if (!enterPressed)
         {
@@ -185,11 +185,11 @@ public class MultiLineTextPopup : IPopup
         }
 
 
-        ImGui.InputTextMultiline(LocalizationService.Ui(LocalizationService.Ui("##multiline")), ref _text, 5000, new System.Numerics.Vector2(400, 150));
+        ImGui.InputTextMultiline("##multiline", ref _text, 5000, new System.Numerics.Vector2(400, 150));
 
         ImGui.Separator();
 
-        if (ImGui.Button(LocalizationService.Ui("OK"), new System.Numerics.Vector2(100, 0)))
+        if (ImGui.Button("确定", new System.Numerics.Vector2(100, 0)))
         {
             _callback.Invoke((true, _text));
             Finalized?.Invoke(this);
@@ -198,7 +198,7 @@ public class MultiLineTextPopup : IPopup
 
         ImGui.SameLine();
 
-        if (ImGui.Button(LocalizationService.Ui("Cancel"), new System.Numerics.Vector2(100, 0)))
+        if (ImGui.Button("取消", new System.Numerics.Vector2(100, 0)))
         {
             _callback.Invoke((false, _text));
             Finalized?.Invoke(this);
@@ -240,14 +240,14 @@ public class ConfirmPopup : IPopup
             InventoryTools.Localization.LocalizationService.Get(_question) + "\n此操作无法撤销！\n\n");
         ImGui.Separator();
 
-        if (ImGui.Button(LocalizationService.Ui("OK"), new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
+        if (ImGui.Button("确定", new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
         {
             _callback?.Invoke(true);
             ImGui.CloseCurrentPopup();
             Finalized?.Invoke(this);
         }
         ImGui.SameLine();
-        if (ImGui.Button(LocalizationService.Ui("Cancel"), new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
+        if (ImGui.Button("取消", new Vector2(120, 0) * ImGui.GetIO().FontGlobalScale))
         {
             _callback?.Invoke(false);
             ImGui.CloseCurrentPopup();

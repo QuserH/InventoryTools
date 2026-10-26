@@ -11,9 +11,9 @@ public class DyeCountColumn : IntegerColumn
     {
     }
 
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Dye Count"));
+    public override string Name { get; set; } = "染色次数";
     public override float Width { get; set; } = 90;
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("The number of dyes the item has or supports."));
+    public override string HelpText { get; set; } = "物品已染色或可支持的染色次数。";
     public override ColumnCategory ColumnCategory { get; } = ColumnCategory.Stats;
     public override int? CurrentValue(ColumnConfiguration columnConfiguration, SearchResult searchResult)
     {

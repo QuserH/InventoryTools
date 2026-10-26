@@ -24,8 +24,8 @@ public sealed class EquipmentSuggestSourceTypeField : MultipleChoiceFormField<It
         ItemInfoType.CraftRecipe,
     };
     public override string Key { get; set; } = "SourceType";
-    public override string Name { get; set; } = LocalizationService.Ui(LocalizationService.Ui("Include Sources"));
-    public override string HelpText { get; set; } = LocalizationService.Ui(LocalizationService.Ui("When recommending an item, what sources should be used?"));
+    public override string Name { get; set; } = "包含来源";
+    public override string HelpText { get; set; } = "推荐物品时应使用哪些来源？";
     public override string Version { get; set; } = "1.12.0.10";
     public override Dictionary<ItemInfoType, string> GetChoices(EquipmentSuggestConfig configuration)
     {

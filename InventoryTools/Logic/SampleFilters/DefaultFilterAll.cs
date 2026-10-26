@@ -40,11 +40,11 @@ public class DefaultFilterAll : ISampleFilter
         return allItemsFilter;
     }
 
-    public string Name => LocalizationService.Ui("All");
-    public string SampleDefaultName => LocalizationService.Ui("All");
+    public string Name => "全部";
+    public string SampleDefaultName => "全部";
 
     public string SampleDescription =>
-        LocalizationService.Ui("This will add a list that will be preconfigured to show all the items in bags related to your character. This includes owned retainers, free company, saddle bags, etc");
+        "将添加一个预配置的列表，显示与角色相关的背包中的全部物品。包括拥有的雇员、部队、陆行鸟鞍囊等";
 
     public SampleFilterType SampleFilterType => SampleFilterType.Default;
 }

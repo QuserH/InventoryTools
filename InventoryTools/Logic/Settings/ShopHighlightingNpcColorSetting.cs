@@ -10,7 +10,7 @@ namespace InventoryTools.Logic.Settings;
 
 public class ShopHighlightingNpcColorSetting : GenericEnumChoiceSetting<ObjectHighlightColor>
 {
-    public ShopHighlightingNpcColorSetting(ILogger<ShopHighlightingNpcColorSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingNpcColor", LocalizationService.Ui("Shop Highlighting - NPC Highlight Color"), LocalizationService.Ui("The color used to highlight NPCs in the world when shop items are highlighted."), ObjectHighlightColor.Green, new Dictionary<ObjectHighlightColor, string>
+    public ShopHighlightingNpcColorSetting(ILogger<ShopHighlightingNpcColorSetting> logger, ImGuiService imGuiService) : base("ShopHighlightingNpcColor", "商店高亮 - NPC 高亮颜色", "商店物品高亮时，用于高亮世界中 NPC 的颜色。", ObjectHighlightColor.Green, new Dictionary<ObjectHighlightColor, string>
     {
         { ObjectHighlightColor.Red,     "Red"     },
         { ObjectHighlightColor.Green,   "Green"   },
