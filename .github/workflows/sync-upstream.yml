@@ -104,21 +104,25 @@ jobs:
           if ($LASTEXITCODE -ne 0) { Write-Output "::error::git push failed."; exit 1 }
 
       - name: Align plugin version with upstream
-        if: env.UPSTREAM_CHANGED == 'true'
+        if: env.UPSTREAM_CHANGED == 'true' || inputs.force_build
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $rev = "upstream/$env:UPSTREAM_BRANCH"
-          $upstreamProject = git show "${rev}:InventoryTools/InventoryTools.csproj"
-          if ($LASTEXITCODE -ne 0) { Write-Output "::warning::Unable to read upstream csproj; skipping version alignment."; exit 0 }
 
-          $m = [regex]::Match(($upstreamProject -join "`n"), '<Version>([^<]+)</Version>')
-          if (-not $m.Success) {
-            Write-Output "Upstream no longer pins <Version> (new SDK layout). Keeping current version; align manually when catching up."
+          # 上游新 SDK 已不再在 csproj 里写 <Version>，版本以 git tag 为准（如 15.0.13）。
+          $tags = git ls-remote --tags "https://github.com/$env:UPSTREAM_REPO.git"
+          if ($LASTEXITCODE -ne 0) { Write-Output "::warning::Unable to list upstream tags; skipping version alignment."; exit 0 }
+
+          $versions = @()
+          foreach ($line in $tags) {
+            if ($line -match 'refs/tags/(\d+\.\d+\.\d+)$') { $versions += [version]$matches[1] }
+          }
+          if ($versions.Count -eq 0) {
+            Write-Output "::warning::No numeric upstream tag found; skipping version alignment."
             exit 0
           }
 
-          $upstreamVersion = $m.Groups[1].Value.Trim()
+          $upstreamVersion = ($versions | Sort-Object -Unique | Select-Object -Last 1).ToString()
           # 本项目发布版本沿用 "1." 前缀约定（例如上游 15.0.13 -> 1.15.0.13）
           if (-not $upstreamVersion.StartsWith("1.")) { $upstreamVersion = "1.$upstreamVersion" }
 
