@@ -122,9 +122,13 @@ jobs:
             exit 0
           }
 
-          $upstreamVersion = ($versions | Sort-Object -Unique | Select-Object -Last 1).ToString()
-          # 本项目发布版本沿用 "1." 前缀约定（例如上游 15.0.13 -> 1.15.0.13）
-          if (-not $upstreamVersion.StartsWith("1.")) { $upstreamVersion = "1.$upstreamVersion" }
+          $tag = ($versions | Sort-Object -Unique | Select-Object -Last 1).ToString()
+          # 发布版本 = 上游 tag 的补丁号 +1（15.0.13 -> 1.15.0.14）。
+          # 这样任何其他插件源（包括国服主源里镜像的上游包）都不会比我们高，
+          # Dalamud 就不会再提示「更新到上游版本」把我们的插件覆盖掉。
+          $parts = $tag.Split('.')
+          $parts[-1] = ([int]$parts[-1] + 1).ToString()
+          $upstreamVersion = if ($tag.StartsWith("1.")) { $parts -join '.' } else { "1." + ($parts -join '.') }
 
           $projectPath = "InventoryTools/InventoryTools.csproj"
           $project = Get-Content $projectPath -Raw -Encoding utf8
