@@ -95,6 +95,10 @@ namespace InventoryTools
 
         public InventoryToolsPlugin(IDalamudPluginInterface pluginInterface, IPluginLog pluginLog, IFramework framework, IChatGui chatGui) : base(pluginInterface)
         {
+            // Most Ui() call sites are now source-level Chinese, so make sure the
+            // CriticalCommonLib/OtterGui translation hooks are registered at load time.
+            _ = InventoryTools.Localization.LocalizationService.CurrentLanguage;
+
             bootService = new BootConfigurationService(pluginInterface, framework, pluginLog);
             _pluginLog = pluginLog;
             _framework = framework;
