@@ -123,9 +123,9 @@ jobs:
           }
 
           $tag = ($versions | Sort-Object -Unique | Select-Object -Last 1).ToString()
-          # 发布版本 = 上游 tag 的补丁号 +1（15.0.13 -> 1.15.0.14）。
-          # 这样任何其他插件源（包括国服主源里镜像的上游包）都不会比我们高，
-          # Dalamud 就不会再提示「更新到上游版本」把我们的插件覆盖掉。
+          # 基准版本 = 上游 tag 的补丁号 +1（15.0.13 -> 1.15.0.14），
+          # 保证不被其他源覆盖。实际发版时在「当前已发布版本」上再 +1，
+          # 版本只增不减，确保游戏里能收到更新。
           $parts = $tag.Split('.')
           $parts[-1] = ([int]$parts[-1] + 1).ToString()
           $upstreamVersion = if ($tag.StartsWith("1.")) { $parts -join '.' } else { "1." + ($parts -join '.') }
@@ -133,18 +133,30 @@ jobs:
           $projectPath = "InventoryTools/InventoryTools.csproj"
           $project = Get-Content $projectPath -Raw -Encoding utf8
           $current = [regex]::Match($project, '<Version>([^<]+)</Version>').Groups[1].Value
-          # 手工热修版本可能已经高于「上游 +1」，不要把它降回去。
-          if ([version]$current -ge [version]$upstreamVersion) {
-            Write-Output "Keeping current version $current (upstream target $upstreamVersion)."
+
+          if ($env:UPSTREAM_CHANGED -ne 'true') {
+            Write-Output "No upstream change; keeping current version $current."
             exit 0
           }
 
-          $project = [regex]::Replace($project, '<Version>[^<]+</Version>', "<Version>$upstreamVersion</Version>", 1)
-          $project = [regex]::Replace($project, '<AssemblyVersion>[^<]+</AssemblyVersion>', "<AssemblyVersion>$upstreamVersion</AssemblyVersion>", 1)
-          $project = [regex]::Replace($project, '<FileVersion>[^<]+</FileVersion>', "<FileVersion>$upstreamVersion</FileVersion>", 1)
+          $currentParts = $current.Split('.')
+          $currentParts[-1] = ([int]$currentParts[-1] + 1).ToString()
+          $nextVersion = $currentParts -join '.'
+          if ([version]$nextVersion -lt [version]$upstreamVersion) {
+            $nextVersion = $upstreamVersion
+          }
+
+          if ($current -eq $nextVersion) {
+            Write-Output "Version already $current."
+            exit 0
+          }
+
+          $project = [regex]::Replace($project, '<Version>[^<]+</Version>', "<Version>$nextVersion</Version>", 1)
+          $project = [regex]::Replace($project, '<AssemblyVersion>[^<]+</AssemblyVersion>', "<AssemblyVersion>$nextVersion</AssemblyVersion>", 1)
+          $project = [regex]::Replace($project, '<FileVersion>[^<]+</FileVersion>', "<FileVersion>$nextVersion</FileVersion>", 1)
           Set-Content $projectPath -Value $project -Encoding utf8BOM -NoNewline
           git add $projectPath
-          git commit -m "chore: align version with upstream $upstreamVersion"
+          git commit -m "chore: bump version to $nextVersion"
           git push origin "HEAD:$env:TARGET_BRANCH"
           if ($LASTEXITCODE -ne 0) { Write-Output "::error::git push failed."; exit 1 }
 
