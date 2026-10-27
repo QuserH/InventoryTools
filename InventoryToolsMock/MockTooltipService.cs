@@ -1,4 +1,7 @@
 using CriticalCommonLib.Services;
+using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Client.UI;
+using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 
 namespace InventoryToolsMock;
@@ -19,9 +22,9 @@ public class MockTooltipService : ITooltipService
         return 0;
     }
 
-    public unsafe byte ItemHoveredDetour(nint a1, nint* a2, int* containerid, ushort* slotid, nint a5, uint slotidint, nint a7)
+    public unsafe bool ItemHoveredDetour(AgentItemDetail* a1, InventoryItem** a2, InventoryType* containerid, short* slotid, uint a5, uint slotidint, InventoryItem* a7)
     {
-        return 0;
+        return false;
     }
 
     public void Disable()
@@ -32,10 +35,9 @@ public class MockTooltipService : ITooltipService
     {
     }
 
-    public unsafe void* GenerateItemTooltipDetour(AtkUnitBase* addonItemDetail, NumberArrayData* numberArrayData,
+    public unsafe void GenerateItemTooltipDetour(AddonItemDetail* addonItemDetail, NumberArrayData* numberArrayData,
         StringArrayData* stringArrayData)
     {
-        return (void*)0;
     }
 
     public unsafe void* GenerateActionTooltipDetour(AtkUnitBase* addonItemDetail, NumberArrayData* numberArrayData,
