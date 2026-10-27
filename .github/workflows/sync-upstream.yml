@@ -133,7 +133,11 @@ jobs:
           $projectPath = "InventoryTools/InventoryTools.csproj"
           $project = Get-Content $projectPath -Raw -Encoding utf8
           $current = [regex]::Match($project, '<Version>([^<]+)</Version>').Groups[1].Value
-          if ($current -eq $upstreamVersion) { Write-Output "Version already $current."; exit 0 }
+          # 手工热修版本可能已经高于「上游 +1」，不要把它降回去。
+          if ([version]$current -ge [version]$upstreamVersion) {
+            Write-Output "Keeping current version $current (upstream target $upstreamVersion)."
+            exit 0
+          }
 
           $project = [regex]::Replace($project, '<Version>[^<]+</Version>', "<Version>$upstreamVersion</Version>", 1)
           $project = [regex]::Replace($project, '<AssemblyVersion>[^<]+</AssemblyVersion>', "<AssemblyVersion>$upstreamVersion</AssemblyVersion>", 1)
