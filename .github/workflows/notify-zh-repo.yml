@@ -64,7 +64,7 @@ jobs:
           dotnet build InventoryTools/InventoryTools.csproj -c Release --nologo -v q -p:DalamudLibPath="$env:DALAMUD_HOME\"
 
           $output = 'InventoryTools/bin/Release'
-          $manifest = Get-Content (Join-Path $output 'InventoryTools.json') -Raw | ConvertFrom-Json
+          $manifest = Get-Content (Join-Path $output 'InventoryToolsZh.json') -Raw | ConvertFrom-Json
           $version = $manifest.AssemblyVersion
           $zip = "InventoryTools-$version-zh.zip"
           Compress-Archive -Path (Join-Path $output '*') -DestinationPath $zip -Force
@@ -98,7 +98,7 @@ jobs:
             -H "Authorization: Bearer $ZH_REPO_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/QuserH/zh-repo/dispatches \
-            -d "{\"event_type\":\"publish-plugin\",\"client_payload\":{\"internal_name\":\"InventoryTools\",\"version\":\"$PLUGIN_VERSION\",\"download_url\":\"https://github.com/QuserH/InventoryTools/releases/download/$RELEASE_TAG/InventoryTools-$PLUGIN_VERSION-zh.zip\",\"repo_url\":\"https://github.com/QuserH/InventoryTools\"}}"
+            -d "{\"event_type\":\"publish-plugin\",\"client_payload\":{\"internal_name\":\"InventoryToolsZh\",\"version\":\"$PLUGIN_VERSION\",\"download_url\":\"https://github.com/QuserH/InventoryTools/releases/download/$RELEASE_TAG/InventoryTools-$PLUGIN_VERSION-zh.zip\",\"repo_url\":\"https://github.com/QuserH/InventoryTools\"}}"
           )
 
           if [ "$status" != "204" ]; then
