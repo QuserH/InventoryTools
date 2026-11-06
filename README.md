@@ -11,7 +11,7 @@ Dalamud plugin for inventory tracking, item searching, craft lists and item info
 https://raw.githubusercontent.com/QuserH/zh-repo/main/pluginmaster.json
 ```
 
-保存后打开插件安装器，搜索「亚拉戈工具箱」安装或更新。
+如果要使用Artisan,使用我的库链的版本即可
 
 
 ## Support
